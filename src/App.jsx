@@ -15,13 +15,13 @@ function App() {
                <Grid xs={1}>
                   <Typography>order</Typography>
                </Grid>
-               <Grid xs={8}>
+               <Grid xs={9}>
                   <Canvas camera={{ position: [1, 4, 5] }}>
                      <axesHelper />
                      <GameFieldView />
                   </Canvas>
                </Grid>
-               <Grid xs={3}>
+               <Grid xs={2}>
                   <Typography>Cards here</Typography>
                </Grid>
             </Grid>

@@ -15,7 +15,7 @@ module.exports = {
       "mui-path-imports/mui-path-imports": "error",
 
       // Enabling this rule flags all React Three Fiber components.
-      "react/no-unknown-property": "ignore",
+      "react/no-unknown-property": 0,
       "react-refresh/only-export-components": [
          "warn",
          { allowConstantExport: true },

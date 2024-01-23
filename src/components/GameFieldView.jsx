@@ -7,6 +7,7 @@ import {
 import { Plane } from "@react-three/drei"
 import { useLoader } from "@react-three/fiber"
 import { TextureLoader, MathUtils } from "three"
+import { Ground } from "./r3f/Ground/Ground"
 
 const GameFieldView = () => {
    //const colorMap = useLoader(SVGLoader, "sprites/characters/kissamainen2.svg")
@@ -58,10 +59,7 @@ const GameFieldView = () => {
                toneMapped={false}
             />
          </mesh>
-         <mesh position={[0.5, 0, 0.5]} rotation-x={MathUtils.degToRad(-90)}>
-            <planeGeometry args={[10, 10]} />
-            <meshBasicMaterial color="brown" toneMapped={false} />
-         </mesh>
+         <Ground lengthX={10} />
       </>
    )
 }
