@@ -9,21 +9,15 @@ import { ActionCard } from "./components/Cards/ActionCard"
 import { TurnOrderCard } from "./components/Cards/TurnOrderCard"
 import { ActionCardList } from "./components/Cards/ActionCardList"
 
-function App() {
-   const card1 = <ActionCard />
-   const card2 = <ActionCard />
-   const card3 = <ActionCard />
-   const card4 = <ActionCard />
-   const card5 = <ActionCard />
-   const card6 = <ActionCard />
-   const card7 = <ActionCard />
-   const card8 = <ActionCard />
+import { GuineanPigletCards } from "./config/actions/guineanpiglet/guineanpigletCards"
 
-   const cardList = (
-      <ActionCardList
-         cards={[card1, card2, card3, card4, card5, card6, card7, card8]}
-      />
+function App() {
+   const actionCard1 = (
+      <ActionCard card={{ ...GuineanPigletCards.defaultOffensiveCard }} />
    )
+   const actionCard2 = { ...actionCard1 }
+   const actionCard3 = { ...actionCard1 }
+   const actionCardsList = [actionCard1, actionCard2, actionCard3]
 
    const turnorder1 = (
       <TurnOrderCard imagePath="sprites/characters/guineanpiglet.png" />
@@ -49,7 +43,7 @@ function App() {
                      <GameFieldView />
                   </Canvas>
                </Grid>
-               <Grid xs={2}>{cardList}</Grid>
+               <Grid xs={2}>{actionCardsList}</Grid>
             </Grid>
          </Suspense>
       </>
