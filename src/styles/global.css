@@ -6,4 +6,9 @@
 body {
    height: 100vh;
    width: 100vw;
+   overflow: hidden;
+}
+
+.turn-order-image {
+   width: 100%;
 }

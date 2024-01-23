@@ -1,4 +1,5 @@
 import { GroundTile } from "./GroundTile"
+import PropTypes from "prop-types"
 
 const Ground = ({ lengthX = 10, lengthZ = 10 }) => {
    const tiles = []
@@ -20,6 +21,11 @@ const Ground = ({ lengthX = 10, lengthZ = 10 }) => {
          })}
       </>
    )
+}
+
+Ground.propTypes = {
+   lengthX: PropTypes.number,
+   lengthZ: PropTypes.number,
 }
 
 export { Ground }
