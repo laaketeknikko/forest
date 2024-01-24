@@ -5,11 +5,11 @@ import CardActionArea from "@mui/material/CardActionArea"
 import PropTypes from "prop-types"
 import CardHeader from "@mui/material/CardHeader"
 
-const ActionCard = ({ card }) => {
+const ActionCard = ({ card, onActionTriggered }) => {
    console.log("in card, ", card)
    return (
       <Card sx={{ width: "100%" }} className="action-card">
-         <CardActionArea>
+         <CardActionArea onClick={() => onActionTriggered(card.nextActionId)}>
             <CardHeader title={card.name}></CardHeader>
          </CardActionArea>
          <CardContent>
@@ -37,6 +37,7 @@ ActionCard.propTypes = {
       actions: PropTypes.arrayOf(PropTypes.object).isRequired,
       nextActionId: PropTypes.string.isRequired,
    }),
+   onActionTriggered: PropTypes.func.isRequired,
 }
 
 export { ActionCard }
