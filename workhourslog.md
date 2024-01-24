@@ -6,3 +6,4 @@
 | 23.1. | 1    | Gathering assets                                 |
 | 24.1. | 2    | Implementing character config loaders            |
 | 24.1. | 2    | Implementing loading logic                       |
+| 24.1. | 1    | Designing character skills                       |
