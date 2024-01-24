@@ -6,7 +6,7 @@ import CssBaseline from "@mui/material/CssBaseline"
 import "./styles/global.css"
 import "./styles/cards.css"
 
-ReactDOM.createRoot(document.getElementById("root")).render(
+ReactDOM.createRoot(document.getElementById("root")!).render(
    <React.StrictMode>
       <CssBaseline>
          <App />

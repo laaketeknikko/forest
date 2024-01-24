@@ -1,7 +1,9 @@
 import { damageTypes } from "../../actions/damageTypes"
 import { actionTypes } from "../../actions/actionTypes"
 
-const SihhisCardActions = {
+import type { ActionCardAction } from "../../types"
+
+const SihhisCardActions: Record<string, ActionCardAction> = {
    slither: {
       name: "Slither",
       description: "Your way of moving around",

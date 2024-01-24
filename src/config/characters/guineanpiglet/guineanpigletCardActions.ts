@@ -1,7 +1,9 @@
 import { damageTypes } from "../../actions/damageTypes"
 import { actionTypes } from "../../actions/actionTypes"
 
-const GuineanPigletActions = {
+import type { ActionCardAction } from "../../types"
+
+const GuineanPigletActions: Record<string, ActionCardAction> = {
    fluffyTail: {
       name: "Fluffy tail",
       description: "The fluffy tail is soft and itchy",
@@ -32,6 +34,7 @@ const GuineanPigletActions = {
    hideBehindTheTree: {
       name: "Hide behind the tree",
       description: "They don't know where you are",
+      actionDelayMultiplier: 0.5,
       type: actionTypes.support,
    },
    fourLeggedJump: {
