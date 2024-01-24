@@ -1,51 +1,46 @@
-import { Canvas } from "@react-three/fiber"
-
-import Typography from "@mui/material/Typography"
 import Grid from "@mui/material/Unstable_Grid2"
-import { GameFieldView } from "./components/GameFieldView"
 import { Suspense } from "react"
 
-import { ActionCard } from "./components/Cards/ActionCard"
 import { TurnOrderCard } from "./components/Cards/TurnOrderCard"
 import { ActionCardList } from "./components/Cards/ActionCardList"
 
-import { GuineanPigletCards } from "./config/actions/guineanpiglet/guineanpigletCards"
+import { useCharacterLoader } from "./game/hooks/characters/useCharacterLoader"
+import {
+   guineanPigletActionCardsAtom,
+   guineanPigletCharacterAtom,
+} from "./game/state/characters/guineanpiglet"
+import { useAtom } from "jotai"
+import { R3FCanvasWrapper } from "./components/r3f/R3FCanvasWrapper"
+import { useEffect } from "react"
 
 function App() {
-   const actionCard1 = (
-      <ActionCard card={{ ...GuineanPigletCards.defaultOffensiveCard }} />
-   )
-   const actionCard2 = { ...actionCard1 }
-   const actionCard3 = { ...actionCard1 }
-   const actionCardsList = [actionCard1, actionCard2, actionCard3]
+   const [cards] = useAtom(guineanPigletActionCardsAtom)
+   const [character] = useAtom(guineanPigletCharacterAtom)
 
-   const turnorder1 = (
-      <TurnOrderCard imagePath="sprites/characters/guineanpiglet.png" />
-   )
-   const turnorder2 = <TurnOrderCard imagePath="sprites/characters/puu.png" />
-   const turnorder3 = <TurnOrderCard imagePath="sprites/characters/puu.png" />
-   const turnorder4 = (
-      <TurnOrderCard imagePath="sprites/characters/kukkapensas.png" />
-   )
+   useCharacterLoader({
+      characterConfigFolder: "guineanpiglet",
+      characterCardsAtom: guineanPigletActionCardsAtom,
+      characterAtom: guineanPigletCharacterAtom,
+   })
 
-   const turnOrderList = [turnorder1, turnorder2, turnorder3, turnorder4]
+   useEffect(() => {
+      console.log("Cards in app", cards)
+      console.log("Character in app", character)
+   }, [cards, character])
 
    return (
       <>
-         <Suspense>
-            <Grid container sx={{ height: "100vh" }}>
-               <Grid xs={1}>
-                  <ActionCardList cards={turnOrderList} />
-               </Grid>
-               <Grid xs={9}>
-                  <Canvas camera={{ position: [1, 4, 5] }}>
-                     <axesHelper />
-                     <GameFieldView />
-                  </Canvas>
-               </Grid>
-               <Grid xs={2}>{actionCardsList}</Grid>
+         <Grid container sx={{ height: "100vh" }}>
+            <Grid xs={1}></Grid>
+            <Grid xs={9}>
+               <Suspense>
+                  <R3FCanvasWrapper />
+               </Suspense>
             </Grid>
-         </Suspense>
+            <Grid xs={2}>
+               <ActionCardList cards={character.cards} />
+            </Grid>
+         </Grid>
       </>
    )
 }

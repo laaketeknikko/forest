@@ -6,6 +6,7 @@ import PropTypes from "prop-types"
 import CardHeader from "@mui/material/CardHeader"
 
 const ActionCard = ({ card }) => {
+   console.log("in card, ", card)
    return (
       <Card sx={{ width: "100%" }} className="action-card">
          <CardActionArea>
@@ -13,14 +14,15 @@ const ActionCard = ({ card }) => {
          </CardActionArea>
          <CardContent>
             {card.actions.map((action) => {
-               if (card.nextActionId === action.actionId) {
+               if (card.nextActionId === action.id) {
                   return (
                      <Typography className="active-action" key={action.id}>
                         {action.name}
                      </Typography>
                   )
+               } else {
+                  return <Typography key={action.id}>{action.name}</Typography>
                }
-               return <Typography key={action.id}>{action.name}</Typography>
             })}
          </CardContent>
       </Card>

@@ -10,7 +10,11 @@ const ActionCardList = ({ cards }) => {
          sx={{ maxHeight: "100vh", overflowX: "hidden", overflowY: "scroll" }}
       >
          {cards.map((card, index) => {
-            return <ListItem key={index}>{card}</ListItem>
+            return (
+               <ListItem key={index}>
+                  <ActionCard card={card} />
+               </ListItem>
+            )
          })}
       </List>
    )

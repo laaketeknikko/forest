@@ -1,5 +1,5 @@
-import { damageTypes } from "../damageTypes"
-import { actionTypes } from "../actionTypes"
+import { damageTypes } from "../../actions/damageTypes"
+import { actionTypes } from "../../actions/actionTypes"
 
 const GuineanPigletActions = {
    fluffyTail: {

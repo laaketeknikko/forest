@@ -1,7 +1,7 @@
 import { GuineanPigletActions } from "./guineanpigletCardActions"
 
-const GuineanPigletCards = {
-   defaultOffensiveCard: {
+const GuineanPigletCards = [
+   {
       name: "Default offensive card",
       description: "Everyday fundamentals every piglet knows by heart",
       actions: [
@@ -12,6 +12,6 @@ const GuineanPigletCards = {
          GuineanPigletActions.relentlessGnaw,
       ],
    },
-}
+]
 
 export { GuineanPigletCards }

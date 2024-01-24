@@ -1,4 +1,6 @@
 import { getNextId } from "../util/idGenerator"
-import {GuineanPigletCards} from "../../config/actions/guineanpiglet/guineanpigletCards"
+import { GuineanPigletCards } from "../../config/actions/guineanpiglet/guineanpigletCards"
 
-const loadActionCards = ()
+const loadActionCards = () => {}
+
+export { loadActionCards }
