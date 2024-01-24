@@ -1,5 +1,6 @@
 import { Canvas } from "@react-three/fiber"
 import { GameFieldView } from "../GameFieldView"
+import { OrthographicCamera } from "@react-three/drei"
 
 const R3FCanvasWrapper = () => {
    return (

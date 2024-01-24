@@ -12,6 +12,28 @@ const GuineanPigletCards = [
          GuineanPigletActions.relentlessGnaw,
       ],
    },
+   {
+      name: "Default support card",
+      description: "Not lethal, but maybe useful",
+      actions: [
+         GuineanPigletActions.quickFeet,
+         GuineanPigletActions.riseToTwoFeet,
+         GuineanPigletActions.relentlessGnaw,
+         GuineanPigletActions.hideBehindTheTree,
+         GuineanPigletActions.meanFace,
+      ],
+   },
+   {
+      name: "Default combo card",
+      description: "Mix them up a bit",
+      actions: [
+         GuineanPigletActions.relentlessGnaw,
+         GuineanPigletActions.quickFeet,
+         GuineanPigletActions.lowerBackDown,
+         GuineanPigletActions.leeTailSwipe,
+         GuineanPigletActions.quickFeet,
+      ],
+   },
 ]
 
 export { GuineanPigletCards }
