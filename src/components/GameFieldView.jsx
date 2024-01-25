@@ -32,7 +32,7 @@ const GameFieldView = () => {
                toneMapped={false}
             />
          </mesh>
-         <mesh position={[1, 0.5, 1]} rotation-x={MathUtils.degToRad(-45)}>
+         <mesh position={[1.5, 0.5, 1.5]} rotation-x={MathUtils.degToRad(-45)}>
             <planeGeometry args={[0.5, 0.5]} />
             <meshBasicMaterial
                color="white"
@@ -41,7 +41,7 @@ const GameFieldView = () => {
                toneMapped={false}
             />
          </mesh>
-         <mesh position={[2, 0.5, 1]} rotation-x={MathUtils.degToRad(-45)}>
+         <mesh position={[2.5, 0.5, 1.5]} rotation-x={MathUtils.degToRad(-45)}>
             <planeGeometry args={[1, 1.5]} />
             <meshBasicMaterial
                color="white"
@@ -50,7 +50,7 @@ const GameFieldView = () => {
                toneMapped={false}
             />
          </mesh>
-         <mesh position={[-1, 0.5, 2]} rotation-x={MathUtils.degToRad(-45)}>
+         <mesh position={[3.5, 0.5, 5.5]} rotation-x={MathUtils.degToRad(-45)}>
             <planeGeometry args={[0.3, 0.2]} />
             <meshBasicMaterial
                color="white"

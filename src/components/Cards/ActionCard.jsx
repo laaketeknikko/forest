@@ -9,7 +9,7 @@ const ActionCard = ({ card, onActionTriggered }) => {
    console.log("in card, ", card)
    return (
       <Card sx={{ width: "100%" }} className="action-card">
-         <CardActionArea onClick={() => onActionTriggered(card.nextActionId)}>
+         <CardActionArea onClick={() => onActionTriggered(card)}>
             <CardHeader title={card.name}></CardHeader>
          </CardActionArea>
          <CardContent>

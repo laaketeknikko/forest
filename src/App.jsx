@@ -29,15 +29,16 @@ function App() {
       console.log("Character in app", character)
    }, [cards, character])
 
-   const onActionTriggered = () => {
-      const actionIndex = cards[0].actions.findIndex(
-         (action) => action.id === cards[0].nextActionId
+   const onActionTriggered = (card) => {
+      const actionIndex = card.actions.findIndex(
+         (action) => action.id === card.nextActionId
       )
       const newCards = [...cards]
-      if (actionIndex === cards[0].actions.length - 1) {
-         newCards[0].nextActionId = cards[0].actions[0].id
+      const cardIndex = cards.findIndex((c) => c.id === card.id)
+      if (actionIndex === card.actions.length - 1) {
+         newCards[cardIndex].nextActionId = card.actions[0].id
       } else {
-         newCards[0].nextActionId = cards[0].actions[actionIndex + 1].id
+         newCards[cardIndex].nextActionId = card.actions[actionIndex + 1].id
       }
       setCards(newCards)
    }

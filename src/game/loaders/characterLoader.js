@@ -1,12 +1,20 @@
 import { characterConfigRoot } from "../../config/paths"
 import { getNextId } from "../util/idGenerator"
+import clone from "clone"
 
 const characterLoader = async (characterConfigFolder) => {
-   const character = (
+   const characterConfig = (
       await import(
          `${characterConfigRoot}/${characterConfigFolder}/characterconfig.js`
       )
    ).characterConfig
+
+   // Because character configs are JS objects, we want to
+   // clone them. Second argument false breaks
+   // circular references and shallow references to same
+   // objects, for example in case of the same action
+   // being in different cards.
+   const character = clone(characterConfig, false)
 
    // Generate ids for character, cards and actions.
    character.id = getNextId()
