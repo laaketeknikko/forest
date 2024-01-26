@@ -5,7 +5,7 @@ import clone from "clone"
 const characterLoader = async (characterConfigFolder) => {
    const characterConfig = (
       await import(
-         `${characterConfigRoot}/${characterConfigFolder}/characterconfig.js`
+         `${characterConfigRoot}/${characterConfigFolder}/characterconfig`
       )
    ).characterConfig
 
@@ -32,7 +32,7 @@ const characterLoader = async (characterConfigFolder) => {
       return card
    })
 
-   console.log("piglet in loader", character)
+   console.log("Character in loader", character)
 
    return character
 }

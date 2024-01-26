@@ -8,15 +8,20 @@ import { useCharacterLoader } from "./game/hooks/characters/useCharacterLoader"
 import {
    guineanPigletActionCardsAtom,
    guineanPigletCharacterAtom,
+   allPlayerCharactersAtom,
 } from "./game/state/characters/guineanpiglet"
 import { useAtom } from "jotai"
 import { R3FCanvasWrapper } from "./components/r3f/R3FCanvasWrapper"
 import { useEffect } from "react"
 import Paper from "@mui/material/Paper"
+import { useInitializeGameState } from "./game/hooks/useInitializeGameState"
 
 function App() {
    const [cards, setCards] = useAtom(guineanPigletActionCardsAtom)
    const [character] = useAtom(guineanPigletCharacterAtom)
+   const [allCharacters] = useAtom(allPlayerCharactersAtom)
+
+   useInitializeGameState()
 
    useCharacterLoader({
       characterConfigFolder: "guineanpiglet",
@@ -27,7 +32,8 @@ function App() {
    useEffect(() => {
       console.log("Cards in app", cards)
       console.log("Character in app", character)
-   }, [cards, character])
+      console.log("all characteres", allCharacters)
+   }, [allCharacters, cards, character])
 
    const onActionTriggered = (card) => {
       const actionIndex = card.actions.findIndex(

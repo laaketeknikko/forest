@@ -13,3 +13,9 @@ declare interface ActionCard {
    description?: string
    actions: ActionCardAction[]
 }
+
+declare interface Character {
+   name: string
+   spritePath: string
+   cards: ActionCard[]
+}

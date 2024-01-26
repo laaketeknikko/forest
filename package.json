@@ -20,6 +20,7 @@
       "@types/clone": "^2.1.4",
       "clone": "^2.1.2",
       "jotai": "^2.6.2",
+      "jotai-devtools": "^0.7.1",
       "prop-types": "^15.8.1",
       "react": "^18.2.0",
       "react-dom": "^18.2.0",

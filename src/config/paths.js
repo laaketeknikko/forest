@@ -1,3 +1,5 @@
 const characterConfigRoot = "/src/config/characters"
 
-export { characterConfigRoot }
+const characterConfigFolders = ["guineanpiglet", "sihhis"]
+
+export { characterConfigRoot, characterConfigFolders }

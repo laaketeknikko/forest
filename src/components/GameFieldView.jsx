@@ -9,8 +9,14 @@ import { useLoader } from "@react-three/fiber"
 import { TextureLoader, MathUtils } from "three"
 import { Ground } from "./r3f/Ground/Ground"
 
+import { useAtom } from "jotai"
+import { Character } from "./r3f/Character"
+import { guineanPigletCharacterAtom } from "../game/state/characters/guineanpiglet"
+
 const GameFieldView = () => {
    //const colorMap = useLoader(SVGLoader, "sprites/characters/kissamainen2.svg")
+
+   const [guineanPigletAtom] = useAtom(guineanPigletCharacterAtom)
 
    const [katikatti, miinii, puu, guineanpiglet] = useLoader(TextureLoader, [
       "sprites/characters/katikatti.png",
@@ -23,6 +29,7 @@ const GameFieldView = () => {
       <>
          <OrbitControls />
          <ambientLight args={["white", 1]} />
+         <Character character={guineanPigletAtom} />
          <mesh position={[0.5, 0.5, 0.5]} rotation-x={MathUtils.degToRad(-45)}>
             <planeGeometry args={[0.2, 0.2]} />
             <meshBasicMaterial
