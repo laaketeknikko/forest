@@ -27,10 +27,7 @@ const useInitializeGameState = () => {
             }
             await loadCharacter()
 
-            const newCharacterAtom = atom({
-               name: character.name,
-               character: { ...character },
-            })
+            const newCharacterAtom = atom(character)
             characterAtoms.push(newCharacterAtom)
          }
 

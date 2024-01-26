@@ -1,22 +1,27 @@
 import PropTypes from "prop-types"
 
-import { useLoader } from "@react-three/fiber"
+import { Vector3, useLoader } from "@react-three/fiber"
 import { TextureLoader } from "three"
 import { MathUtils } from "three"
 
+import { Atom, useAtom } from "jotai"
+
 interface CharacterProps {
-   character: Character
+   characterAtom: Atom<Character>
    width: number
+   position: Vector3
 }
 
 // TODO: Place the characters on ground level.
-const Character = ({ character, width = 1 }: CharacterProps) => {
-   console.log("character in Character", character)
+const Character = ({ characterAtom, width = 1, position }: CharacterProps) => {
+   console.log("character in Character", characterAtom)
+
+   const [character] = useAtom<Character>(characterAtom)
 
    const colorMap = useLoader(TextureLoader, character.spritePath)
 
    return (
-      <mesh position={[5.5, 0.5, 5.5]} rotation-x={MathUtils.degToRad(-45)}>
+      <mesh position={position} rotation-x={MathUtils.degToRad(-45)}>
          <planeGeometry args={[width, 1]} />
          <meshBasicMaterial
             color="white"

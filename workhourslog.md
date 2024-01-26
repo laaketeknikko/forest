@@ -8,4 +8,5 @@
 | 24.1. | 2    | Implementing loading logic                                  |
 | 24.1. | 2    | Designing character skills                                  |
 | 25.1. | 2    | Fixing UI and character loading                             |
-| 26.1. | 4    | Trying to figure out character loading and state management |
+| 26.1. | 3    | Trying to figure out character loading and state management |
+| 26.1. | 1    | Implemented adding characters to the game scene             |
