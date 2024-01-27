@@ -20,7 +20,8 @@
 
       "noUnusedLocals": true,
       "noUnusedParameters": true,
-      "noFallthroughCasesInSwitch": true
+      "noFallthroughCasesInSwitch": true,
+      "strictNullChecks": true
    },
    "include": ["src", "src/custom.d.ts"],
    "references": [{ "path": "./tsconfig.node.json" }]

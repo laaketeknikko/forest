@@ -5,6 +5,7 @@ import { TextureLoader } from "three"
 import { MathUtils } from "three"
 
 import { Atom, useAtom } from "jotai"
+import { selectedCharacterAtom } from "../../game/state/characters/characters"
 
 interface CharacterProps {
    characterAtom: Atom<Character>
@@ -16,12 +17,19 @@ interface CharacterProps {
 const Character = ({ characterAtom, width = 1, position }: CharacterProps) => {
    console.log("character in Character", characterAtom)
 
-   const [character] = useAtom<Character>(characterAtom)
+   const [character] = useAtom(characterAtom)
+   const [, setActiveCharacter] = useAtom(selectedCharacterAtom)
 
    const colorMap = useLoader(TextureLoader, character.spritePath)
 
    return (
-      <mesh position={position} rotation-x={MathUtils.degToRad(-45)}>
+      <mesh
+         position={position}
+         rotation-x={MathUtils.degToRad(-45)}
+         onClick={() => {
+            setActiveCharacter(characterAtom)
+         }}
+      >
          <planeGeometry args={[width, 1]} />
          <meshBasicMaterial
             color="white"

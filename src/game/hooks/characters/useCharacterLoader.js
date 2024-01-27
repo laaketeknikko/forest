@@ -7,18 +7,16 @@ const useCharacterLoader = ({
    characterCardsAtom,
    characterAtom,
 }) => {
-   const [cards, setCards] = useAtom(characterCardsAtom)
-   const [character, setCharacter] = useAtom(characterAtom)
+   const [, setCards] = useAtom(characterCardsAtom)
+   const [, setCharacter] = useAtom(characterAtom)
 
    useEffect(() => {
       const loadCharacter = async () => {
          const character = await characterLoader(characterConfigFolder)
 
-         console.log("cards in usecharacterload", character.cards)
          setCards(character.cards)
          setCharacter(character)
       }
-      console.log("Calling loadCharacter")
       loadCharacter()
    }, [characterConfigFolder, setCards, setCharacter])
 }

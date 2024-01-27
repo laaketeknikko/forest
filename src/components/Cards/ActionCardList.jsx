@@ -4,7 +4,7 @@ import PropTypes from "prop-types"
 import List from "@mui/material/List"
 import ListItem from "@mui/material/ListItem"
 
-const ActionCardList = ({ cards, onCardTriggered }) => {
+const ActionCardList = ({ cards, onActionTriggered }) => {
    return (
       <List
          sx={{ maxHeight: "100vh", overflowX: "hidden", overflowY: "scroll" }}
@@ -12,7 +12,10 @@ const ActionCardList = ({ cards, onCardTriggered }) => {
          {cards.map((card, index) => {
             return (
                <ListItem key={index}>
-                  <ActionCard card={card} onActionTriggered={onCardTriggered} />
+                  <ActionCard
+                     card={card}
+                     onActionTriggered={onActionTriggered}
+                  />
                </ListItem>
             )
          })}
@@ -22,7 +25,7 @@ const ActionCardList = ({ cards, onCardTriggered }) => {
 
 ActionCardList.propTypes = {
    cards: PropTypes.arrayOf(ActionCard),
-   onCardTriggered: PropTypes.func.isRequired,
+   onActionTriggered: PropTypes.func.isRequired,
 }
 
 export { ActionCardList }

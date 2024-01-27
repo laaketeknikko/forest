@@ -26,7 +26,7 @@ const GameFieldView = () => {
                return (
                   <Character
                      position={[index * 2 + 0.5, 0.5, index * 2 + 0.5]}
-                     key={character.name}
+                     key={character.id}
                      characterAtom={character}
                   />
                )
