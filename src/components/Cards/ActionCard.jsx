@@ -5,7 +5,7 @@ import CardActionArea from "@mui/material/CardActionArea"
 import PropTypes from "prop-types"
 import CardHeader from "@mui/material/CardHeader"
 
-const ActionCard = ({ card, onActionTriggered }) => {
+const ActionCard = ({ card, onActionTriggered, onCardSelected }) => {
    console.log("in card, ", card)
    return (
       <Card sx={{ width: "100%" }} className="action-card">

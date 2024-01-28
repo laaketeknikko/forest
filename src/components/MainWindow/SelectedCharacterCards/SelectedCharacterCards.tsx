@@ -1,5 +1,5 @@
 import { useAtom } from "jotai"
-import { selectedCharacterAtom } from "../../../game/state/characters/characters"
+import { selectedCharacterAtom } from "../../../game/state/jotai/characters"
 import { ActionCardList } from "../../Cards/ActionCardList"
 
 type cardTriggeredFunction = (cardId: string) => void

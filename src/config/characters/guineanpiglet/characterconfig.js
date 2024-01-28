@@ -4,6 +4,9 @@ const characterConfig = {
    name: "Guinean Piglet",
    spritePath: "sprites/characters/guineanpiglet.png",
    cards: GuineanPigletCards,
+   baseActionDelay: 10,
+   selectedCardId: "",
+   currentActionDelay: 10,
 }
 
 export { characterConfig }

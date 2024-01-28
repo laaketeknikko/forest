@@ -6,8 +6,8 @@ import {
    guineanPigletActionCardsAtom,
    guineanPigletCharacterAtom,
    allPlayerCharactersAtom,
-} from "./game/state/characters/guineanpiglet"
-import { selectedCharacterAtom } from "./game/state/characters/characters"
+} from "./game/state/jotai/guineanpiglet"
+import { selectedCharacterAtom } from "./game/state/jotai/characters"
 import { useAtom } from "jotai"
 import { R3FCanvasWrapper } from "./components/r3f/R3FCanvasWrapper"
 import { useEffect } from "react"
@@ -16,8 +16,6 @@ import { useInitializeGameState } from "./game/hooks/useInitializeGameState"
 import { SelectedCharacterCards } from "./components/MainWindow/SelectedCharacterCards/SelectedCharacterCards"
 
 function App() {
-   const [cards, setCards] = useAtom(guineanPigletActionCardsAtom)
-   const [character] = useAtom(guineanPigletCharacterAtom)
    const [allCharacters] = useAtom(allPlayerCharactersAtom)
    const [selectedCharacter] = useAtom(selectedCharacterAtom)
    const [selectedCharacterData, setSelectedCharacterData] =
@@ -32,10 +30,8 @@ function App() {
    })
 
    useEffect(() => {
-      console.log("Cards in app", cards)
-      console.log("Character in app", character)
       console.log("all characteres", allCharacters)
-   }, [allCharacters, cards, character])
+   }, [allCharacters])
 
    const onActionTriggered = (card) => {
       console.log("card in onactiontriggered", card)
@@ -57,7 +53,7 @@ function App() {
       <>
          <Grid container sx={{ height: "100vh" }}>
             <Grid xs={1}>
-               <Paper elevation={4} sx={{ height: "100%" }}></Paper>
+               <Paper elevation={1} sx={{ height: "100%" }}></Paper>
             </Grid>
             <Grid xs={9}>
                <Suspense>
@@ -65,7 +61,7 @@ function App() {
                </Suspense>
             </Grid>
             <Grid xs={2}>
-               <Paper elevation={4} sx={{ height: "100%" }}>
+               <Paper elevation={1} sx={{ height: "100%" }}>
                   <SelectedCharacterCards
                      onActionTriggered={onActionTriggered}
                   />

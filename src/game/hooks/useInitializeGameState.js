@@ -1,15 +1,18 @@
 import { getCharacterConfigFolders } from "../util/getCharacterConfigFolders"
 import { atom, useAtom } from "jotai"
-import { allPlayerCharactersAtom } from "../state/characters/guineanpiglet"
+import { allPlayerCharactersAtom } from "../state/jotai/guineanpiglet"
 import { characterLoader } from "../loaders/characterLoader"
 import { useMemo, useEffect } from "react"
+import { turnOrderAtom } from "../state/jotai/gameState"
+import { shuffle } from "lodash"
 
-const useInitializeGameState = () => {
+const useInitializeCharacters = () => {
    const folders = useMemo(() => {
       return getCharacterConfigFolders()
    }, [])
 
    const [, setAllCharactersAtom] = useAtom(allPlayerCharactersAtom)
+   const [, setTurnOrderAtom] = useAtom(turnOrderAtom)
 
    // Read all character configs and add them to
    // allPlayerCharactersAtom as atoms.
@@ -32,13 +35,19 @@ const useInitializeGameState = () => {
          }
 
          setAllCharactersAtom(characterAtoms)
+         const initialTurnOrder = [...characterAtoms]
+         setTurnOrderAtom(shuffle(initialTurnOrder))
       }
       wrapperFunc()
 
       return () => {
          setAllCharactersAtom([])
       }
-   }, [folders, setAllCharactersAtom])
+   }, [folders, setAllCharactersAtom, setTurnOrderAtom])
+}
+
+const useInitializeGameState = () => {
+   useInitializeCharacters()
 }
 
 export { useInitializeGameState }

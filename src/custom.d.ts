@@ -1,4 +1,5 @@
 declare interface ActionCardAction {
+   id?: string
    name: string
    description?: string
    powerMultiplier?: number
@@ -9,13 +10,18 @@ declare interface ActionCardAction {
 }
 
 declare interface ActionCard {
+   id?: string
    name: string
    description?: string
    actions: ActionCardAction[]
 }
 
 declare interface Character {
+   id?: string
    name: string
    spritePath: string
    cards: ActionCard[]
+   selectedCardId: string
+   baseActionDelay: number
+   currentActionDelay: number
 }

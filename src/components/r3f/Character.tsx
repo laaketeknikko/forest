@@ -5,7 +5,7 @@ import { TextureLoader } from "three"
 import { MathUtils } from "three"
 
 import { Atom, useAtom } from "jotai"
-import { selectedCharacterAtom } from "../../game/state/characters/characters"
+import { selectedCharacterAtom } from "../../game/state/jotai/characters"
 
 interface CharacterProps {
    characterAtom: Atom<Character>

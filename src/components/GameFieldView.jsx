@@ -4,7 +4,7 @@ import { Ground } from "./r3f/Ground/Ground"
 
 import { useAtom } from "jotai"
 import { Character } from "./r3f/Character"
-import { allPlayerCharactersAtom } from "../game/state/characters/guineanpiglet"
+import { allPlayerCharactersAtom } from "../game/state/jotai/guineanpiglet"
 
 const GameFieldView = () => {
    //const colorMap = useLoader(SVGLoader, "sprites/characters/kissamainen2.svg")
