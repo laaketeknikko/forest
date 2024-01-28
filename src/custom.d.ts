@@ -25,3 +25,7 @@ declare interface Character {
    baseActionDelay: number
    currentActionDelay: number
 }
+
+declare interface TurnOrderCard {
+   imagePath: string
+}

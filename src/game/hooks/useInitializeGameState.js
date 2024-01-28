@@ -1,10 +1,9 @@
 import { getCharacterConfigFolders } from "../util/getCharacterConfigFolders"
 import { atom, useAtom } from "jotai"
-import { allPlayerCharactersAtom } from "../state/jotai/guineanpiglet"
+import { allPlayerCharactersAtom } from "../state/jotai/characters"
 import { characterLoader } from "../loaders/characterLoader"
 import { useMemo, useEffect } from "react"
 import { turnOrderAtom } from "../state/jotai/gameState"
-import { shuffle } from "lodash"
 
 const useInitializeCharacters = () => {
    const folders = useMemo(() => {
@@ -30,13 +29,14 @@ const useInitializeCharacters = () => {
             }
             await loadCharacter()
 
+            character.currentActionDelay =
+               character.baseActionDelay * Math.random() * 2
+
             const newCharacterAtom = atom(character)
             characterAtoms.push(newCharacterAtom)
          }
 
          setAllCharactersAtom(characterAtoms)
-         const initialTurnOrder = [...characterAtoms]
-         setTurnOrderAtom(shuffle(initialTurnOrder))
       }
       wrapperFunc()
 

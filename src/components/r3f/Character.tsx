@@ -15,8 +15,6 @@ interface CharacterProps {
 
 // TODO: Place the characters on ground level.
 const Character = ({ characterAtom, width = 1, position }: CharacterProps) => {
-   console.log("character in Character", characterAtom)
-
    const [character] = useAtom(characterAtom)
    const [, setActiveCharacter] = useAtom(selectedCharacterAtom)
 

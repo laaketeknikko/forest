@@ -6,9 +6,12 @@ const emptyCharacterAtom = atom<Character>({
    spritePath: "",
    cards: [],
    selectedCardId: "",
-   actionSpeed: 0,
+   baseActionDelay: 0,
+   currentActionDelay: 0,
 })
 
 const selectedCharacterAtom = atom<Atom<Character>>(emptyCharacterAtom)
 
-export { selectedCharacterAtom, emptyCharacterAtom }
+const allPlayerCharactersAtom = atom([])
+
+export { selectedCharacterAtom, emptyCharacterAtom, allPlayerCharactersAtom }

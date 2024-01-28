@@ -1,6 +1,16 @@
 import { Atom, atom } from "jotai"
-import { emptyCharacterAtom } from "./characters"
+import { allPlayerCharactersAtom } from "./characters"
 
-const turnOrderAtom = atom<Atom<Character>[]>([emptyCharacterAtom])
+const turnOrderAtom = atom<Array<Atom<Character>>>((get) => {
+   const characters = [...get(allPlayerCharactersAtom)]
+   characters.sort((aAtom, bAtom) => {
+      const a: Character = get(aAtom)
+      const b: Character = get(bAtom)
+      if (a.currentActionDelay < b.currentActionDelay) return -1
+      else if (a === b) return 0
+      else return 1
+   })
+   return characters
+})
 
 export { turnOrderAtom }
