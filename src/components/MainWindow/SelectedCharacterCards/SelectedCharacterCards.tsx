@@ -4,15 +4,14 @@ import {
    activeCharacterAtom,
 } from "../../../game/state/jotai/characters"
 import { ActionCardList } from "../../Cards/ActionCardList"
-
-type cardTriggeredFunction = (cardId: string) => void
+import type { onCardSelectedFunc } from "../../Cards/ActionCard"
 
 interface SelectedCharacterCardsProps {
-   onActionTriggered: cardTriggeredFunction
+   onCardSelected: onCardSelectedFunc
 }
 
 const SelectedCharacterCards = ({
-   onActionTriggered,
+   onCardSelected,
 }: SelectedCharacterCardsProps) => {
    const [selectedCharacter] = useAtom(selectedCharacterAtom)
    const [selectedCharacterData] = useAtom(selectedCharacter)
@@ -29,7 +28,7 @@ const SelectedCharacterCards = ({
          {activeCharacterData.cards.length > 0 && (
             <ActionCardList
                cards={activeCharacterData.cards}
-               onActionTriggered={onActionTriggered}
+               onCardSelected={onCardSelected}
             />
          )}
       </>

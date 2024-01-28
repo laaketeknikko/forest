@@ -7,14 +7,14 @@ import ListItem from "@mui/material/ListItem"
 
 import { Atom } from "jotai"
 
-import type { onActionTriggeredFunc } from "./ActionCard"
+import type { onCardSelectedFunc } from "./ActionCard"
 
 interface ActionCardListProps {
    cards: Array<Atom<ActionCard>>
-   onActionTriggered: onActionTriggeredFunc
+   onCardSelected: onCardSelectedFunc
 }
 
-const ActionCardList = ({ cards, onActionTriggered }: ActionCardListProps) => {
+const ActionCardList = ({ cards, onCardSelected }: ActionCardListProps) => {
    /*const [activeCardId, setActiveCardId] = useState("")
 
    const onCardSelected = (card) => {
@@ -28,10 +28,7 @@ const ActionCardList = ({ cards, onActionTriggered }: ActionCardListProps) => {
          {cards.map((card, index) => {
             return (
                <ListItem key={index}>
-                  <ActionCard
-                     cardAtom={card}
-                     onActionTriggered={onActionTriggered}
-                  />
+                  <ActionCard cardAtom={card} onCardSelected={onCardSelected} />
                </ListItem>
             )
          })}

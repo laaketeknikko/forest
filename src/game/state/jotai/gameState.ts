@@ -1,5 +1,6 @@
 import { Atom, atom } from "jotai"
 import { allPlayerCharactersAtom } from "./characters"
+import { emptyActionCard, emptyActionCardAtom } from "../initialStates"
 
 const turnOrderAtom = atom<Array<Atom<Character>>>((get) => {
    const characters = [...get(allPlayerCharactersAtom)]
@@ -13,4 +14,6 @@ const turnOrderAtom = atom<Array<Atom<Character>>>((get) => {
    return characters
 })
 
-export { turnOrderAtom }
+const currentlySelectedActionCardAtom = atom(atom({}))
+
+export { turnOrderAtom, currentlySelectedActionCardAtom }

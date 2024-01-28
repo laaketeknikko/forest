@@ -14,7 +14,7 @@ declare interface ActionCard {
    name: string
    description?: string
    actions: ActionCardAction[]
-   nextActionId?: number
+   nextActionId?: string
 }
 
 declare interface Character {

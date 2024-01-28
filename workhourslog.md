@@ -13,3 +13,4 @@
 | 27.1. | 1    | Mock-up of selecting characters in the game scene           |
 | 28.1. | 1    | Refactoring                                                 |
 | 28.1. | 1    | Implemented turn order and turn order display               |
+| 28.1. | 2    | Migrated files to TypeScript, refactoring                   |
