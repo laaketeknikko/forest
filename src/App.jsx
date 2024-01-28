@@ -1,9 +1,8 @@
 import Grid from "@mui/material/Unstable_Grid2"
 import { Suspense } from "react"
 
-import { turnOrderAtom } from "./game/state/jotai/gameState"
 import { allPlayerCharactersAtom } from "./game/state/jotai/characters"
-import { selectedCharacterAtom } from "./game/state/jotai/characters"
+
 import { useAtom } from "jotai"
 import { R3FCanvasWrapper } from "./components/r3f/R3FCanvasWrapper"
 import { useEffect } from "react"
@@ -14,10 +13,6 @@ import { TurnOrderView } from "./components/MainWindow/TurnOrderView/TurnOrderVi
 
 function App() {
    const [allCharacters] = useAtom(allPlayerCharactersAtom)
-   const [selectedCharacter] = useAtom(selectedCharacterAtom)
-   const [selectedCharacterData, setSelectedCharacterData] =
-      useAtom(selectedCharacter)
-   const [turnOrder] = useAtom(turnOrderAtom)
 
    useInitializeGameState()
 
@@ -63,4 +58,3 @@ function App() {
 }
 
 export { App }
-

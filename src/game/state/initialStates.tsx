@@ -1,6 +1,6 @@
 import { atom } from "jotai"
 
-const emptyActionCard = {
+const emptyActionCard: ActionCard = {
    id: "",
    name: "",
    description: "",
@@ -8,7 +8,7 @@ const emptyActionCard = {
    nextActionId: "",
 }
 
-const emptyActionCardAtom = atom({ ...emptyActionCard })
+const emptyActionCardAtom = atom<ActionCard>({ ...emptyActionCard })
 
 const emptyCharacter: Character = {
    name: "",
@@ -19,7 +19,7 @@ const emptyCharacter: Character = {
    currentActionDelay: 0,
 }
 
-const emptyCharacterAtom = atom(emptyCharacter)
+const emptyCharacterAtom = atom<Character>(emptyCharacter)
 
 export {
    emptyCharacterAtom,

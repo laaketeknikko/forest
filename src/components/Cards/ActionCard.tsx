@@ -12,16 +12,15 @@ export type onCardSelectedFunc = (card: Atom<ActionCard>) => void
 interface ActionCardProps {
    cardAtom: Atom<ActionCard>
    //   onActionTriggered: onActionTriggeredFunc
-   onCardSelected: onCardSelectedFunc
+   onCardSelected?: onCardSelectedFunc
 }
 
-const ActionCard = ({ cardAtom, onCardSelected }: ActionCardProps) => {
+const ActionCard = ({ cardAtom }: ActionCardProps) => {
    const [card] = useAtom(cardAtom)
    const [, setCurrentSelectedActionCard] = useAtom(
       currentlySelectedActionCardAtom
    )
 
-   console.log("in card, ", card)
    return (
       <Card sx={{ width: "100%" }} className="action-card">
          <CardActionArea onClick={() => setCurrentSelectedActionCard(cardAtom)}>

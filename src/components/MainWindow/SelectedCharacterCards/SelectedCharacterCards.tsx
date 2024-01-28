@@ -5,6 +5,7 @@ import {
 } from "../../../game/state/jotai/characters"
 import { ActionCardList } from "../../Cards/ActionCardList"
 import type { onCardSelectedFunc } from "../../Cards/ActionCard"
+import { useEffect } from "react"
 
 interface SelectedCharacterCardsProps {
    onCardSelected: onCardSelectedFunc
@@ -17,6 +18,17 @@ const SelectedCharacterCards = ({
    const [selectedCharacterData] = useAtom(selectedCharacter)
    const [activeCharacter] = useAtom(activeCharacterAtom)
    const [activeCharacterData] = useAtom(activeCharacter)
+
+   useEffect(() => {
+      console.log(
+         "In SelectedCharacterCards, selectedCharacterData",
+         selectedCharacterData
+      )
+      console.log(
+         "In selectedCharacterCards, activeCharacterData",
+         activeCharacterData
+      )
+   }, [activeCharacterData, selectedCharacterData])
 
    console.log(
       "Active character cards in selectedcharactercards",

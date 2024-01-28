@@ -14,3 +14,4 @@
 | 28.1. | 1    | Refactoring                                                 |
 | 28.1. | 1    | Implemented turn order and turn order display               |
 | 28.1. | 2    | Migrated files to TypeScript, refactoring                   |
+| 28.1. | 1    | UI work                                                     |
