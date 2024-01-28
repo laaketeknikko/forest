@@ -27,7 +27,7 @@ function App() {
 
    const onActionTriggered = (card) => {
       console.log("card in onactiontriggered", card)
-
+      /*
       const actionIndex = card.actions.findIndex(
          (action) => action.id === card.nextActionId
       )
@@ -38,7 +38,7 @@ function App() {
       } else {
          newCards[cardIndex].nextActionId = card.actions[actionIndex + 1].id
       }
-      setSelectedCharacterData({ ...selectedCharacterData, cards: newCards })
+      setSelectedCharacterData({ ...selectedCharacterData, cards: newCards })*/
    }
 
    return (
