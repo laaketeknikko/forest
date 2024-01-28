@@ -1,6 +1,6 @@
 import PropTypes from "prop-types"
 
-import { Vector3, useLoader } from "@react-three/fiber"
+import { useLoader } from "@react-three/fiber"
 import { TextureLoader } from "three"
 import { MathUtils } from "three"
 
@@ -10,11 +10,10 @@ import { selectedCharacterAtom } from "../../game/state/jotai/characters"
 interface CharacterProps {
    characterAtom: Atom<Character>
    width: number
-   position: Vector3
 }
 
 // TODO: Place the characters on ground level.
-const Character = ({ characterAtom, width = 1, position }: CharacterProps) => {
+const Character = ({ characterAtom, width = 1 }: CharacterProps) => {
    const [character] = useAtom(characterAtom)
    const [, setActiveCharacter] = useAtom(selectedCharacterAtom)
 
@@ -22,7 +21,11 @@ const Character = ({ characterAtom, width = 1, position }: CharacterProps) => {
 
    return (
       <mesh
-         position={position}
+         position={[
+            character.position.x,
+            character.position.y,
+            character.position.z,
+         ]}
          rotation-x={MathUtils.degToRad(-45)}
          onClick={() => {
             setActiveCharacter(characterAtom)

@@ -17,6 +17,7 @@ const emptyCharacter: Character = {
    selectedCardId: "",
    baseActionDelay: 0,
    currentActionDelay: 0,
+   position: { x: 0, y: 0, z: 0 },
 }
 
 const emptyCharacterAtom = atom<Character>(emptyCharacter)

@@ -31,6 +31,11 @@ const useInitializeCharacters = () => {
             await loadCharacter()
 
             character.cards = atomsFromCardConfigs(character.cards)
+            if (character.name === "Sihhis") {
+               character.position = { x: 0.5, y: 0.3, z: 0.5 }
+            } else if (character.name === "Guinean Piglet") {
+               character.position = { x: 14.5, y: 0.3, z: 14.5 }
+            }
 
             character.currentActionDelay =
                character.baseActionDelay * Math.random() * 2

@@ -17,17 +17,11 @@ const R3FCanvasWrapper = () => {
          <OrbitControls />
          <ambientLight args={["white", 1]} />
          {allPlayerCharactersValue.length > 0 &&
-            allPlayerCharactersValue.map((character, index) => {
-               return (
-                  <Character
-                     position={[index * 2 + 0.5, 0.5, index * 2 + 0.5]}
-                     key={character.id}
-                     characterAtom={character}
-                  />
-               )
+            allPlayerCharactersValue.map((character) => {
+               return <Character key={character.id} characterAtom={character} />
             })}
 
-         <Ground lengthX={10} />
+         <Ground />
          <ActionHelper />
       </Canvas>
    )

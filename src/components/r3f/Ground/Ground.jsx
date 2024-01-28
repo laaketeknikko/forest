@@ -1,7 +1,7 @@
 import { GroundTile } from "./GroundTile"
 import PropTypes from "prop-types"
 
-const Ground = ({ lengthX = 10, lengthZ = 10 }) => {
+const Ground = ({ lengthX = 15, lengthZ = 15 }) => {
    const tiles = []
    for (let x = 0; x < lengthX; x++) {
       tiles.push([])

@@ -25,8 +25,15 @@ declare interface Character {
    selectedCardId: string
    baseActionDelay: number
    currentActionDelay: number
+   position: Position
 }
 
 declare interface TurnOrderCard {
    imagePath: string
+}
+
+declare interface Position {
+   x: number
+   y: number
+   z: number
 }
