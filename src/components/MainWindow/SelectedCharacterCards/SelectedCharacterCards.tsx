@@ -1,5 +1,8 @@
 import { useAtom } from "jotai"
-import { selectedCharacterAtom } from "../../../game/state/jotai/characters"
+import {
+   selectedCharacterAtom,
+   activeCharacterAtom,
+} from "../../../game/state/jotai/characters"
 import { ActionCardList } from "../../Cards/ActionCardList"
 
 type cardTriggeredFunction = (cardId: string) => void
@@ -13,10 +16,12 @@ const SelectedCharacterCards = ({
 }: SelectedCharacterCardsProps) => {
    const [selectedCharacter] = useAtom(selectedCharacterAtom)
    const [selectedCharacterData] = useAtom(selectedCharacter)
+   const [activeCharacter] = useAtom(activeCharacterAtom)
+   const [activeCharacterData] = useAtom(activeCharacter)
 
    return (
       <ActionCardList
-         cards={selectedCharacterData.cards}
+         cards={activeCharacterData.cards}
          onActionTriggered={onActionTriggered}
       />
    )

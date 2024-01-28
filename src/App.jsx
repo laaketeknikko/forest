@@ -1,11 +1,6 @@
 import Grid from "@mui/material/Unstable_Grid2"
 import { Suspense } from "react"
 
-import { useCharacterLoader } from "./game/hooks/characters/useCharacterLoader"
-import {
-   guineanPigletActionCardsAtom,
-   guineanPigletCharacterAtom,
-} from "./game/state/jotai/guineanpiglet"
 import { turnOrderAtom } from "./game/state/jotai/gameState"
 import { allPlayerCharactersAtom } from "./game/state/jotai/characters"
 import { selectedCharacterAtom } from "./game/state/jotai/characters"
@@ -25,12 +20,6 @@ function App() {
    const [turnOrder] = useAtom(turnOrderAtom)
 
    useInitializeGameState()
-
-   useCharacterLoader({
-      characterConfigFolder: "guineanpiglet",
-      characterCardsAtom: guineanPigletActionCardsAtom,
-      characterAtom: guineanPigletCharacterAtom,
-   })
 
    useEffect(() => {
       console.log("all characteres", allCharacters)

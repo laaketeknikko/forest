@@ -11,3 +11,5 @@
 | 26.1. | 3    | Trying to figure out character loading and state management |
 | 26.1. | 1    | Implemented adding characters to the game scene             |
 | 27.1. | 1    | Mock-up of selecting characters in the game scene           |
+| 28.1. | 1    | Refactoring                                                 |
+| 28.1. | 1    | Implemented turn order and turn order display               |
