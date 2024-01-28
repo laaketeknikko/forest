@@ -4,6 +4,7 @@ import { allPlayerCharactersAtom } from "../state/jotai/characters"
 import { characterLoader } from "../loaders/characterLoader"
 import { useMemo, useEffect } from "react"
 import { turnOrderAtom } from "../state/jotai/gameState"
+import { atomsFromCardConfigs } from "../util/atomsFromCardConfigs"
 
 const useInitializeCharacters = () => {
    const folders = useMemo(() => {
@@ -28,6 +29,8 @@ const useInitializeCharacters = () => {
                character = await characterLoader(folder)
             }
             await loadCharacter()
+
+            character.cards = atomsFromCardConfigs(character.cards)
 
             character.currentActionDelay =
                character.baseActionDelay * Math.random() * 2

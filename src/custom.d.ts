@@ -14,13 +14,14 @@ declare interface ActionCard {
    name: string
    description?: string
    actions: ActionCardAction[]
+   nextActionId?: number
 }
 
 declare interface Character {
    id?: string
    name: string
    spritePath: string
-   cards: ActionCard[]
+   cards: Array<Atom<ActionCard>>
    selectedCardId: string
    baseActionDelay: number
    currentActionDelay: number

@@ -19,11 +19,20 @@ const SelectedCharacterCards = ({
    const [activeCharacter] = useAtom(activeCharacterAtom)
    const [activeCharacterData] = useAtom(activeCharacter)
 
+   console.log(
+      "Active character cards in selectedcharactercards",
+      activeCharacterData.cards
+   )
+
    return (
-      <ActionCardList
-         cards={activeCharacterData.cards}
-         onActionTriggered={onActionTriggered}
-      />
+      <>
+         {activeCharacterData.cards.length > 0 && (
+            <ActionCardList
+               cards={activeCharacterData.cards}
+               onActionTriggered={onActionTriggered}
+            />
+         )}
+      </>
    )
 }
 
