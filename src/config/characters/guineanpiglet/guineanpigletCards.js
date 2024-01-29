@@ -16,7 +16,7 @@ const GuineanPigletCards = [
       name: "Default support card",
       description: "Not lethal, but maybe useful",
       actions: [
-         GuineanPigletActions.quickFeet,
+         GuineanPigletActions.jump,
          GuineanPigletActions.riseToTwoFeet,
          GuineanPigletActions.relentlessGnaw,
          GuineanPigletActions.hideBehindTheTree,

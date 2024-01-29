@@ -89,6 +89,20 @@ const GuineanPigletActions: Record<string, ActionCardAction> = {
       actionDelayMultiplier: 0.5,
       type: actionTypes.support,
    },
+   jump: {
+      name: "Jump",
+      description: "Make a long jump",
+      actionDelayMultiplier: 1,
+      type: actionTypes.movement,
+      range: 3,
+   },
+   casualWalk: {
+      name: "Casual walk",
+      description: "Makes you look quite unintimidating",
+      range: 1.5,
+      type: actionTypes.movement,
+      actionDelayMultiplier: 1,
+   },
 }
 
 export { GuineanPigletActions }

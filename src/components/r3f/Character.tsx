@@ -28,7 +28,7 @@ const Character = ({ characterAtom, width = 1 }: CharacterProps) => {
          ]}
          rotation-y={MathUtils.degToRad(-45)}
       >
-         <spriteMaterial args={[{ map: colorMap }]} />
+         <spriteMaterial args={[{ map: colorMap }]} depthWrite={false} />
       </sprite>
    )
 

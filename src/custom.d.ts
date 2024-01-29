@@ -17,7 +17,11 @@ declare interface ActionCard {
    nextActionId?: string
 }
 
-declare interface Character {
+declare interface GameEntity {
+   position: Position
+}
+
+declare interface Character extends GameEntity {
    id?: string
    name: string
    spritePath: string
@@ -25,7 +29,6 @@ declare interface Character {
    selectedCardId: string
    baseActionDelay: number
    currentActionDelay: number
-   position: Position
 }
 
 declare interface TurnOrderCard {
