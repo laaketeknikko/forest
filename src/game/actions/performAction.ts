@@ -19,7 +19,7 @@ interface performActionProps {
 
 interface affectedEntity {
    entityData: GameEntity
-   entity: Atom<GameEntity>
+   entity: never
 }
 
 const performAction = ({
@@ -35,15 +35,36 @@ const performAction = ({
          selectedAction,
          targetPoint,
       })
+   } else if (selectedAction.type === actionTypes.offensive) {
+      return performOffensiveAction({
+         selectedCharacterAtom,
+         activeCardAtom,
+         selectedAction,
+         targetPoint,
+      })
    }
+}
 
+const performMoveAction = (props: performActionProps) => {
+   const jotaiStore = getDefaultStore()
+   const selectedCharacter: Character = jotaiStore.get(
+      props.selectedCharacterAtom
+   )
+
+   selectedCharacter.position.x = props.targetPoint.x
+   selectedCharacter.position.z = props.targetPoint.z
+
+   jotaiStore.set(props.selectedCharacterAtom, { ...selectedCharacter })
+}
+
+const performOffensiveAction = (props: performActionProps) => {
    const tileCenter = {
-      x: Math.floor(targetPoint.x) + 0.5,
-      z: Math.floor(targetPoint.z) + 0.5,
+      x: Math.floor(props.targetPoint.x) + 0.5,
+      z: Math.floor(props.targetPoint.z) + 0.5,
    }
    const jotaiStore = getDefaultStore()
-   const selectedCharacter = jotaiStore.get(selectedCharacterAtom)
-   const activeCard = jotaiStore.get(activeCardAtom)
+   const selectedCharacter = jotaiStore.get(props.selectedCharacterAtom)
+   const activeCard = jotaiStore.get(props.activeCardAtom)
 
    const allGameEntities = jotaiStore.get(allGameEntitiesAtom)
    const affectedEntities: Array<affectedEntity> = []
@@ -59,20 +80,17 @@ const performAction = ({
       }
    }
 
+   const attackPower = props.selectedAction.powerMultiplier
+
+   for (const entity of affectedEntities) {
+      if (entity.entityData.health && attackPower) {
+         entity.entityData.health -= attackPower
+      }
+      jotaiStore.set(entity.entity, entity.entityData)
+   }
+
    // TODO: Do something with the affected entities
    console.log("Affected entities: ", affectedEntities)
-}
-
-const performMoveAction = (props: performActionProps) => {
-   const jotaiStore = getDefaultStore()
-   const selectedCharacter: Character = jotaiStore.get(
-      props.selectedCharacterAtom
-   )
-
-   selectedCharacter.position.x = props.targetPoint.x
-   selectedCharacter.position.z = props.targetPoint.z
-
-   jotaiStore.set(props.selectedCharacterAtom, { ...selectedCharacter })
 }
 
 export { performAction }

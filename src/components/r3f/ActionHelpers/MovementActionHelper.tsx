@@ -33,7 +33,7 @@ const MovementActionHelper = ({
       <mesh
          position={[
             activeCharacter.position.x,
-            0.1,
+            0.5,
             activeCharacter.position.z,
          ]}
          rotation-x={MathUtils.degToRad(-90)}
@@ -44,7 +44,7 @@ const MovementActionHelper = ({
             toneMapped={false}
             color="blue"
             transparent
-            opacity={0}
+            opacity={0.05}
             depthWrite={false}
          />
          <Edges />

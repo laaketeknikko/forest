@@ -5,6 +5,8 @@ import { characterLoader } from "../loaders/characterLoader"
 import { useMemo, useEffect } from "react"
 import { turnOrderAtom } from "../state/jotai/gameState"
 import { atomsFromCardConfigs } from "../util/atomsFromCardConfigs"
+import { allEnemiesAtom } from "../state/jotai/enemies"
+import { enemyConfig } from "../../config/enemies/miinii/enemyconfig"
 
 const useInitializeCharacters = () => {
    const folders = useMemo(() => {
@@ -54,8 +56,25 @@ const useInitializeCharacters = () => {
    }, [folders, setAllCharactersAtom, setTurnOrderAtom])
 }
 
+const useInitializeEnemies = () => {
+   const [, setAllEnemiesAtom] = useAtom(allEnemiesAtom)
+
+   useEffect(() => {
+      const enemies = []
+      const wrapperFunc = async () => {
+         const config = enemyConfig
+         config.position = { x: 7.5, y: 0.5, z: 7.5 }
+         const enemyAtom = atom(config)
+         enemies.push(enemyAtom)
+      }
+      wrapperFunc()
+      setAllEnemiesAtom(enemies)
+   }, [setAllEnemiesAtom])
+}
+
 const useInitializeGameState = () => {
    useInitializeCharacters()
+   useInitializeEnemies()
 }
 
 export { useInitializeGameState }

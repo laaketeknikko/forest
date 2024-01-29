@@ -19,17 +19,24 @@ declare interface ActionCard {
 
 declare interface GameEntity {
    position: Position
+   health?: number
 }
 
-declare interface Character extends GameEntity {
+declare interface DynamicGameEntity extends GameEntity {
    id?: string
    name: string
    spritePath: string
+   health: number
+}
+
+declare interface Character extends DynamicGameEntity {
    cards: Array<Atom<ActionCard>>
    selectedCardId: string
    baseActionDelay: number
    currentActionDelay: number
 }
+
+declare interface Enemy extends DynamicGameEntity {}
 
 declare interface TurnOrderCard {
    imagePath: string
