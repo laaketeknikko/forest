@@ -16,3 +16,4 @@
 | 28.1. | 2    | Migrated files to TypeScript, refactoring                   |
 | 28.1. | 2    | UI work                                                     |
 | 29.1. | 1    | UI work                                                     |
+| 29.1. | 2    | UI and logic work                                           |
