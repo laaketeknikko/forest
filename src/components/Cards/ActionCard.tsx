@@ -5,6 +5,8 @@ import CardActionArea from "@mui/material/CardActionArea"
 import CardHeader from "@mui/material/CardHeader"
 import { useAtom, Atom } from "jotai"
 import { currentlySelectedActionCardAtom } from "../../game/state/jotai/gameState"
+import { useState } from "react"
+import { emptyActionCardAtom } from "../../game/state/initialStates"
 
 //export type onActionTriggeredFunc = (card: Atom<ActionCard>) => void
 export type onCardSelectedFunc = (card: Atom<ActionCard>) => void
@@ -20,10 +22,21 @@ const ActionCard = ({ cardAtom }: ActionCardProps) => {
    const [, setCurrentSelectedActionCard] = useAtom(
       currentlySelectedActionCardAtom
    )
+   const [isSelected, setIsSelected] = useState(false)
 
    return (
       <Card sx={{ width: "100%" }} className="action-card">
-         <CardActionArea onClick={() => setCurrentSelectedActionCard(cardAtom)}>
+         <CardActionArea
+            onClick={() => {
+               if (isSelected) {
+                  setIsSelected(false)
+                  setCurrentSelectedActionCard(emptyActionCardAtom)
+               } else {
+                  setIsSelected(true)
+                  setCurrentSelectedActionCard(cardAtom)
+               }
+            }}
+         >
             <CardHeader title={card.name}></CardHeader>
          </CardActionArea>
          <CardContent>

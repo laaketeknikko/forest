@@ -6,7 +6,7 @@ import { Ground } from "./Ground/Ground"
 import { useAtom } from "jotai"
 import { Character } from "./Character"
 import { allPlayerCharactersAtom } from "../../game/state/jotai/characters"
-import { ActionHelper } from "./ActionHelper"
+import { ActionHelper } from "./ActionHelpers/ActionHelper"
 
 const R3FCanvasWrapper = () => {
    const [allPlayerCharactersValue] = useAtom(allPlayerCharactersAtom)

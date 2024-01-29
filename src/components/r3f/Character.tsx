@@ -20,6 +20,19 @@ const Character = ({ characterAtom, width = 1 }: CharacterProps) => {
    const colorMap = useLoader(TextureLoader, character.spritePath)
 
    return (
+      <sprite
+         position={[
+            character.position.x,
+            character.position.y,
+            character.position.z,
+         ]}
+         rotation-y={MathUtils.degToRad(-45)}
+      >
+         <spriteMaterial args={[{ map: colorMap }]} />
+      </sprite>
+   )
+
+   /*return (
       <mesh
          position={[
             character.position.x,
@@ -36,10 +49,11 @@ const Character = ({ characterAtom, width = 1 }: CharacterProps) => {
             color="white"
             map={colorMap}
             transparent
+            opacity={1}
             toneMapped={false}
          />
       </mesh>
-   )
+   )*/
 }
 
 Character.propTypes = {
