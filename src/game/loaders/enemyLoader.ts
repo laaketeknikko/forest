@@ -2,7 +2,7 @@ import clone from "clone"
 import { enemyConfigRoot } from "../../config/paths"
 import { getNextId } from "../util/idGenerator"
 
-const enemyLoader = async (enemyConfigFolder) => {
+const enemyLoader = async (enemyConfigFolder: string) => {
    const enemyConfig = (
       await import(`${enemyConfigRoot}/${enemyConfigFolder}/enemyconfig`)
    ).enemyConfig

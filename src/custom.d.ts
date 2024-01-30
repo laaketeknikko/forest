@@ -27,13 +27,13 @@ declare interface DynamicGameEntity extends GameEntity {
    name: string
    spritePath: string
    health: number
+   baseActionDelay: number
+   currentActionDelay: number
 }
 
 declare interface Character extends DynamicGameEntity {
    cards: Array<Atom<ActionCard>>
    selectedCardId: string
-   baseActionDelay: number
-   currentActionDelay: number
 }
 
 declare interface Enemy extends DynamicGameEntity {}

@@ -89,6 +89,7 @@ const useInitializeEnemies = () => {
             console.log("useInitializeEnemies, after calling function")
 
             enemy.position = { x: 7.5, y: 0.5, z: 7.5 }
+            enemy.currentActionDelay = enemy.baseActionDelay * Math.random() * 2
             const enemyAtom = atom(enemy)
             enemies.push(enemyAtom)
 
