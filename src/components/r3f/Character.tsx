@@ -6,6 +6,9 @@ import { MathUtils } from "three"
 
 import { Atom, useAtom } from "jotai"
 import { selectedCharacterAtom } from "../../game/state/jotai/characters"
+import { Billboard } from "@react-three/drei"
+
+import { useState } from "react"
 
 interface CharacterProps {
    characterAtom: Atom<Character>

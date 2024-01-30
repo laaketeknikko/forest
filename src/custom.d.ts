@@ -29,12 +29,11 @@ declare interface DynamicGameEntity extends GameEntity {
    health: number
    baseActionDelay: number
    currentActionDelay: number
-}
-
-declare interface Character extends DynamicGameEntity {
    cards: Array<Atom<ActionCard>>
    selectedCardId: string
 }
+
+declare interface Character extends DynamicGameEntity {}
 
 declare interface Enemy extends DynamicGameEntity {}
 

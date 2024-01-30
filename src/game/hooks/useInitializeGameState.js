@@ -6,7 +6,6 @@ import { atom, useAtom } from "jotai"
 import { allPlayerCharactersAtom } from "../state/jotai/characters"
 import { characterLoader } from "../loaders/characterLoader"
 import { useMemo, useEffect } from "react"
-import { turnOrderAtom } from "../state/jotai/gameState"
 import { atomsFromCardConfigs } from "../util/atomsFromCardConfigs"
 import { allEnemiesAtom } from "../state/jotai/enemies"
 import { enemyLoader } from "../loaders/enemyLoader"
@@ -17,7 +16,6 @@ const useInitializeCharacters = () => {
    }, [])
 
    const [, setAllCharactersAtom] = useAtom(allPlayerCharactersAtom)
-   const [, setTurnOrderAtom] = useAtom(turnOrderAtom)
 
    // Read all character configs and add them to
    // allPlayerCharactersAtom as atoms.
@@ -58,7 +56,7 @@ const useInitializeCharacters = () => {
       return () => {
          setAllCharactersAtom([])
       }
-   }, [folders, setAllCharactersAtom, setTurnOrderAtom])
+   }, [folders, setAllCharactersAtom])
 }
 
 const useInitializeEnemies = () => {
@@ -88,6 +86,7 @@ const useInitializeEnemies = () => {
             await loadEnemy()
             console.log("useInitializeEnemies, after calling function")
 
+            enemy.cards = atomsFromCardConfigs(enemy.cards)
             enemy.position = { x: 7.5, y: 0.5, z: 7.5 }
             enemy.currentActionDelay = enemy.baseActionDelay * Math.random() * 2
             const enemyAtom = atom(enemy)

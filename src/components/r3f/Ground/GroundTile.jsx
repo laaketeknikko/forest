@@ -1,7 +1,7 @@
 import { MathUtils, TextureLoader } from "three"
 import PropTypes from "prop-types"
 import { useLoader } from "@react-three/fiber"
-import { Edges } from "@react-three/drei"
+import { Edges, Outlines } from "@react-three/drei"
 
 const GroundTile = ({ xPos, yPos = 0, zPos }) => {
    return (
@@ -14,8 +14,8 @@ const GroundTile = ({ xPos, yPos = 0, zPos }) => {
             }
          >
             <planeGeometry args={[1, 1]} />
-            <meshBasicMaterial transparent toneMapped={false} />
-            <Edges />
+            <meshBasicMaterial toneMapped={false} />
+            <Edges color="red" scale={0.3} />
          </mesh>
       </>
    )

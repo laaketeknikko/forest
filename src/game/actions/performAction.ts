@@ -29,20 +29,26 @@ const performAction = ({
    targetPoint,
 }: performActionProps) => {
    if (selectedAction.type === actionTypes.movement) {
-      return performMoveAction({
+      performMoveAction({
          selectedCharacterAtom,
          activeCardAtom,
          selectedAction,
          targetPoint,
       })
    } else if (selectedAction.type === actionTypes.offensive) {
-      return performOffensiveAction({
+      performOffensiveAction({
          selectedCharacterAtom,
          activeCardAtom,
          selectedAction,
          targetPoint,
       })
    }
+
+   const jotaiStore = getDefaultStore()
+   const selectedCharacter: Character = jotaiStore.get(selectedCharacterAtom)
+   selectedCharacter.currentActionDelay +=
+      selectedCharacter.baseActionDelay * selectedAction.actionDelayMultiplier
+   jotaiStore.set(selectedCharacterAtom, { ...selectedCharacter })
 }
 
 const performMoveAction = (props: performActionProps) => {
