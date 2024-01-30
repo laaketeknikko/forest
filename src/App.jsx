@@ -5,21 +5,23 @@ import { allPlayerCharactersAtom } from "./game/state/jotai/characters"
 
 import { useAtom } from "jotai"
 import { R3FCanvasWrapper } from "./components/r3f/R3FCanvasWrapper"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import Paper from "@mui/material/Paper"
-import { useInitializeGameState } from "./game/hooks/useInitializeGameState"
+
 import { SelectedCharacterCards } from "./components/MainWindow/SelectedCharacterCards/SelectedCharacterCards"
 import { TurnOrderView } from "./components/MainWindow/TurnOrderView/TurnOrderView"
 
+import { MainMenu } from "./components/MainMenu/MainMenu"
+
 function App() {
    const [allCharacters] = useAtom(allPlayerCharactersAtom)
-
-   useInitializeGameState()
+   const [showMainMenu, setShowMainMenu] = useState(true)
 
    useEffect(() => {
       console.log("all characteres", allCharacters)
    }, [allCharacters])
 
+   // TODO: IMplement changing the active action when action performed.
    const onActionTriggered = (card) => {
       console.log("card in onactiontriggered", card)
       /*
@@ -44,9 +46,12 @@ function App() {
             </Paper>
          </Grid>
          <Grid xs={9}>
-            <Suspense>
-               <R3FCanvasWrapper />
-            </Suspense>
+            {!showMainMenu && (
+               <Suspense>
+                  <R3FCanvasWrapper />
+               </Suspense>
+            )}
+            {showMainMenu && <MainMenu />}
          </Grid>
          <Grid xs={2}>
             <Paper elevation={1} sx={{ height: "100%" }}>
