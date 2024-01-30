@@ -9,6 +9,8 @@ const characterLoader = async (characterConfigFolder) => {
       )
    ).characterConfig
 
+   console.log("In characterLoader, config: ", characterConfig)
+
    // Because character configs are JS objects, we want to
    // clone them. Second argument false breaks
    // circular references and shallow references to same
@@ -22,7 +24,7 @@ const characterLoader = async (characterConfigFolder) => {
    character.cards.map((card) => {
       card.id = getNextId()
 
-      card.actions.map((action) => {
+      card.actions = card.actions.map((action) => {
          action.id = getNextId()
          return action
       })

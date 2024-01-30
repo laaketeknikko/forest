@@ -1,7 +1,12 @@
-import { characterConfigFolders } from "../../config/paths"
+import { characterConfigFolders, enemyConfigFolders } from "../../config/paths"
 
 const getCharacterConfigFolders = () => {
    return characterConfigFolders
 }
 
-export { getCharacterConfigFolders }
+const getEnemyConfigFolders = () => {
+   console.log("getEnemyConfigFolders, ", enemyConfigFolders)
+   return enemyConfigFolders
+}
+
+export { getCharacterConfigFolders, getEnemyConfigFolders }
