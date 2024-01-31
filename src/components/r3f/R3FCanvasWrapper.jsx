@@ -9,13 +9,9 @@ import { allPlayerCharactersAtom } from "../../game/state/jotai/characters"
 import { ActionHelper } from "./ActionHelpers/ActionHelper"
 import { allEnemiesAtom } from "../../game/state/jotai/enemies"
 
-import { useInitializeGameState } from "../../game/hooks/useInitializeGameState"
-
 const R3FCanvasWrapper = () => {
    const [allPlayerCharactersValue] = useAtom(allPlayerCharactersAtom)
    const [allEnemiesValue] = useAtom(allEnemiesAtom)
-
-   useInitializeGameState()
 
    return (
       <Canvas camera={{ position: [1, 4, 5] }}>

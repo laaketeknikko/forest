@@ -3,17 +3,41 @@ import Paper from "@mui/material/Paper"
 
 import { useEffect } from "react"
 
+import { allEnemiesAtom } from "../../game/state/jotai/enemies"
+import { getDefaultStore, useAtom } from "jotai"
+import { EnemyDetails } from "./EnemyDetails"
+import { emptyEnemyAtom } from "../../game/state/initialStates"
+import List from "@mui/material/List"
+import ListItem from "@mui/material/ListItem"
+import AvatarGroup from "@mui/material/AvatarGroup"
+
 interface ScenarioDetailsProps {
    scenarioConfig: ScenarioConfig
 }
 
 const ScenarioDetails = ({ scenarioConfig }: ScenarioDetailsProps) => {
+   const [allEnemies] = useAtom(allEnemiesAtom)
+
    useEffect(() => {
       console.log("In ScenarioDetails, config", scenarioConfig)
    }, [scenarioConfig])
 
+   const getEnemyByName = (name: string) => {
+      const jotaiStore = getDefaultStore()
+      const enemyAtom = allEnemies.find((enemyAtom) => {
+         const enemyData = jotaiStore.get(enemyAtom)
+         return enemyData.name.toLowerCase() === name.toLowerCase()
+      })
+
+      if (!enemyAtom) {
+         return emptyEnemyAtom
+      } else {
+         return enemyAtom
+      }
+   }
+
    return (
-      <Paper>
+      <Paper sx={{ height: "100%" }}>
          <Typography variant="h3">{scenarioConfig.name}</Typography>
 
          <Typography variant="body1">
@@ -26,11 +50,14 @@ const ScenarioDetails = ({ scenarioConfig }: ScenarioDetailsProps) => {
          </Typography>
 
          <Typography variant="h4">Enemies</Typography>
+
          {scenarioConfig.enemies.map((enemy) => {
             return (
-               <Typography variant="body1" key={enemy.enemyName}>
-                  {enemy.quantity} x {enemy.enemyName}
-               </Typography>
+               <EnemyDetails
+                  key={enemy.enemyName}
+                  enemyAtom={getEnemyByName(enemy.enemyName)}
+                  scenarioDetails={enemy}
+               />
             )
          })}
       </Paper>

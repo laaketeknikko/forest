@@ -34,10 +34,29 @@ const emptyScenario: ScenarioConfig = {
    thumbNailPath: "",
 }
 
+const emptyScenarioAtom = emptyScenario
+
+const emptyEnemy: Enemy = {
+   name: "",
+   baseActionDelay: 0,
+   cards: [],
+   currentActionDelay: 0,
+   health: 0,
+   position: { x: 0, z: 0, y: 0 },
+   selectedCardId: "",
+   spritePath: "",
+   id: "",
+}
+
+const emptyEnemyAtom = atom(emptyEnemy)
+
 export {
    emptyCharacterAtom,
    emptyCharacter,
    emptyActionCard,
    emptyActionCardAtom,
    emptyScenario,
+   emptyScenarioAtom,
+   emptyEnemy,
+   emptyEnemyAtom,
 }

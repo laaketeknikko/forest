@@ -15,6 +15,8 @@ import { MainMenu } from "./components/MainMenu/MainMenu"
 
 import { useLoadAllScenariosConfig } from "./game/hooks/scenarios/useGetAllScenarioConfigs"
 
+import { useInitializeGameState } from "./game/hooks/useInitializeGameState"
+
 function App() {
    const [allCharacters] = useAtom(allPlayerCharactersAtom)
    const [showMainMenu, setShowMainMenu] = useState(true)
@@ -23,6 +25,7 @@ function App() {
       console.log("all characteres", allCharacters)
    }, [allCharacters])
 
+   useInitializeGameState()
    useLoadAllScenariosConfig()
 
    // TODO: IMplement changing the active action when action performed.
