@@ -1,4 +1,4 @@
-const scenarioConfig = {
+const scenarioConfig: ScenarioConfig = {
    name: "First encounter",
    shortDescription: "First encounter with Miinii.",
    description:
@@ -37,6 +37,7 @@ const scenarioConfig = {
          z: 0.5,
       },
    ],
+   thumbNailPath: "sprites/thumbnails/scenarios/firstencounter.png",
 }
 
 export { scenarioConfig }

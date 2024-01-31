@@ -46,3 +46,34 @@ declare interface Position {
    y: number
    z: number
 }
+
+declare interface Size2D {
+   width: number
+   length: number
+}
+
+declare interface Position2D {
+   x: number
+   z: number
+}
+
+declare interface ArenaConfig {
+   size: Size2D
+}
+
+declare interface ScenarioEnemyConfig {
+   enemyName: string
+   quantity: number
+   startingPosition: Position2D
+}
+
+declare interface ScenarioConfig {
+   id?: string
+   name: string
+   shortDescription: string
+   description: string
+   arena: ArenaConfig
+   enemies: Array<ScenarioEnemyConfig>
+   playerCharacterStartingPositions: Array<Position2D>
+   thumbNailPath: string
+}

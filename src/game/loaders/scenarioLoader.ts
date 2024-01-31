@@ -1,15 +1,16 @@
 import { scenarioConfigRoot } from "../../config/paths"
-import { scenarioConfigFolders } from "../../config/paths"
-import { atom } from "jotai"
+import { v4 } from "uuid"
 
-const scenarioLoader = async (scenarioConfigFolder) => {
-   const scenarioConfig = (
+const scenarioLoader = async (scenarioConfigFolder: string) => {
+   const scenarioConfig: ScenarioConfig = (
       await import(
          `${scenarioConfigRoot}/${scenarioConfigFolder}/scenarioconfig`
       )
    ).scenarioConfig
 
-   // TODO: Continue from here
+   scenarioConfig.id = v4()
+
+   return scenarioConfig
 }
 
 export { scenarioLoader }

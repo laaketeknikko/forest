@@ -1,5 +1,6 @@
 import { atom } from "jotai"
 
-const allScenariosAtom = atom([])
+const allScenarioConfigsAtom = atom<Array<ScenarioConfig>>([])
+const selectedScenarioConfigAtom = atom({})
 
-export { allScenariosAtom }
+export { allScenarioConfigsAtom, selectedScenarioConfigAtom }

@@ -26,17 +26,15 @@ const MainMenu = () => {
                      alignItems: "center",
                   }}
                >
-                  <Box component="div">
-                     <Tabs
-                        value={chosenTab}
-                        onChange={(_e, newTab) => setChosenTab(newTab)}
-                        orientation="vertical"
-                     >
-                        <Tab label="New game"></Tab>
-                        <Tab label="Scenario selection"></Tab>
-                        <Tab label="Character selection"></Tab>
-                     </Tabs>
-                  </Box>
+                  <Tabs
+                     value={chosenTab}
+                     onChange={(_e, newTab) => setChosenTab(newTab)}
+                     orientation="vertical"
+                  >
+                     <Tab label="New game"></Tab>
+                     <Tab label="Scenario selection"></Tab>
+                     <Tab label="Character selection"></Tab>
+                  </Tabs>
                </Grid>
                <Grid
                   xs={9}
@@ -47,21 +45,18 @@ const MainMenu = () => {
                      alignItems: "center",
                   }}
                >
-                  {chosenTab === 0 && (
-                     <Box component="div">
-                        <NewGame />
-                     </Box>
-                  )}
+                  {chosenTab === 0 && <NewGame />}
                   {chosenTab === 1 && (
-                     <Box component="div">
-                        <ScenarioSelection />
-                     </Box>
+                     <Paper sx={{ overflow: "scroll" }}>
+                        <Grid container>
+                           <Grid xs={3}>
+                              <ScenarioSelection />
+                           </Grid>
+                           <Grid xs={9}>Hello</Grid>
+                        </Grid>
+                     </Paper>
                   )}
-                  {chosenTab === 2 && (
-                     <Box component="div">
-                        <CharacterSelection />
-                     </Box>
-                  )}
+                  {chosenTab === 2 && <CharacterSelection />}
                </Grid>
             </Grid>
          </Paper>
