@@ -19,3 +19,4 @@
 | 29.1. | 2    | UI and logic work                                           |
 | 30.1. | 1    | Game logic work                                             |
 | 30.1. | 1    | Game logic work                                             |
+| 31.1. | 2    | Main menu UI and scenario work                              |

@@ -46,16 +46,7 @@ const MainMenu = () => {
                   }}
                >
                   {chosenTab === 0 && <NewGame />}
-                  {chosenTab === 1 && (
-                     <Paper sx={{ overflow: "scroll" }}>
-                        <Grid container>
-                           <Grid xs={3}>
-                              <ScenarioSelection />
-                           </Grid>
-                           <Grid xs={9}>Hello</Grid>
-                        </Grid>
-                     </Paper>
-                  )}
+                  {chosenTab === 1 && <ScenarioSelection />}
                   {chosenTab === 2 && <CharacterSelection />}
                </Grid>
             </Grid>

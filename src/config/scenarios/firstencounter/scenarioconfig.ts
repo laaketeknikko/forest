@@ -37,6 +37,7 @@ const scenarioConfig: ScenarioConfig = {
          z: 0.5,
       },
    ],
+   maxPartySize: 4,
    thumbNailPath: "sprites/thumbnails/scenarios/firstencounter.png",
 }
 

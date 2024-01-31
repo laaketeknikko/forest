@@ -76,4 +76,5 @@ declare interface ScenarioConfig {
    enemies: Array<ScenarioEnemyConfig>
    playerCharacterStartingPositions: Array<Position2D>
    thumbNailPath: string
+   maxPartySize: number
 }
