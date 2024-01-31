@@ -8,7 +8,7 @@ import { useState } from "react"
 
 import { NewGame } from "./NewGame"
 import { ScenarioSelection } from "./ScenarioSelection"
-import { CharacterSelection } from "./CharacterSelection"
+import { CharacterSelection } from "./CharacterSelection/CharacterSelection"
 
 const MainMenu = () => {
    const [chosenTab, setChosenTab] = useState(0)
