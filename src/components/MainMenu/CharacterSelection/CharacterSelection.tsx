@@ -5,8 +5,10 @@ import { allPlayerCharactersAtom } from "../../../game/state/jotai/characters"
 import { useState } from "react"
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup"
 import { CharacterOption } from "./CharacterOption"
-import { AvatarGroup } from "@mui/material"
+import AvatarGroup from "@mui/material/AvatarGroup"
 import Avatar from "@mui/material/Avatar"
+import { selectedScenarioConfigAtom } from "../../../game/state/jotai/scenarios"
+import Typography from "@mui/material/Typography"
 
 interface CurrentProps {
    name: string
@@ -19,18 +21,21 @@ interface SelectedCharacter {
 
 const CharacterSelection = () => {
    const [allPlayerCharacterAtoms] = useAtom(allPlayerCharactersAtom)
+   const [selectedScenarioConfig] = useAtom(selectedScenarioConfigAtom)
 
    const [selectedCharacters, setSelectedCharacters] = useState<
       Array<SelectedCharacter>
    >([])
 
    const handleCharacterSelected = (_event, selection) => {
-      console.log("in characterselection, selection", selection)
       setSelectedCharacters(selection)
    }
 
    return (
       <Box component="div">
+         <Typography variant="body1">
+            Maximum party size: {selectedScenarioConfig.maxPartySize}
+         </Typography>
          <AvatarGroup>
             {selectedCharacters &&
                selectedCharacters.map((character) => {
@@ -42,7 +47,11 @@ const CharacterSelection = () => {
                   )
                })}
          </AvatarGroup>
-         <ToggleButtonGroup onChange={handleCharacterSelected}>
+         <ToggleButtonGroup
+            onChange={handleCharacterSelected}
+            exclusive={false}
+            value={selectedCharacters}
+         >
             {allPlayerCharacterAtoms.map((characterAtom) => {
                return (
                   <CharacterOption
