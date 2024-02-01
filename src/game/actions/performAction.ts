@@ -19,7 +19,7 @@ interface performActionProps {
 
 interface affectedEntity {
    entityData: GameEntity
-   entity: never
+   entity: Atom<GameEntity>
 }
 
 const performAction = ({
@@ -57,8 +57,12 @@ const performMoveAction = (props: performActionProps) => {
       props.selectedCharacterAtom
    )
 
-   selectedCharacter.position.x = props.targetPoint.x
-   selectedCharacter.position.z = props.targetPoint.z
+   console.assert(
+      selectedCharacter.position !== undefined,
+      "Selected character has no position"
+   )
+   selectedCharacter.position!.x = props.targetPoint.x
+   selectedCharacter.position!.z = props.targetPoint.z
 
    jotaiStore.set(props.selectedCharacterAtom, { ...selectedCharacter })
 }
@@ -69,8 +73,6 @@ const performOffensiveAction = (props: performActionProps) => {
       z: Math.floor(props.targetPoint.z) + 0.5,
    }
    const jotaiStore = getDefaultStore()
-   const selectedCharacter = jotaiStore.get(props.selectedCharacterAtom)
-   const activeCard = jotaiStore.get(props.activeCardAtom)
 
    const allGameEntities = jotaiStore.get(allGameEntitiesAtom)
    const affectedEntities: Array<affectedEntity> = []
@@ -78,8 +80,8 @@ const performOffensiveAction = (props: performActionProps) => {
    for (const entity of allGameEntities) {
       const entityData: GameEntity = jotaiStore.get(entity)
 
-      const differenceX = Math.abs(entityData.position.x - tileCenter.x)
-      const differenceZ = Math.abs(entityData.position.z - tileCenter.z)
+      const differenceX = Math.abs(entityData.position!.x - tileCenter.x)
+      const differenceZ = Math.abs(entityData.position!.z - tileCenter.z)
 
       if (differenceX <= 0.5 && differenceZ <= 0.5) {
          affectedEntities.push({ entityData: entityData, entity: entity })
@@ -92,11 +94,9 @@ const performOffensiveAction = (props: performActionProps) => {
       if (entity.entityData.health && attackPower) {
          entity.entityData.health -= attackPower
       }
-      jotaiStore.set(entity.entity, entity.entityData)
+      // TODO: Fix typing
+      jotaiStore.set(entity.entity as never, entity.entityData)
    }
-
-   // TODO: Do something with the affected entities
-   console.log("Affected entities: ", affectedEntities)
 }
 
 export { performAction }

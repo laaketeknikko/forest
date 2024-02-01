@@ -5,10 +5,7 @@ import { TextureLoader } from "three"
 import { MathUtils } from "three"
 
 import { Atom, useAtom } from "jotai"
-import { selectedCharacterAtom } from "../../game/state/jotai/characters"
-import { Billboard } from "@react-three/drei"
-
-import { useState } from "react"
+import { useEffect } from "react"
 
 interface CharacterProps {
    characterAtom: Atom<Character>
@@ -18,9 +15,12 @@ interface CharacterProps {
 // TODO: Place the characters on ground level.
 const Character = ({ characterAtom, width = 1 }: CharacterProps) => {
    const [character] = useAtom(characterAtom)
-   const [, setActiveCharacter] = useAtom(selectedCharacterAtom)
 
    const colorMap = useLoader(TextureLoader, character.spritePath)
+
+   useEffect(() => {
+      console.log("width", width)
+   }, [width])
 
    return (
       <sprite

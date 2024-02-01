@@ -1,5 +1,5 @@
-import { ScreenSpace, Text } from "@react-three/drei"
 import { Atom, useAtom } from "jotai"
+import { useEffect } from "react"
 
 interface SupportActionHelperProps {
    selectedCardAtom: Atom<ActionCard>
@@ -16,6 +16,11 @@ const SupportActionHelper = ({
    const action = selectedCard.actions.find(
       (action) => action.id === selectedCard.nextActionId
    )
+
+   useEffect(() => {
+      console.log("In SupportActionHelper, activeCharacter:", activeCharacter)
+      console.log("In SupportActionHelper, action:", action)
+   }, [action, activeCharacter])
 
    return null
 }

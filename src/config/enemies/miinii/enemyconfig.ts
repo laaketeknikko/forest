@@ -61,6 +61,7 @@ const enemyConfig: Omit<Enemy, "position"> = {
    baseActionDelay: 10,
    currentActionDelay: 10,
    cards: miiniiCards,
+   selectedCardId: "",
 }
 
 export { enemyConfig }

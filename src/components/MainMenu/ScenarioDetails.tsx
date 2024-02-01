@@ -7,9 +7,6 @@ import { allEnemiesAtom } from "../../game/state/jotai/enemies"
 import { getDefaultStore, useAtom } from "jotai"
 import { EnemyDetails } from "./EnemyDetails"
 import { emptyEnemyAtom } from "../../game/state/initialStates"
-import List from "@mui/material/List"
-import ListItem from "@mui/material/ListItem"
-import AvatarGroup from "@mui/material/AvatarGroup"
 
 interface ScenarioDetailsProps {
    scenarioConfig: ScenarioConfig
