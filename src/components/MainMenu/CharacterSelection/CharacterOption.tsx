@@ -1,25 +1,37 @@
 import { useAtom } from "jotai"
 import type { Atom } from "jotai"
-import ToggleButton from "@mui/material/ToggleButton"
 
-import { useRef } from "react"
+import ImageListItem from "@mui/material/ImageListItem"
 
-interface CharacterOptionProps {
+interface Option {
+   name: string
+   spritePath: string
    characterAtom: Atom<Character>
 }
 
-const CharacterOption = ({ characterAtom }: CharacterOptionProps) => {
+type HandleSelectionFunc = (option: Option) => void
+
+interface CharacterOptionProps {
+   characterAtom: Atom<Character>
+   handleSelection: HandleSelectionFunc
+}
+
+const CharacterOption = ({
+   characterAtom,
+   handleSelection,
+}: CharacterOptionProps) => {
    const [characterData] = useAtom(characterAtom)
 
-   const option = useRef({
+   const option = {
       name: characterData.name,
       spritePath: characterData.spritePath,
-   })
+      characterAtom: characterAtom,
+   }
 
    return (
-      <ToggleButton value={option}>
+      <ImageListItem onClick={() => handleSelection(option)}>
          <img src={characterData.spritePath} />
-      </ToggleButton>
+      </ImageListItem>
    )
 }
 

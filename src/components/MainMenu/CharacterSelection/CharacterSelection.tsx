@@ -1,22 +1,20 @@
 import Box from "@mui/material/Box"
 
+import type { Atom } from "jotai"
 import { useAtom } from "jotai"
 import { allPlayerCharactersAtom } from "../../../game/state/jotai/characters"
 import { useState } from "react"
-import ToggleButtonGroup from "@mui/material/ToggleButtonGroup"
 import { CharacterOption } from "./CharacterOption"
 import AvatarGroup from "@mui/material/AvatarGroup"
 import Avatar from "@mui/material/Avatar"
 import { selectedScenarioConfigAtom } from "../../../game/state/jotai/scenarios"
 import Typography from "@mui/material/Typography"
+import ImageList from "@mui/material/ImageList"
 
 interface CurrentProps {
    name: string
    spritePath: string
-}
-
-interface SelectedCharacter {
-   current: CurrentProps
+   characterAtom: Atom<Character>
 }
 
 const CharacterSelection = () => {
@@ -24,11 +22,26 @@ const CharacterSelection = () => {
    const [selectedScenarioConfig] = useAtom(selectedScenarioConfigAtom)
 
    const [selectedCharacters, setSelectedCharacters] = useState<
-      Array<SelectedCharacter>
+      Array<CurrentProps>
    >([])
 
-   const handleCharacterSelected = (_event, selection) => {
+   /*const handleCharacterSelected = (_event, selection) => {
       setSelectedCharacters(selection)
+   }*/
+
+   const handleCharacterSelected = (option) => {
+      const isSelected = selectedCharacters.find((character) => {
+         return character.characterAtom === option.characterAtom
+      })
+
+      if (isSelected) {
+         const newSelection = selectedCharacters.filter((character) => {
+            return character.characterAtom !== option.characterAtom
+         })
+         setSelectedCharacters(newSelection)
+      } else {
+         setSelectedCharacters([...selectedCharacters, option])
+      }
    }
 
    return (
@@ -40,27 +53,22 @@ const CharacterSelection = () => {
             {selectedCharacters &&
                selectedCharacters.map((character) => {
                   return (
-                     <Avatar
-                        src={character.current.spritePath}
-                        key={character.current.name}
-                     />
+                     <Avatar src={character.spritePath} key={character.name} />
                   )
                })}
          </AvatarGroup>
-         <ToggleButtonGroup
-            onChange={handleCharacterSelected}
-            exclusive={false}
-            value={selectedCharacters}
-         >
-            {allPlayerCharacterAtoms.map((characterAtom) => {
-               return (
-                  <CharacterOption
-                     characterAtom={characterAtom}
-                     key={characterAtom}
-                  />
-               )
-            })}
-         </ToggleButtonGroup>
+         <ImageList cols={3}>
+            {allPlayerCharacterAtoms &&
+               allPlayerCharacterAtoms.map((character) => {
+                  return (
+                     <CharacterOption
+                        characterAtom={character}
+                        key={character}
+                        handleSelection={handleCharacterSelected}
+                     />
+                  )
+               })}
+         </ImageList>
       </Box>
    )
 }
