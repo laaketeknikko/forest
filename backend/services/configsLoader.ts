@@ -77,7 +77,7 @@ const loadEnemyConfigs = async () => {
             `${cwd}/${enemyConfigRoot}/${folder}/enemyconfig`
          )
          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-         const config = clone(module.characterConfig, false)
+         const config = clone(module.enemyConfig, false)
          if (!config.id) {
             config.id = v4()
          }
@@ -112,7 +112,7 @@ const loadScenarioConfigs = async () => {
             `${cwd}/${scenarioConfigRoot}/${folder}/scenarioconfig`
          )
          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-         const config = clone(module.characterConfig, false)
+         const config = clone(module.scenarioConfig, false)
 
          if (!config.id) {
             config.id = v4()
