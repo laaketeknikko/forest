@@ -1,12 +1,23 @@
+declare enum DamageTypes {
+   physical = "physical",
+}
+
+declare enum ActionTypes {
+   offensive = "offensive",
+   support = "support",
+   defensive = "defensive",
+   movement = "movement",
+}
+
 declare interface ActionCardAction {
    id?: string
    name: string
    description?: string
    powerMultiplier?: number
-   damageType?: number
+   damageType?: DamageTypes
    actionDelayMultiplier: number
    range?: number
-   type: number
+   type: ActionTypes
 }
 
 declare interface ActionCard {
