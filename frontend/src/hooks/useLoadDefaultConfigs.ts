@@ -8,6 +8,7 @@ const useLoadDefaultConfigs = () => {
 
    useEffect(() => {
       loadDefaultConfigs().then((configs) => {
+         console.log("Configs loaded", configs)
          setCharacterConfigs(configs.characters)
          setEnemyConfigs(configs.enemies)
          setScenarioConfigs(configs.scenarios)
