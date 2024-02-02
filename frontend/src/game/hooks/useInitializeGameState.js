@@ -1,21 +1,17 @@
-import {
-   getCharacterConfigFolders,
-   getEnemyConfigFolders,
-} from "../util/getCharacterConfigFolders"
+import clone from "clone"
+
 import { atom, useAtom } from "jotai"
 import { allPlayerCharactersAtom } from "../state/jotai/characters"
-import { characterLoader } from "../loaders/characterLoader"
-import { useMemo, useEffect } from "react"
+import { useEffect } from "react"
 import { atomsFromCardConfigs } from "../util/atomsFromCardConfigs"
 import { allEnemiesAtom } from "../state/jotai/enemies"
-import { enemyLoader } from "../loaders/enemyLoader"
+import { useLoadDefaultConfigs } from "../../hooks/useLoadDefaultConfigs"
+import { allScenarioConfigsAtom } from "../state/jotai/scenarios"
 
-const useInitializeCharacters = () => {
-   const folders = useMemo(() => {
-      return getCharacterConfigFolders()
-   }, [])
-
+const useInitializeCharacters = ({ characterConfigs }) => {
    const [, setAllCharactersAtom] = useAtom(allPlayerCharactersAtom)
+
+   useEffect(() => {}, [characterConfigs])
 
    // Read all character configs and add them to
    // allPlayerCharactersAtom as atoms.
@@ -25,15 +21,10 @@ const useInitializeCharacters = () => {
       const wrapperFunc = async () => {
          const characterAtoms = []
 
-         for (const folder of folders) {
-            let character = {}
-
-            const loadCharacter = async () => {
-               character = await characterLoader(folder)
-            }
-            await loadCharacter()
-
+         for (const characterConfig of characterConfigs) {
+            const character = clone(characterConfig, false)
             character.cards = atomsFromCardConfigs(character.cards)
+
             if (character.name === "Sihhis") {
                character.position = { x: 0.5, y: 0.3, z: 0.5 }
             } else if (character.name === "Guinean Piglet") {
@@ -51,63 +42,78 @@ const useInitializeCharacters = () => {
 
          setAllCharactersAtom(characterAtoms)
       }
-      wrapperFunc()
+      if (characterConfigs && characterConfigs.length > 0) {
+         wrapperFunc()
+      }
 
       return () => {
          setAllCharactersAtom([])
       }
-   }, [folders, setAllCharactersAtom])
+   }, [characterConfigs, setAllCharactersAtom])
 }
 
-const useInitializeEnemies = () => {
+const useInitializeEnemies = ({ enemyConfigs }) => {
    const [, setAllEnemiesAtom] = useAtom(allEnemiesAtom)
-
-   const folders = useMemo(() => {
-      console.log(
-         "useInitializeEnemies, config folder",
-         getEnemyConfigFolders()
-      )
-      return getEnemyConfigFolders()
-   }, [])
-   console.log("useInitializeEnemies, folders", folders)
 
    useEffect(() => {
       const enemies = []
       const wrapperFunc = async () => {
-         for (const folder of folders) {
-            let enemy = {}
-
-            console.log("useInitializeEnemies, before function")
-            const loadEnemy = async () => {
-               console.log("useInitializeEnemies in function before await")
-               enemy = await enemyLoader(folder)
-               console.log("useInitializeEnemies in function after await")
-            }
-            await loadEnemy()
-            console.log("useInitializeEnemies, after calling function")
+         for (const enemyConfig of enemyConfigs) {
+            const enemy = clone(enemyConfig)
 
             enemy.cards = atomsFromCardConfigs(enemy.cards)
             enemy.position = { x: 7.5, y: 0.5, z: 7.5 }
             enemy.currentActionDelay = enemy.baseActionDelay * Math.random() * 2
             const enemyAtom = atom(enemy)
             enemies.push(enemyAtom)
-
-            console.log("in useInitializeEnemies, enemy", enemy)
          }
       }
-      wrapperFunc()
+      if (enemyConfigs && enemyConfigs.length > 0) {
+         wrapperFunc()
+      }
 
       setAllEnemiesAtom(enemies)
 
       return () => {
          setAllEnemiesAtom([])
       }
-   }, [folders, setAllEnemiesAtom])
+   }, [enemyConfigs, setAllEnemiesAtom])
+}
+
+const useInitializeScenarios = ({ scenarioConfigs }) => {
+   const [, setAllScenariosAtom] = useAtom(allScenarioConfigsAtom)
+
+   useEffect(() => {
+      const scenarios = []
+      const wrapperFunc = async () => {
+         for (const scenarioConfig of scenarioConfigs) {
+            const scenario = clone(scenarioConfig)
+
+            scenarios.push(scenario)
+         }
+      }
+      if (scenarioConfigs && scenarioConfigs.length > 0) {
+         wrapperFunc()
+      }
+
+      setAllScenariosAtom(scenarios)
+
+      return () => {
+         setAllScenariosAtom([])
+      }
+   }, [scenarioConfigs, setAllScenariosAtom])
 }
 
 const useInitializeGameState = () => {
-   useInitializeCharacters()
-   useInitializeEnemies()
+   const configs = useLoadDefaultConfigs()
+
+   useInitializeCharacters({ characterConfigs: configs.characters })
+   useInitializeEnemies({ enemyConfigs: configs.enemies })
+   useInitializeScenarios({ scenarioConfigs: configs.scenarios })
+
+   useEffect(() => {
+      console.log("Game state in useInitializeGamestae", configs)
+   }, [configs])
 }
 
 export { useInitializeGameState }

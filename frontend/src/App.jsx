@@ -13,27 +13,17 @@ import { TurnOrderView } from "./components/MainWindow/TurnOrderView/TurnOrderVi
 
 import { MainMenu } from "./components/MainMenu/MainMenu"
 
-import { useLoadAllScenariosConfig } from "./game/hooks/scenarios/useGetAllScenarioConfigs"
-
 import { useInitializeGameState } from "./game/hooks/useInitializeGameState"
-import { useLoadDefaultConfigs } from "./hooks/useLoadDefaultConfigs"
 
 function App() {
    const [allCharacters] = useAtom(allPlayerCharactersAtom)
    const [showMainMenu, setShowMainMenu] = useState(true)
-
-   const configs = useLoadDefaultConfigs()
-
-   useEffect(() => {
-      console.log("Loaded configs", configs)
-   }, [configs])
 
    useEffect(() => {
       console.log("all characteres", allCharacters)
    }, [allCharacters])
 
    useInitializeGameState()
-   useLoadAllScenariosConfig()
 
    // TODO: IMplement changing the active action when action performed.
    const onActionTriggered = (card) => {
