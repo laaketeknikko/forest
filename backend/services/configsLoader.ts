@@ -1,4 +1,5 @@
 import { v4 } from "uuid"
+import clone from "clone"
 
 import { actionTypes } from "../assets/configs/actions/actionTypes"
 import { damageTypes } from "../assets/configs/actions/damageTypes"
@@ -38,19 +39,18 @@ const loadCharacterConfigs = async () => {
          const module = await import(
             `${cwd}/${characterConfigRoot}/${folder}/characterconfig`
          )
+
          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-         const config = module.characterConfig
+         const config = clone(module.characterConfig, false)
          if (!config.id) {
             config.id = v4()
          }
 
-         console.log("assigning card ids")
          for (const card of config.cards) {
             if (!card.id) {
                card.id = v4()
             }
 
-            console.log("assinging action ids")
             for (const action of card.actions) {
                if (!action.id) {
                   action.id = v4()
@@ -77,7 +77,7 @@ const loadEnemyConfigs = async () => {
             `${cwd}/${enemyConfigRoot}/${folder}/enemyconfig`
          )
          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-         const config = module.enemyConfig
+         const config = clone(module.characterConfig, false)
          if (!config.id) {
             config.id = v4()
          }
@@ -87,7 +87,6 @@ const loadEnemyConfigs = async () => {
                card.id = v4()
             }
 
-            console.log("assinging action ids")
             for (const action of card.actions) {
                if (!action.id) {
                   action.id = v4()
@@ -113,7 +112,7 @@ const loadScenarioConfigs = async () => {
             `${cwd}/${scenarioConfigRoot}/${folder}/scenarioconfig`
          )
          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-         const config = module.scenarioConfig
+         const config = clone(module.characterConfig, false)
 
          if (!config.id) {
             config.id = v4()
