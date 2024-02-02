@@ -23,6 +23,8 @@ const useInitializeCharacters = ({ characterConfigs }) => {
 
          for (const characterConfig of characterConfigs) {
             const character = clone(characterConfig, false)
+
+            character.cards = setInitialActiveActions(character.cards)
             character.cards = atomsFromCardConfigs(character.cards)
 
             if (character.name === "Sihhis") {
@@ -61,6 +63,7 @@ const useInitializeEnemies = ({ enemyConfigs }) => {
          for (const enemyConfig of enemyConfigs) {
             const enemy = clone(enemyConfig)
 
+            enemy.cards = setInitialActiveActions(enemy.cards)
             enemy.cards = atomsFromCardConfigs(enemy.cards)
             enemy.position = { x: 7.5, y: 0.5, z: 7.5 }
             enemy.currentActionDelay = enemy.baseActionDelay * Math.random() * 2
@@ -114,6 +117,19 @@ const useInitializeGameState = () => {
    useEffect(() => {
       console.log("Game state in useInitializeGamestae", configs)
    }, [configs])
+}
+
+const setInitialActiveActions = (cards) => {
+   const newCards = []
+   for (const card of cards) {
+      const newCard = clone(card)
+      if (newCard.actions?.length > 0) {
+         newCard.nextActionId = newCard.actions[0].id
+      }
+      newCards.push(newCard)
+   }
+
+   return newCards
 }
 
 export { useInitializeGameState }
