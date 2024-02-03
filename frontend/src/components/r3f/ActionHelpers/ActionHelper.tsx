@@ -8,6 +8,7 @@ import { MovementActionHelper } from "./MovementActionHelper"
 import { actionTypes } from "../../../config/actions/actionTypes"
 import { OffensiveActionHelper } from "./OffensiveActionHelper"
 import { SupportActionHelper } from "./SupportActionHelper"
+import { performAction } from "../../../game/actions/performAction"
 
 const ActionHelper = () => {
    const [selectedCard] = useAtom(currentlySelectedActionCardAtom)
@@ -37,18 +38,30 @@ const ActionHelper = () => {
       selectedCardData,
    ])
 
+   const onPerformAction = (event) => {
+      event.stopPropagation()
+      performAction({
+         selectedCharacterAtom: activeCharacterAtom as never,
+         activeCardAtom: currentlySelectedActionCardAtom as never,
+         selectedAction: action as never,
+         targetPoint: event.point,
+      })
+   }
+
    return (
       <group>
          {action?.type === actionTypes.movement && (
             <MovementActionHelper
                selectedCardAtom={selectedCard}
                activeCharacterAtom={activeCharacter}
+               onClick={onPerformAction}
             />
          )}
          {action?.type === actionTypes.offensive && (
             <OffensiveActionHelper
                selectedCardAtom={selectedCard}
                activeCharacterAtom={activeCharacter}
+               onClick={onPerformAction}
             />
          )}
          {action?.type === actionTypes.support && (

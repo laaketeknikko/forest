@@ -11,7 +11,7 @@ interface point2d {
 
 interface performActionProps {
    // TODO: Fix the type never to Atom<Character>
-   selectedCharacterAtom: never
+   selectedCharacterAtom: Atom<Character>
    activeCardAtom: Atom<ActionCard>
    selectedAction: ActionCardAction
    targetPoint: point2d
@@ -45,10 +45,32 @@ const performAction = ({
    }
 
    const jotaiStore = getDefaultStore()
-   const selectedCharacter: Character = jotaiStore.get(selectedCharacterAtom)
+   const selectedCharacter = jotaiStore.get(selectedCharacterAtom)
+
+   // Perform updates on character
+
+   // Update action delay
    selectedCharacter.currentActionDelay +=
       selectedCharacter.baseActionDelay * selectedAction.actionDelayMultiplier
-   jotaiStore.set(selectedCharacterAtom, { ...selectedCharacter })
+
+   // Update next action
+   const card = jotaiStore.get(activeCardAtom)
+   const actionIndex = card.actions.findIndex(
+      (action) => action.id === card.nextActionId
+   )
+   const newCards = [...selectedCharacter.cards]
+   const cardIndex = newCards.findIndex((c) => c.id === card.id)
+
+   // Actions cycle to start of card
+   if (actionIndex === card.actions.length - 1) {
+      newCards[cardIndex].nextActionId = card.actions[0].id
+   } else {
+      newCards[cardIndex].nextActionId = card.actions[actionIndex + 1].id
+   }
+   selectedCharacter.cards = newCards
+
+   // Update character atom
+   jotaiStore.set(selectedCharacterAtom as never, { ...selectedCharacter })
 }
 
 const performMoveAction = (props: performActionProps) => {
@@ -64,7 +86,9 @@ const performMoveAction = (props: performActionProps) => {
    selectedCharacter.position!.x = props.targetPoint.x
    selectedCharacter.position!.z = props.targetPoint.z
 
-   jotaiStore.set(props.selectedCharacterAtom, { ...selectedCharacter })
+   jotaiStore.set(props.selectedCharacterAtom as never, {
+      ...selectedCharacter,
+   })
 }
 
 const performOffensiveAction = (props: performActionProps) => {

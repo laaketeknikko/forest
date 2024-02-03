@@ -8,7 +8,7 @@ import type { onCardSelectedFunc } from "../../Cards/ActionCard"
 import { useEffect } from "react"
 
 interface SelectedCharacterCardsProps {
-   onCardSelected: onCardSelectedFunc
+   onCardSelected?: onCardSelectedFunc
 }
 
 const SelectedCharacterCards = ({

@@ -1,5 +1,5 @@
 const damageTypes = {
-   physical: 1,
+   physical: DamageTypes.physical,
 }
 
 export { damageTypes }

@@ -26,20 +26,8 @@ function App() {
    useInitializeGameState()
 
    // TODO: IMplement changing the active action when action performed.
-   const onActionTriggered = (card) => {
-      console.log("card in onactiontriggered", card)
-      /*
-      const actionIndex = card.actions.findIndex(
-         (action) => action.id === card.nextActionId
-      )
-      const newCards = [...selectedCharacterData.cards]
-      const cardIndex = newCards.findIndex((c) => c.id === card.id)
-      if (actionIndex === card.actions.length - 1) {
-         newCards[cardIndex].nextActionId = card.actions[0].id
-      } else {
-         newCards[cardIndex].nextActionId = card.actions[actionIndex + 1].id
-      }
-      setSelectedCharacterData({ ...selectedCharacterData, cards: newCards })*/
+   const onActionTriggered = () => {
+      console.log("Action triggered")
    }
 
    return (

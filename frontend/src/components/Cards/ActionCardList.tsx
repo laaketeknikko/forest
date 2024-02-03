@@ -11,7 +11,7 @@ import type { onCardSelectedFunc } from "./ActionCard"
 
 interface ActionCardListProps {
    cards: Array<Atom<ActionCard>>
-   onCardSelected: onCardSelectedFunc
+   onCardSelected?: onCardSelectedFunc
 }
 
 const ActionCardList = ({ cards, onCardSelected }: ActionCardListProps) => {

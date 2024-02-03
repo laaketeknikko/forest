@@ -3,7 +3,7 @@ import type { Atom } from "jotai"
 import { turnOrderAtom } from "./gameState"
 import { emptyCharacterAtom } from "../initialStates"
 
-const selectedCharacterAtom = atom<Atom<Character>>(emptyCharacterAtom)
+const selectedCharacterAtom = /*<Atom<Character>>*/ atom(emptyCharacterAtom)
 
 const activeCharacterAtom = atom<Atom<Character>>((get) => {
    const turnorder = get(turnOrderAtom)
