@@ -1,3 +1,27 @@
+import { createTheme } from "@mui/material"
+import { lightGreen } from "@mui/material/colors"
+
+const theme = createTheme()
+
+theme.palette.primary = {
+   ...theme.palette.primary,
+
+   main: "rgb(255, 185, 81)",
+}
+
+theme.palette.background = {
+   ...theme.palette.background,
+   default: lightGreen[900],
+   paper: "rgb(31, 27, 22)",
+}
+
+theme.palette.text = {
+   ...theme.palette.text,
+   primary: "rgb(190, 242, 145)",
+   secondary: "rgb(190, 242, 145, 0.8)",
+   disabled: "rgb(190, 242, 145, 0.3)",
+}
+
 const generatedDarkThemeColors = {
    colors: {
       primary: "rgb(255, 185, 81)",
@@ -43,4 +67,4 @@ const generatedDarkThemeColors = {
    },
 }
 
-export { generatedDarkThemeColors }
+export { generatedDarkThemeColors, theme }

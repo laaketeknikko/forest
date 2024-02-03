@@ -1,14 +1,3 @@
-declare enum DamageTypes {
-   physical = "physical",
-}
-
-declare enum ActionTypes {
-   offensive = "offensive",
-   support = "support",
-   defensive = "defensive",
-   movement = "movement",
-}
-
 declare interface ActionCardAction {
    id?: string
    name: string

@@ -18,7 +18,7 @@ const MainMenu = () => {
          <Paper sx={{ height: "100%" }}>
             <Grid container sx={{ height: "100%" }}>
                <Grid
-                  xs={3}
+                  xs={2}
                   sx={{
                      height: "100%",
                      display: "flex",
@@ -37,7 +37,7 @@ const MainMenu = () => {
                   </Tabs>
                </Grid>
                <Grid
-                  xs={9}
+                  xs={10}
                   sx={{
                      height: "100%",
                      display: "flex",

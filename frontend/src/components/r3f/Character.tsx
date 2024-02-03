@@ -6,6 +6,7 @@ import { MathUtils } from "three"
 
 import { Atom, useAtom } from "jotai"
 import { useEffect } from "react"
+import { Edges, Outlines } from "@react-three/drei"
 
 interface CharacterProps {
    characterAtom: Atom<Character>
@@ -23,19 +24,6 @@ const Character = ({ characterAtom, width = 1 }: CharacterProps) => {
    }, [width])
 
    return (
-      <sprite
-         position={[
-            character.position.x,
-            character.position.y,
-            character.position.z,
-         ]}
-         rotation-y={MathUtils.degToRad(-45)}
-      >
-         <spriteMaterial args={[{ map: colorMap }]} depthWrite={false} />
-      </sprite>
-   )
-
-   /*return (
       <mesh
          position={[
             character.position.x,
@@ -43,9 +31,6 @@ const Character = ({ characterAtom, width = 1 }: CharacterProps) => {
             character.position.z,
          ]}
          rotation-x={MathUtils.degToRad(-45)}
-         onClick={() => {
-            setActiveCharacter(characterAtom)
-         }}
       >
          <planeGeometry args={[width, 1]} />
          <meshBasicMaterial
@@ -56,7 +41,7 @@ const Character = ({ characterAtom, width = 1 }: CharacterProps) => {
             toneMapped={false}
          />
       </mesh>
-   )*/
+   )
 }
 
 Character.propTypes = {

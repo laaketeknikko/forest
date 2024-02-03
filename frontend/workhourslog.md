@@ -23,3 +23,5 @@
 | 31.1. | 2    | Main menu UI work                                           |
 | 2.2.  | 3    | Setting up / implementing TypeScript backend                |
 | 2.2.  | 2    | Refactoring frontend to use backend                         |
+| 3.2.  | 1    | Refactoring frontend                                        |
+| 3.2.  | 1    | Theming                                                     |

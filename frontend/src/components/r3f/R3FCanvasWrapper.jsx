@@ -14,7 +14,10 @@ const R3FCanvasWrapper = () => {
    const [allEnemiesValue] = useAtom(allEnemiesAtom)
 
    return (
-      <Canvas camera={{ position: [1, 4, 5] }}>
+      <Canvas
+         camera={{ position: [1, 4, 5] }}
+         style={{ backgroundColor: "rgb(31, 27, 22)" }}
+      >
          <axesHelper />
          <OrbitControls />
          <ambientLight args={["white", 1]} />

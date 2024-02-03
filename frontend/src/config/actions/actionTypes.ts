@@ -1,3 +1,5 @@
+import { ActionTypes } from "../types"
+
 const actionTypes = {
    offensive: ActionTypes.offensive,
    support: ActionTypes.support,

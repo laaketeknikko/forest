@@ -2,8 +2,12 @@ import { MathUtils, TextureLoader } from "three"
 import PropTypes from "prop-types"
 import { useLoader } from "@react-three/fiber"
 import { Edges, Outlines } from "@react-three/drei"
+import { theme } from "../../../styles/mui/theme"
+import { useState, useEffect } from "react"
 
 const GroundTile = ({ xPos, yPos = 0, zPos }) => {
+   const [isHovered, setIsHovered] = useState(false)
+
    return (
       <>
          <mesh
@@ -12,10 +16,20 @@ const GroundTile = ({ xPos, yPos = 0, zPos }) => {
             onClick={(event) =>
                console.log("Clicking on ground, event: ", event.point)
             }
+            onPointerEnter={() => setIsHovered(true)}
+            onPointerLeave={() => setIsHovered(false)}
          >
             <planeGeometry args={[1, 1]} />
-            <meshBasicMaterial toneMapped={false} />
-            <Edges color="red" scale={0.3} />
+            <meshBasicMaterial toneMapped={false} transparent opacity={0} />
+
+            <Edges
+               color={
+                  isHovered
+                     ? theme.palette.primary.main
+                     : theme.palette.text.primary
+               }
+               scale={0.99}
+            />
          </mesh>
       </>
    )

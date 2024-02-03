@@ -1,11 +1,12 @@
-interface ActionCardAction {
-   name: string
-   description?: string
-   powerMultiplier?: number
-   damageType?: number
-   actionDelayMultiplier: number
-   range?: number
-   type: number
+enum DamageTypes {
+   physical = "physical",
 }
 
-export type { ActionCardAction }
+enum ActionTypes {
+   offensive = "offensive",
+   support = "support",
+   defensive = "defensive",
+   movement = "movement",
+}
+
+export { DamageTypes, ActionTypes }
