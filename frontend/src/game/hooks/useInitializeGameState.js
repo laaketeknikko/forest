@@ -11,8 +11,6 @@ import { allScenarioConfigsAtom } from "../state/jotai/scenarios"
 const useInitializeCharacters = ({ characterConfigs }) => {
    const [, setAllCharactersAtom] = useAtom(allPlayerCharactersAtom)
 
-   useEffect(() => {}, [characterConfigs])
-
    // Read all character configs and add them to
    // allPlayerCharactersAtom as atoms.
    // Wrap the whole thing in an async function so
