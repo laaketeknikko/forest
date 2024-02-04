@@ -12,7 +12,7 @@ const activeCharacterAtom = atom<Atom<Character>>((get) => {
    return turnorder[0]
 })
 
-const allPlayerCharactersAtom = atom([])
+const allPlayerCharactersAtom = atom<Array<Atom<Character>>>([])
 
 export {
    selectedCharacterAtom,

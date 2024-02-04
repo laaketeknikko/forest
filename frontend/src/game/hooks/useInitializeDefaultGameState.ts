@@ -1,8 +1,7 @@
 import clone from "clone"
 
-import { atom, useAtom } from "jotai"
+import { Atom, atom, useAtom } from "jotai"
 import { allPlayerCharactersAtom } from "../state/jotai/characters"
-import { useEffect } from "react"
 import { atomsFromCardConfigs } from "../util/atomsFromCardConfigs"
 import { allEnemiesAtom } from "../state/jotai/enemies"
 import { useLoadDefaultConfigs } from "../../hooks/useLoadDefaultConfigs"
@@ -15,9 +14,10 @@ const useInitializeCharacters = ({ characterConfigs }) => {
    // allPlayerCharactersAtom as atoms.
    // Wrap the whole thing in an async function so
    // that we can await in the loop.
-   useEffect(() => {
+
+   const initializeCharacter = async () => {
       const wrapperFunc = async () => {
-         const characterAtoms = []
+         const characterAtoms: Array<Atom<Character>> = []
 
          for (const characterConfig of characterConfigs) {
             const character = clone(characterConfig, false)
@@ -45,18 +45,16 @@ const useInitializeCharacters = ({ characterConfigs }) => {
       if (characterConfigs && characterConfigs.length > 0) {
          wrapperFunc()
       }
+   }
 
-      return () => {
-         setAllCharactersAtom([])
-      }
-   }, [characterConfigs, setAllCharactersAtom])
+   return initializeCharacter
 }
 
 const useInitializeEnemies = ({ enemyConfigs }) => {
    const [, setAllEnemiesAtom] = useAtom(allEnemiesAtom)
 
-   useEffect(() => {
-      const enemies = []
+   const initializeEnemies = async () => {
+      const enemies: Array<Atom<Enemy>> = []
       const wrapperFunc = async () => {
          for (const enemyConfig of enemyConfigs) {
             const enemy = clone(enemyConfig)
@@ -74,18 +72,16 @@ const useInitializeEnemies = ({ enemyConfigs }) => {
       }
 
       setAllEnemiesAtom(enemies)
+   }
 
-      return () => {
-         setAllEnemiesAtom([])
-      }
-   }, [enemyConfigs, setAllEnemiesAtom])
+   return initializeEnemies
 }
 
 const useInitializeScenarios = ({ scenarioConfigs }) => {
    const [, setAllScenariosAtom] = useAtom(allScenarioConfigsAtom)
 
-   useEffect(() => {
-      const scenarios = []
+   const initializeScenarios = async () => {
+      const scenarios: Array<ScenarioConfig> = []
       const wrapperFunc = async () => {
          for (const scenarioConfig of scenarioConfigs) {
             const scenario = clone(scenarioConfig)
@@ -98,27 +94,35 @@ const useInitializeScenarios = ({ scenarioConfigs }) => {
       }
 
       setAllScenariosAtom(scenarios)
+   }
 
-      return () => {
-         setAllScenariosAtom([])
-      }
-   }, [scenarioConfigs, setAllScenariosAtom])
+   return initializeScenarios
 }
 
-const useInitializeGameState = () => {
+const useInitializeDefaultGameState = () => {
    const configs = useLoadDefaultConfigs()
 
-   useInitializeCharacters({ characterConfigs: configs.characters })
-   useInitializeEnemies({ enemyConfigs: configs.enemies })
-   useInitializeScenarios({ scenarioConfigs: configs.scenarios })
+   const initializeCharacters = useInitializeCharacters({
+      characterConfigs: configs.characters,
+   })
+   const initializeEnemies = useInitializeEnemies({
+      enemyConfigs: configs.enemies,
+   })
+   const initializeScenarios = useInitializeScenarios({
+      scenarioConfigs: configs.scenarios,
+   })
 
-   useEffect(() => {
-      console.log("Game state in useInitializeGamestae", configs)
-   }, [configs])
+   const initializeDefaultGameState = async () => {
+      await initializeCharacters()
+      await initializeEnemies()
+      await initializeScenarios()
+   }
+
+   return initializeDefaultGameState
 }
 
 const setInitialActiveActions = (cards) => {
-   const newCards = []
+   const newCards: Array<ActionCard> = []
    for (const card of cards) {
       const newCard = clone(card)
       if (newCard.actions?.length > 0) {
@@ -130,4 +134,4 @@ const setInitialActiveActions = (cards) => {
    return newCards
 }
 
-export { useInitializeGameState }
+export { useInitializeDefaultGameState }

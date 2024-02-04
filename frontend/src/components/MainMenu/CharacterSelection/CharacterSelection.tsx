@@ -63,7 +63,7 @@ const CharacterSelection = () => {
                   return (
                      <CharacterOption
                         characterAtom={character}
-                        key={character}
+                        key={character.toString()}
                         handleSelection={handleCharacterSelected}
                      />
                   )
