@@ -26,3 +26,4 @@
 | 3.2.  | 1    | Refactoring frontend                                        |
 | 3.2.  | 1    | Theming                                                     |
 | 4.2.  | 1    | Refactoring                                                 |
+| 4.2.  | 1    | Deploying backend and frontend to Render.com                |

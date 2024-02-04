@@ -6,6 +6,7 @@ import { atomsFromCardConfigs } from "../util/atomsFromCardConfigs"
 import { allEnemiesAtom } from "../state/jotai/enemies"
 import { useLoadDefaultConfigs } from "../../hooks/useLoadDefaultConfigs"
 import { allScenarioConfigsAtom } from "../state/jotai/scenarios"
+import { defaultConfigsAtom } from "../state/jotai/gameState"
 
 const useInitializeCharacters = ({ characterConfigs }) => {
    const [, setAllCharactersAtom] = useAtom(allPlayerCharactersAtom)
@@ -43,7 +44,7 @@ const useInitializeCharacters = ({ characterConfigs }) => {
          setAllCharactersAtom(characterAtoms)
       }
       if (characterConfigs && characterConfigs.length > 0) {
-         wrapperFunc()
+         await wrapperFunc()
       }
    }
 
@@ -68,7 +69,7 @@ const useInitializeEnemies = ({ enemyConfigs }) => {
          }
       }
       if (enemyConfigs && enemyConfigs.length > 0) {
-         wrapperFunc()
+         await wrapperFunc()
       }
 
       setAllEnemiesAtom(enemies)
@@ -90,7 +91,7 @@ const useInitializeScenarios = ({ scenarioConfigs }) => {
          }
       }
       if (scenarioConfigs && scenarioConfigs.length > 0) {
-         wrapperFunc()
+         await wrapperFunc()
       }
 
       setAllScenariosAtom(scenarios)
@@ -100,6 +101,8 @@ const useInitializeScenarios = ({ scenarioConfigs }) => {
 }
 
 const useInitializeDefaultGameState = () => {
+   const [defaultConfigs] = useAtom(defaultConfigsAtom)
+
    const configs = useLoadDefaultConfigs()
 
    const initializeCharacters = useInitializeCharacters({
@@ -113,9 +116,17 @@ const useInitializeDefaultGameState = () => {
    })
 
    const initializeDefaultGameState = async () => {
-      await initializeCharacters()
-      await initializeEnemies()
-      await initializeScenarios()
+      if (
+         defaultConfigs.characters.length === 0 ||
+         defaultConfigs.enemies.length === 0 ||
+         defaultConfigs.scenarios.length === 0
+      ) {
+         console.log("in initializedefaultgamestate in if")
+         await configs.loadConfigs()
+         await initializeCharacters()
+         await initializeEnemies()
+         await initializeScenarios()
+      }
    }
 
    return initializeDefaultGameState

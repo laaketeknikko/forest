@@ -1,7 +1,7 @@
 import { atom } from "jotai"
 
 const emptyActionCard: ActionCard = {
-   id: "",
+   id: "empty",
    name: "",
    description: "",
    actions: [],
@@ -19,6 +19,7 @@ const emptyCharacter: Character = {
    currentActionDelay: 0,
    position: { x: 0, y: 0, z: 0 },
    health: 0,
+   id: "empty",
 }
 
 const emptyCharacterAtom = atom<Character>(emptyCharacter)
@@ -32,9 +33,10 @@ const emptyScenario: ScenarioConfig = {
    shortDescription: "Choose a scenario",
    arena: { size: { width: 0, length: 0 } },
    thumbNailPath: "",
+   id: "empty",
 }
 
-const emptyScenarioAtom = emptyScenario
+const emptyScenarioAtom = atom(emptyScenario)
 
 const emptyEnemy: Enemy = {
    name: "",
@@ -45,10 +47,16 @@ const emptyEnemy: Enemy = {
    position: { x: 0, z: 0, y: 0 },
    selectedCardId: "",
    spritePath: "",
-   id: "",
+   id: "empty",
 }
 
 const emptyEnemyAtom = atom(emptyEnemy)
+
+const emptyConfig = {
+   characters: emptyCharacter,
+   enemies: emptyEnemy,
+   scenarios: emptyScenario,
+}
 
 export {
    emptyCharacterAtom,
@@ -59,4 +67,5 @@ export {
    emptyScenarioAtom,
    emptyEnemy,
    emptyEnemyAtom,
+   emptyConfig,
 }

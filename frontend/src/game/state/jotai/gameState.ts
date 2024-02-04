@@ -19,4 +19,10 @@ const currentlySelectedActionCardAtom = atom<Atom<ActionCard>>(
    atom<ActionCard>({ ...emptyActionCard })
 )
 
-export { turnOrderAtom, currentlySelectedActionCardAtom }
+const defaultConfigsAtom = atom<{
+   characters: Array<Character>
+   enemies: Array<Enemy>
+   scenarios: Array<ScenarioConfig>
+}>({ characters: [], enemies: [], scenarios: [] })
+
+export { turnOrderAtom, currentlySelectedActionCardAtom, defaultConfigsAtom }

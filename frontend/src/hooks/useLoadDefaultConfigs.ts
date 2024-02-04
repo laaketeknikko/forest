@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { loadDefaultConfigs } from "../services/defaultConfigsLoader"
 
 const useLoadDefaultConfigs = () => {
@@ -6,16 +6,17 @@ const useLoadDefaultConfigs = () => {
    const [enemyConfigs, setEnemyConfigs] = useState([])
    const [scenarioConfigs, setScenarioConfigs] = useState([])
 
-   useEffect(() => {
+   const loadConfigs = async () => {
       loadDefaultConfigs().then((configs) => {
          console.log("Configs loaded", configs)
          setCharacterConfigs(configs.characters)
          setEnemyConfigs(configs.enemies)
          setScenarioConfigs(configs.scenarios)
       })
-   }, [])
+   }
 
    return {
+      loadConfigs: loadConfigs,
       characters: characterConfigs,
       enemies: enemyConfigs,
       scenarios: scenarioConfigs,
