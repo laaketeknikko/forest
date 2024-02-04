@@ -25,3 +25,4 @@
 | 2.2.  | 2    | Refactoring frontend to use backend                         |
 | 3.2.  | 1    | Refactoring frontend                                        |
 | 3.2.  | 1    | Theming                                                     |
+| 4.2.  | 1    | Refactoring                                                 |

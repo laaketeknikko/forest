@@ -20,6 +20,7 @@
       "@types/clone": "^2.1.4",
       "@types/uuid": "^9.0.8",
       "clone": "^2.1.2",
+      "dotenv": "^16.4.1",
       "jotai": "^2.6.2",
       "jotai-devtools": "^0.7.1",
       "lodash": "^4.17.21",

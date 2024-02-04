@@ -1,17 +1,19 @@
+const serverRoot = import.meta.env.VITE_SERVER_LOCATION
+
 const loadDefaultCharacterConfigs = async () => {
-   const response = await fetch("http://localhost:3000/api/configs/characters")
+   const response = await fetch(`${serverRoot}/api/configs/characters`)
    const json = await response.json()
    return json
 }
 
 const loadDefaultEnemyConfigs = async () => {
-   const response = await fetch("http://localhost:3000/api/configs/enemies")
+   const response = await fetch(`${serverRoot}/api/configs/enemies`)
    const json = await response.json()
    return json
 }
 
 const loadDefaultScenarioConfigs = async () => {
-   const response = await fetch("http://localhost:3000/api/configs/scenarios")
+   const response = await fetch(`${serverRoot}/api/configs/scenarios`)
    const json = await response.json()
    return json
 }
