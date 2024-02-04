@@ -5,7 +5,7 @@ import { MainMenu } from "./components/MainMenu/MainMenu"
 import { GameScene } from "./components/MainWindow/GameScene"
 
 function App() {
-   const [showMainMenu, setShowMainMenu] = useState(true)
+   const [showMainMenu] = useState(true)
 
    return (
       <>

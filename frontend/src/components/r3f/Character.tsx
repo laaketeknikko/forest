@@ -6,7 +6,6 @@ import { MathUtils } from "three"
 
 import { Atom, useAtom } from "jotai"
 import { useEffect } from "react"
-import { Edges, Outlines } from "@react-three/drei"
 
 interface CharacterProps {
    characterAtom: Atom<Character>

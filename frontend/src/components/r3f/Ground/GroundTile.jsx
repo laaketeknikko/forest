@@ -1,9 +1,9 @@
-import { MathUtils, TextureLoader } from "three"
+import { MathUtils } from "three"
 import PropTypes from "prop-types"
-import { useLoader } from "@react-three/fiber"
-import { Edges, Outlines } from "@react-three/drei"
+
+import { Edges } from "@react-three/drei"
 import { theme } from "../../../styles/mui/theme"
-import { useState, useEffect } from "react"
+import { useState } from "react"
 
 const GroundTile = ({ xPos, yPos = 0, zPos }) => {
    const [isHovered, setIsHovered] = useState(false)
