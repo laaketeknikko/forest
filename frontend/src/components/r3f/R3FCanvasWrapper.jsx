@@ -1,4 +1,4 @@
-import { Canvas } from "@react-three/fiber"
+import { Canvas, useFrame } from "@react-three/fiber"
 import { OrbitControls } from "@react-three/drei"
 
 import { Ground } from "./Ground/Ground"
@@ -8,6 +8,8 @@ import { Character } from "./Character"
 import { allPlayerCharactersAtom } from "../../game/state/jotai/characters"
 import { ActionHelper } from "./ActionHelpers/ActionHelper"
 import { allEnemiesAtom } from "../../game/state/jotai/enemies"
+
+//const DisableRender = () => useFrame(() => null, 1000)
 
 const R3FCanvasWrapper = () => {
    const [allPlayerCharactersValue] = useAtom(allPlayerCharactersAtom)

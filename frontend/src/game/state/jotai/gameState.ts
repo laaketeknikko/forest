@@ -2,6 +2,7 @@ import { Atom, atom } from "jotai"
 import { allPlayerCharactersAtom } from "./characters"
 import { emptyActionCard } from "../initialStates"
 import { allEnemiesAtom } from "./enemies"
+import { GameExecutionState } from "../../../config/types"
 
 const turnOrderAtom = atom<Array<Atom<Character>>>((get) => {
    const characters = [...get(allPlayerCharactersAtom), ...get(allEnemiesAtom)]
@@ -25,4 +26,13 @@ const defaultConfigsAtom = atom<{
    scenarios: Array<ScenarioConfig>
 }>({ characters: [], enemies: [], scenarios: [] })
 
-export { turnOrderAtom, currentlySelectedActionCardAtom, defaultConfigsAtom }
+const gameExecutionStateAtom = atom<GameExecutionState>(
+   GameExecutionState.stopped
+)
+
+export {
+   turnOrderAtom,
+   currentlySelectedActionCardAtom,
+   defaultConfigsAtom,
+   gameExecutionStateAtom,
+}

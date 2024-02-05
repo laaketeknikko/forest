@@ -9,4 +9,10 @@ enum ActionTypes {
    movement = "movement",
 }
 
-export { DamageTypes, ActionTypes }
+enum GameExecutionState {
+   running = "running",
+   paused = "paused",
+   stopped = "stopped",
+}
+
+export { DamageTypes, ActionTypes, GameExecutionState }

@@ -14,14 +14,24 @@ import { NewGame } from "./NewGame"
 import { ScenarioSelection } from "./ScenarioSelection"
 import { CharacterSelection } from "./CharacterSelection/CharacterSelection"
 import { ScenarioStartConfirmation } from "./ScenarioStartConfirmation"
+import { gameExecutionStateAtom } from "../../game/state/jotai/gameState"
+import { GameExecutionState } from "../../config/types"
+import { useAtom } from "jotai"
 
 const MainMenu = () => {
+   const [, setGameExecutionState] = useAtom(gameExecutionStateAtom)
+
    const [chosenTab, setChosenTab] = useState("0")
 
    const [gameConfigLoaded, setGameConfigLoaded] = useState(false)
    const [scenarioSelected, setScenarioSelected] = useState(false)
    const [charactersSelected, setCharactersSelected] = useState(false)
    const [, setScenarioStarted] = useState(false)
+
+   const startGame = (value: boolean) => {
+      setScenarioStarted(value)
+      setGameExecutionState(GameExecutionState.running)
+   }
 
    return (
       <Box component="div" sx={{ height: "100%" }}>
@@ -86,7 +96,7 @@ const MainMenu = () => {
                         sx={{ height: "100%", overflowY: "scroll" }}
                      >
                         <ScenarioStartConfirmation
-                           setNavigationState={setScenarioStarted}
+                           setNavigationState={startGame}
                         />
                      </TabPanel>
                   </Grid>
