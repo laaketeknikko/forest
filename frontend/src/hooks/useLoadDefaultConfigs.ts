@@ -1,25 +1,21 @@
-import { useState } from "react"
 import { loadDefaultConfigs } from "../services/defaultConfigsLoader"
+import { defaultConfigsAtom } from "../game/state/jotai/gameState"
+import { useAtom } from "jotai"
 
 const useLoadDefaultConfigs = () => {
-   const [characterConfigs, setCharacterConfigs] = useState([])
-   const [enemyConfigs, setEnemyConfigs] = useState([])
-   const [scenarioConfigs, setScenarioConfigs] = useState([])
+   const [defaultConfigs, setDefaultConfigs] = useAtom(defaultConfigsAtom)
 
    const loadConfigs = async () => {
       loadDefaultConfigs().then((configs) => {
-         console.log("Configs loaded", configs)
-         setCharacterConfigs(configs.characters)
-         setEnemyConfigs(configs.enemies)
-         setScenarioConfigs(configs.scenarios)
+         setDefaultConfigs(configs)
       })
    }
 
    return {
       loadConfigs: loadConfigs,
-      characters: characterConfigs,
-      enemies: enemyConfigs,
-      scenarios: scenarioConfigs,
+      characters: defaultConfigs.characters,
+      enemies: defaultConfigs.enemies,
+      scenarios: defaultConfigs.scenarios,
    }
 }
 
