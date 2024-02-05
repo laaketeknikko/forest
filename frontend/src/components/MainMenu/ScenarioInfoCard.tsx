@@ -9,16 +9,23 @@ import CardMedia from "@mui/material/CardMedia"
 
 interface ScenarioInfoCardProps {
    scenarioInfo: ScenarioConfig
+   setScenarioSelected: (value: boolean) => void
 }
 
-const ScenarioInfoCard = ({ scenarioInfo }: ScenarioInfoCardProps) => {
+const ScenarioInfoCard = ({
+   scenarioInfo,
+   setScenarioSelected,
+}: ScenarioInfoCardProps) => {
    const [, setSelectedScenarioConfig] = useAtom(selectedScenarioConfigAtom)
+
+   const handleClick = () => {
+      setSelectedScenarioConfig(scenarioInfo)
+      setScenarioSelected(true)
+   }
 
    return (
       <Card>
-         <CardActionArea
-            onClick={() => setSelectedScenarioConfig(scenarioInfo)}
-         >
+         <CardActionArea onClick={handleClick}>
             <CardMedia
                component="img"
                image={scenarioInfo.thumbNailPath}

@@ -125,6 +125,7 @@ const useInitializeDefaultGameState = () => {
       ) {
          await configs.loadConfigs()
       }
+      return true
    }
 
    return initializeDefaultGameState

@@ -7,10 +7,22 @@ import Paper from "@mui/material/Paper"
 import List from "@mui/material/List"
 import Grid from "@mui/material/Unstable_Grid2"
 import { ScenarioDetails } from "./ScenarioDetails"
+import { SetNavigationState } from "./types"
+import { useState } from "react"
 
-const ScenarioSelection = () => {
+interface ScenerioSelectionProps {
+   setNavigationState: SetNavigationState
+}
+
+const ScenarioSelection = ({ setNavigationState }: ScenerioSelectionProps) => {
    const [allScenarioConfigs] = useAtom(allScenarioConfigsAtom)
    const [selectedScenarioConfig] = useAtom(selectedScenarioConfigAtom)
+   const [, setScenarioSelected] = useState(false)
+
+   const handleScenerioSelected = () => {
+      setScenarioSelected(true)
+      setNavigationState(true)
+   }
 
    return (
       <Paper>
@@ -20,6 +32,7 @@ const ScenarioSelection = () => {
                   {allScenarioConfigs.map((config) => {
                      return (
                         <ScenarioInfoCard
+                           setScenarioSelected={handleScenerioSelected}
                            scenarioInfo={config}
                            key={config.id}
                         />

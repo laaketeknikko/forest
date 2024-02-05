@@ -2,14 +2,18 @@ import Box from "@mui/material/Box"
 
 import type { Atom } from "jotai"
 import { useAtom } from "jotai"
-import { allPlayerCharactersAtom } from "../../../game/state/jotai/characters"
-import { useState } from "react"
+import {
+   activePartyAtom,
+   allPlayerCharactersAtom,
+} from "../../../game/state/jotai/characters"
+import { useEffect, useState } from "react"
 import { CharacterOption } from "./CharacterOption"
 import AvatarGroup from "@mui/material/AvatarGroup"
 import Avatar from "@mui/material/Avatar"
 import { selectedScenarioConfigAtom } from "../../../game/state/jotai/scenarios"
 import Typography from "@mui/material/Typography"
 import ImageList from "@mui/material/ImageList"
+import { SetNavigationState } from "../types"
 
 interface CurrentProps {
    name: string
@@ -17,32 +21,51 @@ interface CurrentProps {
    characterAtom: Atom<Character>
 }
 
-const CharacterSelection = () => {
+interface CharacterSelectionProps {
+   setNavigationState: SetNavigationState
+}
+
+const CharacterSelection = ({
+   setNavigationState,
+}: CharacterSelectionProps) => {
    const [allPlayerCharacterAtoms] = useAtom(allPlayerCharactersAtom)
    const [selectedScenarioConfig] = useAtom(selectedScenarioConfigAtom)
+   const [, setActiveParty] = useAtom(activePartyAtom)
 
    const [selectedCharacters, setSelectedCharacters] = useState<
       Array<CurrentProps>
    >([])
 
-   /*const handleCharacterSelected = (_event, selection) => {
-      setSelectedCharacters(selection)
-   }*/
-
+   // Update local and global lists of selected characters.
+   // Local list contains name and image path for easier access.
    const handleCharacterSelected = (option) => {
       const isSelected = selectedCharacters.find((character) => {
          return character.characterAtom === option.characterAtom
       })
-
+      let newSelection: Array<CurrentProps> = []
       if (isSelected) {
-         const newSelection = selectedCharacters.filter((character) => {
+         newSelection = selectedCharacters.filter((character) => {
             return character.characterAtom !== option.characterAtom
          })
          setSelectedCharacters(newSelection)
       } else {
-         setSelectedCharacters([...selectedCharacters, option])
+         newSelection = [...selectedCharacters, option]
+         setSelectedCharacters(newSelection)
       }
+
+      setActiveParty(newSelection.map((character) => character.characterAtom))
    }
+
+   useEffect(() => {
+      if (
+         selectedCharacters.length > 0 &&
+         selectedCharacters.length <= selectedScenarioConfig.maxPartySize
+      ) {
+         setNavigationState(true)
+      } else {
+         setNavigationState(false)
+      }
+   }, [selectedCharacters, selectedScenarioConfig, setNavigationState])
 
    return (
       <Box component="div">

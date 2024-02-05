@@ -1,13 +1,12 @@
 import { useAtom } from "jotai"
 import type { Atom } from "jotai"
 
-import Avatar from "@mui/material/Avatar"
-import AvatarGroup from "@mui/material/AvatarGroup"
 import Container from "@mui/material/Container"
 import Box from "@mui/material/Box"
 import Typography from "@mui/material/Typography"
 
 import { useState } from "react"
+import { EnemyAvatars } from "./EnemyAvatars"
 
 interface EnemyDetailsProps {
    enemyAtom: Atom<Enemy>
@@ -17,24 +16,16 @@ interface EnemyDetailsProps {
 const EnemyDetails = ({ enemyAtom, scenarioDetails }: EnemyDetailsProps) => {
    const [enemy] = useAtom(enemyAtom)
    const [showDetails, setShowDetails] = useState(false)
-   // Array is only to loop.
-   const dummyArray = Array(scenarioDetails.quantity).fill("")
 
    return (
       <Container>
-         <AvatarGroup
-            max={2}
-            spacing="small"
-            variant="rounded"
-            sx={{ justifyContent: "center" }}
+         <EnemyAvatars
+            imagePath={enemy.spritePath}
+            quantity={scenarioDetails.quantity}
             onClick={() => {
                setShowDetails(!showDetails)
             }}
-         >
-            {dummyArray.map((_item, index) => {
-               return <Avatar key={index} src={enemy.spritePath} />
-            })}
-         </AvatarGroup>
+         />
          {showDetails && (
             <Box component="div">
                <Typography variant="body1">

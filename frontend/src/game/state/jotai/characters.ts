@@ -14,9 +14,12 @@ const activeCharacterAtom = atom<Atom<Character>>((get) => {
 
 const allPlayerCharactersAtom = atom<Array<Atom<Character>>>([])
 
+const activePartyAtom = atom<Array<Atom<Character>>>([])
+
 export {
    selectedCharacterAtom,
    emptyCharacterAtom,
    allPlayerCharactersAtom,
    activeCharacterAtom,
+   activePartyAtom,
 }
