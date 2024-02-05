@@ -19,8 +19,8 @@ const Character = ({ characterAtom, width = 1 }: CharacterProps) => {
    const colorMap = useLoader(TextureLoader, character.spritePath)
 
    useEffect(() => {
-      console.log("width", width)
-   }, [width])
+      console.log("in cahracater, texture.image", colorMap.image)
+   }, [colorMap.image])
 
    return (
       <mesh
