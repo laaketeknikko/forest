@@ -70,7 +70,7 @@ const R3FCanvasWrapper = () => {
                   <Character
                      key={enemy.toString()}
                      characterAtom={enemy}
-                     width={2}
+                     maxDimension={2}
                   />
                )
             })}

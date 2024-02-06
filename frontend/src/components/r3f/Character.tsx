@@ -2,36 +2,38 @@ import PropTypes from "prop-types"
 
 import { useLoader } from "@react-three/fiber"
 import { TextureLoader } from "three"
-import { MathUtils } from "three"
 
 import { Atom, useAtom } from "jotai"
 import { useEffect } from "react"
+import * as textureUtilities from "../util/textureUtilities"
 
 interface CharacterProps {
    characterAtom: Atom<Character>
-   width: number
+   maxDimension: number
 }
 
 // TODO: Place the characters on ground level.
-const Character = ({ characterAtom, width = 1 }: CharacterProps) => {
+const Character = ({ characterAtom, maxDimension = 1 }: CharacterProps) => {
    const [character] = useAtom(characterAtom)
 
    const colorMap = useLoader(TextureLoader, character.spritePath)
 
+   const dimensions = textureUtilities.getTextureNormalizedWidthAndHeight(
+      colorMap,
+      maxDimension
+   )
+   const normalizedYPos = textureUtilities.getTextureYCenter(dimensions.height)
+
    useEffect(() => {
-      console.log("in cahracater, texture.image", colorMap.image)
-   }, [colorMap.image])
+      console.log("in character, dimensions", dimensions)
+      console.log("in character, normalizedYPos", normalizedYPos)
+   }, [dimensions, normalizedYPos])
 
    return (
       <mesh
-         position={[
-            character.position.x,
-            character.position.y,
-            character.position.z,
-         ]}
-         rotation-x={MathUtils.degToRad(-45)}
+         position={[character.position.x, normalizedYPos, character.position.z]}
       >
-         <planeGeometry args={[width, 1]} />
+         <planeGeometry args={[dimensions.width, dimensions.height]} />
          <meshBasicMaterial
             color="white"
             map={colorMap}
