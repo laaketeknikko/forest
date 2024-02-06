@@ -1,7 +1,7 @@
 import { useAtom } from "jotai"
 import { currentlySelectedActionCardAtom } from "../../../game/state/jotai/gameState"
 import { activeCharacterAtom } from "../../../game/state/jotai/characters"
-import { useEffect } from "react"
+import { useEffect, useMemo } from "react"
 
 import { MovementActionHelper } from "./MovementActionHelper"
 
@@ -17,8 +17,12 @@ const ActionHelper = () => {
    const [activeCharacter] = useAtom(activeCharacterAtom)
    const [activeCharacterData] = useAtom(activeCharacter)
 
-   const action = selectedCardData.actions.find(
-      (action) => action.id === selectedCardData.nextActionId
+   const action = useMemo(
+      () =>
+         selectedCardData.actions.find(
+            (action) => action.id === selectedCardData.nextActionId
+         ),
+      [selectedCardData.actions, selectedCardData.nextActionId]
    )
 
    useEffect(() => {
@@ -40,10 +44,16 @@ const ActionHelper = () => {
 
    const onPerformAction = (event) => {
       event.stopPropagation()
+
+      if (!action) {
+         throw new Error("Trying to perform an action without an action.")
+      }
+
       performAction({
-         selectedCharacterAtom: activeCharacterAtom as never,
-         activeCardAtom: currentlySelectedActionCardAtom as never,
-         selectedAction: action as never,
+         // TODO: Fix nevers
+         selectedCharacterAtom: activeCharacter,
+         activeCardAtom: selectedCard,
+         selectedAction: action,
          targetPoint: event.point,
       })
    }

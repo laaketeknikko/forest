@@ -29,3 +29,6 @@
 | 4.2.  | 1    | Deploying backend and frontend to Render.com                |
 | 5.2.  | 1    | Refactoring/Debugging                                       |
 | 5.2.  | 2    | UI work                                                     |
+| 6.2.  | 1    | Game config work                                            |
+| 6.2.  | 2    | Game/UI logic work                                          |
+| 6.2.  | 2    | Debugging and refactoring                                   |

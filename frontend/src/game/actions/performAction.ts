@@ -1,7 +1,7 @@
 import type { Atom } from "jotai"
 import { getDefaultStore } from "jotai"
 
-import { allGameEntitiesAtom } from "../state/jotai/entities"
+import { allActiveGameEntitiesAtom } from "../state/jotai/entities"
 import { actionTypes } from "../../config/actions/actionTypes"
 
 interface point2d {
@@ -54,20 +54,19 @@ const performAction = ({
       selectedCharacter.baseActionDelay * selectedAction.actionDelayMultiplier
 
    // Update next action
-   const card = jotaiStore.get(activeCardAtom)
+   const card = { ...jotaiStore.get(activeCardAtom) }
    const actionIndex = card.actions.findIndex(
       (action) => action.id === card.nextActionId
    )
-   const newCards = [...selectedCharacter.cards]
-   const cardIndex = newCards.findIndex((c) => c.id === card.id)
 
-   // Actions cycle to start of card
    if (actionIndex === card.actions.length - 1) {
-      newCards[cardIndex].nextActionId = card.actions[0].id
+      card.nextActionId = card.actions[0].id
    } else {
-      newCards[cardIndex].nextActionId = card.actions[actionIndex + 1].id
+      card.nextActionId = card.actions[actionIndex + 1].id
    }
-   selectedCharacter.cards = newCards
+
+   // TODO: fix
+   jotaiStore.set(activeCardAtom as never, card)
 
    // Update character atom
    jotaiStore.set(selectedCharacterAtom as never, { ...selectedCharacter })
@@ -81,10 +80,11 @@ const performMoveAction = (props: performActionProps) => {
 
    console.assert(
       selectedCharacter.position !== undefined,
-      "Selected character has no position"
+      "Selected character has no position. selectedCharacter: ",
+      selectedCharacter
    )
-   selectedCharacter.position!.x = props.targetPoint.x
-   selectedCharacter.position!.z = props.targetPoint.z
+   selectedCharacter.position.x = props.targetPoint.x
+   selectedCharacter.position.z = props.targetPoint.z
 
    jotaiStore.set(props.selectedCharacterAtom as never, {
       ...selectedCharacter,
@@ -98,7 +98,7 @@ const performOffensiveAction = (props: performActionProps) => {
    }
    const jotaiStore = getDefaultStore()
 
-   const allGameEntities = jotaiStore.get(allGameEntitiesAtom)
+   const allGameEntities = jotaiStore.get(allActiveGameEntitiesAtom)
    const affectedEntities: Array<affectedEntity> = []
 
    for (const entity of allGameEntities) {

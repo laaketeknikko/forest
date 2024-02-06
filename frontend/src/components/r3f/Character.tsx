@@ -4,7 +4,7 @@ import { useLoader } from "@react-three/fiber"
 import { TextureLoader } from "three"
 
 import { Atom, useAtom } from "jotai"
-import { useEffect } from "react"
+
 import * as textureUtilities from "../util/textureUtilities"
 
 interface CharacterProps {
@@ -23,11 +23,6 @@ const Character = ({ characterAtom, maxDimension = 1 }: CharacterProps) => {
       maxDimension
    )
    const normalizedYPos = textureUtilities.getTextureYCenter(dimensions.height)
-
-   useEffect(() => {
-      console.log("in character, dimensions", dimensions)
-      console.log("in character, normalizedYPos", normalizedYPos)
-   }, [dimensions, normalizedYPos])
 
    return (
       <mesh

@@ -16,6 +16,12 @@ const OffensiveActionHelper = ({
    const [selectedCard] = useAtom(selectedCardAtom)
    const [activeCharacter] = useAtom(activeCharacterAtom)
 
+   console.log("In OffensiveActionHelper, activeCharacter:", activeCharacter)
+   console.log(
+      "In OffensiveActionHelper, activeCharacterAtom:",
+      activeCharacterAtom
+   )
+
    const action = selectedCard.actions.find(
       (action) => action.id === selectedCard.nextActionId
    )
@@ -24,7 +30,7 @@ const OffensiveActionHelper = ({
       <mesh
          position={[
             activeCharacter.position.x,
-            0.1,
+            activeCharacter.position.y,
             activeCharacter.position.z,
          ]}
          rotation-x={MathUtils.degToRad(-90)}

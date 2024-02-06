@@ -1,14 +1,14 @@
 import { atom } from "jotai"
 
-import { allPlayerCharactersAtom } from "./characters"
-import { allEnemiesAtom } from "./enemies"
+import { activePartyAtom } from "./characters"
+import { activeScenarioEnemiesAtom } from "./enemies"
 
-const allGameEntitiesAtom = atom((get) => {
-   const allCharacters = get(allPlayerCharactersAtom)
-   const allEnemies = get(allEnemiesAtom)
-   const allEntities = [...allCharacters, ...allEnemies]
+const allActiveGameEntitiesAtom = atom((get) => {
+   const activeCharacters = get(activePartyAtom)
+   const activeEnemies = get(activeScenarioEnemiesAtom)
+   const allEntities = [...activeCharacters, ...activeEnemies]
 
    return allEntities
 })
 
-export { allGameEntitiesAtom }
+export { allActiveGameEntitiesAtom }

@@ -1,11 +1,14 @@
 import { Atom, atom } from "jotai"
-import { allPlayerCharactersAtom } from "./characters"
+import { activePartyAtom } from "./characters"
 import { emptyActionCard } from "../initialStates"
-import { allEnemiesAtom } from "./enemies"
+import { activeScenarioEnemiesAtom } from "./enemies"
 import { GameExecutionState } from "../../../config/types"
 
 const turnOrderAtom = atom<Array<Atom<Character>>>((get) => {
-   const characters = [...get(allPlayerCharactersAtom), ...get(allEnemiesAtom)]
+   const characters = [
+      ...get(activePartyAtom),
+      ...get(activeScenarioEnemiesAtom),
+   ]
    characters.sort((aAtom, bAtom) => {
       const a: Character = get(aAtom)
       const b: Character = get(bAtom)
