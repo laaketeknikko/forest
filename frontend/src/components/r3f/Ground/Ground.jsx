@@ -1,11 +1,20 @@
 import { GroundTile } from "./GroundTile"
 import PropTypes from "prop-types"
+import { selectedScenarioConfigAtom } from "../../../game/state/jotai/scenarios"
+import { useAtom } from "jotai"
 
 const Ground = ({ lengthX = 15, lengthZ = 15 }) => {
+   const [selectedScenarioConfig] = useAtom(selectedScenarioConfigAtom)
+
+   const arenaSize = selectedScenarioConfig.arena?.size || {
+      length: lengthX,
+      width: lengthZ,
+   }
+
    const tiles = []
-   for (let x = 0; x < lengthX; x++) {
+   for (let x = 0; x < arenaSize.width; x++) {
       tiles.push([])
-      for (let z = 0; z < lengthZ; z++) {
+      for (let z = 0; z < arenaSize.length; z++) {
          const xPos = x + 0.5
          const zPos = z + 0.5
          tiles[x].push(

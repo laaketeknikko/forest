@@ -7,17 +7,17 @@ import { Ground } from "./Ground/Ground"
 
 import { useAtom } from "jotai"
 import { Character } from "./Character"
-import { allPlayerCharactersAtom } from "../../game/state/jotai/characters"
+import { activePartyAtom } from "../../game/state/jotai/characters"
 import { ActionHelper } from "./ActionHelpers/ActionHelper"
-import { allEnemiesAtom } from "../../game/state/jotai/enemies"
+import { activeScenarioEnemiesAtom } from "../../game/state/jotai/enemies"
 
 import { useIdleTimer } from "react-idle-timer"
 
 const DisableRender = () => useFrame(() => null, 1000)
 
 const R3FCanvasWrapper = () => {
-   const [allPlayerCharactersValue] = useAtom(allPlayerCharactersAtom)
-   const [allEnemiesValue] = useAtom(allEnemiesAtom)
+   const [activePartyCharacters] = useAtom(activePartyAtom)
+   const [activeEnemies] = useAtom(activeScenarioEnemiesAtom)
    const [pauseAnimation, setPauseAnimation] = useState(false)
 
    const onIdle = () => {
@@ -55,8 +55,8 @@ const R3FCanvasWrapper = () => {
          <axesHelper />
          <OrbitControls />
          <ambientLight args={["white", 1]} />
-         {allPlayerCharactersValue.length > 0 &&
-            allPlayerCharactersValue.map((character) => {
+         {activePartyCharacters.length > 0 &&
+            activePartyCharacters.map((character) => {
                return (
                   <Character
                      key={character.toString()}
@@ -64,8 +64,8 @@ const R3FCanvasWrapper = () => {
                   />
                )
             })}
-         {allEnemiesValue.length > 0 &&
-            allEnemiesValue.map((enemy) => {
+         {activeEnemies.length > 0 &&
+            activeEnemies.map((enemy) => {
                return (
                   <Character
                      key={enemy.toString()}

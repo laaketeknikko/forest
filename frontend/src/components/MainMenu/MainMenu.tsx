@@ -17,6 +17,7 @@ import { ScenarioStartConfirmation } from "./ScenarioStartConfirmation"
 import { gameExecutionStateAtom } from "../../game/state/jotai/gameState"
 import { GameExecutionState } from "../../config/types"
 import { useAtom } from "jotai"
+import { useInitializeScenario } from "../../game/hooks/useInitializeScenario"
 
 const MainMenu = () => {
    const [, setGameExecutionState] = useAtom(gameExecutionStateAtom)
@@ -28,8 +29,15 @@ const MainMenu = () => {
    const [charactersSelected, setCharactersSelected] = useState(false)
    const [, setScenarioStarted] = useState(false)
 
+   const initializeScenario = useInitializeScenario()
+
    const startGame = (value: boolean) => {
+      if (!initializeScenario()) {
+         throw new Error("Error initializing scenario.")
+      }
+
       setScenarioStarted(value)
+
       setGameExecutionState(GameExecutionState.running)
    }
 

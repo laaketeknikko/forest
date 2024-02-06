@@ -13,11 +13,6 @@ const useInitializeCharacters = () => {
    const [, setAllCharactersAtom] = useAtom(allPlayerCharactersAtom)
    const [defaultConfigs] = useAtom(defaultConfigsAtom)
 
-   // Read all character configs and add them to
-   // allPlayerCharactersAtom as atoms.
-   // Wrap the whole thing in an async function so
-   // that we can await in the loop.
-
    useEffect(() => {
       if (defaultConfigs.characters && defaultConfigs.characters.length > 0) {
          // wrapperFunc used to be async, that is why this construct.
@@ -31,14 +26,6 @@ const useInitializeCharacters = () => {
 
                character.cards = setInitialActiveActions(character.cards)
                character.cards = atomsFromCardConfigs(character.cards)
-
-               if (character.name === "Sihhis") {
-                  character.position = { x: 0.5, y: 0.3, z: 0.5 }
-               } else if (character.name === "Guinean Piglet") {
-                  character.position = { x: 14.5, y: 0.3, z: 14.5 }
-               } else if (character.name === "Bushi") {
-                  character.position = { x: 14.5, y: 0.3, z: 0.5 }
-               }
 
                character.currentActionDelay =
                   character.baseActionDelay * Math.random() * 2
@@ -69,7 +56,7 @@ const useInitializeEnemies = () => {
 
                enemy.cards = setInitialActiveActions(enemy.cards)
                enemy.cards = atomsFromCardConfigs(enemy.cards)
-               enemy.position = { x: 7.5, y: 0.5, z: 7.5 }
+
                enemy.currentActionDelay =
                   enemy.baseActionDelay * Math.random() * 2
                const enemyAtom = atom(enemy)
