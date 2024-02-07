@@ -1,6 +1,8 @@
+import * as modelTypes from "./modelTypes"
+
 import mongoose from "mongoose"
 
-const ScenarioSchema = new mongoose.Schema({
+const ScenarioSchema = new mongoose.Schema<modelTypes.IScenarioModel>({
    name: { type: String, required: true },
    shortDescription: { type: String, required: true },
    description: { type: String, required: true },
@@ -14,6 +16,9 @@ const ScenarioSchema = new mongoose.Schema({
    maxPartySize: { type: Number, required: true },
 })
 
-const ScenarioModel = mongoose.model("Scenario", ScenarioSchema)
+const ScenarioModel = mongoose.model<modelTypes.IScenarioModel>(
+   "Scenario",
+   ScenarioSchema
+)
 
 export { ScenarioModel, ScenarioSchema }

@@ -1,11 +1,16 @@
+import * as modelTypes from "./modelTypes"
+
 import mongoose from "mongoose"
 
 import { DynamicGameEntitySchema } from "./DynamicGameEntity"
 
-const EnemySchema = new mongoose.Schema()
+const EnemySchema = new mongoose.Schema<modelTypes.IEnemyModel>()
 
 EnemySchema.add(DynamicGameEntitySchema)
 
-const EnemyModel = mongoose.model("Character", EnemySchema)
+const EnemyModel = mongoose.model<modelTypes.IEnemyModel>(
+   "Character",
+   EnemySchema
+)
 
 export { EnemyModel, EnemySchema }
