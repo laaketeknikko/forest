@@ -1,12 +1,12 @@
 const serverRoot = import.meta.env.VITE_SERVER_LOCATION
 
-const saveGame = async (saveGameData: string) => {
-   const response = await fetch(`${serverRoot}/api/save`, {
+const saveGame = async (saveGameData) => {
+   const response = await fetch(`${serverRoot}/api/savedgames`, {
       method: "POST",
       headers: {
          "Content-Type": "application/json",
       },
-      body: saveGameData,
+      body: JSON.stringify(saveGameData),
       mode: "cors",
    })
 

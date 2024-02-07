@@ -32,3 +32,4 @@
 | 6.2.  | 1    | Game config work                                            |
 | 6.2.  | 2    | Game/UI logic work                                          |
 | 6.2.  | 2    | Debugging and refactoring                                   |
+| 7.2.  | 3    | Game logic work                                             |

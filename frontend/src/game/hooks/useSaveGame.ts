@@ -2,12 +2,23 @@ import { useState } from "react"
 import { buildSaveGame } from "../util/buildSaveGame"
 
 import { saveGame } from "../../services/saveAndLoadGame"
+import { v4 } from "uuid"
 
 const useSaveGame = () => {
-   const [saveGameData, setSaveGameData] = useState({})
+   const [saveGameData, setSaveGameData] = useState<SaveGameConfig>({
+      characters: [],
+      enemies: [],
+      scenario: {} as ScenarioConfig,
+      keyString: "",
+   })
 
    const updateSaveData = () => {
-      const saveData = buildSaveGame()
+      const saveData = { ...buildSaveGame(), keyString: "" }
+      if (!saveGameData.keyString || saveGameData.keyString.length === 0) {
+         saveData.keyString = v4()
+      } else {
+         saveData.keyString = saveGameData.keyString
+      }
       setSaveGameData(saveData)
    }
 
@@ -16,8 +27,7 @@ const useSaveGame = () => {
    }
 
    const saveTheGame = () => {
-      const jsonSaveData = JSON.stringify(saveGameData)
-      const response = saveGame(jsonSaveData)
+      const response = saveGame(saveGameData)
       console.log("response form saving", response)
    }
 

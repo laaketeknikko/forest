@@ -78,3 +78,10 @@ declare interface ScenarioConfig {
    thumbNailPath: string
    maxPartySize: number
 }
+
+declare interface SaveGameConfig {
+   characters: Array<Character>
+   enemies: Array<Enemy>
+   scenario: ScenarioConfig
+   keyString: string
+}
