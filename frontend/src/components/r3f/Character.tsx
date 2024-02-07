@@ -3,18 +3,19 @@ import PropTypes from "prop-types"
 import { useLoader } from "@react-three/fiber"
 import { TextureLoader } from "three"
 
-import { Atom, useAtom } from "jotai"
+import { PrimitiveAtom, useAtom } from "jotai"
 
 import * as textureUtilities from "../util/textureUtilities"
+import { useEffect } from "react"
 
 interface CharacterProps {
-   characterAtom: Atom<Character>
+   characterAtom: PrimitiveAtom<Character>
    maxDimension: number
 }
 
 // TODO: Place the characters on ground level.
 const Character = ({ characterAtom, maxDimension = 1 }: CharacterProps) => {
-   const [character] = useAtom(characterAtom)
+   const [character, setCharacter] = useAtom(characterAtom)
 
    const colorMap = useLoader(TextureLoader, character.spritePath)
 
@@ -23,6 +24,16 @@ const Character = ({ characterAtom, maxDimension = 1 }: CharacterProps) => {
       maxDimension
    )
    const normalizedYPos = textureUtilities.getTextureYCenter(dimensions.height)
+
+   // Update character Y position
+   useEffect(() => {
+      if (character.position.y !== normalizedYPos) {
+         setCharacter({
+            ...character,
+            position: { ...character.position, y: normalizedYPos },
+         })
+      }
+   }, [character, normalizedYPos, setCharacter])
 
    return (
       <mesh
