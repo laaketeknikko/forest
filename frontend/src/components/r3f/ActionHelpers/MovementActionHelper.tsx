@@ -24,7 +24,7 @@ const MovementActionHelper = ({
       <mesh
          position={[
             activeCharacter.position.x,
-            activeCharacter.position.y,
+            0.1,
             activeCharacter.position.z,
          ]}
          rotation-x={MathUtils.degToRad(-90)}

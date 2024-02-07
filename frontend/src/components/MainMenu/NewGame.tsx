@@ -4,6 +4,8 @@ import { useInitializeDefaultGameState } from "../../game/hooks/useInitializeDef
 
 import type { SetNavigationState } from "./types"
 import { useEffect, useState } from "react"
+import { SaveGame } from "./SaveGame"
+import { LoadGame } from "./LoadGame"
 
 interface NewGameProps {
    setNavigationState: SetNavigationState
@@ -29,8 +31,8 @@ const NewGame = ({ setNavigationState }: NewGameProps) => {
    return (
       <Stack>
          <Button onClick={handleNewGameClick}>New game</Button>
-         <Button>Save</Button>
-         <Button>Load</Button>
+         <SaveGame />
+         <LoadGame />
       </Stack>
    )
 }
