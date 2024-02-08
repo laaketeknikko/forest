@@ -5,10 +5,10 @@ import mongoose from "mongoose"
 import { ActionCardActionSchema } from "./ActionCardAction"
 
 const ActionCardSchema = new mongoose.Schema<modelTypes.IActionCardModel>({
-   name: { type: String, required: true },
+   name: { type: String, required: false },
    description: String,
-   actions: { type: [ActionCardActionSchema], required: true },
    nextActionId: String,
+   actions: { type: [ActionCardActionSchema], required: false },
 })
 
 const ActionCardModel = mongoose.model<modelTypes.IActionCardModel>(
@@ -16,4 +16,4 @@ const ActionCardModel = mongoose.model<modelTypes.IActionCardModel>(
    ActionCardSchema
 )
 
-export { ActionCardModel, ActionCardActionSchema }
+export { ActionCardModel, ActionCardSchema }

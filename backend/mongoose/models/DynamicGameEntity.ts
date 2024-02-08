@@ -2,16 +2,16 @@ import * as modelTypes from "./modelTypes"
 
 import mongoose from "mongoose"
 
-import { ActionCardActionSchema } from "./ActionCardAction"
+import { ActionCardSchema } from "./ActionCard"
 
 const DynamicGameEntitySchema =
    new mongoose.Schema<modelTypes.IDynamicGameEntityModel>({
-      name: { type: String, required: true },
-      spritePath: { type: String, required: true },
-      health: { type: Number, required: true },
-      baseActionDelay: { type: Number, required: true },
-      currentActionDelay: { type: Number, required: true },
-      cards: { type: [ActionCardActionSchema], required: true },
+      name: { type: String, required: false },
+      spritePath: { type: String, required: false },
+      health: { type: Number, required: false },
+      baseActionDelay: { type: Number, required: false },
+      currentActionDelay: { type: Number, required: false },
+      cards: { type: [ActionCardSchema], required: false },
       position: { x: Number, y: Number, z: Number },
    })
 

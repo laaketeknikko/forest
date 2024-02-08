@@ -33,3 +33,5 @@
 | 6.2.  | 2    | Game/UI logic work                                          |
 | 6.2.  | 2    | Debugging and refactoring                                   |
 | 7.2.  | 3    | Game logic work                                             |
+| 7.2.  | 2    | Mongoose and TypeScript backend configuration               |
+| 8.2.  | 3    | implementing saving + debugging                             |

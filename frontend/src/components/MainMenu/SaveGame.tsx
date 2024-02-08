@@ -6,8 +6,11 @@ const SaveGame = () => {
    const { getSaveData, updateSaveData, saveTheGame } = useSaveGame()
 
    const handleSaveGame = () => {
-      updateSaveData()
-      saveTheGame()
+      const saveData = updateSaveData()
+
+      console.log("save data in handlesavegame:", saveData)
+
+      saveTheGame(saveData)
    }
 
    return <Button onClick={handleSaveGame}>Save</Button>

@@ -6,9 +6,10 @@ import { EnemySchema } from "./Enemy"
 import { ScenarioSchema } from "./Scenario"
 
 const SaveGameSchema = new mongoose.Schema<modelTypes.ISaveGameConfigModel>({
-   characters: { type: [CharacterSchema], required: true },
-   enemies: { type: [EnemySchema], required: true },
-   scenario: { type: ScenarioSchema, required: true },
+   characters: { type: [CharacterSchema], required: false },
+   enemies: { type: [EnemySchema], required: false },
+   scenario: { type: ScenarioSchema, required: false },
+   keyString: { type: String, required: false },
 })
 
 const SaveGameModel = mongoose.model<modelTypes.ISaveGameConfigModel>(

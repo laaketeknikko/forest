@@ -18,7 +18,7 @@ app.use("/api/savedgames", savedGamesRouter)
 
 mongoose.set("strictQuery", false)
 mongoose
-   .connect(process.env.MONGODB_URI)
+   .connect(process.env.MONGODB_URL)
    .then(() => console.log("Connected to MongoDB"))
    .catch((error) => console.log("Could not connect to MongoDB", error.message))
 

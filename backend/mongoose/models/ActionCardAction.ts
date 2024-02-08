@@ -4,13 +4,13 @@ import mongoose from "mongoose"
 
 const ActionCardActionSchema =
    new mongoose.Schema<modelTypes.IActionCardActionModel>({
-      name: { type: String, required: true },
+      name: { type: String, required: false },
       description: String,
       powerMultiplier: Number,
-      actionDelayMultiplier: { type: Number, required: true },
+      actionDelayMultiplier: { type: Number, required: false },
       range: Number,
       damageType: String,
-      type: { type: String, required: true },
+      type: { type: String, required: false },
    })
 
 const ActionCardActionModel = mongoose.model<modelTypes.IActionCardActionModel>(

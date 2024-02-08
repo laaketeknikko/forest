@@ -1,6 +1,8 @@
 const serverRoot = import.meta.env.VITE_SERVER_LOCATION
 
 const saveGame = async (saveGameData) => {
+   console.log("saveGameData", saveGameData)
+
    const response = await fetch(`${serverRoot}/api/savedgames`, {
       method: "POST",
       headers: {

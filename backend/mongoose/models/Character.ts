@@ -1,8 +1,7 @@
+import { DynamicGameEntitySchema } from "./DynamicGameEntity"
 import * as modelTypes from "./modelTypes"
 
 import mongoose from "mongoose"
-
-import { DynamicGameEntitySchema } from "./DynamicGameEntity"
 
 const CharacterSchema = new mongoose.Schema<modelTypes.ICharacterModel>()
 

@@ -14,21 +14,29 @@ const useSaveGame = () => {
 
    const updateSaveData = () => {
       const saveData = { ...buildSaveGame(), keyString: "" }
+      console.log("savedata in updatesavedata", saveData)
       if (!saveGameData.keyString || saveGameData.keyString.length === 0) {
          saveData.keyString = v4()
       } else {
          saveData.keyString = saveGameData.keyString
       }
       setSaveGameData(saveData)
+
+      return saveData
    }
 
    const getSaveData = () => {
       return saveGameData
    }
 
-   const saveTheGame = () => {
-      const response = saveGame(saveGameData)
-      console.log("response form saving", response)
+   const saveTheGame = (saveData: SaveGameConfig | null = null) => {
+      console.log("savedata in saveTheGame: ", saveData)
+
+      if (saveData) {
+         return saveGame(saveData)
+      } else {
+         return saveGame(saveGameData)
+      }
    }
 
    return {

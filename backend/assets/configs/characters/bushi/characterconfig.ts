@@ -128,6 +128,7 @@ const characterConfig = {
    baseActionDelay: 12,
    selectedCardId: "",
    currentActionDelay: 12,
+   health: 10,
 }
 
 export { characterConfig }
