@@ -22,4 +22,9 @@ const saveGame = async (saveGameData: modelTypes.ISaveGameConfigModel) => {
    return saveGame.toObject()
 }
 
-export { saveGame }
+const loadGame = async (keyString: string) => {
+   const saveGame = await SaveGameModel.findOne({ keyString })
+   return saveGame
+}
+
+export { saveGame, loadGame }

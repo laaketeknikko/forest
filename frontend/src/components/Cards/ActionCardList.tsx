@@ -23,11 +23,24 @@ const ActionCardList = ({ cards, onCardSelected }: ActionCardListProps) => {
 
    return (
       <List
-         sx={{ maxHeight: "100vh", overflowX: "hidden", overflowY: "scroll" }}
+         sx={{
+            maxHeight: "100vh",
+            overflowX: "hidden",
+            overflowY: "scroll",
+            padding: 0,
+            margin: 0,
+         }}
       >
          {cards.map((card, index) => {
             return (
-               <ListItem key={index}>
+               <ListItem
+                  key={index}
+                  sx={{
+                     padding: 0,
+                     paddingLeft: 0.5,
+                     paddingRight: 0.5,
+                  }}
+               >
                   <ActionCard cardAtom={card} onCardSelected={onCardSelected} />
                </ListItem>
             )

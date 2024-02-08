@@ -11,7 +11,10 @@ const TurnOrderView = () => {
       <List>
          {turnOrder.map((characterAtom) => {
             return (
-               <ListItem key={characterAtom.toString()}>
+               <ListItem
+                  key={characterAtom.toString()}
+                  sx={{ paddingLeft: 0.5, paddingRight: 0.5 }}
+               >
                   <TurnOrderViewItem characterAtom={characterAtom} />
                </ListItem>
             )

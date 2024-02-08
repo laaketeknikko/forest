@@ -14,7 +14,7 @@ const GameScene = () => {
    const [showInGameMenu, setShowInGameMenu] = useState(false)
 
    return (
-      <Grid container sx={{ height: "100vh" }}>
+      <>
          <Drawer
             anchor="left"
             open={showInGameMenu}
@@ -22,40 +22,42 @@ const GameScene = () => {
          >
             <InGameMenu />
          </Drawer>
-         <Grid xs={1} item>
-            <Paper elevation={1} sx={{ height: "100%" }}>
-               <IconButton
-                  sx={{
-                     width: "100%",
-                  }}
-                  color="primary"
-                  onClick={() => setShowInGameMenu(true)}
-               >
-                  <MenuIcon
+         <Grid container sx={{ height: "100vh" }}>
+            <Grid xs={1} item>
+               <Paper elevation={1} sx={{ height: "100%" }}>
+                  <IconButton
                      sx={{
-                        height: "100%",
                         width: "100%",
-                        fontSize: "100%",
-                        margin: 0,
-                        padding: 0,
                      }}
-                  />
-               </IconButton>
+                     color="primary"
+                     onClick={() => setShowInGameMenu(true)}
+                  >
+                     <MenuIcon
+                        sx={{
+                           height: "100%",
+                           width: "100%",
+                           fontSize: "100%",
+                           margin: 0,
+                           padding: 0,
+                        }}
+                     />
+                  </IconButton>
 
-               <TurnOrderView />
-            </Paper>
+                  <TurnOrderView />
+               </Paper>
+            </Grid>
+            <Grid xs={9} item>
+               <Suspense>
+                  <R3FCanvasWrapper />
+               </Suspense>
+            </Grid>
+            <Grid xs={2} item>
+               <Paper elevation={1} sx={{ height: "100%" }}>
+                  <SelectedCharacterCards />
+               </Paper>
+            </Grid>
          </Grid>
-         <Grid xs={9} item>
-            <Suspense>
-               <R3FCanvasWrapper />
-            </Suspense>
-         </Grid>
-         <Grid xs={2} item>
-            <Paper elevation={1} sx={{ height: "100%" }}>
-               <SelectedCharacterCards />
-            </Paper>
-         </Grid>
-      </Grid>
+      </>
    )
 }
 

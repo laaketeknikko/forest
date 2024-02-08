@@ -14,7 +14,6 @@ const useSaveGame = () => {
 
    const updateSaveData = () => {
       const saveData = { ...buildSaveGame(), keyString: "" }
-      console.log("savedata in updatesavedata", saveData)
       if (!saveGameData.keyString || saveGameData.keyString.length === 0) {
          saveData.keyString = v4()
       } else {
@@ -30,8 +29,6 @@ const useSaveGame = () => {
    }
 
    const saveTheGame = (saveData: SaveGameConfig | null = null) => {
-      console.log("savedata in saveTheGame: ", saveData)
-
       if (saveData) {
          return saveGame(saveData)
       } else {

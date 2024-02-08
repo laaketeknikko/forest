@@ -24,8 +24,9 @@ const ActionCard = ({ cardAtom }: ActionCardProps) => {
    )
 
    return (
-      <Card sx={{ width: "100%" }} className="action-card">
+      <Card sx={{ width: "100%", padding: 0 }} className="action-card">
          <CardActionArea
+            sx={{ padding: 0 }}
             onClick={() => {
                // Allow selecting and deselecting cards.
                if (cardAtom === currentlySelectedCard) {
@@ -35,9 +36,17 @@ const ActionCard = ({ cardAtom }: ActionCardProps) => {
                }
             }}
          >
-            <CardHeader title={card.name}></CardHeader>
+            <CardHeader
+               title={card.name}
+               sx={{
+                  padding: 0,
+                  paddingTop: 2,
+                  paddingBottom: 2,
+                  textAlign: "center",
+               }}
+            ></CardHeader>
          </CardActionArea>
-         <CardContent>
+         <CardContent sx={{ padding: 0 }}>
             {card.actions.map((action) => {
                if (card.nextActionId === action.id) {
                   return (
