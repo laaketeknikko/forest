@@ -23,7 +23,7 @@ const OffensiveActionHelper = ({
    )
 
    const action = selectedCard.actions.find(
-      (action) => action.id === selectedCard.nextActionId
+      (action) => action._id === selectedCard.nextActionId
    )
 
    return (

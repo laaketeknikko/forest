@@ -57,7 +57,7 @@ Character.propTypes = {
       spritePath: PropTypes.string.isRequired,
       cards: PropTypes.arrayOf(
          PropTypes.shape({
-            id: PropTypes.string.isRequired,
+            _id: PropTypes.string.isRequired,
             name: PropTypes.string.isRequired,
             description: PropTypes.string,
             actions: PropTypes.arrayOf(PropTypes.object),

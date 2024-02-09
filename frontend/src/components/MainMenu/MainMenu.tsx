@@ -87,7 +87,10 @@ const MainMenu = () => {
                      }}
                   >
                      <TabPanel value="0">
-                        <NewGame setNavigationState={setGameConfigLoaded} />
+                        <NewGame
+                           setNavigationState={setGameConfigLoaded}
+                           startGame={startGame}
+                        />
                      </TabPanel>
                      <TabPanel value="1">
                         <ScenarioSelection

@@ -10,7 +10,7 @@ declare const enum ActionTypes {
 }
 
 declare interface ActionCardAction {
-   id?: string
+   _id?: string
    name: string
    description?: string
    powerMultiplier?: number
@@ -21,7 +21,7 @@ declare interface ActionCardAction {
 }
 
 declare interface ActionCard {
-   id?: string
+   _id?: string
    name: string
    description?: string
    actions: ActionCardAction[]
@@ -34,7 +34,7 @@ declare interface GameEntity {
 }
 
 declare interface DynamicGameEntity extends GameEntity {
-   id?: string
+   _id?: string
    name: string
    spritePath: string
    health: number
@@ -79,7 +79,7 @@ declare interface ScenarioEnemyConfig {
 }
 
 declare interface ScenarioConfig {
-   id?: string
+   _id?: string
    name: string
    shortDescription: string
    description: string

@@ -42,18 +42,18 @@ const loadCharacterConfigs = async () => {
 
          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
          const config = clone(module.characterConfig, false)
-         if (!config.id) {
-            config.id = v4()
+         if (!config._id) {
+            config._id = v4()
          }
 
          for (const card of config.cards) {
-            if (!card.id) {
-               card.id = v4()
+            if (!card._id) {
+               card._id = v4()
             }
 
             for (const action of card.actions) {
-               if (!action.id) {
-                  action.id = v4()
+               if (!action._id) {
+                  action._id = v4()
                }
             }
          }
@@ -78,18 +78,18 @@ const loadEnemyConfigs = async () => {
          )
          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
          const config = clone(module.enemyConfig, false)
-         if (!config.id) {
-            config.id = v4()
+         if (!config._id) {
+            config._id = v4()
          }
 
          for (const card of config.cards) {
-            if (!card.id) {
-               card.id = v4()
+            if (!card._id) {
+               card._id = v4()
             }
 
             for (const action of card.actions) {
-               if (!action.id) {
-                  action.id = v4()
+               if (!action._id) {
+                  action._id = v4()
                }
             }
          }
@@ -114,8 +114,8 @@ const loadScenarioConfigs = async () => {
          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
          const config = clone(module.scenarioConfig, false)
 
-         if (!config.id) {
-            config.id = v4()
+         if (!config._id) {
+            config._id = v4()
          }
 
          configs.push(config)

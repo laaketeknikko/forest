@@ -34,7 +34,7 @@ const ScenarioSelection = ({ setNavigationState }: ScenerioSelectionProps) => {
                         <ScenarioInfoCard
                            setScenarioSelected={handleScenerioSelected}
                            scenarioInfo={config}
-                           key={config.id}
+                           key={config._id}
                         />
                      )
                   })}

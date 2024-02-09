@@ -18,7 +18,7 @@ interface IScenarioModel
       ScenarioConfig,
       "enemies" | "playerCharacterStartingPositions"
    > {
-   id?: string
+   _id?: string
    name: string
    shortDescription: string
    description: string

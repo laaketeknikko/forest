@@ -48,14 +48,14 @@ const ActionCard = ({ cardAtom }: ActionCardProps) => {
          </CardActionArea>
          <CardContent sx={{ padding: 0 }}>
             {card.actions.map((action) => {
-               if (card.nextActionId === action.id) {
+               if (card.nextActionId === action._id) {
                   return (
-                     <Typography className="active-action" key={action.id}>
+                     <Typography className="active-action" key={action._id}>
                         {action.name}
                      </Typography>
                   )
                } else {
-                  return <Typography key={action.id}>{action.name}</Typography>
+                  return <Typography key={action._id}>{action.name}</Typography>
                }
             })}
          </CardContent>

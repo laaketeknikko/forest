@@ -1,7 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import express from "express"
 
 import { loadGame, saveGame } from "../services/savedGames"
-
 const savedGamesRouter = express.Router()
 
 // eslint-disable-next-line @typescript-eslint/no-misused-promises

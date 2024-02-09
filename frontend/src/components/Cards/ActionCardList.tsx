@@ -18,7 +18,7 @@ const ActionCardList = ({ cards, onCardSelected }: ActionCardListProps) => {
    /*const [activeCardId, setActiveCardId] = useState("")
 
    const onCardSelected = (card) => {
-      setActiveCardId(card.id)
+      setActiveCardId(card._id)
    }*/
 
    return (

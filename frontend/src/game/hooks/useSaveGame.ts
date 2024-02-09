@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { buildSaveFromState } from "../util/buildSaveGame"
+import { buildSaveFromState } from "../util/buildSaveFromState"
 
 import { saveGame } from "../../services/saveAndLoadGame"
 import { v4 } from "uuid"

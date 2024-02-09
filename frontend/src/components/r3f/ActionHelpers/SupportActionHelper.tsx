@@ -14,7 +14,7 @@ const SupportActionHelper = ({
    const [activeCharacter] = useAtom(activeCharacterAtom)
 
    const action = selectedCard.actions.find(
-      (action) => action.id === selectedCard.nextActionId
+      (action) => action._id === selectedCard.nextActionId
    )
 
    useEffect(() => {

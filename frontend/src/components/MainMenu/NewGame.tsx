@@ -9,9 +9,10 @@ import { LoadGame } from "./LoadGame"
 
 interface NewGameProps {
    setNavigationState: SetNavigationState
+   startGame: (value: boolean) => void
 }
 
-const NewGame = ({ setNavigationState }: NewGameProps) => {
+const NewGame = ({ setNavigationState, startGame }: NewGameProps) => {
    const initializeDefaultGameState = useInitializeDefaultGameState()
    const [gameInitialized, setGameInitialized] = useState(false)
 
@@ -32,7 +33,7 @@ const NewGame = ({ setNavigationState }: NewGameProps) => {
       <Stack>
          <Button onClick={handleNewGameClick}>New game</Button>
          <SaveGame />
-         <LoadGame />
+         <LoadGame startGame={startGame} />
       </Stack>
    )
 }
