@@ -10,10 +10,10 @@ savedGamesRouter.post("/", async (req, res) => {
 
    try {
       const saveResult = await saveGame(saveData)
-      res.json(
-         `Game saved. Keystring for this save: ${saveData.keyString}. Saved game:` +
-            JSON.stringify(saveResult)
-      )
+      res.json({
+         keyString: saveResult.keyString,
+         data: saveResult,
+      })
    } catch (error) {
       console.error(error)
       res.status(500).send("Could not save game")

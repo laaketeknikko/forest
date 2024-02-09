@@ -35,3 +35,6 @@
 | 7.2.  | 3    | Game logic work                                             |
 | 7.2.  | 2    | Mongoose and TypeScript backend configuration               |
 | 8.2.  | 3    | implementing saving + debugging                             |
+| 8.2.  |      |                                                             |
+| 9.2.  | 4    | Implementing loading                                        |
+| 9.2.  | 1    | Implementing frontend loading                               |
