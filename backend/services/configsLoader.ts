@@ -1,5 +1,5 @@
-import { v4 } from "uuid"
 import clone from "clone"
+import mongoose from "mongoose"
 
 import { actionTypes } from "../assets/configs/actions/actionTypes"
 import { damageTypes } from "../assets/configs/actions/damageTypes"
@@ -8,14 +8,12 @@ import {
    getCharacterConfigFolders,
    getEnemyConfigFolders,
    getScenarioConfigFolders,
-   //getScenarioConfigFolders,
 } from "../utils/fileUtils"
 
 import {
    characterConfigRoot,
    enemyConfigRoot,
    scenarioConfigRoot,
-   //scenarioConfigRoot,
 } from "../config/paths"
 
 const cwd = process.cwd()
@@ -43,17 +41,17 @@ const loadCharacterConfigs = async () => {
          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
          const config = clone(module.characterConfig, false)
          if (!config._id) {
-            config._id = v4()
+            config._id = new mongoose.Types.ObjectId()
          }
 
          for (const card of config.cards) {
             if (!card._id) {
-               card._id = v4()
+               card._id = new mongoose.Types.ObjectId()
             }
 
             for (const action of card.actions) {
                if (!action._id) {
-                  action._id = v4()
+                  action._id = new mongoose.Types.ObjectId()
                }
             }
          }
@@ -79,17 +77,17 @@ const loadEnemyConfigs = async () => {
          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
          const config = clone(module.enemyConfig, false)
          if (!config._id) {
-            config._id = v4()
+            config._id = new mongoose.Types.ObjectId()
          }
 
          for (const card of config.cards) {
             if (!card._id) {
-               card._id = v4()
+               card._id = new mongoose.Types.ObjectId()
             }
 
             for (const action of card.actions) {
                if (!action._id) {
-                  action._id = v4()
+                  action._id = new mongoose.Types.ObjectId()
                }
             }
          }
@@ -115,7 +113,7 @@ const loadScenarioConfigs = async () => {
          const config = clone(module.scenarioConfig, false)
 
          if (!config._id) {
-            config._id = v4()
+            config._id = new mongoose.Types.ObjectId()
          }
 
          configs.push(config)

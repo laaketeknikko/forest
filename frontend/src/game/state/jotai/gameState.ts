@@ -33,9 +33,17 @@ const gameExecutionStateAtom = atom<GameExecutionState>(
    GameExecutionState.stopped
 )
 
+const activeSaveGameConfigAtom = atom<SaveGameConfig>({
+   characters: [],
+   enemies: [],
+   scenario: {} as ScenarioConfig,
+   keyString: "",
+})
+
 export {
    turnOrderAtom,
    currentlySelectedActionCardAtom,
    defaultConfigsAtom,
    gameExecutionStateAtom,
+   activeSaveGameConfigAtom,
 }

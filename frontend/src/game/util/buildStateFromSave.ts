@@ -57,6 +57,8 @@ const buildStateFromSave = (saveData: SaveGameConfig) => {
       enemies.push(newEnemyAtom)
    }
 
+   console.log("Active scenario enemies:", enemies)
+
    jotaiStore.set(activeScenarioEnemiesAtom, enemies)
 
    // Build scenario state

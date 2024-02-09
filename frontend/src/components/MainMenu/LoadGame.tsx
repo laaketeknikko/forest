@@ -9,9 +9,8 @@ const LoadGame = ({ startGame }: LoadGameProps) => {
    const loader = useLoadGame()
 
    const handleOnClick = async () => {
-      const saveData = await loader.updateSaveData(
-         "e6444d4f-eb76-44ab-94d5-7109cfe60b42"
-      )
+      // TODO: Implement setting the keystring to address and reading.
+      const saveData = await loader.updateSaveData("")
       console.log("SaveData in handleOnClick of loadGame:", saveData)
 
       loader.loadTheGame(saveData)

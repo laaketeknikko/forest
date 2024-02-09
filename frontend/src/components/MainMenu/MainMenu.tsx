@@ -17,7 +17,7 @@ import { ScenarioStartConfirmation } from "./ScenarioStartConfirmation"
 import { gameExecutionStateAtom } from "../../game/state/jotai/gameState"
 import { GameExecutionState } from "../../config/types"
 import { useAtom } from "jotai"
-import { useInitializeScenario } from "../../game/hooks/useInitializeScenario"
+import { useInitializeScenario } from "../../game/hooks/useInitializeNewGameScenario"
 
 const MainMenu = () => {
    const [, setGameExecutionState] = useAtom(gameExecutionStateAtom)
@@ -31,13 +31,18 @@ const MainMenu = () => {
 
    const initializeScenario = useInitializeScenario()
 
-   const startGame = (value: boolean) => {
+   const startNewScenario = (value: boolean) => {
+      console.log("In startNewScenario, value:", value)
+
       if (!initializeScenario()) {
          throw new Error("Error initializing scenario.")
       }
-
       setScenarioStarted(value)
+      setGameExecutionState(GameExecutionState.running)
+   }
 
+   const startLoadedScenario = (value: boolean) => {
+      setScenarioStarted(value)
       setGameExecutionState(GameExecutionState.running)
    }
 
@@ -89,7 +94,7 @@ const MainMenu = () => {
                      <TabPanel value="0">
                         <NewGame
                            setNavigationState={setGameConfigLoaded}
-                           startGame={startGame}
+                           startLoadedScenario={startLoadedScenario}
                         />
                      </TabPanel>
                      <TabPanel value="1">
@@ -107,7 +112,7 @@ const MainMenu = () => {
                         sx={{ height: "100%", overflowY: "scroll" }}
                      >
                         <ScenarioStartConfirmation
-                           setNavigationState={startGame}
+                           setNavigationState={startNewScenario}
                         />
                      </TabPanel>
                   </Grid>

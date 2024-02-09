@@ -1,13 +1,13 @@
 import { getDefaultStore } from "jotai"
 
-import { allPlayerCharactersAtom } from "../state/jotai/characters"
 import { activeScenarioEnemiesAtom } from "../state/jotai/enemies"
 import { selectedScenarioConfigAtom } from "../state/jotai/scenarios"
+import { activePartyAtom } from "../state/jotai/characters"
 
 const buildSaveFromState = () => {
    const jotaiStore = getDefaultStore()
 
-   const characterAtoms = jotaiStore.get(allPlayerCharactersAtom)
+   const characterAtoms = jotaiStore.get(activePartyAtom)
    const enemyAtoms = jotaiStore.get(activeScenarioEnemiesAtom)
    const scenarioConfig = jotaiStore.get(selectedScenarioConfigAtom)
 
