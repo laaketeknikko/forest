@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { buildSaveGame } from "../util/buildSaveGame"
+import { buildSaveFromState } from "../util/buildSaveGame"
 
 import { saveGame } from "../../services/saveAndLoadGame"
 import { v4 } from "uuid"
@@ -13,7 +13,7 @@ const useSaveGame = () => {
    })
 
    const updateSaveData = () => {
-      const saveData = { ...buildSaveGame(), keyString: "" }
+      const saveData = { ...buildSaveFromState(), keyString: "" }
       if (!saveGameData.keyString || saveGameData.keyString.length === 0) {
          saveData.keyString = v4()
       } else {

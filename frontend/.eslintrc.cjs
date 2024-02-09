@@ -14,6 +14,10 @@ module.exports = {
    settings: { react: { version: "18.2" } },
    plugins: ["react-refresh", "mui-path-imports"],
    rules: {
+      "@typescript-eslint/no-unused-vars": [
+         "error",
+         { argsIgnorePattern: "^_" },
+      ],
       "mui-path-imports/mui-path-imports": "error",
 
       // Enabling this rule flags all React Three Fiber components.
@@ -24,4 +28,3 @@ module.exports = {
       ],
    },
 }
-

@@ -4,7 +4,7 @@ import { allPlayerCharactersAtom } from "../state/jotai/characters"
 import { activeScenarioEnemiesAtom } from "../state/jotai/enemies"
 import { selectedScenarioConfigAtom } from "../state/jotai/scenarios"
 
-const buildSaveGame = () => {
+const buildSaveFromState = () => {
    const jotaiStore = getDefaultStore()
 
    const characterAtoms = jotaiStore.get(allPlayerCharactersAtom)
@@ -96,4 +96,4 @@ const buildSaveGame = () => {
    return saveGameData
 }
 
-export { buildSaveGame }
+export { buildSaveFromState }

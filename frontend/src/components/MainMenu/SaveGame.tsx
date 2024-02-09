@@ -7,9 +7,6 @@ const SaveGame = () => {
 
    const handleSaveGame = () => {
       const saveData = updateSaveData()
-
-      console.log("save data in handlesavegame:", saveData)
-
       saveTheGame(saveData)
    }
 
