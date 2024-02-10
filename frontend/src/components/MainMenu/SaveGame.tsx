@@ -7,7 +7,13 @@ const SaveGame = () => {
 
    const handleSaveGame = () => {
       const saveData = updateSaveData()
-      saveTheGame(saveData)
+      saveTheGame(saveData).then((data) => {
+         history.pushState(
+            { keyString: data.keyString },
+            "",
+            `/${data.keyString}`
+         )
+      })
    }
 
    return <Button onClick={handleSaveGame}>Save</Button>

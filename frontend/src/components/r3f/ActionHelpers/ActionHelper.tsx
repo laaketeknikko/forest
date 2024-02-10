@@ -20,7 +20,7 @@ const ActionHelper = () => {
    const action = useMemo(
       () =>
          selectedCardData.actions.find(
-            (action) => action.id === selectedCardData.nextActionId
+            (action) => action._id === selectedCardData.nextActionId
          ),
       [selectedCardData.actions, selectedCardData.nextActionId]
    )

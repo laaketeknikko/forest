@@ -10,9 +10,11 @@ const saveGame = async (saveGameData: modelTypes.ISaveGameConfigModel) => {
    })
 
    if (saveGame) {
+      console.log("replacing save data", saveGame.toJSON())
       saveGame.characters = saveGameData.characters
       saveGame.enemies = saveGameData.enemies
       saveGame.scenario = saveGameData.scenario
+      console.log("Replaced save data", saveGame.toJSON())
    } else {
       saveGame = new SaveGameModel(saveGameData)
    }

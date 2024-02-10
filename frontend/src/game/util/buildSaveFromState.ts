@@ -1,13 +1,13 @@
 import { getDefaultStore } from "jotai"
 
-import { allPlayerCharactersAtom } from "../state/jotai/characters"
 import { activeScenarioEnemiesAtom } from "../state/jotai/enemies"
 import { selectedScenarioConfigAtom } from "../state/jotai/scenarios"
+import { activePartyAtom } from "../state/jotai/characters"
 
 const buildSaveFromState = () => {
    const jotaiStore = getDefaultStore()
 
-   const characterAtoms = jotaiStore.get(allPlayerCharactersAtom)
+   const characterAtoms = jotaiStore.get(activePartyAtom)
    const enemyAtoms = jotaiStore.get(activeScenarioEnemiesAtom)
    const scenarioConfig = jotaiStore.get(selectedScenarioConfigAtom)
 
@@ -21,7 +21,7 @@ const buildSaveFromState = () => {
    for (const characterAtom of characterAtoms) {
       const character = jotaiStore.get(characterAtom)
       const characterSaveData = {
-         id: character.id,
+         _id: character._id,
          name: character.name,
          position: character.position,
          cards: [] as Array<ActionCard>,
@@ -36,7 +36,7 @@ const buildSaveFromState = () => {
       for (const cardAtom of character.cards) {
          const card: ActionCard = jotaiStore.get(cardAtom)
          const cardData = {
-            id: card.id,
+            _id: card._id,
             name: card.name,
             description: card.description,
             actions: [] as Array<ActionCardAction>,
@@ -58,7 +58,7 @@ const buildSaveFromState = () => {
    for (const enemyAtom of enemyAtoms) {
       const enemy = jotaiStore.get(enemyAtom)
       const enemySaveData = {
-         id: enemy.id,
+         _id: enemy._id,
          name: enemy.name,
          position: enemy.position,
          cards: [] as Array<ActionCard>,
@@ -72,7 +72,7 @@ const buildSaveFromState = () => {
       for (const cardAtom of enemy.cards) {
          const card: ActionCard = jotaiStore.get(cardAtom)
          const cardData = {
-            id: card.id,
+            _id: card._id,
             name: card.name,
             description: card.description,
             actions: [] as Array<ActionCardAction>,

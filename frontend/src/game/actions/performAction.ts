@@ -56,13 +56,13 @@ const performAction = ({
    // Update next action
    const card = { ...jotaiStore.get(activeCardAtom) }
    const actionIndex = card.actions.findIndex(
-      (action) => action.id === card.nextActionId
+      (action) => action._id === card.nextActionId
    )
 
    if (actionIndex === card.actions.length - 1) {
-      card.nextActionId = card.actions[0].id
+      card.nextActionId = card.actions[0]._id
    } else {
-      card.nextActionId = card.actions[actionIndex + 1].id
+      card.nextActionId = card.actions[actionIndex + 1]._id
    }
 
    // TODO: fix

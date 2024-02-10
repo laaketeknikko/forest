@@ -1,7 +1,7 @@
 import { useState } from "react"
 
 import { Canvas, useFrame } from "@react-three/fiber"
-import { OrbitControls } from "@react-three/drei"
+import { MapControls, OrbitControls } from "@react-three/drei"
 
 import { Ground } from "./Ground/Ground"
 
@@ -12,6 +12,7 @@ import { ActionHelper } from "./ActionHelpers/ActionHelper"
 import { activeScenarioEnemiesAtom } from "../../game/state/jotai/enemies"
 
 import { useIdleTimer } from "react-idle-timer"
+import { CameraControls } from "./CameraControls"
 
 const DisableRender = () => useFrame(() => null, 1000)
 
@@ -48,12 +49,13 @@ const R3FCanvasWrapper = () => {
 
    return (
       <Canvas
-         camera={{ position: [1, 4, 5] }}
+         camera={{ position: [1, 4, 5], fov: [50] }}
          style={{ backgroundColor: "rgb(31, 27, 22)" }}
       >
          {pauseAnimation && <DisableRender />}
+         <CameraControls />
          <axesHelper />
-         <OrbitControls />
+
          <ambientLight args={["white", 1]} />
          {activePartyCharacters.length > 0 &&
             activePartyCharacters.map((character) => {

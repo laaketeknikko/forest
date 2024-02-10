@@ -123,7 +123,7 @@ const setInitialActiveActions = (cards) => {
    for (const card of cards) {
       const newCard = clone(card)
       if (newCard.actions?.length > 0) {
-         newCard.nextActionId = newCard.actions[0].id
+         newCard.nextActionId = newCard.actions[0]._id
       }
       newCards.push(newCard)
    }
