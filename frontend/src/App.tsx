@@ -17,17 +17,17 @@ function App() {
    )
 
    // For use with loading save from url.
-   const [urlKeyString] = useState(window.location.pathname)
+   const [urlKeyString, setUrlKeyString] = useState("")
 
    const loader = useLoadGame()
 
    // Load game if keyString in URL is different than keyString in state.
-   // Should always be the case, of course.
    useEffect(() => {
+      const keyString = window.location.pathname.substring(1).trim()
+      setUrlKeyString(keyString)
+
       const wrapperFunc = async () => {
-         const saveData = await loader.updateSaveData(
-            urlKeyString.trim().substring(1)
-         )
+         const saveData = await loader.updateSaveData(keyString)
          const result = loader.loadTheGame(saveData)
          if (result) {
             setShowMainMenu(false)
@@ -35,9 +35,13 @@ function App() {
          }
       }
 
-      if (urlKeyString) {
-         const keyString = urlKeyString.trim().substring(1)
-         if (keyString !== loader.getSaveData().keyString) {
+      if (keyString) {
+         console.log("keystring exists in useeffect:", keyString)
+         if (urlKeyString !== loader.getSaveData().keyString) {
+            console.log(
+               "keystring does not match in useeffect, savedata:",
+               loader.getSaveData()
+            )
             wrapperFunc()
          }
       }
