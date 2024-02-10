@@ -2,18 +2,24 @@ import { loadGame } from "../../services/saveAndLoadGame"
 import { buildStateFromSave } from "../util/buildStateFromSave"
 import { activeSaveGameConfigAtom } from "../state/jotai/gameState"
 import { useAtom } from "jotai"
+import { useState } from "react"
 
 const useLoadGame = () => {
    const [saveGame, setSaveGame] = useAtom(activeSaveGameConfigAtom)
+   const [isLoading, setIsLoading] = useState(false)
 
    const getSaveData = () => {
       return saveGame
    }
 
    const updateSaveData = async (keyString: string) => {
-      const gameData = await loadGame(keyString)
-      setSaveGame(gameData)
-      return gameData
+      if (!isLoading) {
+         setIsLoading(true)
+         const gameData = await loadGame(keyString)
+         setSaveGame(gameData)
+         setIsLoading(false)
+         return gameData
+      }
    }
 
    const loadTheGame = (saveData: SaveGameConfig | null = null) => {

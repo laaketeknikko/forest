@@ -9,6 +9,8 @@ import { useAtom } from "jotai"
 const useSaveGame = () => {
    const [saveGameData, setSaveGameData] = useAtom(activeSaveGameConfigAtom)
 
+   const [isSaving, setIsSaving] = useState(false)
+
    const updateSaveData = () => {
       const saveData = { ...buildSaveFromState(), keyString: "" }
       if (!saveGameData.keyString || saveGameData.keyString.length === 0) {
@@ -26,10 +28,16 @@ const useSaveGame = () => {
    }
 
    const saveTheGame = (saveData: SaveGameConfig | null = null) => {
-      if (saveData) {
-         return saveGame(saveData)
-      } else {
-         return saveGame(saveGameData)
+      if (!isSaving) {
+         let result
+         setIsSaving(true)
+         if (saveData) {
+            result = saveGame(saveData)
+         } else {
+            result = saveGame(saveGameData)
+         }
+         setIsSaving(false)
+         return result
       }
    }
 
