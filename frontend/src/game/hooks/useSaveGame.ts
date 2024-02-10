@@ -6,6 +6,8 @@ import { v4 } from "uuid"
 import { activeSaveGameConfigAtom } from "../state/jotai/gameState"
 import { useAtom } from "jotai"
 
+import { useState } from "react"
+
 const useSaveGame = () => {
    const [saveGameData, setSaveGameData] = useAtom(activeSaveGameConfigAtom)
 

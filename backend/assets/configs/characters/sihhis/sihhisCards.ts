@@ -1,6 +1,8 @@
+import * as types from "../../../../../shared/types/types"
+
 import { SihhisCardActions } from "./sihhisCardActions.ts"
 
-const sihhisCards: ActionCard[] = [
+const sihhisCards: Array<types.ActionCard> = [
    {
       name: "Default offensive card",
       description: "Basics",

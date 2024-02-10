@@ -1,6 +1,7 @@
+import { ActionCard } from "../../../../../shared/types/types"
 import { GuineanPigletActions } from "./guineanpigletCardActions"
 
-const GuineanPigletCards = [
+const GuineanPigletCards: Array<ActionCard> = [
    {
       name: "Default offensive card",
       description: "Everyday fundamentals every piglet knows by heart",

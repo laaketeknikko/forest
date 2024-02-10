@@ -1,3 +1,5 @@
+import { ScenarioConfig } from "../../../../../shared/types/types"
+
 const scenarioConfig: ScenarioConfig = {
    name: "First encounter",
    shortDescription: "First encounter with Miinii.",

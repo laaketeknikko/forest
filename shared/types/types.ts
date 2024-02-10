@@ -1,26 +1,28 @@
-declare const enum DamageTypes {
+import { Atom } from "jotai"
+
+export enum DamageTypes {
    physical = "physical",
 }
 
-declare const enum ActionTypes {
+export enum ActionTypes {
    offensive = "offensive",
    support = "support",
    defensive = "defensive",
    movement = "movement",
 }
 
-declare interface ActionCardAction {
+export interface ActionCardAction {
    _id?: string
    name: string
    description?: string
    powerMultiplier?: number
-   damageType?: DamageTypes
+   damageType?: string
    actionDelayMultiplier: number
    range?: number
-   type: ActionTypes
+   type: string
 }
 
-declare interface ActionCard {
+export interface ActionCard {
    _id?: string
    name: string
    description?: string
@@ -28,12 +30,12 @@ declare interface ActionCard {
    nextActionId?: string
 }
 
-declare interface GameEntity {
+export interface GameEntity {
    position: Position
    health?: number
 }
 
-declare interface DynamicGameEntity extends GameEntity {
+export interface DynamicGameEntity extends GameEntity {
    _id?: string
    name: string
    spritePath: string
@@ -44,41 +46,41 @@ declare interface DynamicGameEntity extends GameEntity {
    selectedCardId: string
 }
 
-declare interface Character extends DynamicGameEntity {}
+export interface Character extends DynamicGameEntity {}
 
-declare interface Enemy extends DynamicGameEntity {}
+export interface Enemy extends DynamicGameEntity {}
 
-declare interface TurnOrderCard {
+export interface TurnOrderCard {
    imagePath: string
 }
 
-declare interface Position {
+export interface Position {
    x: number
    y: number
    z: number
 }
 
-declare interface Size2D {
+export interface Size2D {
    width: number
    length: number
 }
 
-declare interface Position2D {
+export interface Position2D {
    x: number
    z: number
 }
 
-declare interface ArenaConfig {
+export interface ArenaConfig {
    size: Size2D
 }
 
-declare interface ScenarioEnemyConfig {
+export interface ScenarioEnemyConfig {
    enemyName: string
    quantity: number
    startingPosition: Position2D
 }
 
-declare interface ScenarioConfig {
+export interface ScenarioConfig {
    _id?: string
    name: string
    shortDescription: string
@@ -90,7 +92,7 @@ declare interface ScenarioConfig {
    maxPartySize: number
 }
 
-declare interface SaveGameConfig {
+export interface SaveGameConfig {
    characters: Array<Character>
    enemies: Array<Enemy>
    scenario: ScenarioConfig

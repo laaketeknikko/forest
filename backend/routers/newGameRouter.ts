@@ -7,6 +7,7 @@ import {
    loadScenarioConfigs,
 } from "../services/configsLoader"
 import { saveGame } from "../services/savedGames"
+import { ISaveGameConfigModel } from "../mongoose/models/modelTypes"
 
 const newGameRouter = express.Router()
 
@@ -17,7 +18,7 @@ newGameRouter.get("/", async (_req, res) => {
       const enemyConfigs = await loadEnemyConfigs()
       const scenarioConfigs = (await loadScenarioConfigs())[0]
 
-      const initialSaveConfig: SaveGameConfig = {
+      const initialSaveConfig: ISaveGameConfigModel = {
          keyString: "",
          characters: characterConfigs,
          enemies: enemyConfigs,

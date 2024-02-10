@@ -1,13 +1,15 @@
+import * as types from "../../../../../shared/types/types"
+
 import { actionTypes } from "../../actions/actionTypes"
 import { damageTypes } from "../../actions/damageTypes"
 
-const BushiActions: Record<string, ActionCardAction> = {
+const BushiActions: Record<string, types.ActionCardAction> = {
    reminisce: {
       name: "Reminisce",
       description: "Think on all you've gone through.",
       type: actionTypes.support,
       actionDelayMultiplier: 1,
-   },
+   } as const,
    twigzashi: {
       name: "Twigzashi",
       description: "Might only scratch their face, but it's quick",
@@ -85,7 +87,7 @@ const BushiActions: Record<string, ActionCardAction> = {
    },
 }
 
-const BushiActionCards: Array<ActionCard> = [
+const BushiActionCards: Array<types.ActionCard> = [
    {
       name: "Basic offense",
       description: "You have practised more than most people sleep",
