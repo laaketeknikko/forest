@@ -20,7 +20,7 @@ app.use("/api/newgame", newGameRouter)
 
 mongoose.set("strictQuery", false)
 mongoose
-   .connect(process.env.MONGODB_URL)
+   .connect(process.env.MONGODB_URL || "")
    .then(() => console.log("Connected to MongoDB"))
    .catch((error) => console.log("Could not connect to MongoDB", error.message))
 

@@ -9,18 +9,18 @@ import { selectedScenarioConfigAtom } from "../state/jotai/scenarios"
 import { shuffle } from "lodash"
 import clone from "clone"
 import {
-   ICharacter,
-   IEnemy,
-   IPosition2D,
-   IScenarioConfig,
+   ZCharacter,
+   ZEnemy,
+   ZPosition2D,
+   ZScenarioConfig,
 } from "../../../../shared/types/types"
 
 const initializeEntityPosition = ({
    entityAtom,
    position,
 }: {
-   entityAtom: Atom<ICharacter>
-   position: IPosition2D
+   entityAtom: Atom<ZCharacter>
+   position: ZPosition2D
 }) => {
    const jotaiStore = getDefaultStore()
    const character = jotaiStore.get(entityAtom)
@@ -40,8 +40,8 @@ const initializeCharacterPositions = ({
    scenarioConfig,
    activeParty,
 }: {
-   scenarioConfig: IScenarioConfig
-   activeParty: Array<Atom<ICharacter>>
+   scenarioConfig: ZScenarioConfig
+   activeParty: Array<Atom<ZCharacter>>
 }) => {
    const positions = shuffle([
       ...scenarioConfig.playerCharacterStartingPositions,
@@ -67,14 +67,14 @@ const initializeEnemyPosition = ({
    activeEnemyAtoms,
    allEnemiesAtoms,
 }: {
-   scenarioConfig: IScenarioConfig
-   activeEnemyAtoms: Atom<Array<Atom<IEnemy>>>
-   allEnemiesAtoms: Array<Atom<IEnemy>>
+   scenarioConfig: ZScenarioConfig
+   activeEnemyAtoms: Atom<Array<Atom<ZEnemy>>>
+   allEnemiesAtoms: Array<Atom<ZEnemy>>
 }) => {
    const jotaiStore = getDefaultStore()
 
    const scenarioEnemies = scenarioConfig.enemies
-   const activeEnemies: Array<Atom<IEnemy>> = []
+   const activeEnemies: Array<Atom<ZEnemy>> = []
 
    for (const enemy of scenarioEnemies) {
       const enemyAtom = allEnemiesAtoms.find((atom) => {

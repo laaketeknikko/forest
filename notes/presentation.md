@@ -57,3 +57,10 @@ a mesh to turn. I have to set the turning state somewhere and then the mesh
 reflects that state.
 
 So, it was probably a lot easier to start out with it, but I'm not sure if you should just use three.js directly for a game project.
+
+### Zod
+
+I would recommend bringing in Zod or something like it immediately for any project.
+
+Zod's feature of defining the schemas and deriving the TypeScript types from them automatically saves a lot of typing time.
+Setting default values gets rid of a lot of annoying "might be number or undefined" TypeScript errors/warnings.

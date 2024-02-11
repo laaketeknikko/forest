@@ -41,3 +41,4 @@
 | 10.2. | 1    | UI work                                                     |
 | 10.2. | 2    | Refactoring                                                 |
 | 11.2. | 2    | Refactoring                                                 |
+| 11.2. | 3    | Refactoring                                                 |

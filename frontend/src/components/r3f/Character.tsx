@@ -7,10 +7,12 @@ import { PrimitiveAtom, useAtom } from "jotai"
 
 import * as textureUtilities from "../util/textureUtilities"
 import { useEffect } from "react"
-import { ICharacter } from "../../../../shared/types/types"
+import { ZCharacter } from "../../../../shared/types/types"
+
+import { PositionSchema } from "../../../../shared/zod/schemas"
 
 interface CharacterProps {
-   characterAtom: PrimitiveAtom<ICharacter>
+   characterAtom: PrimitiveAtom<ZCharacter>
    maxDimension: number
 }
 
@@ -28,17 +30,22 @@ const Character = ({ characterAtom, maxDimension = 1 }: CharacterProps) => {
 
    // Update character Y position
    useEffect(() => {
-      if (character.position.y !== normalizedYPos) {
+      const oldPos = PositionSchema.parse(character.position)
+      if (oldPos.y !== normalizedYPos) {
          setCharacter({
             ...character,
-            position: { ...character.position, y: normalizedYPos },
+            position: { ...oldPos, y: normalizedYPos },
          })
       }
    }, [character, normalizedYPos, setCharacter])
 
    return (
       <mesh
-         position={[character.position.x, normalizedYPos, character.position.z]}
+         position={[
+            character.position?.x || 0,
+            normalizedYPos,
+            character.position?.z || 0,
+         ]}
       >
          <planeGeometry args={[dimensions.width, dimensions.height]} />
          <meshBasicMaterial

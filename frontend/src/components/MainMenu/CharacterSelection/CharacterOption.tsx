@@ -2,18 +2,18 @@ import { useAtom } from "jotai"
 import type { Atom } from "jotai"
 
 import ImageListItem from "@mui/material/ImageListItem"
-import { ICharacter } from "../../../../../shared/types/types"
+import { ZCharacter } from "../../../../../shared/types/types"
 
 interface Option {
    name: string
    spritePath: string
-   characterAtom: Atom<ICharacter>
+   characterAtom: Atom<ZCharacter>
 }
 
 type HandleSelectionFunc = (option: Option) => void
 
 interface CharacterOptionProps {
-   characterAtom: Atom<ICharacter>
+   characterAtom: Atom<ZCharacter>
    handleSelection: HandleSelectionFunc
 }
 

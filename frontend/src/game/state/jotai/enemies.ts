@@ -1,8 +1,8 @@
 import { atom, Atom } from "jotai"
-import { IEnemy } from "../../../../../shared/types/types"
+import { ZEnemy } from "../../../../../shared/types/types"
 
-const allEnemiesAtom = atom<Array<Atom<IEnemy>>>([])
+const allEnemiesAtom = atom<Array<Atom<ZEnemy>>>([])
 
-const activeScenarioEnemiesAtom = atom<Array<Atom<IEnemy>>>([])
+const activeScenarioEnemiesAtom = atom<Array<Atom<ZEnemy>>>([])
 
 export { allEnemiesAtom, activeScenarioEnemiesAtom }

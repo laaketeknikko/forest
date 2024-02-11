@@ -1,9 +1,9 @@
 import Box from "@mui/material/Box"
 import { Atom, useAtom } from "jotai"
-import { ICharacter } from "../../../../shared/types/types"
+import { ZCharacter } from "../../../../shared/types/types"
 
 interface ScenarioStartCharacterInfoProps {
-   characterAtom: Atom<ICharacter>
+   characterAtom: Atom<ZCharacter>
 }
 
 const ScenarioStartCharacterInfo = ({

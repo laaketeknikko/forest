@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "jotai": "^2.6.4"
+    "jotai": "^2.6.4",
+    "zod": "^3.22.4"
   }
 }

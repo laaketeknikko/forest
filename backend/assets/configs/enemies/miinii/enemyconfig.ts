@@ -3,7 +3,7 @@ import * as types from "../../../../../shared/types/types"
 import { actionTypes } from "../../actions/actionTypes"
 import { damageTypes } from "../../actions/damageTypes"
 
-const miiniiActions: Record<string, types.IActionCardAction> = {
+const miiniiActions: Record<string, types.ZActionCardAction> = {
    beak: {
       name: "Beak",
       description: "It really hurts",

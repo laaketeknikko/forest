@@ -8,10 +8,10 @@ import ListItem from "@mui/material/ListItem"
 import { Atom } from "jotai"
 
 import type { onCardSelectedFunc } from "./ActionCard"
-import { IActionCard } from "../../../../shared/types/types"
+import { ZActionCard } from "../../../../shared/types/types"
 
 interface ActionCardListProps {
-   cards: Array<Atom<IActionCard>>
+   cards: Array<Atom<ZActionCard>>
    onCardSelected?: onCardSelectedFunc
 }
 

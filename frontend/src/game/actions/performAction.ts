@@ -4,28 +4,25 @@ import { getDefaultStore } from "jotai"
 import { allActiveGameEntitiesAtom } from "../state/jotai/entities"
 import { actionTypes } from "../../config/actions/actionTypes"
 import {
-   IActionCard,
-   IActionCardAction,
-   ICharacter,
-   IGameEntity,
+   ZActionCard,
+   ZActionCardAction,
+   ZCharacter,
+   ZGameEntity,
+   ZPosition2D,
 } from "../../../../shared/types/types"
-
-interface point2d {
-   x: number
-   z: number
-}
+import { PositionSchema } from "../../../../shared/zod/schemas"
 
 interface performActionProps {
    // TODO: Fix the type never to Atom<Character>
-   selectedCharacterAtom: Atom<ICharacter>
-   activeCardAtom: Atom<IActionCard>
-   selectedAction: IActionCardAction
-   targetPoint: point2d
+   selectedCharacterAtom: Atom<ZCharacter>
+   activeCardAtom: Atom<ZActionCard>
+   selectedAction: ZActionCardAction
+   targetPoint: ZPosition2D
 }
 
 interface affectedEntity {
-   entityData: IGameEntity
-   entity: Atom<IGameEntity>
+   entityData: ZGameEntity
+   entity: Atom<ZGameEntity>
 }
 
 const performAction = ({
@@ -80,9 +77,11 @@ const performAction = ({
 
 const performMoveAction = (props: performActionProps) => {
    const jotaiStore = getDefaultStore()
-   const selectedCharacter: ICharacter = jotaiStore.get(
+   const selectedCharacter: ZCharacter = jotaiStore.get(
       props.selectedCharacterAtom
    )
+   // TODO: Is this the right way? What if character actually has no position?
+   selectedCharacter.position = PositionSchema.parse(selectedCharacter.position)
 
    console.assert(
       selectedCharacter.position !== undefined,
@@ -92,6 +91,7 @@ const performMoveAction = (props: performActionProps) => {
    selectedCharacter.position.x = props.targetPoint.x
    selectedCharacter.position.z = props.targetPoint.z
 
+   // TODO: Fix
    jotaiStore.set(props.selectedCharacterAtom as never, {
       ...selectedCharacter,
    })
@@ -108,7 +108,7 @@ const performOffensiveAction = (props: performActionProps) => {
    const affectedEntities: Array<affectedEntity> = []
 
    for (const entity of allGameEntities) {
-      const entityData: IGameEntity = jotaiStore.get(entity)
+      const entityData: ZGameEntity = jotaiStore.get(entity)
 
       const differenceX = Math.abs(entityData.position!.x - tileCenter.x)
       const differenceZ = Math.abs(entityData.position!.z - tileCenter.z)
