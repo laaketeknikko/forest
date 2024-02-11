@@ -8,6 +8,12 @@ import { useLoadDefaultConfigs } from "../../hooks/useLoadDefaultConfigs"
 import { allScenarioConfigsAtom } from "../state/jotai/scenarios"
 import { defaultConfigsAtom } from "../state/jotai/gameState"
 import { useEffect } from "react"
+import {
+   IActionCard,
+   ICharacter,
+   IEnemy,
+   IScenarioConfig,
+} from "../../../../shared/types/types"
 
 const useInitializeCharacters = () => {
    const [, setAllCharactersAtom] = useAtom(allPlayerCharactersAtom)
@@ -19,13 +25,14 @@ const useInitializeCharacters = () => {
          // Keep it just in case.
          const wrapperFunc = () => {
             const characterConfigs = defaultConfigs.characters
-            const characterAtoms: Array<Atom<Character>> = []
+            const characterAtoms: Array<Atom<ICharacter>> = []
 
             for (const characterConfig of characterConfigs) {
                const character = clone(characterConfig, false)
 
-               character.cards = setInitialActiveActions(character.cards)
-               character.cards = atomsFromCardConfigs(character.cards)
+               character.cards = atomsFromCardConfigs(
+                  setInitialActiveActions(character.cards)
+               )
 
                character.currentActionDelay =
                   character.baseActionDelay * Math.random() * 2
@@ -49,13 +56,14 @@ const useInitializeEnemies = () => {
    useEffect(() => {
       if (defaultConfigs.enemies && defaultConfigs.enemies.length > 0) {
          const enemyConfigs = defaultConfigs.enemies
-         const enemies: Array<Atom<Enemy>> = []
+         const enemies: Array<Atom<IEnemy>> = []
          const wrapperFunc = () => {
             for (const enemyConfig of enemyConfigs) {
                const enemy = clone(enemyConfig)
 
-               enemy.cards = setInitialActiveActions(enemy.cards)
-               enemy.cards = atomsFromCardConfigs(enemy.cards)
+               enemy.cards = atomsFromCardConfigs(
+                  setInitialActiveActions(enemy.cards)
+               )
 
                enemy.currentActionDelay =
                   enemy.baseActionDelay * Math.random() * 2
@@ -79,7 +87,7 @@ const useInitializeScenarios = () => {
       if (defaultConfigs.scenarios && defaultConfigs.scenarios.length > 0) {
          const scenarioConfigs = defaultConfigs.scenarios
 
-         const scenarios: Array<ScenarioConfig> = []
+         const scenarios: Array<IScenarioConfig> = []
          const wrapperFunc = () => {
             for (const scenarioConfig of scenarioConfigs) {
                const scenario = clone(scenarioConfig)
@@ -119,7 +127,7 @@ const useInitializeDefaultGameState = () => {
 }
 
 const setInitialActiveActions = (cards) => {
-   const newCards: Array<ActionCard> = []
+   const newCards: Array<IActionCard> = []
    for (const card of cards) {
       const newCard = clone(card)
       if (newCard.actions?.length > 0) {

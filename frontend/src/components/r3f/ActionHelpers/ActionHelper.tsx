@@ -10,6 +10,8 @@ import { OffensiveActionHelper } from "./OffensiveActionHelper"
 import { SupportActionHelper } from "./SupportActionHelper"
 import { performAction } from "../../../game/actions/performAction"
 
+// TODO: Unify action helpers and refactor
+
 const ActionHelper = () => {
    const [selectedCard] = useAtom(currentlySelectedActionCardAtom)
    const [selectedCardData] = useAtom(selectedCard)

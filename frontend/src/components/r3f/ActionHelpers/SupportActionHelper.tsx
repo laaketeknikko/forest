@@ -1,9 +1,10 @@
 import { Atom, useAtom } from "jotai"
 import { useEffect } from "react"
+import { IActionCard, ICharacter } from "../../../../../shared/types/types"
 
 interface SupportActionHelperProps {
-   selectedCardAtom: Atom<ActionCard>
-   activeCharacterAtom: Atom<Character>
+   selectedCardAtom: Atom<IActionCard>
+   activeCharacterAtom: Atom<ICharacter>
 }
 
 const SupportActionHelper = ({

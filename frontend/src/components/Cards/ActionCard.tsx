@@ -7,12 +7,13 @@ import { useAtom, Atom } from "jotai"
 import { currentlySelectedActionCardAtom } from "../../game/state/jotai/gameState"
 
 import { emptyActionCardAtom } from "../../game/state/initialStates"
+import { IActionCard } from "../../../../shared/types/types"
 
 //export type onActionTriggeredFunc = (card: Atom<ActionCard>) => void
-export type onCardSelectedFunc = (card: Atom<ActionCard>) => void
+export type onCardSelectedFunc = (card: Atom<IActionCard>) => void
 
 interface ActionCardProps {
-   cardAtom: Atom<ActionCard>
+   cardAtom: Atom<IActionCard>
    //   onActionTriggered: onActionTriggeredFunc
    onCardSelected?: onCardSelectedFunc
 }

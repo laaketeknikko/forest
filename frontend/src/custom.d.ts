@@ -1,6 +1,6 @@
 import * as types from "../../shared/types/types.ts"
 
-declare interface ActionCardAction extends types.ActionCardAction {}
+declare interface ActionCardAction extends types.IActionCardAction {}
 
 /*declare interface ActionCardAction {
    _id?: string
@@ -14,7 +14,7 @@ declare interface ActionCardAction extends types.ActionCardAction {}
 }
 */
 
-declare interface ActionCard extends types.ActionCard {}
+declare interface ActionCard extends types.IActionCard {}
 
 /*
 declare interface ActionCard {
@@ -26,7 +26,7 @@ declare interface ActionCard {
 }
 */
 
-declare interface GameEntity extends types.GameEntity {}
+declare interface GameEntity extends types.IGameEntity {}
 
 /*
 declare interface GameEntity {
@@ -34,7 +34,7 @@ declare interface GameEntity {
    health?: number
 }
 */
-declare interface DynamicGameEntity extends types.DynamicGameEntity {}
+declare interface DynamicGameEntity extends types.IDynamicGameEntity {}
 
 /*
 declare interface DynamicGameEntity extends GameEntity {
@@ -49,8 +49,8 @@ declare interface DynamicGameEntity extends GameEntity {
 }
 */
 
-declare interface Character extends types.Character {}
-declare interface Enemy extends types.Enemy {}
+declare interface Character extends types.ICharacter {}
+declare interface Enemy extends types.IEnemy {}
 
 /*
 declare interface Character extends DynamicGameEntity {}
@@ -58,7 +58,7 @@ declare interface Character extends DynamicGameEntity {}
 declare interface Enemy extends DynamicGameEntity {}
 */
 
-declare interface TurnOrderCard extends types.TurnOrderCard {}
+declare interface TurnOrderCard extends types.ITurnOrderCard {}
 
 /*
 declare interface TurnOrderCard {
@@ -66,7 +66,7 @@ declare interface TurnOrderCard {
 }
 */
 
-declare interface Position extends types.Position {}
+declare interface Position extends types.IPosition {}
 
 /*
 declare interface Position {
@@ -76,7 +76,7 @@ declare interface Position {
 }
 */
 
-declare interface Size2D extends types.Size2D {}
+declare interface Size2D extends types.ISize2D {}
 
 /*
 
@@ -86,7 +86,7 @@ declare interface Size2D {
 }
 */
 
-declare interface Position2D extends types.Position2D {}
+declare interface Position2D extends types.IPosition2D {}
 
 /*
 declare interface Position2D {
@@ -95,7 +95,7 @@ declare interface Position2D {
 }
 */
 
-declare interface ArenaConfig extends types.ArenaConfig {}
+declare interface ArenaConfig extends types.IArenaConfig {}
 
 /*
 declare interface ArenaConfig {
@@ -103,7 +103,7 @@ declare interface ArenaConfig {
 }
 */
 
-declare interface ScenarioEnemyConfig extends types.ScenarioEnemyConfig {}
+declare interface ScenarioEnemyConfig extends types.IScenarioEnemyConfig {}
 /*
 declare interface ScenarioEnemyConfig {
    enemyName: string
@@ -112,7 +112,7 @@ declare interface ScenarioEnemyConfig {
 }
 */
 
-declare interface ScenarioConfig extends types.ScenarioConfig {}
+declare interface ScenarioConfig extends types.IScenarioConfig {}
 
 /*
 
@@ -129,7 +129,7 @@ declare interface ScenarioConfig {
 }
 */
 
-declare interface SaveGameConfig extends types.SaveGameConfig {}
+declare interface SaveGameConfig extends types.ISaveGameConfig {}
 
 /*
 

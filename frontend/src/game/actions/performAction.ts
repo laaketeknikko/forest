@@ -3,6 +3,12 @@ import { getDefaultStore } from "jotai"
 
 import { allActiveGameEntitiesAtom } from "../state/jotai/entities"
 import { actionTypes } from "../../config/actions/actionTypes"
+import {
+   IActionCard,
+   IActionCardAction,
+   ICharacter,
+   IGameEntity,
+} from "../../../../shared/types/types"
 
 interface point2d {
    x: number
@@ -11,15 +17,15 @@ interface point2d {
 
 interface performActionProps {
    // TODO: Fix the type never to Atom<Character>
-   selectedCharacterAtom: Atom<Character>
-   activeCardAtom: Atom<ActionCard>
-   selectedAction: ActionCardAction
+   selectedCharacterAtom: Atom<ICharacter>
+   activeCardAtom: Atom<IActionCard>
+   selectedAction: IActionCardAction
    targetPoint: point2d
 }
 
 interface affectedEntity {
-   entityData: GameEntity
-   entity: Atom<GameEntity>
+   entityData: IGameEntity
+   entity: Atom<IGameEntity>
 }
 
 const performAction = ({
@@ -74,7 +80,7 @@ const performAction = ({
 
 const performMoveAction = (props: performActionProps) => {
    const jotaiStore = getDefaultStore()
-   const selectedCharacter: Character = jotaiStore.get(
+   const selectedCharacter: ICharacter = jotaiStore.get(
       props.selectedCharacterAtom
    )
 
@@ -102,7 +108,7 @@ const performOffensiveAction = (props: performActionProps) => {
    const affectedEntities: Array<affectedEntity> = []
 
    for (const entity of allGameEntities) {
-      const entityData: GameEntity = jotaiStore.get(entity)
+      const entityData: IGameEntity = jotaiStore.get(entity)
 
       const differenceX = Math.abs(entityData.position!.x - tileCenter.x)
       const differenceZ = Math.abs(entityData.position!.z - tileCenter.z)

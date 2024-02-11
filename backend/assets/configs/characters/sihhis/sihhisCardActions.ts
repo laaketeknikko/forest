@@ -3,7 +3,7 @@ import * as types from "../../../../../shared/types/types"
 import { damageTypes } from "../../actions/damageTypes"
 import { actionTypes } from "../../actions/actionTypes"
 
-const SihhisCardActions: Record<string, types.ActionCardAction> = {
+const SihhisCardActions: Record<string, types.IActionCardAction> = {
    slither: {
       name: "Slither",
       description: "Your way of moving around",

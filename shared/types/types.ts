@@ -1,17 +1,17 @@
 import { Atom } from "jotai"
 
-export enum DamageTypes {
+export enum EDamageTypes {
    physical = "physical",
 }
 
-export enum ActionTypes {
+export enum EActionTypes {
    offensive = "offensive",
    support = "support",
    defensive = "defensive",
    movement = "movement",
 }
 
-export interface ActionCardAction {
+export interface IActionCardAction {
    _id?: string
    name: string
    description?: string
@@ -21,80 +21,104 @@ export interface ActionCardAction {
    range?: number
    type: string
 }
+export interface ISaveConfigActionCardAction extends IActionCardAction {}
 
-export interface ActionCard {
+export interface IActionCard {
    _id?: string
    name: string
    description?: string
-   actions: ActionCardAction[]
+   actions: IActionCardAction[]
    nextActionId?: string
 }
+export interface ISaveConfigActionCard extends IActionCard {}
 
-export interface GameEntity {
-   position: Position
+export interface IGameEntity {
+   position: IPosition
    health?: number
 }
+export interface ISaveConfigGameEntity extends IGameEntity {}
 
-export interface DynamicGameEntity extends GameEntity {
+export interface IDynamicGameEntity extends IGameEntity {
    _id?: string
    name: string
    spritePath: string
    health: number
    baseActionDelay: number
    currentActionDelay: number
-   cards: Array<Atom<ActionCard>>
+   cards: Array<Atom<IActionCard>>
    selectedCardId: string
 }
-
-export interface Character extends DynamicGameEntity {}
-
-export interface Enemy extends DynamicGameEntity {}
-
-export interface TurnOrderCard {
-   imagePath: string
+export interface ISaveConfigDynamicGameEntity
+   extends Omit<IDynamicGameEntity, "cards" | "selectedCardId"> {
+   cards: Array<ISaveConfigActionCard>
 }
 
-export interface Position {
+export interface ICharacter extends IDynamicGameEntity {}
+export interface ISaveConfigCharacter extends ISaveConfigDynamicGameEntity {}
+
+export interface IEnemy extends IDynamicGameEntity {}
+export interface ISaveConfigEnemy extends ISaveConfigDynamicGameEntity {}
+
+export interface ITurnOrderCard {
+   imagePath: string
+}
+export interface ISaveConfigTurnOrderCard extends ITurnOrderCard {}
+
+export interface IPosition {
    x: number
    y: number
    z: number
 }
+export interface ISaveConfigPosition extends IPosition {}
 
-export interface Size2D {
+export interface ISize2D {
    width: number
    length: number
 }
+export interface ISaveConfigSize2D extends ISize2D {}
 
-export interface Position2D {
+export interface IPosition2D {
    x: number
    z: number
 }
+export interface ISaveConfigPosition2D extends IPosition2D {}
 
-export interface ArenaConfig {
-   size: Size2D
+export interface IArenaConfig {
+   size: ISize2D
 }
+export interface ISaveConfigArenaConfig extends IArenaConfig {}
 
-export interface ScenarioEnemyConfig {
+// TODO: Used in save games?
+export interface IScenarioEnemyConfig {
    enemyName: string
    quantity: number
-   startingPosition: Position2D
+   startingPosition: IPosition2D
 }
+export interface ISaveConfigScenarioEnemyConfig extends IScenarioEnemyConfig {}
 
-export interface ScenarioConfig {
+export interface IScenarioConfig {
    _id?: string
    name: string
    shortDescription: string
    description: string
-   arena: ArenaConfig
-   enemies: Array<ScenarioEnemyConfig>
-   playerCharacterStartingPositions: Array<Position2D>
+   arena: IArenaConfig
+   enemies: Array<IScenarioEnemyConfig>
+   playerCharacterStartingPositions: Array<IPosition2D>
    thumbNailPath: string
    maxPartySize: number
 }
+export interface ISaveConfigScenarioConfig
+   extends Omit<
+      IScenarioConfig,
+      "enemies" | "playerCharacterStartingPositions"
+   > {
+   enemies?: Array<IScenarioEnemyConfig>
+   playerCharacterStartingPositions?: Array<IPosition2D>
+}
 
-export interface SaveGameConfig {
-   characters: Array<Character>
-   enemies: Array<Enemy>
-   scenario: ScenarioConfig
+export interface ISaveGameConfig {
+   characters: Array<ISaveConfigCharacter>
+   enemies: Array<ISaveConfigEnemy>
+   scenario: ISaveConfigScenarioConfig
    keyString: string
 }

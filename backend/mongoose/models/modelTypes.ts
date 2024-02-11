@@ -2,39 +2,19 @@
 
 import * as types from "../../../shared/types/types"
 
-interface IActionCardActionModel extends types.ActionCardAction {}
+interface IActionCardActionModel extends types.ISaveConfigActionCardAction {}
 
-interface IActionCardModel extends types.ActionCard {}
+interface IActionCardModel extends types.ISaveConfigActionCard {}
 
-interface IDynamicGameEntityModel
-   extends Omit<types.DynamicGameEntity, "selectedCardId" | "cards"> {
-   cards: Array<IActionCardModel>
-}
+interface IDynamicGameEntityModel extends types.ISaveConfigDynamicGameEntity {}
 
-interface IEnemyModel extends Omit<types.Enemy, "selectedCardId"> {}
+interface IEnemyModel extends types.ISaveConfigEnemy {}
 
-interface ICharacterModel extends Omit<types.Character, "selectedCardId"> {}
+interface ICharacterModel extends types.ISaveConfigCharacter {}
 
-interface IScenarioModel
-   extends Omit<
-      types.ScenarioConfig,
-      "enemies" | "playerCharacterStartingPositions"
-   > {
-   _id?: string
-   name: string
-   shortDescription: string
-   description: string
-   arena: types.ArenaConfig
-   thumbNailPath: string
-   maxPartySize: number
-}
+interface IScenarioModel extends types.ISaveConfigScenarioConfig {}
 
-interface ISaveGameConfigModel {
-   characters: Array<ICharacterModel>
-   enemies: Array<IEnemyModel>
-   scenario: IScenarioModel
-   keyString: string
-}
+interface ISaveGameConfigModel extends types.ISaveGameConfig {}
 
 export {
    IActionCardActionModel,

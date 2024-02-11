@@ -7,9 +7,10 @@ import { PrimitiveAtom, useAtom } from "jotai"
 
 import * as textureUtilities from "../util/textureUtilities"
 import { useEffect } from "react"
+import { ICharacter } from "../../../../shared/types/types"
 
 interface CharacterProps {
-   characterAtom: PrimitiveAtom<Character>
+   characterAtom: PrimitiveAtom<ICharacter>
    maxDimension: number
 }
 
