@@ -3,7 +3,7 @@ import { buildStateFromSave } from "../util/buildStateFromSave"
 import { activeSaveGameConfigAtom } from "../state/jotai/gameState"
 import { useAtom } from "jotai"
 import { useState } from "react"
-import { ISaveGameConfig } from "../../../../shared/types/types"
+import { ZSaveConfig } from "../../../../shared/types/types"
 
 const useLoadGame = () => {
    const [saveGame, setSaveGame] = useAtom(activeSaveGameConfigAtom)
@@ -23,7 +23,7 @@ const useLoadGame = () => {
       }
    }
 
-   const loadTheGame = (saveData: ISaveGameConfig | null = null) => {
+   const loadTheGame = (saveData: ZSaveConfig | null = null) => {
       if (saveData) {
          return buildStateFromSave(saveData)
       } else {

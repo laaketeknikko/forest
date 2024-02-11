@@ -1,7 +1,6 @@
 import { useState } from "react"
 
 import { Canvas, useFrame } from "@react-three/fiber"
-import { MapControls, OrbitControls } from "@react-three/drei"
 
 import { Ground } from "./Ground/Ground"
 

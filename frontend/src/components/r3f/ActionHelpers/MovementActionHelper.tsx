@@ -1,11 +1,11 @@
 import { Edges } from "@react-three/drei"
 import { Atom, useAtom } from "jotai"
 import { MathUtils } from "three"
-import { IActionCard, ICharacter } from "../../../../../shared/types/types"
+import { ZActionCard, ZCharacter } from "../../../../../shared/types/types"
 
 interface MovementActionHelperProps {
-   selectedCardAtom: Atom<IActionCard>
-   activeCharacterAtom: Atom<ICharacter>
+   selectedCardAtom: Atom<ZActionCard>
+   activeCharacterAtom: Atom<ZCharacter>
    onClick?: (event: object) => void
 }
 
@@ -24,9 +24,10 @@ const MovementActionHelper = ({
    return (
       <mesh
          position={[
-            activeCharacter.position.x,
+            // TODO: Better way to do this?
+            activeCharacter.position?.x || 0,
             0.1,
-            activeCharacter.position.z,
+            activeCharacter.position?.z || 0,
          ]}
          rotation-x={MathUtils.degToRad(-90)}
          onClick={onClick}

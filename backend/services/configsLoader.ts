@@ -105,6 +105,7 @@ const loadScenarioConfigs = async () => {
 
    if (configFolders) {
       for (const folder of configFolders) {
+         // TODO: Fix
          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
          const module = await import(
             `${cwd}/${scenarioConfigRoot}/${folder}/scenarioconfig`

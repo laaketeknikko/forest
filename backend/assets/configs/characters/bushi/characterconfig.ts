@@ -3,7 +3,7 @@ import * as types from "../../../../../shared/types/types"
 import { actionTypes } from "../../actions/actionTypes"
 import { damageTypes } from "../../actions/damageTypes"
 
-const BushiActions: Record<string, types.IActionCardAction> = {
+const BushiActions: Record<string, types.ZActionCardAction> = {
    reminisce: {
       name: "Reminisce",
       description: "Think on all you've gone through.",
@@ -87,7 +87,7 @@ const BushiActions: Record<string, types.IActionCardAction> = {
    },
 }
 
-const BushiActionCards: Array<types.IActionCard> = [
+const BushiActionCards: Array<types.ZActionCard> = [
    {
       name: "Basic offense",
       description: "You have practised more than most people sleep",

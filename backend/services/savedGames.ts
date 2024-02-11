@@ -1,25 +1,32 @@
-import * as modelTypes from "../mongoose/models/modelTypes"
+import { ZSaveConfig } from "../../shared/types/types"
+import { SaveConfigSchema } from "../../shared/zod/schemas"
 
 import { SaveGameModel } from "../mongoose/models/SaveGame"
 
-const saveGame = async (saveGameData: modelTypes.ISaveGameConfigModel) => {
-   console.dir(saveGameData, { depth: null })
+const saveGame = async (saveGameData: ZSaveConfig) => {
+   const parsedConfig = SaveConfigSchema.safeParse(saveGameData)
+   if (!parsedConfig.success) {
+      console.log("Invalid save data", parsedConfig.error)
+      throw new Error("Invalid save data")
+   }
 
    let saveGame = await SaveGameModel.findOne({
-      keyString: saveGameData.keyString,
+      keyString: parsedConfig.data.keyString,
    })
 
    if (saveGame) {
-      console.log("replacing save data", saveGame.toJSON())
-      saveGame.characters = saveGameData.characters
-      saveGame.enemies = saveGameData.enemies
-      saveGame.scenario = saveGameData.scenario
-      console.log("Replaced save data", saveGame.toJSON())
+      console.log("Found save game", saveGame)
+      saveGame.characters = parsedConfig.data.characters
+      saveGame.enemies = parsedConfig.data.enemies
+      saveGame.scenario = parsedConfig.data.scenario
    } else {
-      saveGame = new SaveGameModel(saveGameData)
+      console.log("No save game found, creating new one")
+      saveGame = new SaveGameModel(parsedConfig.data)
    }
 
    await saveGame.save()
+
+   console.log("Game saved", saveGame)
 
    return saveGame.toObject()
 }

@@ -1,12 +1,12 @@
 import { atom } from "jotai"
 import {
-   IActionCard,
-   ICharacter,
-   IEnemy,
-   IScenarioConfig,
+   ZActionCard,
+   ZCharacter,
+   ZEnemy,
+   ZScenarioConfig,
 } from "../../../../shared/types/types"
 
-const emptyActionCard: IActionCard = {
+const emptyActionCard: ZActionCard = {
    _id: "empty",
    name: "",
    description: "",
@@ -14,9 +14,9 @@ const emptyActionCard: IActionCard = {
    nextActionId: "",
 }
 
-const emptyActionCardAtom = atom<IActionCard>({ ...emptyActionCard })
+const emptyActionCardAtom = atom<ZActionCard>({ ...emptyActionCard })
 
-const emptyCharacter: ICharacter = {
+const emptyCharacter: ZCharacter = {
    name: "",
    spritePath: "",
    cards: [],
@@ -28,9 +28,9 @@ const emptyCharacter: ICharacter = {
    _id: "empty",
 }
 
-const emptyCharacterAtom = atom<ICharacter>(emptyCharacter)
+const emptyCharacterAtom = atom<ZCharacter>(emptyCharacter)
 
-const emptyScenario: IScenarioConfig = {
+const emptyScenario: ZScenarioConfig = {
    name: "Choose a scenario",
    description: "",
    enemies: [],
@@ -44,7 +44,7 @@ const emptyScenario: IScenarioConfig = {
 
 const emptyScenarioAtom = atom(emptyScenario)
 
-const emptyEnemy: IEnemy = {
+const emptyEnemy: ZEnemy = {
    name: "",
    baseActionDelay: 0,
    cards: [],

@@ -1,6 +1,6 @@
-import { IScenarioConfig } from "../../../../../shared/types/types"
+import { ZScenarioConfig } from "../../../../../shared/types/types"
 
-const scenarioConfig: IScenarioConfig = {
+const scenarioConfig: ZScenarioConfig = {
    name: "First encounter",
    shortDescription: "First encounter with Miinii.",
    description:

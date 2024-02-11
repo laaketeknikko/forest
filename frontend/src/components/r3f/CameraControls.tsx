@@ -20,7 +20,7 @@ const CameraControls = () => {
 
    const controls = useMemo(() => {
       let position = character.position
-      if (!(position.x && position.y && position.z)) {
+      if (!(position?.x && position.y && position.z)) {
          position = { x: 0, y: 0, z: 0 }
       }
       return <MapControls target={[position.x, position.y, position.z]} />

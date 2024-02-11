@@ -9,10 +9,10 @@ import { allScenarioConfigsAtom } from "../state/jotai/scenarios"
 import { defaultConfigsAtom } from "../state/jotai/gameState"
 import { useEffect } from "react"
 import {
-   IActionCard,
-   ICharacter,
-   IEnemy,
-   IScenarioConfig,
+   ZActionCard,
+   ZCharacter,
+   ZEnemy,
+   ZScenarioConfig,
 } from "../../../../shared/types/types"
 
 const useInitializeCharacters = () => {
@@ -25,7 +25,7 @@ const useInitializeCharacters = () => {
          // Keep it just in case.
          const wrapperFunc = () => {
             const characterConfigs = defaultConfigs.characters
-            const characterAtoms: Array<Atom<ICharacter>> = []
+            const characterAtoms: Array<Atom<ZCharacter>> = []
 
             for (const characterConfig of characterConfigs) {
                const character = clone(characterConfig, false)
@@ -56,7 +56,7 @@ const useInitializeEnemies = () => {
    useEffect(() => {
       if (defaultConfigs.enemies && defaultConfigs.enemies.length > 0) {
          const enemyConfigs = defaultConfigs.enemies
-         const enemies: Array<Atom<IEnemy>> = []
+         const enemies: Array<Atom<ZEnemy>> = []
          const wrapperFunc = () => {
             for (const enemyConfig of enemyConfigs) {
                const enemy = clone(enemyConfig)
@@ -87,7 +87,7 @@ const useInitializeScenarios = () => {
       if (defaultConfigs.scenarios && defaultConfigs.scenarios.length > 0) {
          const scenarioConfigs = defaultConfigs.scenarios
 
-         const scenarios: Array<IScenarioConfig> = []
+         const scenarios: Array<ZScenarioConfig> = []
          const wrapperFunc = () => {
             for (const scenarioConfig of scenarioConfigs) {
                const scenario = clone(scenarioConfig)
@@ -127,7 +127,7 @@ const useInitializeDefaultGameState = () => {
 }
 
 const setInitialActiveActions = (cards) => {
-   const newCards: Array<IActionCard> = []
+   const newCards: Array<ZActionCard> = []
    for (const card of cards) {
       const newCard = clone(card)
       if (newCard.actions?.length > 0) {

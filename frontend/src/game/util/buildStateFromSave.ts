@@ -6,17 +6,13 @@ import { atomsFromCardConfigs } from "./atomsFromCardConfigs"
 import { activePartyAtom } from "../state/jotai/characters"
 import { activeScenarioEnemiesAtom } from "../state/jotai/enemies"
 import { selectedScenarioConfigAtom } from "../state/jotai/scenarios"
-import {
-   ICharacter,
-   IEnemy,
-   ISaveGameConfig,
-} from "../../../../shared/types/types"
+import { ZCharacter, ZEnemy, ZSaveConfig } from "../../../../shared/types/types"
 
-const buildStateFromSave = (saveData: ISaveGameConfig) => {
+const buildStateFromSave = (saveData: ZSaveConfig) => {
    const jotaiStore = getDefaultStore()
 
    // Build character state
-   const characters: Array<Atom<ICharacter>> = []
+   const characters: Array<Atom<ZCharacter>> = []
 
    // Clone the config simply to avoid possible reference issues.
    const clonedConfig = clone(saveData)
@@ -42,7 +38,7 @@ const buildStateFromSave = (saveData: ISaveGameConfig) => {
    jotaiStore.set(activePartyAtom, characters)
 
    // Build enemy state
-   const enemies: Array<Atom<IEnemy>> = []
+   const enemies: Array<Atom<ZEnemy>> = []
 
    for (const enemyConfig of clonedConfig.enemies) {
       const enemy = {

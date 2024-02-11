@@ -1,8 +1,8 @@
 import { Atom, atom } from "jotai"
-import { IActionCard } from "../../../../shared/types/types"
+import { ZActionCard } from "../../../../shared/types/types"
 
-const atomsFromCardConfigs = (cardConfigs: Array<IActionCard>) => {
-   const cardAtoms: Array<Atom<IActionCard>> = []
+const atomsFromCardConfigs = (cardConfigs: Array<ZActionCard>) => {
+   const cardAtoms: Array<Atom<ZActionCard>> = []
 
    for (const config of cardConfigs) {
       cardAtoms.push(atom(config))
