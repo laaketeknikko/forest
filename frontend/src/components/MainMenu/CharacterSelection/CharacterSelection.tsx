@@ -14,11 +14,12 @@ import { selectedScenarioConfigAtom } from "../../../game/state/jotai/scenarios"
 import Typography from "@mui/material/Typography"
 import ImageList from "@mui/material/ImageList"
 import { SetNavigationState } from "../types"
+import { ICharacter } from "../../../../../shared/types/types"
 
 interface CurrentProps {
    name: string
    spritePath: string
-   characterAtom: Atom<Character>
+   characterAtom: Atom<ICharacter>
 }
 
 interface CharacterSelectionProps {

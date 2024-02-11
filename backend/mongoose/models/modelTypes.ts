@@ -1,38 +1,20 @@
 // Types to use Mongoose with TypeScript.
 
-interface IActionCardActionModel extends ActionCardAction {}
+import * as types from "../../../shared/types/types"
 
-interface IActionCardModel extends ActionCard {}
+interface IActionCardActionModel extends types.ISaveConfigActionCardAction {}
 
-interface IDynamicGameEntityModel
-   extends Omit<DynamicGameEntity, "selectedCardId"> {
-   cards: Array<IActionCardModel>
-}
+interface IActionCardModel extends types.ISaveConfigActionCard {}
 
-interface IEnemyModel extends Omit<Enemy, "selectedCardId"> {}
+interface IDynamicGameEntityModel extends types.ISaveConfigDynamicGameEntity {}
 
-interface ICharacterModel extends Omit<Character, "selectedCardId"> {}
+interface IEnemyModel extends types.ISaveConfigEnemy {}
 
-interface IScenarioModel
-   extends Omit<
-      ScenarioConfig,
-      "enemies" | "playerCharacterStartingPositions"
-   > {
-   _id?: string
-   name: string
-   shortDescription: string
-   description: string
-   arena: ArenaConfig
-   thumbNailPath: string
-   maxPartySize: number
-}
+interface ICharacterModel extends types.ISaveConfigCharacter {}
 
-interface ISaveGameConfigModel {
-   characters: Array<ICharacterModel>
-   enemies: Array<IEnemyModel>
-   scenario: IScenarioModel
-   keyString: string
-}
+interface IScenarioModel extends types.ISaveConfigScenarioConfig {}
+
+interface ISaveGameConfigModel extends types.ISaveGameConfig {}
 
 export {
    IActionCardActionModel,

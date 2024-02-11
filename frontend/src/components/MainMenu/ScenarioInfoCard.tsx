@@ -6,9 +6,10 @@ import Card from "@mui/material/Card"
 import { selectedScenarioConfigAtom } from "../../game/state/jotai/scenarios"
 import { useAtom } from "jotai"
 import CardMedia from "@mui/material/CardMedia"
+import { IScenarioConfig } from "../../../../shared/types/types"
 
 interface ScenarioInfoCardProps {
-   scenarioInfo: ScenarioConfig
+   scenarioInfo: IScenarioConfig
    setScenarioSelected: (value: boolean) => void
 }
 

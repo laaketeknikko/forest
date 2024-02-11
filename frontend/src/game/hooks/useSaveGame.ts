@@ -6,6 +6,9 @@ import { v4 } from "uuid"
 import { activeSaveGameConfigAtom } from "../state/jotai/gameState"
 import { useAtom } from "jotai"
 
+import { useState } from "react"
+import { ISaveGameConfig } from "../../../../shared/types/types"
+
 const useSaveGame = () => {
    const [saveGameData, setSaveGameData] = useAtom(activeSaveGameConfigAtom)
 
@@ -27,7 +30,7 @@ const useSaveGame = () => {
       return saveGameData
    }
 
-   const saveTheGame = (saveData: SaveGameConfig | null = null) => {
+   const saveTheGame = (saveData: ISaveGameConfig | null = null) => {
       if (!isSaving) {
          let result
          setIsSaving(true)

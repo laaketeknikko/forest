@@ -1,10 +1,11 @@
 import { Edges } from "@react-three/drei"
 import { Atom, useAtom } from "jotai"
 import { MathUtils } from "three"
+import { IActionCard, ICharacter } from "../../../../../shared/types/types"
 
 interface MovementActionHelperProps {
-   selectedCardAtom: Atom<ActionCard>
-   activeCharacterAtom: Atom<Character>
+   selectedCardAtom: Atom<IActionCard>
+   activeCharacterAtom: Atom<ICharacter>
    onClick?: (event: object) => void
 }
 

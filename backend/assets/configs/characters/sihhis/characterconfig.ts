@@ -1,6 +1,6 @@
 import { sihhisCards } from "./sihhisCards"
 
-const characterConfig: Character = {
+const characterConfig = {
    name: "Sihhis",
    spritePath: "sprites/characters/sihhis.png",
    cards: sihhisCards,

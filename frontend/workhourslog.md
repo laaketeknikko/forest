@@ -39,3 +39,5 @@
 | 9.2.  | 4    | Implementing loading                                        |
 | 9.2.  | 1    | Implementing frontend loading                               |
 | 10.2. | 1    | UI work                                                     |
+| 10.2. | 2    | Refactoring                                                 |
+| 11.2. | 2    | Refactoring                                                 |

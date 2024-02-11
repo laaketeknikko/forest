@@ -3,15 +3,22 @@ import { activePartyAtom } from "./characters"
 import { emptyActionCard } from "../initialStates"
 import { activeScenarioEnemiesAtom } from "./enemies"
 import { GameExecutionState } from "../../../config/types"
+import {
+   IActionCard,
+   ICharacter,
+   IEnemy,
+   ISaveGameConfig,
+   IScenarioConfig,
+} from "../../../../../shared/types/types"
 
-const turnOrderAtom = atom<Array<Atom<Character>>>((get) => {
+const turnOrderAtom = atom<Array<Atom<ICharacter>>>((get) => {
    const characters = [
       ...get(activePartyAtom),
       ...get(activeScenarioEnemiesAtom),
    ]
    characters.sort((aAtom, bAtom) => {
-      const a: Character = get(aAtom)
-      const b: Character = get(bAtom)
+      const a: ICharacter = get(aAtom)
+      const b: ICharacter = get(bAtom)
       if (a.currentActionDelay < b.currentActionDelay) return -1
       else if (a === b) return 0
       else return 1
@@ -19,24 +26,24 @@ const turnOrderAtom = atom<Array<Atom<Character>>>((get) => {
    return characters
 })
 
-const currentlySelectedActionCardAtom = atom<Atom<ActionCard>>(
-   atom<ActionCard>({ ...emptyActionCard })
+const currentlySelectedActionCardAtom = atom<Atom<IActionCard>>(
+   atom<IActionCard>({ ...emptyActionCard })
 )
 
 const defaultConfigsAtom = atom<{
-   characters: Array<Character>
-   enemies: Array<Enemy>
-   scenarios: Array<ScenarioConfig>
+   characters: Array<ICharacter>
+   enemies: Array<IEnemy>
+   scenarios: Array<IScenarioConfig>
 }>({ characters: [], enemies: [], scenarios: [] })
 
 const gameExecutionStateAtom = atom<GameExecutionState>(
    GameExecutionState.stopped
 )
 
-const activeSaveGameConfigAtom = atom<SaveGameConfig>({
+const activeSaveGameConfigAtom = atom<ISaveGameConfig>({
    characters: [],
    enemies: [],
-   scenario: {} as ScenarioConfig,
+   scenario: {} as IScenarioConfig,
    keyString: "",
 })
 

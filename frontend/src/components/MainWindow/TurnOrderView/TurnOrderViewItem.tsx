@@ -1,8 +1,9 @@
 import { Atom } from "jotai"
 import { useAtom } from "jotai"
+import { ICharacter } from "../../../../../shared/types/types"
 
 interface TurnOrderViewItemProps {
-   characterAtom: Atom<Character>
+   characterAtom: Atom<ICharacter>
 }
 
 const TurnOrderViewItem = ({ characterAtom }: TurnOrderViewItemProps) => {

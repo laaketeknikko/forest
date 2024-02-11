@@ -7,9 +7,10 @@ import { allEnemiesAtom } from "../../game/state/jotai/enemies"
 import { getDefaultStore, useAtom } from "jotai"
 import { EnemyDetails } from "./EnemyDetails"
 import { emptyEnemyAtom } from "../../game/state/initialStates"
+import { IScenarioConfig } from "../../../../shared/types/types"
 
 interface ScenarioDetailsProps {
-   scenarioConfig: ScenarioConfig
+   scenarioConfig: IScenarioConfig
 }
 
 const ScenarioDetails = ({ scenarioConfig }: ScenarioDetailsProps) => {

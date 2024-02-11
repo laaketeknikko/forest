@@ -7,10 +7,11 @@ import Typography from "@mui/material/Typography"
 
 import { useState } from "react"
 import { EnemyAvatars } from "./EnemyAvatars"
+import { IEnemy, IScenarioEnemyConfig } from "../../../../shared/types/types"
 
 interface EnemyDetailsProps {
-   enemyAtom: Atom<Enemy>
-   scenarioDetails: ScenarioEnemyConfig
+   enemyAtom: Atom<IEnemy>
+   scenarioDetails: IScenarioEnemyConfig
 }
 
 const EnemyDetails = ({ enemyAtom, scenarioDetails }: EnemyDetailsProps) => {

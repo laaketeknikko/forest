@@ -1,7 +1,9 @@
+import * as types from "../../../../../shared/types/types"
+
 import { actionTypes } from "../../actions/actionTypes"
 import { damageTypes } from "../../actions/damageTypes"
 
-const miiniiActions: Record<string, ActionCardAction> = {
+const miiniiActions: Record<string, types.IActionCardAction> = {
    beak: {
       name: "Beak",
       description: "It really hurts",
@@ -54,7 +56,11 @@ const miiniiCards = [
    },
 ]
 
-const enemyConfig: Omit<Enemy, "position"> = {
+interface IEnemyConfig extends Omit<types.IEnemy, "position" | "cards"> {
+   cards: Array<types.IActionCard>
+}
+
+const enemyConfig: IEnemyConfig = {
    name: "Miinii",
    health: 200,
    spritePath: "sprites/characters/miinii.png",

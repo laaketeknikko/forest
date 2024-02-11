@@ -3,6 +3,14 @@ import { getDefaultStore } from "jotai"
 import { activeScenarioEnemiesAtom } from "../state/jotai/enemies"
 import { selectedScenarioConfigAtom } from "../state/jotai/scenarios"
 import { activePartyAtom } from "../state/jotai/characters"
+import {
+   IActionCard,
+   ISaveConfigActionCard,
+   ISaveConfigActionCardAction,
+   ISaveConfigCharacter,
+   ISaveConfigEnemy,
+   ISaveConfigScenarioConfig,
+} from "../../../../shared/types/types"
 
 const buildSaveFromState = () => {
    const jotaiStore = getDefaultStore()
@@ -12,9 +20,9 @@ const buildSaveFromState = () => {
    const scenarioConfig = jotaiStore.get(selectedScenarioConfigAtom)
 
    const saveGameData = {
-      characters: [] as Array<Character>,
-      enemies: [] as Array<Enemy>,
-      scenario: {} as ScenarioConfig,
+      characters: [] as Array<ISaveConfigCharacter>,
+      enemies: [] as Array<ISaveConfigEnemy>,
+      scenario: {} as ISaveConfigScenarioConfig,
    }
 
    // Process characters and cards
@@ -24,7 +32,7 @@ const buildSaveFromState = () => {
          _id: character._id,
          name: character.name,
          position: character.position,
-         cards: [] as Array<ActionCard>,
+         cards: [] as Array<ISaveConfigActionCard>,
          health: character.health,
          baseActionDelay: character.baseActionDelay,
          currentActionDelay: character.currentActionDelay,
@@ -34,12 +42,12 @@ const buildSaveFromState = () => {
 
       // Process cards and actions
       for (const cardAtom of character.cards) {
-         const card: ActionCard = jotaiStore.get(cardAtom)
+         const card: IActionCard = jotaiStore.get(cardAtom)
          const cardData = {
             _id: card._id,
             name: card.name,
             description: card.description,
-            actions: [] as Array<ActionCardAction>,
+            actions: [] as Array<ISaveConfigActionCardAction>,
             nextActionId: card.nextActionId,
          }
 
@@ -61,7 +69,7 @@ const buildSaveFromState = () => {
          _id: enemy._id,
          name: enemy.name,
          position: enemy.position,
-         cards: [] as Array<ActionCard>,
+         cards: [] as Array<ISaveConfigActionCard>,
          health: enemy.health,
          baseActionDelay: enemy.baseActionDelay,
          currentActionDelay: enemy.currentActionDelay,
@@ -70,12 +78,12 @@ const buildSaveFromState = () => {
       }
 
       for (const cardAtom of enemy.cards) {
-         const card: ActionCard = jotaiStore.get(cardAtom)
+         const card: IActionCard = jotaiStore.get(cardAtom)
          const cardData = {
             _id: card._id,
             name: card.name,
             description: card.description,
-            actions: [] as Array<ActionCardAction>,
+            actions: [] as Array<ISaveConfigActionCardAction>,
             nextActionId: card.nextActionId,
          }
 

@@ -1,8 +1,8 @@
 const actionTypes = {
-   offensive: ActionTypes.offensive,
-   support: ActionTypes.support,
-   defensive: ActionTypes.defensive,
-   movement: ActionTypes.movement,
-}
+   offensive: "offensive",
+   support: "support",
+   defensive: "defensive",
+   movement: "movement",
+} as const
 
 export { actionTypes }

@@ -6,12 +6,17 @@ import { atomsFromCardConfigs } from "./atomsFromCardConfigs"
 import { activePartyAtom } from "../state/jotai/characters"
 import { activeScenarioEnemiesAtom } from "../state/jotai/enemies"
 import { selectedScenarioConfigAtom } from "../state/jotai/scenarios"
+import {
+   ICharacter,
+   IEnemy,
+   ISaveGameConfig,
+} from "../../../../shared/types/types"
 
-const buildStateFromSave = (saveData: SaveGameConfig) => {
+const buildStateFromSave = (saveData: ISaveGameConfig) => {
    const jotaiStore = getDefaultStore()
 
    // Build character state
-   const characters: Array<Atom<Character>> = []
+   const characters: Array<Atom<ICharacter>> = []
 
    // Clone the config simply to avoid possible reference issues.
    const clonedConfig = clone(saveData)
@@ -26,7 +31,7 @@ const buildStateFromSave = (saveData: SaveGameConfig) => {
          baseActionDelay: characterConfig.baseActionDelay,
          currentActionDelay: characterConfig.currentActionDelay,
          spritePath: characterConfig.spritePath,
-         selectedCardId: characterConfig.cards[0]._id,
+         selectedCardId: "",
       }
 
       const newCharacterAtom = atom(character)
@@ -37,7 +42,7 @@ const buildStateFromSave = (saveData: SaveGameConfig) => {
    jotaiStore.set(activePartyAtom, characters)
 
    // Build enemy state
-   const enemies: Array<Atom<Enemy>> = []
+   const enemies: Array<Atom<IEnemy>> = []
 
    for (const enemyConfig of clonedConfig.enemies) {
       const enemy = {
@@ -49,7 +54,7 @@ const buildStateFromSave = (saveData: SaveGameConfig) => {
          baseActionDelay: enemyConfig.baseActionDelay,
          currentActionDelay: enemyConfig.currentActionDelay,
          spritePath: enemyConfig.spritePath,
-         selectedCardId: enemyConfig.cards[0]._id,
+         selectedCardId: "",
       }
 
       const newEnemyAtom = atom(enemy)
@@ -62,7 +67,8 @@ const buildStateFromSave = (saveData: SaveGameConfig) => {
    jotaiStore.set(activeScenarioEnemiesAtom, enemies)
 
    // Build scenario state
-   jotaiStore.set(selectedScenarioConfigAtom, clonedConfig.scenario)
+   // TOOD: Fix
+   jotaiStore.set(selectedScenarioConfigAtom, clonedConfig.scenario as never)
 
    return true
 }
