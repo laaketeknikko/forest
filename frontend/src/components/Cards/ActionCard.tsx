@@ -8,6 +8,7 @@ import { currentlySelectedActionCardAtom } from "../../game/state/jotai/gameStat
 
 import { emptyActionCardAtom } from "../../game/state/initialStates"
 import { ZActionCard } from "../../../../shared/types/types"
+import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material"
 
 //export type onActionTriggeredFunc = (card: Atom<ActionCard>) => void
 export type onCardSelectedFunc = (card: Atom<ZActionCard>) => void
@@ -49,15 +50,22 @@ const ActionCard = ({ cardAtom }: ActionCardProps) => {
          </CardActionArea>
          <CardContent sx={{ padding: 0 }}>
             {card.actions.map((action) => {
-               if (card.nextActionId === action._id) {
-                  return (
-                     <Typography className="active-action" key={action._id}>
-                        {action.name}
-                     </Typography>
-                  )
-               } else {
-                  return <Typography key={action._id}>{action.name}</Typography>
-               }
+               const activeClass =
+                  card.nextActionId === action._id ? "active-action" : ""
+
+               return (
+                  <Accordion key={action._id} className={activeClass}>
+                     <AccordionSummary>
+                        <Typography>{action.name}</Typography>
+                     </AccordionSummary>
+                     <AccordionDetails>
+                        <Typography>Type: {action.type}</Typography>
+                        <Typography>
+                           Delay: {action.actionDelayMultiplier}
+                        </Typography>
+                     </AccordionDetails>
+                  </Accordion>
+               )
             })}
          </CardContent>
       </Card>

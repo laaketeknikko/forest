@@ -7,7 +7,7 @@ import {
    getTextureYCenter,
 } from "../util/textureUtilities"
 import { MathUtils } from "three"
-import { useMemo } from "react"
+import { useMemo, memo } from "react"
 
 const ArenaBorderDecorations = () => {
    const [scenario] = useAtom(selectedScenarioConfigAtom)
@@ -27,9 +27,11 @@ const ArenaBorderDecorations = () => {
       () =>
          randomizeDecorations({
             decorationOptions,
-            numberOfDecorations: Math.floor((Math.random() * arenaWidth) / 2),
+            numberOfDecorations: Math.floor(
+               (Math.random() * arenaWidth) / 2 + 4
+            ),
             maxPos: arenaWidth,
-            maxDepth: 8,
+            maxDepth: 12,
          }),
       [arenaWidth, decorationOptions]
    )
@@ -37,9 +39,11 @@ const ArenaBorderDecorations = () => {
       () =>
          randomizeDecorations({
             decorationOptions,
-            numberOfDecorations: Math.floor((Math.random() * arenaLength) / 2),
+            numberOfDecorations: Math.floor(
+               (Math.random() * arenaLength) / 2 + 4
+            ),
             maxPos: arenaLength,
-            maxDepth: 8,
+            maxDepth: 12,
          }),
       [arenaLength, decorationOptions]
    )
@@ -102,6 +106,10 @@ const ArenaBorderDecorations = () => {
    )
 }
 
+ArenaBorderDecorations.displayName = "arenaBorderDecorations"
+
+const memoedDecorations = memo(ArenaBorderDecorations)
+
 interface randomizeDecorationsProps {
    decorationOptions: Array<THREE.Texture>
    numberOfDecorations: number
@@ -138,7 +146,7 @@ const randomizeDecorations = ({
       const yPos = getTextureYCenter(dimensions.height)
 
       results.push({
-         mainDimension: Math.random() * maxPos,
+         mainDimension: Math.random() * maxPos * 2 - maxPos / 2,
          depthDimension: Math.random() * -maxDepth,
          decoration: decoration,
          yPos: yPos,
@@ -150,4 +158,4 @@ const randomizeDecorations = ({
    return results
 }
 
-export { ArenaBorderDecorations }
+export { memoedDecorations as ArenaBorderDecorations }

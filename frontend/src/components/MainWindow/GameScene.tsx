@@ -26,8 +26,8 @@ const GameScene = () => {
          >
             <InGameMenu />
          </Drawer>
-         <Grid container sx={{ height: "100vh" }}>
-            <Grid xs={1} item>
+         <Grid container columns={24} sx={{ height: "100vh" }}>
+            <Grid xs={2} item>
                <Paper elevation={1} sx={{ height: "100%" }}>
                   <IconButton
                      sx={{
@@ -50,7 +50,7 @@ const GameScene = () => {
                   <TurnOrderView />
                </Paper>
             </Grid>
-            <Grid xs={9} item style={{ position: "relative" }}>
+            <Grid xs={16} lg={18} xl={19} item style={{ position: "relative" }}>
                {characterInfo && (
                   <div
                      style={{
@@ -67,7 +67,7 @@ const GameScene = () => {
                   <R3FCanvasWrapper />
                </Suspense>
             </Grid>
-            <Grid xs={2} item>
+            <Grid xs={6} lg={4} xl={3} item>
                <Paper elevation={1} sx={{ height: "100%" }}>
                   <SelectedCharacterCards />
                </Paper>
