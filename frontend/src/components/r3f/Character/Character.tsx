@@ -42,26 +42,24 @@ const Character = ({ characterAtom, maxDimension = 1 }: CharacterProps) => {
    }, [character, normalizedYPos, setCharacter])
 
    return (
-      <group>
-         <mesh
-            position={[
-               character.position?.x || 0,
-               normalizedYPos,
-               character.position?.z || 0,
-            ]}
-            onPointerEnter={() => setPopupInfo(character)}
-            onPointerLeave={() => setPopupInfo(null)}
-         >
-            <planeGeometry args={[dimensions.width, dimensions.height]} />
-            <meshBasicMaterial
-               color="white"
-               map={colorMap}
-               transparent
-               opacity={1}
-               toneMapped={false}
-            />
-         </mesh>
-      </group>
+      <mesh
+         position={[
+            character.position?.x || 0,
+            normalizedYPos,
+            character.position?.z || 0,
+         ]}
+         onPointerEnter={() => setPopupInfo(character)}
+         onPointerLeave={() => setPopupInfo(null)}
+      >
+         <planeGeometry args={[dimensions.width, dimensions.height]} />
+         <meshBasicMaterial
+            color="white"
+            map={colorMap}
+            transparent
+            opacity={1}
+            toneMapped={false}
+         />
+      </mesh>
    )
 }
 

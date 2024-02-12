@@ -1,5 +1,6 @@
 import { ZCharacter } from "../../../../shared/types/types"
 
+// TODO: Style this properly
 interface CharacterPopupInfoProps {
    character: ZCharacter | null
 }
