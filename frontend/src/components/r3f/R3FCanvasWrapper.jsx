@@ -5,7 +5,7 @@ import { Canvas, useFrame } from "@react-three/fiber"
 import { Ground } from "./Ground/Ground"
 
 import { useAtom } from "jotai"
-import { Character } from "./Character"
+import { Character } from "./Character/Character"
 import { activePartyAtom } from "../../game/state/jotai/characters"
 import { ActionHelper } from "./ActionHelpers/ActionHelper"
 import { activeScenarioEnemiesAtom } from "../../game/state/jotai/enemies"

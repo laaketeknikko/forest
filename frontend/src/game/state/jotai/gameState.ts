@@ -47,10 +47,13 @@ const activeSaveGameConfigAtom = atom<ZSaveConfig>({
    keyString: "",
 })
 
+const popupInfoAtom = atom<ZCharacter | null>(null)
+
 export {
    turnOrderAtom,
    currentlySelectedActionCardAtom,
    defaultConfigsAtom,
    gameExecutionStateAtom,
    activeSaveGameConfigAtom,
+   popupInfoAtom,
 }
