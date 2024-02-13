@@ -16,12 +16,6 @@ interface ActionCardListProps {
 }
 
 const ActionCardList = ({ cards, onCardSelected }: ActionCardListProps) => {
-   /*const [activeCardId, setActiveCardId] = useState("")
-
-   const onCardSelected = (card) => {
-      setActiveCardId(card._id)
-   }*/
-
    return (
       <List
          sx={{

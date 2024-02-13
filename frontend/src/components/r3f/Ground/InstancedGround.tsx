@@ -1,11 +1,20 @@
 import { useAtom } from "jotai"
 import { selectedScenarioConfigAtom } from "../../../game/state/jotai/scenarios"
 import { useEffect, useRef } from "react"
-import { MathUtils, Object3D } from "three"
+import { InstancedMesh, MathUtils, Object3D } from "three"
 
 const tempObject = new Object3D()
 
-const InstancedGround = ({ lengthX = 15, lengthZ = 15 }) => {
+interface InstancedGroundProps {
+   lengthX?: number
+   lengthZ?: number
+}
+
+// TODO: Implement grid on instanced ground.
+const InstancedGround = ({
+   lengthX = 15,
+   lengthZ = 15,
+}: InstancedGroundProps) => {
    const [selectedScenarioConfig] = useAtom(selectedScenarioConfigAtom)
 
    const arenaSize = selectedScenarioConfig.arena?.size || {
@@ -13,7 +22,7 @@ const InstancedGround = ({ lengthX = 15, lengthZ = 15 }) => {
       width: lengthZ,
    }
 
-   const instanceMeshRef = useRef<never>()
+   const instanceMeshRef = useRef<InstancedMesh>()
 
    useEffect(() => {
       tempObject.rotateX(MathUtils.degToRad(-90))
@@ -22,14 +31,14 @@ const InstancedGround = ({ lengthX = 15, lengthZ = 15 }) => {
          for (let z = 0; z < arenaSize.length; z++) {
             tempObject.position.set(x, 0, z)
             tempObject.updateMatrix()
-            instanceMeshRef.current.setMatrixAt(
+            instanceMeshRef.current!.setMatrixAt(
                x * arenaSize.width + z,
                tempObject.matrix
             )
          }
       }
 
-      instanceMeshRef.current.instanceMatrix.needsUpdate = true
+      instanceMeshRef.current!.instanceMatrix.needsUpdate = true
    }, [arenaSize.length, arenaSize.width])
 
    return (
@@ -42,6 +51,7 @@ const InstancedGround = ({ lengthX = 15, lengthZ = 15 }) => {
             toneMapped={false}
             transparent
             opacity={0.2}
+            depthWrite={false}
             color="rgb(40, 80, 0)"
          />
       </instancedMesh>

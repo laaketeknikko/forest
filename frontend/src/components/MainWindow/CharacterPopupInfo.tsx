@@ -1,5 +1,4 @@
 import Paper from "@mui/material/Paper"
-import { ZCharacter } from "../../../../shared/types/types"
 
 import { theme } from "../../styles/mui/theme"
 import Typography from "@mui/material/Typography"
@@ -7,11 +6,10 @@ import Table from "@mui/material/Table"
 import TableBody from "@mui/material/TableBody"
 import TableCell from "@mui/material/TableCell"
 import TableRow from "@mui/material/TableRow"
+import { useAtom } from "jotai"
+import { popupInfoAtom } from "../../game/state/jotai/gameState"
 
 // TODO: Style this properly
-interface CharacterPopupInfoProps {
-   character: ZCharacter | null
-}
 
 const infoStyles = {
    td: {
@@ -23,8 +21,10 @@ const infoStyles = {
    },
 }
 
-const CharacterPopupInfo = ({ character }: CharacterPopupInfoProps) => {
-   if (!character) {
+const CharacterPopupInfo = () => {
+   const [characterInfo] = useAtom(popupInfoAtom)
+
+   if (!characterInfo) {
       return null
    }
 
@@ -37,7 +37,7 @@ const CharacterPopupInfo = ({ character }: CharacterPopupInfoProps) => {
             padding: 1,
          }}
       >
-         <Typography color="primary">{character.name}</Typography>
+         <Typography color="primary">{characterInfo.name}</Typography>
          <Table size="small">
             <TableBody>
                <TableRow sx={{ border: 0 }}>
@@ -45,7 +45,9 @@ const CharacterPopupInfo = ({ character }: CharacterPopupInfoProps) => {
                      <Typography>Health</Typography>
                   </TableCell>
                   <TableCell align="right" sx={infoStyles.td}>
-                     <Typography color="primary">{character.health}</Typography>
+                     <Typography color="primary">
+                        {characterInfo.health}
+                     </Typography>
                   </TableCell>
                </TableRow>
                <TableRow>
@@ -54,7 +56,7 @@ const CharacterPopupInfo = ({ character }: CharacterPopupInfoProps) => {
                   </TableCell>
                   <TableCell align="right" sx={infoStyles.td}>
                      <Typography color="primary">
-                        {character.currentActionDelay.toFixed(1)}
+                        {characterInfo.currentActionDelay.toFixed(1)}
                      </Typography>
                   </TableCell>
                </TableRow>

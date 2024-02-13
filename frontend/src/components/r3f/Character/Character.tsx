@@ -17,7 +17,6 @@ interface CharacterProps {
    maxDimension: number
 }
 
-// TODO: Place the characters on ground level.
 const Character = ({ characterAtom, maxDimension = 1 }: CharacterProps) => {
    const [character, setCharacter] = useAtom(characterAtom)
    const [, setPopupInfo] = useAtom(popupInfoAtom)
@@ -28,10 +27,12 @@ const Character = ({ characterAtom, maxDimension = 1 }: CharacterProps) => {
       colorMap,
       maxDimension
    )
-   const normalizedYPos = textureUtilities.getTextureYCenter(dimensions.height)
 
-   // Update character Y position
+   // Update character Y position to place character on ground level.
    useEffect(() => {
+      const normalizedYPos = textureUtilities.getTextureYCenter(
+         dimensions.height
+      )
       const oldPos = PositionSchema.parse(character.position)
       if (oldPos.y !== normalizedYPos) {
          setCharacter({
@@ -39,13 +40,13 @@ const Character = ({ characterAtom, maxDimension = 1 }: CharacterProps) => {
             position: { ...oldPos, y: normalizedYPos },
          })
       }
-   }, [character, normalizedYPos, setCharacter])
+   }, [character, colorMap, dimensions.height, maxDimension, setCharacter])
 
    return (
       <mesh
          position={[
             character.position?.x || 0,
-            normalizedYPos,
+            character.position?.y || 0,
             character.position?.z || 0,
          ]}
          onPointerEnter={() => setPopupInfo(character)}

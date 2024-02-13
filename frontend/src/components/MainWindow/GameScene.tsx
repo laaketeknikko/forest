@@ -10,12 +10,9 @@ import MenuIcon from "@mui/icons-material/Menu"
 import Drawer from "@mui/material/Drawer"
 import { InGameMenu } from "./InGameMenu"
 import { CharacterPopupInfo } from "./CharacterPopupInfo"
-import { popupInfoAtom } from "../../game/state/jotai/gameState"
-import { useAtom } from "jotai"
 
 const GameScene = () => {
    const [showInGameMenu, setShowInGameMenu] = useState(false)
-   const [characterInfo] = useAtom(popupInfoAtom)
 
    return (
       <>
@@ -51,18 +48,17 @@ const GameScene = () => {
                </Paper>
             </Grid>
             <Grid xs={16} lg={18} xl={19} item style={{ position: "relative" }}>
-               {characterInfo && (
-                  <div
-                     style={{
-                        position: "absolute",
-                        top: 0,
-                        left: 0,
-                        zIndex: 100,
-                     }}
-                  >
-                     <CharacterPopupInfo character={characterInfo} />
-                  </div>
-               )}
+               <div
+                  style={{
+                     position: "absolute",
+                     top: 0,
+                     left: 0,
+                     zIndex: 100,
+                  }}
+               >
+                  <CharacterPopupInfo />
+               </div>
+
                <Suspense>
                   <R3FCanvasWrapper />
                </Suspense>

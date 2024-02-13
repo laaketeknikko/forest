@@ -4,6 +4,8 @@ import { useAtom } from "jotai"
 import { useMemo } from "react"
 import { MapControls } from "@react-three/drei"
 
+// TODO: Implement to use drei/CameraControls
+
 const CameraControls = () => {
    //const three = useThree()
    const [characterAtom] = useAtom(activeCharacterAtom)

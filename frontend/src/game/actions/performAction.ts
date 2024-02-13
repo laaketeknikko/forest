@@ -25,6 +25,7 @@ interface affectedEntity {
    entity: Atom<ZGameEntity>
 }
 
+// TODO: Unify performing actions.
 const performAction = ({
    selectedCharacterAtom,
    activeCardAtom,

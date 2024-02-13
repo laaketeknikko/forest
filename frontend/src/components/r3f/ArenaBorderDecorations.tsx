@@ -48,8 +48,6 @@ const ArenaBorderDecorations = () => {
       [arenaLength, decorationOptions]
    )
 
-   console.log("widthDecorations:", widthDecorations)
-
    return (
       <group>
          {widthDecorations.map((decorationOptions, index) => {

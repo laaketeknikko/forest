@@ -2,8 +2,6 @@ import { useState } from "react"
 
 import { Canvas, useFrame } from "@react-three/fiber"
 
-import { Ground } from "./Ground/Ground"
-
 import { useAtom } from "jotai"
 import { Character } from "./Character/Character"
 import { activePartyAtom } from "../../game/state/jotai/characters"
@@ -48,6 +46,7 @@ const R3FCanvasWrapper = () => {
       ],
    })
 
+   // TODO: Position camera based on arena size
    return (
       <Canvas
          camera={{ position: [1, 4, 5], fov: [50] }}
