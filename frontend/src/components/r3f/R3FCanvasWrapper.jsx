@@ -13,6 +13,7 @@ import { activeScenarioEnemiesAtom } from "../../game/state/jotai/enemies"
 import { useIdleTimer } from "react-idle-timer"
 import { CameraControls } from "./CameraControls"
 import { ArenaBorderDecorations } from "./ArenaBorderDecorations"
+import { InstancedGround } from "./Ground/InstancedGround"
 
 const DisableRender = () => useFrame(() => null, 1000)
 
@@ -51,6 +52,7 @@ const R3FCanvasWrapper = () => {
       <Canvas
          camera={{ position: [1, 4, 5], fov: [50] }}
          style={{ backgroundColor: "rgb(31, 27, 22)" }}
+         frameloop="demand"
       >
          {pauseAnimation && <DisableRender />}
          <CameraControls />
@@ -76,7 +78,7 @@ const R3FCanvasWrapper = () => {
                )
             })}
 
-         <Ground />
+         <InstancedGround />
          <ActionHelper />
          <ArenaBorderDecorations />
       </Canvas>

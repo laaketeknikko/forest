@@ -44,3 +44,5 @@
 | 11.2. | 3    | Refactoring                                                 |
 | 12.2. | 2    | UI work                                                     |
 | 12.2. | 1    | UI work                                                     |
+| 12.2. | 1    | UI work                                                     |
+| 13.2. | 2    | Performance work                                            |

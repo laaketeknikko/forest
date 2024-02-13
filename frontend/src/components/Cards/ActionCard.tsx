@@ -8,7 +8,10 @@ import { currentlySelectedActionCardAtom } from "../../game/state/jotai/gameStat
 
 import { emptyActionCardAtom } from "../../game/state/initialStates"
 import { ZActionCard } from "../../../../shared/types/types"
-import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material"
+import Accordion from "@mui/material/Accordion"
+import AccordionDetails from "@mui/material/AccordionDetails"
+import AccordionSummary from "@mui/material/AccordionSummary"
+import { memo, useMemo } from "react"
 
 //export type onActionTriggeredFunc = (card: Atom<ActionCard>) => void
 export type onCardSelectedFunc = (card: Atom<ZActionCard>) => void
@@ -24,6 +27,25 @@ const ActionCard = ({ cardAtom }: ActionCardProps) => {
    const [currentlySelectedCard, setCurrentSelectedActionCard] = useAtom(
       currentlySelectedActionCardAtom
    )
+
+   const cardContent = useMemo(() => {
+      return card.actions.map((action) => {
+         const activeClass =
+            card.nextActionId === action._id ? "active-action" : ""
+
+         return (
+            <Accordion key={action._id} className={activeClass}>
+               <AccordionSummary>
+                  <Typography>{action.name}</Typography>
+               </AccordionSummary>
+               <AccordionDetails>
+                  <Typography>Type: {action.type}</Typography>
+                  <Typography>Delay: {action.actionDelayMultiplier}</Typography>
+               </AccordionDetails>
+            </Accordion>
+         )
+      })
+   }, [card.actions, card.nextActionId])
 
    return (
       <Card sx={{ width: "100%", padding: 0 }} className="action-card">
@@ -49,27 +71,14 @@ const ActionCard = ({ cardAtom }: ActionCardProps) => {
             ></CardHeader>
          </CardActionArea>
          <CardContent sx={{ padding: 0 }}>
-            {card.actions.map((action) => {
-               const activeClass =
-                  card.nextActionId === action._id ? "active-action" : ""
-
-               return (
-                  <Accordion key={action._id} className={activeClass}>
-                     <AccordionSummary>
-                        <Typography>{action.name}</Typography>
-                     </AccordionSummary>
-                     <AccordionDetails>
-                        <Typography>Type: {action.type}</Typography>
-                        <Typography>
-                           Delay: {action.actionDelayMultiplier}
-                        </Typography>
-                     </AccordionDetails>
-                  </Accordion>
-               )
-            })}
+            {cardContent.map((item) => item)}
          </CardContent>
       </Card>
    )
 }
 
-export { ActionCard }
+ActionCard.displayName = "ActionCard"
+
+const MemoedCard = memo(ActionCard)
+
+export { MemoedCard as ActionCard }
