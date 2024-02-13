@@ -62,21 +62,21 @@ const ActionHelper = () => {
 
    return (
       <group>
-         {action?.type === actionTypes.movement && (
+         {action?.effects[0].type === actionTypes.movement && (
             <MovementActionHelper
                selectedCardAtom={selectedCard}
                activeCharacterAtom={activeCharacter}
                onClick={onPerformAction}
             />
          )}
-         {action?.type === actionTypes.offensive && (
+         {action?.effects[0].type === actionTypes.offensive && (
             <OffensiveActionHelper
                selectedCardAtom={selectedCard}
                activeCharacterAtom={activeCharacter}
                onClick={onPerformAction}
             />
          )}
-         {action?.type === actionTypes.support && (
+         {action?.effects[0].type === actionTypes.support && (
             <SupportActionHelper
                selectedCardAtom={selectedCard}
                activeCharacterAtom={activeCharacter}

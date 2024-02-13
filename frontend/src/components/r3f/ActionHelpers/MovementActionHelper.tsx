@@ -32,7 +32,7 @@ const MovementActionHelper = ({
          rotation-x={MathUtils.degToRad(-90)}
          onClick={onClick}
       >
-         <circleGeometry args={[action?.range, 20]} />
+         <circleGeometry args={[action?.effects[0].range, 20]} />
          <meshBasicMaterial
             toneMapped={false}
             color="blue"

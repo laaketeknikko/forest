@@ -39,8 +39,10 @@ const ActionCard = ({ cardAtom }: ActionCardProps) => {
                   <Typography>{action.name}</Typography>
                </AccordionSummary>
                <AccordionDetails>
-                  <Typography>Type: {action.type}</Typography>
-                  <Typography>Delay: {action.actionDelayMultiplier}</Typography>
+                  <Typography>Type: {action.effects[0].type}</Typography>
+                  <Typography>
+                     Delay: {action.effects[0].actionDelayMultiplier}
+                  </Typography>
                </AccordionDetails>
             </Accordion>
          )

@@ -32,14 +32,14 @@ const performAction = ({
    selectedAction,
    targetPoint,
 }: performActionProps) => {
-   if (selectedAction.type === actionTypes.movement) {
+   if (selectedAction.effects[0].type === actionTypes.movement) {
       performMoveAction({
          selectedCharacterAtom,
          activeCardAtom,
          selectedAction,
          targetPoint,
       })
-   } else if (selectedAction.type === actionTypes.offensive) {
+   } else if (selectedAction.effects[0].type === actionTypes.offensive) {
       performOffensiveAction({
          selectedCharacterAtom,
          activeCardAtom,
@@ -55,7 +55,8 @@ const performAction = ({
 
    // Update action delay
    selectedCharacter.currentActionDelay +=
-      selectedCharacter.baseActionDelay * selectedAction.actionDelayMultiplier
+      selectedCharacter.baseActionDelay *
+      selectedAction.effects[0].actionDelayMultiplier
 
    // Update next action
    const card = { ...jotaiStore.get(activeCardAtom) }
@@ -119,7 +120,7 @@ const performOffensiveAction = (props: performActionProps) => {
       }
    }
 
-   const attackPower = props.selectedAction.powerMultiplier
+   const attackPower = props.selectedAction.effects[0].powerMultiplier
 
    for (const entity of affectedEntities) {
       if (entity.entityData.health && attackPower) {

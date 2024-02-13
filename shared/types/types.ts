@@ -14,7 +14,7 @@ export enum EActionTypes {
 }
 
 //
-// Zod derived types
+// Regular types.
 //
 
 export type ZPosition = z.infer<typeof schemas.PositionSchema>
@@ -25,9 +25,6 @@ export type ZActionCardAction = z.infer<typeof schemas.ActionCardActionSchema>
 export type ZActionCard = z.infer<typeof schemas.ActionCardSchema>
 export type ZGameEntity = z.infer<typeof schemas.GameEntitySchema>
 export type ZDynamicGameEntity = z.infer<typeof schemas.DynamicGameEntitySchema>
-export type ZSaveConfigDynamicGameEntity = z.infer<
-   typeof schemas.SaveConfigDynamicGameEntitySchema
->
 
 // Character and Enemy types:
 // For validation simplicity, the Zod schema includes the cards
@@ -42,16 +39,26 @@ export type ZCharacter = Omit<
 export type ZEnemy = Omit<z.infer<typeof schemas.EnemySchema>, "cards"> & {
    cards: Array<Atom<z.infer<typeof schemas.ActionCardSchema>>>
 }
-export type ZSaveConfigCharacter = z.infer<
-   typeof schemas.SaveConfigCharacterSchema
->
-export type ZSaveConfigEnemy = z.infer<typeof schemas.SaveConfigEnemySchema>
+
 export type ZTurnOrderCard = z.infer<typeof schemas.TurnOrderCardSchema>
 export type ZArenaConfig = z.infer<typeof schemas.ArenaConfigSchema>
 export type ZScenarioEnemyConfig = z.infer<
    typeof schemas.ScenarioEnemyConfigSchema
 >
 export type ZScenarioConfig = z.infer<typeof schemas.ScenarioConfigSchema>
+
+//
+// Types used when saving
+// These are used for defining the Mongoose models
+//
+
+export type ZSaveConfigDynamicGameEntity = z.infer<
+   typeof schemas.SaveConfigDynamicGameEntitySchema
+>
+export type ZSaveConfigCharacter = z.infer<
+   typeof schemas.SaveConfigCharacterSchema
+>
+export type ZSaveConfigEnemy = z.infer<typeof schemas.SaveConfigEnemySchema>
 export type ZSaveConfigScenarioConfig = z.infer<
    typeof schemas.SaveConfigScenarioConfigSchema
 >
