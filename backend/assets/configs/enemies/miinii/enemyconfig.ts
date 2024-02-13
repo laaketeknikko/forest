@@ -7,27 +7,42 @@ const miiniiActions: Record<string, types.ZActionCardAction> = {
    beak: {
       name: "Beak",
       description: "It really hurts",
-      powerMultiplier: 1.5,
-      actionDelayMultiplier: 1,
-      type: actionTypes.offensive,
-      damageType: damageTypes.physical,
-      range: 1,
+
+      effects: [
+         {
+            powerMultiplier: 1.5,
+            actionDelayMultiplier: 1,
+            type: actionTypes.offensive,
+            damageType: damageTypes.physical,
+            range: 1,
+         },
+      ],
    },
    wingSlam: {
       name: "Wing slam",
       description: "Knock them away",
-      powerMultiplier: 1,
-      actionDelayMultiplier: 1.5,
-      type: actionTypes.offensive,
-      damageType: damageTypes.physical,
-      range: 1.5,
+
+      effects: [
+         {
+            powerMultiplier: 1,
+            actionDelayMultiplier: 1.5,
+            type: actionTypes.offensive,
+            damageType: damageTypes.physical,
+            range: 1.5,
+         },
+      ],
    },
    fly: {
       name: "Fly",
       description: "Fly a short distance",
-      range: 7,
-      actionDelayMultiplier: 1.5,
-      type: actionTypes.movement,
+
+      effects: [
+         {
+            range: 7,
+            actionDelayMultiplier: 1.5,
+            type: actionTypes.movement,
+         },
+      ],
    },
 }
 
@@ -56,8 +71,8 @@ const miiniiCards = [
    },
 ]
 
-interface IEnemyConfig extends Omit<types.IEnemy, "position" | "cards"> {
-   cards: Array<types.IActionCard>
+interface IEnemyConfig extends Omit<types.ZEnemy, "position" | "cards"> {
+   cards: Array<types.ZActionCard>
 }
 
 const enemyConfig: IEnemyConfig = {

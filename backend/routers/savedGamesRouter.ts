@@ -2,12 +2,12 @@
 import express from "express"
 
 import { loadGame, saveGame } from "../services/savedGames"
-import { ISaveGameConfigModel } from "../mongoose/models/modelTypes"
+
 const savedGamesRouter = express.Router()
 
 // eslint-disable-next-line @typescript-eslint/no-misused-promises
 savedGamesRouter.post("/", async (req, res) => {
-   const saveData = req.body as ISaveGameConfigModel
+   const saveData = req.body
 
    try {
       const saveResult = await saveGame(saveData)

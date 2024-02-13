@@ -1,14 +1,20 @@
 import { z } from "zod"
 
+export const ActionEffectSchema = z.object({
+   _id: z.string().optional(),
+   name: z.string().optional(),
+   powerMultiplier: z.number().optional(),
+   damageType: z.string().optional(),
+   range: z.number().optional(),
+   type: z.string(),
+   actionDelayMultiplier: z.number(),
+})
+
 export const ActionCardActionSchema = z.object({
    _id: z.string().optional(),
    name: z.string(),
    description: z.string().optional(),
-   powerMultiplier: z.number().optional(),
-   damageType: z.string().optional(),
-   actionDelayMultiplier: z.number(),
-   range: z.number().optional(),
-   type: z.string(),
+   effects: z.array(ActionEffectSchema),
 })
 
 export const ActionCardSchema = z.object({
