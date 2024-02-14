@@ -4,10 +4,7 @@ import CardContent from "@mui/material/CardContent"
 import CardActionArea from "@mui/material/CardActionArea"
 import CardHeader from "@mui/material/CardHeader"
 import { useAtom, Atom } from "jotai"
-import {
-   currentlySelectedActionCardAtom,
-   gameExecutionStateAtom,
-} from "../../game/state/jotai/gameState"
+import { currentlySelectedActionCardAtom } from "../../game/state/jotai/gameState"
 
 import { emptyActionCardAtom } from "../../game/state/initialStates"
 import { ZActionCard, ZCharacter } from "../../../../shared/types/types"
@@ -31,9 +28,6 @@ const ActionCard = ({ cardAtom, character }: ActionCardProps) => {
    const [card] = useAtom(cardAtom)
    const [currentlySelectedCard, setCurrentSelectedActionCard] = useAtom(
       currentlySelectedActionCardAtom
-   )
-   const [gameExecutionState, setGameExecutionState] = useAtom(
-      gameExecutionStateAtom
    )
 
    const cardContent = useMemo(() => {
@@ -78,22 +72,8 @@ const ActionCard = ({ cardAtom, character }: ActionCardProps) => {
                // Allow selecting and deselecting cards.
                if (cardAtom === currentlySelectedCard) {
                   setCurrentSelectedActionCard(emptyActionCardAtom)
-                  setGameExecutionState({
-                     ...gameExecutionState,
-                     actions: {
-                        ...gameExecutionState.actions,
-                        isPerfomingAction: false,
-                     },
-                  })
                } else {
                   setCurrentSelectedActionCard(cardAtom)
-                  setGameExecutionState({
-                     ...gameExecutionState,
-                     actions: {
-                        ...gameExecutionState.actions,
-                        isPerfomingAction: true,
-                     },
-                  })
                }
             }}
          >
