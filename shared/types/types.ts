@@ -52,6 +52,12 @@ export type ZScenarioConfig = z.infer<typeof schemas.ScenarioConfigSchema>
 // These are used for defining the Mongoose models
 //
 
+export type ZSaveConfigActionCardAction = z.infer<
+   typeof schemas.SaveConfigActionCardActionSchema
+>
+export type ZSaveConfigActionCard = z.infer<
+   typeof schemas.SaveConfigActionCardSchema
+>
 export type ZSaveConfigDynamicGameEntity = z.infer<
    typeof schemas.SaveConfigDynamicGameEntitySchema
 >

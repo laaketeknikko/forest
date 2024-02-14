@@ -8,14 +8,19 @@ import ListItem from "@mui/material/ListItem"
 import { Atom } from "jotai"
 
 import type { onCardSelectedFunc } from "./ActionCard"
-import { ZActionCard } from "../../../../shared/types/types"
+import { ZActionCard, ZCharacter } from "../../../../shared/types/types"
 
 interface ActionCardListProps {
    cards: Array<Atom<ZActionCard>>
+   character: ZCharacter
    onCardSelected?: onCardSelectedFunc
 }
 
-const ActionCardList = ({ cards, onCardSelected }: ActionCardListProps) => {
+const ActionCardList = ({
+   cards,
+   character,
+   onCardSelected,
+}: ActionCardListProps) => {
    return (
       <List
          sx={{
@@ -36,7 +41,11 @@ const ActionCardList = ({ cards, onCardSelected }: ActionCardListProps) => {
                      paddingRight: 0.5,
                   }}
                >
-                  <ActionCard cardAtom={card} onCardSelected={onCardSelected} />
+                  <ActionCard
+                     cardAtom={card}
+                     onCardSelected={onCardSelected}
+                     character={character}
+                  />
                </ListItem>
             )
          })}

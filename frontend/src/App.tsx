@@ -7,7 +7,7 @@ import { gameExecutionStateAtom } from "./game/state/jotai/gameState"
 
 import { useAtom } from "jotai"
 
-import { GameExecutionState } from "./config/types"
+import { GlobalExecutionState } from "./config/types"
 import { useLoadGame } from "./game/hooks/useLoadGame"
 
 function App() {
@@ -31,31 +31,31 @@ function App() {
          const result = loader.loadTheGame(saveData)
          if (result) {
             setShowMainMenu(false)
-            setGameExecutionState(GameExecutionState.running)
+            setGameExecutionState({
+               ...gameExecutionState,
+               global: GlobalExecutionState.running,
+            })
          }
       }
 
       if (keyString) {
-         console.log("keystring exists in useeffect:", keyString)
          if (urlKeyString !== loader.getSaveData().keyString) {
-            console.log(
-               "keystring does not match in useeffect, savedata:",
-               loader.getSaveData()
-            )
             wrapperFunc()
          }
       }
-   }, [loader, setGameExecutionState, urlKeyString])
+   }, [gameExecutionState, loader, setGameExecutionState, urlKeyString])
 
    useEffect(() => {
-      if (gameExecutionState === GameExecutionState.running) {
+      if (gameExecutionState.global === GlobalExecutionState.running) {
          setShowMainMenu(false)
       }
-   }, [gameExecutionState])
+   }, [gameExecutionState.global])
 
    return (
       <>
-         {gameExecutionState === GameExecutionState.running && <GameScene />}
+         {gameExecutionState.global === GlobalExecutionState.running && (
+            <GameScene />
+         )}
          {showMainMenu && <MainMenu />}
       </>
    )

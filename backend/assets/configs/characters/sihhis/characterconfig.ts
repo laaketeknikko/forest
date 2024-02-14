@@ -3,7 +3,7 @@ import * as types from "../../../../../shared/types/types"
 import { damageTypes } from "../../actions/damageTypes"
 import { actionTypes } from "../../actions/actionTypes"
 
-const SihhisCardActions: Record<string, types.ZActionCardAction> = {
+const SihhisCardActions: Record<string, types.ZSaveConfigActionCardAction> = {
    slither: {
       name: "Slither",
       description: "Your way of moving around",
@@ -168,7 +168,7 @@ const SihhisCardActions: Record<string, types.ZActionCardAction> = {
    },
 }
 
-const sihhisCards: Array<types.ZActionCard> = [
+const sihhisCards: Array<types.ZSaveConfigActionCard> = [
    {
       name: "Default offensive card",
       description: "Basics",
@@ -204,7 +204,7 @@ const sihhisCards: Array<types.ZActionCard> = [
    },
 ]
 
-const characterConfig = {
+const characterConfig: types.ZSaveConfigCharacter = {
    name: "Sihhis",
    spritePath: "sprites/characters/sihhis.png",
    cards: sihhisCards,
@@ -213,6 +213,7 @@ const characterConfig = {
    currentActionDelay: 8,
    health: 10,
    position: { x: 0, y: 0, z: 0 },
+   strength: 4,
 }
 
 export { characterConfig }

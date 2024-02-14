@@ -5,16 +5,21 @@ export const ActionEffectSchema = z.object({
    name: z.string().optional(),
    powerMultiplier: z.number().optional(),
    damageType: z.string().optional(),
+   actionDelayMultiplier: z.number().default(1),
    range: z.number().optional(),
    type: z.string(),
-   actionDelayMultiplier: z.number(),
 })
 
 export const ActionCardActionSchema = z.object({
    _id: z.string().optional(),
    name: z.string(),
    description: z.string().optional(),
+   actionDelayMultiplier: z.number().default(1),
    effects: z.array(ActionEffectSchema),
+})
+
+export const SaveConfigActionCardActionSchema = ActionCardActionSchema.omit({
+   actionDelayMultiplier: true,
 })
 
 export const ActionCardSchema = z.object({
@@ -23,6 +28,12 @@ export const ActionCardSchema = z.object({
    description: z.string().optional(),
    actions: z.array(ActionCardActionSchema),
    nextActionId: z.string().optional(),
+})
+
+export const SaveConfigActionCardSchema = ActionCardSchema.omit({
+   actions: true,
+}).extend({
+   actions: z.array(SaveConfigActionCardActionSchema),
 })
 
 export const PositionSchema = z.object({
@@ -49,6 +60,8 @@ export const GameEntitySchema = z.object({
 export const DynamicGameEntitySchema = GameEntitySchema.extend({
    _id: z.string().optional(),
    name: z.string(),
+   strength: z.number(),
+
    spritePath: z.string(),
    baseActionDelay: z.number(),
    currentActionDelay: z.number(),
@@ -59,7 +72,7 @@ export const DynamicGameEntitySchema = GameEntitySchema.extend({
 export const SaveConfigDynamicGameEntitySchema = DynamicGameEntitySchema.omit({
    cards: true,
 }).extend({
-   cards: z.array(ActionCardSchema),
+   cards: z.array(SaveConfigActionCardSchema),
 })
 
 export const CharacterSchema = DynamicGameEntitySchema.extend({})

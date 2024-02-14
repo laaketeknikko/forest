@@ -3,7 +3,7 @@ import * as types from "../../../../../shared/types/types"
 import { actionTypes } from "../../actions/actionTypes"
 import { damageTypes } from "../../actions/damageTypes"
 
-const miiniiActions: Record<string, types.ZActionCardAction> = {
+const miiniiActions: Record<string, types.ZSaveConfigActionCardAction> = {
    beak: {
       name: "Beak",
       description: "It really hurts",
@@ -72,7 +72,7 @@ const miiniiCards = [
 ]
 
 interface IEnemyConfig extends Omit<types.ZEnemy, "position" | "cards"> {
-   cards: Array<types.ZActionCard>
+   cards: Array<types.ZSaveConfigActionCard>
 }
 
 const enemyConfig: IEnemyConfig = {
@@ -83,6 +83,7 @@ const enemyConfig: IEnemyConfig = {
    currentActionDelay: 10,
    cards: miiniiCards,
    selectedCardId: "",
+   strength: 10,
 }
 
 export { enemyConfig }

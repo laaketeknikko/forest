@@ -3,7 +3,7 @@ import * as types from "../../../../../shared/types/types"
 import { actionTypes } from "../../actions/actionTypes"
 import { damageTypes } from "../../actions/damageTypes"
 
-const BushiActions: Record<string, types.ZActionCardAction> = {
+const BushiActions: Record<string, types.ZSaveConfigActionCardAction> = {
    reminisce: {
       name: "Reminisce",
       description: "Think on all you've gone through.",
@@ -141,7 +141,7 @@ const BushiActions: Record<string, types.ZActionCardAction> = {
    },
 }
 
-const BushiActionCards: Array<types.ZActionCard> = [
+const BushiActionCards: Array<types.ZSaveConfigActionCard> = [
    {
       name: "Basic offense",
       description: "You have practised more than most people sleep",
@@ -177,7 +177,8 @@ const BushiActionCards: Array<types.ZActionCard> = [
    },
 ]
 
-const characterConfig = {
+const characterConfig: types.ZSaveConfigCharacter = {
+   position: { x: 0, y: 0, z: 0 },
    name: "Bushi",
    spritePath: "sprites/characters/bushi.png",
    cards: BushiActionCards,
@@ -185,6 +186,7 @@ const characterConfig = {
    selectedCardId: "",
    currentActionDelay: 12,
    health: 10,
+   strength: 5,
 }
 
 export { characterConfig }
