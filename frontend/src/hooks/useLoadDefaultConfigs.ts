@@ -6,9 +6,8 @@ const useLoadDefaultConfigs = () => {
    const [defaultConfigs, setDefaultConfigs] = useAtom(defaultConfigsAtom)
 
    const loadConfigs = async () => {
-      loadDefaultConfigs().then((configs) => {
-         setDefaultConfigs(configs)
-      })
+      const configs = await loadDefaultConfigs()
+      setDefaultConfigs(configs)
    }
 
    return {

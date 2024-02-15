@@ -32,6 +32,7 @@ const GameScene = () => {
                      }}
                      color="primary"
                      onClick={() => setShowInGameMenu(true)}
+                     className="in-game-menu-button"
                   >
                      <MenuIcon
                         sx={{

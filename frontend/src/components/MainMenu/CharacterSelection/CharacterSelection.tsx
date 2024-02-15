@@ -73,6 +73,9 @@ const CharacterSelection = ({
          <Typography variant="body1">
             Maximum party size: {selectedScenarioConfig.maxPartySize}
          </Typography>
+         <Typography variant="body1">
+            Selected party size: {selectedCharacters.length}
+         </Typography>
          <AvatarGroup>
             {selectedCharacters &&
                selectedCharacters.map((character) => {
@@ -81,7 +84,7 @@ const CharacterSelection = ({
                   )
                })}
          </AvatarGroup>
-         <ImageList cols={3}>
+         <ImageList cols={3} className="character-selection-list">
             {allPlayerCharacterAtoms &&
                allPlayerCharacterAtoms.map((character) => {
                   return (

@@ -31,7 +31,10 @@ const CharacterOption = ({
 
    return (
       <ImageListItem onClick={() => handleSelection(option)}>
-         <img src={characterData.spritePath} />
+         <img
+            src={characterData.spritePath}
+            className="character-selection-img"
+         />
       </ImageListItem>
    )
 }

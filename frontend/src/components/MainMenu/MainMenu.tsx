@@ -8,7 +8,7 @@ import TabContext from "@mui/lab/TabContext"
 import TabList from "@mui/lab/TabList"
 import TabPanel from "@mui/lab/TabPanel"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 import { NewGame } from "./NewGame"
 import { ScenarioSelection } from "./ScenarioSelection"
@@ -24,14 +24,19 @@ const MainMenu = () => {
       gameExecutionStateAtom
    )
 
-   const [chosenTab, setChosenTab] = useState("0")
-
    const [gameConfigLoaded, setGameConfigLoaded] = useState(false)
    const [scenarioSelected, setScenarioSelected] = useState(false)
    const [charactersSelected, setCharactersSelected] = useState(false)
    const [, setScenarioStarted] = useState(false)
+   const [chosenTab, setChosenTab] = useState("0")
 
    const initializeScenario = useInitializeScenario()
+
+   useEffect(() => {
+      if (gameConfigLoaded) {
+         setChosenTab("1")
+      }
+   }, [gameConfigLoaded])
 
    const startNewScenario = (value: boolean) => {
       console.log("In startNewScenario, value:", value)
@@ -72,7 +77,7 @@ const MainMenu = () => {
                         onChange={(_e, newTab) => setChosenTab(newTab)}
                         orientation="vertical"
                      >
-                        <Tab label="New game" value="0"></Tab>
+                        <Tab label="Main Menu" value="0"></Tab>
                         <Tab
                            label="Select scenario"
                            value="1"
@@ -84,7 +89,7 @@ const MainMenu = () => {
                            disabled={!scenarioSelected}
                         ></Tab>
                         <Tab
-                           label="Start scenario"
+                           label="Confirmation"
                            value="3"
                            disabled={!charactersSelected}
                         ></Tab>
