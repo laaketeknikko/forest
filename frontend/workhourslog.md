@@ -48,3 +48,5 @@
 | 13.2. | 2    | Performance work                                            |
 | 13.2. | 2    | Refactoring                                                 |
 | 14.2. | 5    | Game logic and UI work                                      |
+| 15.2. | 2    | Testing, debugging                                          |
+| 15.2. | 2    | Testing, debugging                                          |

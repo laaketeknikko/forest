@@ -18,7 +18,7 @@ const buildStateFromSave = (saveData: ZSaveConfig) => {
    const clonedConfig = clone(saveData)
 
    for (const characterConfig of clonedConfig.characters) {
-      const character = {
+      const character: ZCharacter = {
          _id: characterConfig._id,
          name: characterConfig.name,
          position: characterConfig.position,
@@ -28,6 +28,7 @@ const buildStateFromSave = (saveData: ZSaveConfig) => {
          currentActionDelay: characterConfig.currentActionDelay,
          spritePath: characterConfig.spritePath,
          selectedCardId: "",
+         strength: characterConfig.strength,
       }
 
       const newCharacterAtom = atom(character)
@@ -41,7 +42,7 @@ const buildStateFromSave = (saveData: ZSaveConfig) => {
    const enemies: Array<Atom<ZEnemy>> = []
 
    for (const enemyConfig of clonedConfig.enemies) {
-      const enemy = {
+      const enemy: ZEnemy = {
          _id: enemyConfig._id,
          name: enemyConfig.name,
          position: enemyConfig.position,
@@ -51,14 +52,13 @@ const buildStateFromSave = (saveData: ZSaveConfig) => {
          currentActionDelay: enemyConfig.currentActionDelay,
          spritePath: enemyConfig.spritePath,
          selectedCardId: "",
+         strength: enemyConfig.strength,
       }
 
       const newEnemyAtom = atom(enemy)
 
       enemies.push(newEnemyAtom)
    }
-
-   console.log("Active scenario enemies:", enemies)
 
    jotaiStore.set(activeScenarioEnemiesAtom, enemies)
 

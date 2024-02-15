@@ -28,7 +28,7 @@ const buildSaveFromState = () => {
    // Process characters and cards
    for (const characterAtom of characterAtoms) {
       const character = jotaiStore.get(characterAtom)
-      const characterSaveData = {
+      const characterSaveData: ZSaveConfigCharacter = {
          _id: character._id,
          name: character.name,
          position: character.position,
@@ -38,6 +38,7 @@ const buildSaveFromState = () => {
          currentActionDelay: character.currentActionDelay,
          selectedCardId: character.selectedCardId,
          spritePath: character.spritePath,
+         strength: character.strength,
       }
 
       // Process cards and actions
@@ -65,7 +66,7 @@ const buildSaveFromState = () => {
    // Process enemies
    for (const enemyAtom of enemyAtoms) {
       const enemy = jotaiStore.get(enemyAtom)
-      const enemySaveData = {
+      const enemySaveData: ZSaveConfigEnemy = {
          _id: enemy._id,
          name: enemy.name,
          position: enemy.position,
@@ -75,6 +76,7 @@ const buildSaveFromState = () => {
          currentActionDelay: enemy.currentActionDelay,
          selectedCardId: enemy.selectedCardId,
          spritePath: enemy.spritePath,
+         strength: enemy.strength,
       }
 
       for (const cardAtom of enemy.cards) {
