@@ -9,6 +9,11 @@ const BushiActions: Record<string, types.ZSaveConfigActionCardAction> = {
       description: "Think on all you've gone through.",
       effects: [
          {
+            actionDelayMultiplier: 1,
+            range: 3,
+            type: actionTypes.movement,
+         },
+         {
             type: actionTypes.support,
             actionDelayMultiplier: 1,
          },
@@ -19,6 +24,11 @@ const BushiActions: Record<string, types.ZSaveConfigActionCardAction> = {
       description: "Might only scratch their face, but it's quick",
 
       effects: [
+         {
+            actionDelayMultiplier: 1,
+            range: 3,
+            type: actionTypes.movement,
+         },
          {
             actionDelayMultiplier: 0.3,
             type: actionTypes.offensive,
@@ -34,6 +44,11 @@ const BushiActions: Record<string, types.ZSaveConfigActionCardAction> = {
 
       effects: [
          {
+            actionDelayMultiplier: 1,
+            range: 3,
+            type: actionTypes.movement,
+         },
+         {
             actionDelayMultiplier: 4,
             type: actionTypes.support,
          },
@@ -46,6 +61,11 @@ const BushiActions: Record<string, types.ZSaveConfigActionCardAction> = {
       effects: [
          {
             actionDelayMultiplier: 1,
+            range: 3,
+            type: actionTypes.movement,
+         },
+         {
+            actionDelayMultiplier: 1,
             type: actionTypes.support,
          },
       ],
@@ -55,6 +75,11 @@ const BushiActions: Record<string, types.ZSaveConfigActionCardAction> = {
       description: "Rend them",
 
       effects: [
+         {
+            actionDelayMultiplier: 1,
+            range: 3,
+            type: actionTypes.movement,
+         },
          {
             actionDelayMultiplier: 1.5,
             type: actionTypes.offensive,
@@ -70,6 +95,11 @@ const BushiActions: Record<string, types.ZSaveConfigActionCardAction> = {
 
       effects: [
          {
+            actionDelayMultiplier: 1,
+            range: 3,
+            type: actionTypes.movement,
+         },
+         {
             actionDelayMultiplier: 0.5,
             type: actionTypes.support,
             range: 3,
@@ -82,6 +112,11 @@ const BushiActions: Record<string, types.ZSaveConfigActionCardAction> = {
 
       effects: [
          {
+            actionDelayMultiplier: 1,
+            range: 3,
+            type: actionTypes.movement,
+         },
+         {
             actionDelayMultiplier: 0.5,
             type: actionTypes.support,
          },
@@ -92,6 +127,11 @@ const BushiActions: Record<string, types.ZSaveConfigActionCardAction> = {
       description: "They'll feel it for sure",
 
       effects: [
+         {
+            actionDelayMultiplier: 1,
+            range: 3,
+            type: actionTypes.movement,
+         },
          {
             actionDelayMultiplier: 1,
             type: actionTypes.offensive,
@@ -106,6 +146,11 @@ const BushiActions: Record<string, types.ZSaveConfigActionCardAction> = {
       description: "Longer range. Hopefully you stretched beforehand",
 
       effects: [
+         {
+            actionDelayMultiplier: 1,
+            range: 3,
+            type: actionTypes.movement,
+         },
          {
             actionDelayMultiplier: 1,
             powerMultiplier: 1,
@@ -125,6 +170,11 @@ const BushiActions: Record<string, types.ZSaveConfigActionCardAction> = {
             range: 3,
             type: actionTypes.movement,
          },
+         {
+            actionDelayMultiplier: 1,
+            range: 3,
+            type: actionTypes.movement,
+         },
       ],
    },
    walk: {
@@ -132,6 +182,11 @@ const BushiActions: Record<string, types.ZSaveConfigActionCardAction> = {
       description: "Your steady step never fails",
 
       effects: [
+         {
+            actionDelayMultiplier: 1,
+            range: 3,
+            type: actionTypes.movement,
+         },
          {
             actionDelayMultiplier: 1,
             range: 2,

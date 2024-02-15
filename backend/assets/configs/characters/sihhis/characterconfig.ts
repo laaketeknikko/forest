@@ -10,6 +10,12 @@ const SihhisCardActions: Record<string, types.ZSaveConfigActionCardAction> = {
 
       effects: [
          {
+            range: 2,
+            actionDelayMultiplier: 4,
+            type: actionTypes.offensive,
+            powerMultiplier: 3,
+         },
+         {
             type: actionTypes.movement,
             range: 1,
             actionDelayMultiplier: 1,
@@ -22,6 +28,12 @@ const SihhisCardActions: Record<string, types.ZSaveConfigActionCardAction> = {
 
       effects: [
          {
+            range: 2,
+            actionDelayMultiplier: 4,
+            type: actionTypes.offensive,
+            powerMultiplier: 3,
+         },
+         {
             type: actionTypes.support,
             range: 3,
             actionDelayMultiplier: 1,
@@ -33,6 +45,12 @@ const SihhisCardActions: Record<string, types.ZSaveConfigActionCardAction> = {
       description: "Wrap them tightly and don't let go",
 
       effects: [
+         {
+            range: 2,
+            actionDelayMultiplier: 4,
+            type: actionTypes.offensive,
+            powerMultiplier: 3,
+         },
          {
             type: actionTypes.offensive,
             powerMultiplier: 2,
@@ -48,6 +66,12 @@ const SihhisCardActions: Record<string, types.ZSaveConfigActionCardAction> = {
 
       effects: [
          {
+            range: 2,
+            actionDelayMultiplier: 4,
+            type: actionTypes.offensive,
+            powerMultiplier: 3,
+         },
+         {
             type: actionTypes.support,
             range: 2,
             actionDelayMultiplier: 1,
@@ -59,6 +83,12 @@ const SihhisCardActions: Record<string, types.ZSaveConfigActionCardAction> = {
       description: "They might not see you going anywhere",
 
       effects: [
+         {
+            range: 2,
+            actionDelayMultiplier: 4,
+            type: actionTypes.offensive,
+            powerMultiplier: 3,
+         },
          {
             type: actionTypes.movement,
             actionDelayMultiplier: 1,
@@ -73,6 +103,12 @@ const SihhisCardActions: Record<string, types.ZSaveConfigActionCardAction> = {
 
       effects: [
          {
+            range: 2,
+            actionDelayMultiplier: 4,
+            type: actionTypes.offensive,
+            powerMultiplier: 3,
+         },
+         {
             type: actionTypes.movement,
             actionDelayMultiplier: 1,
             range: 1,
@@ -84,6 +120,12 @@ const SihhisCardActions: Record<string, types.ZSaveConfigActionCardAction> = {
       description: "It'll hurt you, but it'll hurt them as well",
 
       effects: [
+         {
+            range: 2,
+            actionDelayMultiplier: 4,
+            type: actionTypes.offensive,
+            powerMultiplier: 3,
+         },
          {
             powerMultiplier: 1,
             actionDelayMultiplier: 1.5,
@@ -99,6 +141,12 @@ const SihhisCardActions: Record<string, types.ZSaveConfigActionCardAction> = {
 
       effects: [
          {
+            range: 2,
+            actionDelayMultiplier: 4,
+            type: actionTypes.offensive,
+            powerMultiplier: 3,
+         },
+         {
             actionDelayMultiplier: 0.5,
             range: 3,
             type: actionTypes.support,
@@ -110,6 +158,12 @@ const SihhisCardActions: Record<string, types.ZSaveConfigActionCardAction> = {
       description: "It is a destructive beam",
 
       effects: [
+         {
+            range: 2,
+            actionDelayMultiplier: 4,
+            type: actionTypes.offensive,
+            powerMultiplier: 3,
+         },
          {
             actionDelayMultiplier: 3,
             range: 2,
@@ -125,6 +179,12 @@ const SihhisCardActions: Record<string, types.ZSaveConfigActionCardAction> = {
 
       effects: [
          {
+            range: 2,
+            actionDelayMultiplier: 4,
+            type: actionTypes.offensive,
+            powerMultiplier: 3,
+         },
+         {
             actionDelayMultiplier: 1,
             range: 2,
             type: actionTypes.support,
@@ -137,6 +197,12 @@ const SihhisCardActions: Record<string, types.ZSaveConfigActionCardAction> = {
 
       effects: [
          {
+            range: 2,
+            actionDelayMultiplier: 4,
+            type: actionTypes.offensive,
+            powerMultiplier: 3,
+         },
+         {
             actionDelayMultiplier: 0.5,
             type: actionTypes.defensive,
          },
@@ -147,6 +213,12 @@ const SihhisCardActions: Record<string, types.ZSaveConfigActionCardAction> = {
       description: "Coiled and ready to spring",
 
       effects: [
+         {
+            range: 2,
+            actionDelayMultiplier: 4,
+            type: actionTypes.offensive,
+            powerMultiplier: 3,
+         },
          {
             actionDelayMultiplier: 0.5,
             type: actionTypes.support,

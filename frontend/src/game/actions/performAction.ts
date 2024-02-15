@@ -123,8 +123,7 @@ const performAction = ({
 
    // Update action delay
    selectedCharacter.currentActionDelay +=
-      selectedCharacter.baseActionDelay *
-      selectedAction.effects[0].actionDelayMultiplier
+      selectedCharacter.baseActionDelay * selectedAction.actionDelayMultiplier
 
    // Update next action
    const card = { ...jotaiStore.get(activeCardAtom) }

@@ -23,6 +23,9 @@ import { ZActionEffect } from "../../../../../shared/types/types"
 
 // TODO: Unify action helpers and refactor
 
+// TODO: When user deselects a card, the action is undefined
+// but it's still possible to execute the effects. Fix.
+
 const ActionHelper = () => {
    const [selectedCard] = useAtom(currentlySelectedActionCardAtom)
    const [selectedCardData] = useAtom(selectedCard)
@@ -69,6 +72,14 @@ const ActionHelper = () => {
       actionTrackerRef.current?.effectExecuted()
 
       if (!actionTrackerRef.current?.getNextUnexecutedEffect()) {
+         console.log("selected action", action)
+         performAction({
+            activeCardAtom: selectedCard,
+            // TODO: fix
+            selectedAction: action!,
+            selectedCharacterAtom: activeCharacter,
+         })
+
          setGameExecutionState({
             ...gameExecutionState,
             actions: {
@@ -77,12 +88,6 @@ const ActionHelper = () => {
             },
          })
          // TODO: Perform whole action updates
-         performAction({
-            activeCardAtom: selectedCard,
-            // TODO: fix
-            selectedAction: action!,
-            selectedCharacterAtom: activeCharacter,
-         })
       } else {
          setActiveEffect(actionTrackerRef.current?.getNextUnexecutedEffect())
       }

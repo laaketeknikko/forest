@@ -11,6 +11,11 @@ const GuineanPigletActions: Record<string, types.ZSaveConfigActionCardAction> =
 
          effects: [
             {
+               actionDelayMultiplier: 1,
+               type: actionTypes.movement,
+               range: 3,
+            },
+            {
                powerMultiplier: 0.5,
                damageType: damageTypes.physical,
                actionDelayMultiplier: 1,
@@ -24,6 +29,11 @@ const GuineanPigletActions: Record<string, types.ZSaveConfigActionCardAction> =
          description: "Take a little bite.",
 
          effects: [
+            {
+               actionDelayMultiplier: 1,
+               type: actionTypes.movement,
+               range: 3,
+            },
             {
                powerMultiplier: 1,
                damageType: damageTypes.physical,
@@ -39,6 +49,11 @@ const GuineanPigletActions: Record<string, types.ZSaveConfigActionCardAction> =
 
          effects: [
             {
+               actionDelayMultiplier: 1,
+               type: actionTypes.movement,
+               range: 3,
+            },
+            {
                powerMultiplier: 2,
                damageType: damageTypes.physical,
                actionDelayMultiplier: 2,
@@ -53,6 +68,11 @@ const GuineanPigletActions: Record<string, types.ZSaveConfigActionCardAction> =
 
          effects: [
             {
+               actionDelayMultiplier: 1,
+               type: actionTypes.movement,
+               range: 3,
+            },
+            {
                actionDelayMultiplier: 0.5,
                type: actionTypes.support,
             },
@@ -63,6 +83,11 @@ const GuineanPigletActions: Record<string, types.ZSaveConfigActionCardAction> =
          description: "They don't how that happened. Might surprise them",
 
          effects: [
+            {
+               actionDelayMultiplier: 1,
+               type: actionTypes.movement,
+               range: 3,
+            },
             {
                powerMultiplier: 1,
                damageType: damageTypes.physical,
@@ -79,6 +104,11 @@ const GuineanPigletActions: Record<string, types.ZSaveConfigActionCardAction> =
          effects: [
             {
                actionDelayMultiplier: 1,
+               type: actionTypes.movement,
+               range: 3,
+            },
+            {
+               actionDelayMultiplier: 1,
                range: 2,
                type: actionTypes.offensive,
             },
@@ -89,6 +119,11 @@ const GuineanPigletActions: Record<string, types.ZSaveConfigActionCardAction> =
          description: "Good for swatting flies and maybe unbalancing.",
 
          effects: [
+            {
+               actionDelayMultiplier: 1,
+               type: actionTypes.movement,
+               range: 3,
+            },
             {
                powerMultiplier: 0.5,
                damageType: damageTypes.physical,
@@ -104,6 +139,11 @@ const GuineanPigletActions: Record<string, types.ZSaveConfigActionCardAction> =
 
          effects: [
             {
+               actionDelayMultiplier: 1,
+               type: actionTypes.movement,
+               range: 3,
+            },
+            {
                powerMultiplier: 1,
                damageType: damageTypes.physical,
                actionDelayMultiplier: 1.5,
@@ -118,6 +158,11 @@ const GuineanPigletActions: Record<string, types.ZSaveConfigActionCardAction> =
 
          effects: [
             {
+               actionDelayMultiplier: 1,
+               type: actionTypes.movement,
+               range: 3,
+            },
+            {
                actionDelayMultiplier: 0.33,
                type: actionTypes.support,
             },
@@ -129,6 +174,11 @@ const GuineanPigletActions: Record<string, types.ZSaveConfigActionCardAction> =
 
          effects: [
             {
+               actionDelayMultiplier: 1,
+               type: actionTypes.movement,
+               range: 3,
+            },
+            {
                actionDelayMultiplier: 0.5,
                type: actionTypes.support,
             },
@@ -139,6 +189,11 @@ const GuineanPigletActions: Record<string, types.ZSaveConfigActionCardAction> =
          description: "Back to normal stance",
 
          effects: [
+            {
+               actionDelayMultiplier: 1,
+               type: actionTypes.movement,
+               range: 3,
+            },
             {
                actionDelayMultiplier: 0.5,
                type: actionTypes.support,
@@ -162,6 +217,11 @@ const GuineanPigletActions: Record<string, types.ZSaveConfigActionCardAction> =
          description: "Makes you look quite unintimidating",
 
          effects: [
+            {
+               actionDelayMultiplier: 1,
+               type: actionTypes.movement,
+               range: 3,
+            },
             {
                range: 1.5,
                type: actionTypes.movement,
