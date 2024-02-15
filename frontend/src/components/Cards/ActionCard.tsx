@@ -7,22 +7,24 @@ import { useAtom, Atom } from "jotai"
 import { currentlySelectedActionCardAtom } from "../../game/state/jotai/gameState"
 
 import { emptyActionCardAtom } from "../../game/state/initialStates"
-import { ZActionCard } from "../../../../shared/types/types"
+import { ZActionCard, ZCharacter } from "../../../../shared/types/types"
 import Accordion from "@mui/material/Accordion"
 import AccordionDetails from "@mui/material/AccordionDetails"
 import AccordionSummary from "@mui/material/AccordionSummary"
 import { memo, useMemo } from "react"
+import { EffectDescription } from "./EffectDescription"
 
 //export type onActionTriggeredFunc = (card: Atom<ActionCard>) => void
 export type onCardSelectedFunc = (card: Atom<ZActionCard>) => void
 
 interface ActionCardProps {
    cardAtom: Atom<ZActionCard>
+   character: ZCharacter
    //   onActionTriggered: onActionTriggeredFunc
    onCardSelected?: onCardSelectedFunc
 }
 
-const ActionCard = ({ cardAtom }: ActionCardProps) => {
+const ActionCard = ({ cardAtom, character }: ActionCardProps) => {
    const [card] = useAtom(cardAtom)
    const [currentlySelectedCard, setCurrentSelectedActionCard] = useAtom(
       currentlySelectedActionCardAtom
@@ -32,20 +34,35 @@ const ActionCard = ({ cardAtom }: ActionCardProps) => {
       return card.actions.map((action) => {
          const activeClass =
             card.nextActionId === action._id ? "active-action" : ""
+         const defaultExpanded = activeClass !== "" ? true : false
 
          return (
-            <Accordion key={action._id} className={activeClass}>
+            <Accordion
+               key={action._id}
+               className={activeClass}
+               defaultExpanded={defaultExpanded}
+            >
                <AccordionSummary>
                   <Typography>{action.name}</Typography>
                </AccordionSummary>
                <AccordionDetails>
-                  <Typography>Type: {action.type}</Typography>
-                  <Typography>Delay: {action.actionDelayMultiplier}</Typography>
+                  {action.effects.map((effect, index) => (
+                     <EffectDescription
+                        effect={effect}
+                        key={index}
+                        character={character}
+                     />
+                  ))}
+                  <Typography>
+                     Adds{" "}
+                     {action.actionDelayMultiplier * character.baseActionDelay}{" "}
+                     delay
+                  </Typography>
                </AccordionDetails>
             </Accordion>
          )
       })
-   }, [card.actions, card.nextActionId])
+   }, [card.actions, card.nextActionId, character])
 
    return (
       <Card sx={{ width: "100%", padding: 0 }} className="action-card">

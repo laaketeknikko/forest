@@ -2,9 +2,10 @@ import { Atom, atom } from "jotai"
 import { activePartyAtom } from "./characters"
 import { emptyActionCard } from "../initialStates"
 import { activeScenarioEnemiesAtom } from "./enemies"
-import { GameExecutionState } from "../../../config/types"
+import { GameExecutionState, GlobalExecutionState } from "../../../config/types"
 import {
    ZActionCard,
+   ZActionEffect,
    ZCharacter,
    ZEnemy,
    ZSaveConfig,
@@ -36,9 +37,12 @@ const defaultConfigsAtom = atom<{
    scenarios: Array<ZScenarioConfig>
 }>({ characters: [], enemies: [], scenarios: [] })
 
-const gameExecutionStateAtom = atom<GameExecutionState>(
-   GameExecutionState.stopped
-)
+const gameExecutionStateAtom = atom<GameExecutionState>({
+   global: GlobalExecutionState.stopped,
+   actions: {
+      isPerfomingAction: false,
+   },
+})
 
 const activeSaveGameConfigAtom = atom<ZSaveConfig>({
    characters: [],
@@ -49,6 +53,8 @@ const activeSaveGameConfigAtom = atom<ZSaveConfig>({
 
 const popupInfoAtom = atom<ZCharacter | null>(null)
 
+const activeEffectAtom = atom<ZActionEffect | null>(null)
+
 export {
    turnOrderAtom,
    currentlySelectedActionCardAtom,
@@ -56,4 +62,5 @@ export {
    gameExecutionStateAtom,
    activeSaveGameConfigAtom,
    popupInfoAtom,
+   activeEffectAtom,
 }

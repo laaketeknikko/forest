@@ -3,8 +3,12 @@ import { SaveConfigSchema } from "../../shared/zod/schemas"
 
 import { SaveGameModel } from "../mongoose/models/SaveGame"
 
-const saveGame = async (saveGameData: ZSaveConfig) => {
+const saveGame = async (saveGameData: unknown) => {
+   // TODO: Fix these errors somehow.
    const parsedConfig = SaveConfigSchema.safeParse(saveGameData)
+
+   console.dir(parsedConfig, { depth: null })
+
    if (!parsedConfig.success) {
       console.log("Invalid save data", parsedConfig.error)
       throw new Error("Invalid save data")

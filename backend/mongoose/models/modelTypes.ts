@@ -2,19 +2,21 @@
 
 import * as types from "../../../shared/types/types"
 
-interface IActionCardActionModel extends types.ISaveConfigActionCardAction {}
+interface IActionEffectModel extends types.ZActionEffect {}
 
-interface IActionCardModel extends types.ISaveConfigActionCard {}
+interface IActionCardActionModel extends types.ZActionCardAction {}
 
-interface IDynamicGameEntityModel extends types.ISaveConfigDynamicGameEntity {}
+interface IActionCardModel extends types.ZActionCard {}
 
-interface IEnemyModel extends types.ISaveConfigEnemy {}
+interface IDynamicGameEntityModel extends types.ZSaveConfigDynamicGameEntity {}
 
-interface ICharacterModel extends types.ISaveConfigCharacter {}
+interface IEnemyModel extends types.ZSaveConfigEnemy {}
 
-interface IScenarioModel extends types.ISaveConfigScenarioConfig {}
+interface ICharacterModel extends types.ZSaveConfigCharacter {}
 
-interface ISaveGameConfigModel extends types.ISaveGameConfig {}
+interface IScenarioModel extends types.ZSaveConfigScenarioConfig {}
+
+interface ISaveGameConfigModel extends types.ZSaveConfig {}
 
 export {
    IActionCardActionModel,
@@ -24,4 +26,5 @@ export {
    ISaveGameConfigModel,
    IScenarioModel,
    IDynamicGameEntityModel,
+   IActionEffectModel,
 }

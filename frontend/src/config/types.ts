@@ -9,10 +9,18 @@ enum ActionTypes {
    movement = "movement",
 }
 
-enum GameExecutionState {
+enum GlobalExecutionState {
    running = "running",
    paused = "paused",
    stopped = "stopped",
 }
 
-export { DamageTypes, ActionTypes, GameExecutionState }
+interface GameExecutionState {
+   global: GlobalExecutionState
+   actions: {
+      isPerfomingAction: boolean
+   }
+}
+
+export { DamageTypes, ActionTypes, GlobalExecutionState }
+export type { GameExecutionState }

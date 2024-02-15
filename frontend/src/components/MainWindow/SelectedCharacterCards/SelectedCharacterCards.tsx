@@ -18,6 +18,7 @@ const SelectedCharacterCards = ({
          {activeCharacterData.cards.length > 0 && (
             <ActionCardList
                cards={activeCharacterData.cards}
+               character={activeCharacterData}
                onCardSelected={onCardSelected}
             />
          )}

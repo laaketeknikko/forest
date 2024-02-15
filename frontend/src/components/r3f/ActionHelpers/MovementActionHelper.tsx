@@ -1,25 +1,24 @@
 import { Edges } from "@react-three/drei"
 import { Atom, useAtom } from "jotai"
 import { MathUtils } from "three"
-import { ZActionCard, ZCharacter } from "../../../../../shared/types/types"
+import { ZActionEffect, ZCharacter } from "../../../../../shared/types/types"
 
 interface MovementActionHelperProps {
-   selectedCardAtom: Atom<ZActionCard>
+   actionEffect: ZActionEffect | undefined | null
    activeCharacterAtom: Atom<ZCharacter>
    onClick?: (event: object) => void
 }
 
 const MovementActionHelper = ({
-   selectedCardAtom,
+   actionEffect,
    activeCharacterAtom,
    onClick,
 }: MovementActionHelperProps) => {
-   const [selectedCard] = useAtom(selectedCardAtom)
    const [activeCharacter] = useAtom(activeCharacterAtom)
 
-   const action = selectedCard.actions.find(
-      (action) => action._id === selectedCard.nextActionId
-   )
+   if (!actionEffect) {
+      return null
+   }
 
    return (
       <mesh
@@ -32,7 +31,7 @@ const MovementActionHelper = ({
          rotation-x={MathUtils.degToRad(-90)}
          onClick={onClick}
       >
-         <circleGeometry args={[action?.range, 20]} />
+         <circleGeometry args={[actionEffect.range, 20]} />
          <meshBasicMaterial
             toneMapped={false}
             color="blue"

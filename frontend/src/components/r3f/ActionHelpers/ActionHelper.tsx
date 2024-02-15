@@ -1,23 +1,41 @@
 import { useAtom } from "jotai"
-import { currentlySelectedActionCardAtom } from "../../../game/state/jotai/gameState"
+import {
+   currentlySelectedActionCardAtom,
+   gameExecutionStateAtom,
+} from "../../../game/state/jotai/gameState"
 import { activeCharacterAtom } from "../../../game/state/jotai/characters"
-import { useEffect, useMemo } from "react"
+import { useEffect, useMemo, useRef, useState } from "react"
 
 import { MovementActionHelper } from "./MovementActionHelper"
 
 import { actionTypes } from "../../../config/actions/actionTypes"
-import { OffensiveActionHelper } from "./OffensiveActionHelper"
+
 import { SupportActionHelper } from "./SupportActionHelper"
-import { performAction } from "../../../game/actions/performAction"
+import {
+   performAction,
+   performEffect,
+} from "../../../game/actions/performAction"
+import {
+   ActionEffectsTracker,
+   useActionEffectsTracker,
+} from "./useActionEffectsTracker"
+import { ZActionEffect } from "../../../../../shared/types/types"
 
 // TODO: Unify action helpers and refactor
+
+// TODO: When user deselects a card, the action is undefined
+// but it's still possible to execute the effects. Fix.
 
 const ActionHelper = () => {
    const [selectedCard] = useAtom(currentlySelectedActionCardAtom)
    const [selectedCardData] = useAtom(selectedCard)
-
    const [activeCharacter] = useAtom(activeCharacterAtom)
-   const [activeCharacterData] = useAtom(activeCharacter)
+   const [gameExecutionState, setGameExecutionState] = useAtom(
+      gameExecutionStateAtom
+   )
+   const [activeEffect, setActiveEffect] = useState<ZActionEffect | undefined>(
+      undefined
+   )
 
    const action = useMemo(
       () =>
@@ -27,60 +45,81 @@ const ActionHelper = () => {
       [selectedCardData.actions, selectedCardData.nextActionId]
    )
 
-   useEffect(() => {
-      console.log("In ActionHelper, currently selected card:", selectedCard)
-      console.log("In ActionHelper, selected card data:", selectedCardData)
-      console.log("In ActionHelper, active character:", activeCharacter)
-      console.log(
-         "In ActionHelper, active character data:",
-         activeCharacterData
-      )
-      console.log("In ActionHelper, next action:", action)
-   }, [
-      action,
-      activeCharacter,
-      activeCharacterData,
-      selectedCard,
-      selectedCardData,
-   ])
+   const actionTrackerRef = useRef<ActionEffectsTracker>()
+   actionTrackerRef.current = useActionEffectsTracker()
 
-   const onPerformAction = (event) => {
+   useEffect(() => {
+      if (action && actionTrackerRef.current) {
+         actionTrackerRef.current.setAction(action)
+         setActiveEffect(actionTrackerRef.current.getNextUnexecutedEffect())
+      }
+   }, [action])
+
+   const onPerformEffect = (event) => {
       event.stopPropagation()
 
-      if (!action) {
-         throw new Error("Trying to perform an action without an action.")
-      }
-
-      performAction({
+      performEffect({
          // TODO: Fix nevers
          selectedCharacterAtom: activeCharacter,
-         activeCardAtom: selectedCard,
-         selectedAction: action,
+         activeEffect: activeEffect!,
          targetPoint: event.point,
       })
+
+      setGameExecutionState({
+         ...gameExecutionState,
+         actions: { ...gameExecutionState.actions, isPerfomingAction: true },
+      })
+      actionTrackerRef.current?.effectExecuted()
+
+      if (!actionTrackerRef.current?.getNextUnexecutedEffect()) {
+         console.log("selected action", action)
+         performAction({
+            activeCardAtom: selectedCard,
+            // TODO: fix
+            selectedAction: action!,
+            selectedCharacterAtom: activeCharacter,
+         })
+
+         setGameExecutionState({
+            ...gameExecutionState,
+            actions: {
+               ...gameExecutionState.actions,
+               isPerfomingAction: false,
+            },
+         })
+         // TODO: Perform whole action updates
+      } else {
+         setActiveEffect(actionTrackerRef.current?.getNextUnexecutedEffect())
+      }
    }
 
    return (
       <group>
-         {action?.type === actionTypes.movement && (
-            <MovementActionHelper
-               selectedCardAtom={selectedCard}
-               activeCharacterAtom={activeCharacter}
-               onClick={onPerformAction}
-            />
-         )}
-         {action?.type === actionTypes.offensive && (
-            <OffensiveActionHelper
-               selectedCardAtom={selectedCard}
-               activeCharacterAtom={activeCharacter}
-               onClick={onPerformAction}
-            />
-         )}
-         {action?.type === actionTypes.support && (
-            <SupportActionHelper
-               selectedCardAtom={selectedCard}
-               activeCharacterAtom={activeCharacter}
-            />
+         {activeEffect && (
+            <>
+               {activeEffect.type === actionTypes.movement && (
+                  <MovementActionHelper
+                     // NOTE: Fix assertion if check before is removed
+                     actionEffect={activeEffect}
+                     activeCharacterAtom={activeCharacter}
+                     onClick={onPerformEffect}
+                  />
+               )}
+               {activeEffect.type === actionTypes.offensive && (
+                  <MovementActionHelper
+                     // NOTE: Fix assertion if check before is removed
+                     actionEffect={activeEffect}
+                     activeCharacterAtom={activeCharacter}
+                     onClick={onPerformEffect}
+                  />
+               )}
+               {action?.effects[0].type === actionTypes.support && (
+                  <SupportActionHelper
+                     selectedCardAtom={selectedCard}
+                     activeCharacterAtom={activeCharacter}
+                  />
+               )}
+            </>
          )}
       </group>
    )
