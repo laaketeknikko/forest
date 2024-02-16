@@ -42,6 +42,13 @@ const gameExecutionStateAtom = atom<GameExecutionState>({
    actions: {
       isPerfomingAction: false,
    },
+   mainMenu: {
+      gameConfigLoaded: false,
+      scenarioSelected: false,
+      charactersSelected: false,
+      scenarioStarted: false,
+   },
+   characterSelection: [],
 })
 
 const activeSaveGameConfigAtom = atom<ZSaveConfig>({

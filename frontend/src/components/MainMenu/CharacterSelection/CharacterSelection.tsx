@@ -1,12 +1,11 @@
 import Box from "@mui/material/Box"
 
-import type { Atom } from "jotai"
 import { useAtom } from "jotai"
 import {
    activePartyAtom,
    allPlayerCharactersAtom,
 } from "../../../game/state/jotai/characters"
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import { CharacterOption } from "./CharacterOption"
 import AvatarGroup from "@mui/material/AvatarGroup"
 import Avatar from "@mui/material/Avatar"
@@ -14,13 +13,8 @@ import { selectedScenarioConfigAtom } from "../../../game/state/jotai/scenarios"
 import Typography from "@mui/material/Typography"
 import ImageList from "@mui/material/ImageList"
 import { SetNavigationState } from "../types"
-import { ZCharacter } from "../../../../../shared/types/types"
-
-interface CurrentProps {
-   name: string
-   spritePath: string
-   characterAtom: Atom<ZCharacter>
-}
+import { CharacterSelectionItem } from "../../../config/types"
+import { gameExecutionStateAtom } from "../../../game/state/jotai/gameState"
 
 interface CharacterSelectionProps {
    setNavigationState: SetNavigationState
@@ -31,27 +25,24 @@ const CharacterSelection = ({
 }: CharacterSelectionProps) => {
    const [allPlayerCharacterAtoms] = useAtom(allPlayerCharactersAtom)
    const [selectedScenarioConfig] = useAtom(selectedScenarioConfigAtom)
-   const [, setActiveParty] = useAtom(activePartyAtom)
-
-   const [selectedCharacters, setSelectedCharacters] = useState<
-      Array<CurrentProps>
-   >([])
+   const [activeParty, setActiveParty] = useAtom(activePartyAtom)
+   const [gameState, setGameState] = useAtom(gameExecutionStateAtom)
 
    // Update local and global lists of selected characters.
    // Local list contains name and image path for easier access.
-   const handleCharacterSelected = (option) => {
-      const isSelected = selectedCharacters.find((character) => {
-         return character.characterAtom === option.characterAtom
+   const handleCharacterSelected = (option: CharacterSelectionItem) => {
+      const isSelected = gameState.characterSelection.find((character) => {
+         return character.name === option.name
       })
-      let newSelection: Array<CurrentProps> = []
+      let newSelection: Array<CharacterSelectionItem> = []
       if (isSelected) {
-         newSelection = selectedCharacters.filter((character) => {
+         newSelection = gameState.characterSelection.filter((character) => {
             return character.characterAtom !== option.characterAtom
          })
-         setSelectedCharacters(newSelection)
+         setGameState({ ...gameState, characterSelection: newSelection })
       } else {
-         newSelection = [...selectedCharacters, option]
-         setSelectedCharacters(newSelection)
+         newSelection = [...gameState.characterSelection, option]
+         setGameState({ ...gameState, characterSelection: newSelection })
       }
 
       setActiveParty(newSelection.map((character) => character.characterAtom))
@@ -59,14 +50,18 @@ const CharacterSelection = ({
 
    useEffect(() => {
       if (
-         selectedCharacters.length > 0 &&
-         selectedCharacters.length <= selectedScenarioConfig.maxPartySize
+         activeParty.length > 0 &&
+         activeParty.length <= selectedScenarioConfig.maxPartySize
       ) {
          setNavigationState(true)
       } else {
          setNavigationState(false)
       }
-   }, [selectedCharacters, selectedScenarioConfig, setNavigationState])
+   }, [
+      activeParty.length,
+      selectedScenarioConfig.maxPartySize,
+      setNavigationState,
+   ])
 
    return (
       <Box component="div">
@@ -74,11 +69,11 @@ const CharacterSelection = ({
             Maximum party size: {selectedScenarioConfig.maxPartySize}
          </Typography>
          <Typography variant="body1">
-            Selected party size: {selectedCharacters.length}
+            Selected party size: {gameState.characterSelection.length}
          </Typography>
          <AvatarGroup>
-            {selectedCharacters &&
-               selectedCharacters.map((character) => {
+            {gameState.characterSelection &&
+               gameState.characterSelection.map((character) => {
                   return (
                      <Avatar src={character.spritePath} key={character.name} />
                   )
