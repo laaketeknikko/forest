@@ -19,18 +19,14 @@ const saveGame = async (saveGameData: unknown) => {
    })
 
    if (saveGame) {
-      console.log("Found save game", saveGame)
       saveGame.characters = parsedConfig.data.characters
       saveGame.enemies = parsedConfig.data.enemies
       saveGame.scenario = parsedConfig.data.scenario
    } else {
-      console.log("No save game found, creating new one")
       saveGame = new SaveGameModel(parsedConfig.data)
    }
 
    await saveGame.save()
-
-   console.log("Game saved", saveGame)
 
    return saveGame.toObject()
 }

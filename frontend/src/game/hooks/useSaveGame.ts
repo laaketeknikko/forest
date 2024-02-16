@@ -30,14 +30,15 @@ const useSaveGame = () => {
       return saveGameData
    }
 
-   const saveTheGame = (saveData: ZSaveConfig | null = null) => {
+   const saveTheGame = async (saveData: ZSaveConfig | null = null) => {
+      let result: ZSaveConfig
+
       if (!isSaving) {
-         let result
          setIsSaving(true)
          if (saveData) {
-            result = saveGame(saveData)
+            result = await saveGame(saveData)
          } else {
-            result = saveGame(saveGameData)
+            result = await saveGame(saveGameData)
          }
          setIsSaving(false)
          return result
