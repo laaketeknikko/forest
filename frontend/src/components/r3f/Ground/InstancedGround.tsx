@@ -29,7 +29,7 @@ const InstancedGround = ({
 
       for (let x = 0; x < arenaSize.width; x++) {
          for (let z = 0; z < arenaSize.length; z++) {
-            tempObject.position.set(x, 0, z)
+            tempObject.position.set(x + 0.5, 0, z + 0.5)
             tempObject.updateMatrix()
             instanceMeshRef.current!.setMatrixAt(
                x * arenaSize.width + z,
