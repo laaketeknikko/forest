@@ -22,7 +22,14 @@ const EffectDescription = ({ effect, character }: EffectDescriptionProps) => {
 }
 
 const MovementEffectDescription = ({ effect }: EffectDescriptionProps) => {
-   return <Typography>Move {effect.range}</Typography>
+   return (
+      <Typography>
+         Move{" "}
+         <Typography component="span" color="primary">
+            {effect.range}
+         </Typography>
+      </Typography>
+   )
 }
 
 const OffensiveEffectDescription = ({
@@ -31,8 +38,11 @@ const OffensiveEffectDescription = ({
 }: EffectDescriptionProps) => {
    return (
       <Typography>
-         Deal {effect.powerMultiplier! * character.strength} {effect.damageType}{" "}
-         damage
+         Deal{" "}
+         <Typography component="span" color="primary">
+            {effect.powerMultiplier! * character.strength}
+         </Typography>{" "}
+         {effect.damageType} damage
       </Typography>
    )
 }

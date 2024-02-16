@@ -13,6 +13,8 @@ import AccordionDetails from "@mui/material/AccordionDetails"
 import AccordionSummary from "@mui/material/AccordionSummary"
 import { memo, useMemo } from "react"
 import { EffectDescription } from "./EffectDescription"
+import { theme } from "../../styles/mui/theme"
+import { Box } from "@mui/material"
 
 //export type onActionTriggeredFunc = (card: Atom<ActionCard>) => void
 export type onCardSelectedFunc = (card: Atom<ZActionCard>) => void
@@ -43,19 +45,40 @@ const ActionCard = ({ cardAtom, character }: ActionCardProps) => {
                defaultExpanded={defaultExpanded}
             >
                <AccordionSummary>
-                  <Typography>{action.name}</Typography>
+                  <Typography color={activeClass ? "primary" : "text.primary"}>
+                     {action.name}
+                  </Typography>
                </AccordionSummary>
-               <AccordionDetails>
+               <AccordionDetails
+                  sx={
+                     activeClass
+                        ? {}
+                        : {
+                             borderLeft: "1px solid",
+                             borderColor: theme.palette.text.secondary,
+                          }
+                  }
+               >
                   {action.effects.map((effect, index) => (
-                     <EffectDescription
-                        effect={effect}
-                        key={index}
-                        character={character}
-                     />
+                     <Box component="div" key={index}>
+                        <EffectDescription
+                           effect={effect}
+                           character={character}
+                        />
+                        <Typography variant="body2" color="primary">
+                           then
+                        </Typography>
+                     </Box>
                   ))}
+                  <Typography variant="body2" color="primary">
+                     Action end
+                  </Typography>
                   <Typography>
                      Adds{" "}
-                     {action.actionDelayMultiplier * character.baseActionDelay}{" "}
+                     <Typography component="span" color="primary">
+                        {action.actionDelayMultiplier *
+                           character.baseActionDelay}
+                     </Typography>{" "}
                      delay
                   </Typography>
                </AccordionDetails>
@@ -84,6 +107,7 @@ const ActionCard = ({ cardAtom, character }: ActionCardProps) => {
                   paddingTop: 2,
                   paddingBottom: 2,
                   textAlign: "center",
+                  color: theme.palette.primary.main,
                }}
             ></CardHeader>
          </CardActionArea>

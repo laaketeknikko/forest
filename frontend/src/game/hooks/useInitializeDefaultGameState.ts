@@ -9,9 +9,9 @@ import { allScenarioConfigsAtom } from "../state/jotai/scenarios"
 import { defaultConfigsAtom } from "../state/jotai/gameState"
 import { useEffect } from "react"
 import {
-   ZActionCard,
    ZCharacter,
    ZEnemy,
+   ZSaveConfigActionCard,
    ZScenarioConfig,
 } from "../../../../shared/types/types"
 
@@ -59,15 +59,18 @@ const useInitializeEnemies = () => {
          const enemies: Array<Atom<ZEnemy>> = []
          const wrapperFunc = () => {
             for (const enemyConfig of enemyConfigs) {
-               const enemy = clone(enemyConfig)
-
-               enemy.cards = atomsFromCardConfigs(
-                  setInitialActiveActions(enemy.cards)
+               const clonedConfig = clone(enemyConfig)
+               const cards = atomsFromCardConfigs(
+                  setInitialActiveActions(clonedConfig.cards)
                )
 
-               enemy.currentActionDelay =
-                  enemy.baseActionDelay * Math.random() * 2
-               const enemyAtom = atom(enemy)
+               const actionDelay =
+                  clonedConfig.baseActionDelay * Math.random() * 2
+               const enemyAtom = atom({
+                  ...clonedConfig,
+                  cards: cards,
+                  currentActionDelay: actionDelay,
+               })
                enemies.push(enemyAtom)
             }
          }
@@ -126,8 +129,8 @@ const useInitializeDefaultGameState = () => {
    return initializeDefaultGameState
 }
 
-const setInitialActiveActions = (cards) => {
-   const newCards: Array<ZActionCard> = []
+const setInitialActiveActions = (cards: Array<ZSaveConfigActionCard>) => {
+   const newCards: Array<ZSaveConfigActionCard> = []
    for (const card of cards) {
       const newCard = clone(card)
       if (newCard.actions?.length > 0) {

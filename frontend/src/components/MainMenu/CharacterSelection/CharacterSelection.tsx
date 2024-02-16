@@ -7,17 +7,16 @@ import {
 } from "../../../game/state/jotai/characters"
 import { useEffect } from "react"
 import { CharacterOption } from "./CharacterOption"
-import AvatarGroup from "@mui/material/AvatarGroup"
-import Avatar from "@mui/material/Avatar"
+
 import { selectedScenarioConfigAtom } from "../../../game/state/jotai/scenarios"
 import Typography from "@mui/material/Typography"
-import ImageList from "@mui/material/ImageList"
+
 import { SetNavigationState } from "../types"
 import { CharacterSelectionItem } from "../../../config/types"
 import { gameExecutionStateAtom } from "../../../game/state/jotai/gameState"
-import { Masonry } from "@mui/lab"
+
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2"
-import { Stack } from "@mui/material"
+
 import { generatedDarkThemeColors } from "../../../styles/mui/theme"
 
 interface CharacterSelectionProps {

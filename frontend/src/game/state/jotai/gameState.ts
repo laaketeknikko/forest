@@ -7,8 +7,9 @@ import {
    ZActionCard,
    ZActionEffect,
    ZCharacter,
-   ZEnemy,
    ZSaveConfig,
+   ZSaveConfigCharacter,
+   ZSaveConfigEnemy,
    ZScenarioConfig,
 } from "../../../../../shared/types/types"
 
@@ -32,8 +33,8 @@ const currentlySelectedActionCardAtom = atom<Atom<ZActionCard>>(
 )
 
 const defaultConfigsAtom = atom<{
-   characters: Array<ZCharacter>
-   enemies: Array<ZEnemy>
+   characters: Array<ZSaveConfigCharacter>
+   enemies: Array<ZSaveConfigEnemy>
    scenarios: Array<ZScenarioConfig>
 }>({ characters: [], enemies: [], scenarios: [] })
 

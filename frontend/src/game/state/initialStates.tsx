@@ -26,6 +26,7 @@ const emptyCharacter: ZCharacter = {
    position: { x: 0, y: 0, z: 0 },
    health: 0,
    _id: "empty",
+   strength: 0,
 }
 
 const emptyCharacterAtom = atom<ZCharacter>(emptyCharacter)
@@ -54,6 +55,7 @@ const emptyEnemy: ZEnemy = {
    selectedCardId: "",
    spritePath: "",
    _id: "empty",
+   strength: 0,
 }
 
 const emptyEnemyAtom = atom(emptyEnemy)

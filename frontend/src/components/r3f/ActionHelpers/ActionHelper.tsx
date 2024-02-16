@@ -20,6 +20,7 @@ import {
    useActionEffectsTracker,
 } from "./useActionEffectsTracker"
 import { ZActionEffect } from "../../../../../shared/types/types"
+import { ThreeEvent } from "@react-three/fiber"
 
 // TODO: Unify action helpers and refactor
 
@@ -55,7 +56,7 @@ const ActionHelper = () => {
       }
    }, [action])
 
-   const onPerformEffect = (event) => {
+   const onPerformEffect = (event: ThreeEvent<MouseEvent>) => {
       event.stopPropagation()
 
       performEffect({
