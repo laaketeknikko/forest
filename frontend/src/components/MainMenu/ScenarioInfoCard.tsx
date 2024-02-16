@@ -32,7 +32,10 @@ const ScenarioInfoCard = ({
                image={scenarioInfo.thumbNailPath}
                width="100%"
             />
-            <CardHeader title={scenarioInfo.name}></CardHeader>
+            <CardHeader
+               titleTypographyProps={{ color: "primary" }}
+               title={scenarioInfo.name}
+            ></CardHeader>
          </CardActionArea>
       </Card>
    )

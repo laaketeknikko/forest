@@ -1,7 +1,8 @@
 import Button from "@mui/material/Button"
 import { useLoadGame } from "../../game/hooks/useLoadGame"
-import TextField from "@mui/material/TextField"
+
 import { useState } from "react"
+import Input from "@mui/material/Input"
 
 interface LoadGameProps {
    startGame: (value: boolean) => void
@@ -31,11 +32,20 @@ const LoadGame = ({ startGame }: LoadGameProps) => {
    return (
       <>
          <Button onClick={handleOnClick}>Load</Button>
-         <TextField
+
+         <Input
             onChange={(e) => setKeyString(e.target.value)}
             placeholder="Enter save key"
-            label="Save key"
-         ></TextField>
+            fullWidth
+            type="text"
+            slotProps={{
+               input: {
+                  sx: {
+                     textAlign: "center",
+                  },
+               },
+            }}
+         ></Input>
       </>
    )
 }

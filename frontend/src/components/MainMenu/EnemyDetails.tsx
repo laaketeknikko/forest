@@ -9,6 +9,8 @@ import { useState } from "react"
 import { EnemyAvatars } from "./EnemyAvatars"
 import { ZEnemy, ZScenarioEnemyConfig } from "../../../../shared/types/types"
 
+import Grid2 from "@mui/material/Unstable_Grid2/Grid2"
+
 interface EnemyDetailsProps {
    enemyAtom: Atom<ZEnemy>
    scenarioDetails: ZScenarioEnemyConfig
@@ -19,7 +21,7 @@ const EnemyDetails = ({ enemyAtom, scenarioDetails }: EnemyDetailsProps) => {
    const [showDetails, setShowDetails] = useState(false)
 
    return (
-      <Container>
+      <Container sx={{ marginTop: 5 }}>
          <EnemyAvatars
             imagePath={enemy.spritePath}
             quantity={scenarioDetails.quantity}
@@ -29,14 +31,29 @@ const EnemyDetails = ({ enemyAtom, scenarioDetails }: EnemyDetailsProps) => {
          />
          {showDetails && (
             <Box component="div">
-               <Typography variant="body1">
-                  Name: {enemy.name}
-                  <br />
-                  Health: {enemy.health}
-                  <br />
-                  Action delay: {enemy.baseActionDelay}
-               </Typography>
-               <img src={enemy.spritePath} />
+               <Grid2 container>
+                  <Grid2 xs={6} alignItems={"center"} justifyContent={"center"}>
+                     <Typography variant="body1" textAlign={"center"}>
+                        Name:{" "}
+                        <Typography color="primary" component="span">
+                           {enemy.name}
+                        </Typography>
+                        <br />
+                        Health:{" "}
+                        <Typography color="primary" component="span">
+                           {enemy.health}
+                        </Typography>
+                        <br />
+                        Action delay:{" "}
+                        <Typography color="primary" component="span">
+                           {enemy.baseActionDelay}
+                        </Typography>
+                     </Typography>
+                  </Grid2>
+                  <Grid2 xs={6}>
+                     <img src={enemy.spritePath} style={{ width: "100%" }} />
+                  </Grid2>
+               </Grid2>
             </Box>
          )}
       </Container>
