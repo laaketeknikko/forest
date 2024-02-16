@@ -16,7 +16,7 @@ const EnemyAvatars = ({ imagePath, quantity, onClick }: EnemyAvatarProps) => {
          max={2}
          spacing="small"
          variant="rounded"
-         sx={{ justifyContent: "center" }}
+         sx={{ justifyContent: "center", width: "min-content" }}
          onClick={onClick}
       >
          {dummyArray.map((_item, index) => {

@@ -20,8 +20,11 @@ const EnemyDetails = ({ enemyAtom, scenarioDetails }: EnemyDetailsProps) => {
    const [enemy] = useAtom(enemyAtom)
    const [showDetails, setShowDetails] = useState(false)
 
+   // TODO: Add support for multiple enemies.
    return (
-      <Container sx={{ marginTop: 5 }}>
+      <Container
+         sx={{ marginTop: 5, textAlign: "center", justifyContent: "center" }}
+      >
          <EnemyAvatars
             imagePath={enemy.spritePath}
             quantity={scenarioDetails.quantity}
@@ -29,6 +32,7 @@ const EnemyDetails = ({ enemyAtom, scenarioDetails }: EnemyDetailsProps) => {
                setShowDetails(!showDetails)
             }}
          />
+
          {showDetails && (
             <Box component="div">
                <Grid2 container>

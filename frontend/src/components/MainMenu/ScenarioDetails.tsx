@@ -3,36 +3,20 @@ import Paper from "@mui/material/Paper"
 
 import { useEffect } from "react"
 
-import { allEnemiesAtom } from "../../game/state/jotai/enemies"
-import { getDefaultStore, useAtom } from "jotai"
 import { EnemyDetails } from "./EnemyDetails"
-import { emptyEnemyAtom } from "../../game/state/initialStates"
+
 import { ZScenarioConfig } from "../../../../shared/types/types"
+import { getEnemyByName } from "../../game/util/getEnemyByName"
+import { emptyEnemyAtom } from "../../game/state/initialStates"
 
 interface ScenarioDetailsProps {
    scenarioConfig: ZScenarioConfig
 }
 
 const ScenarioDetails = ({ scenarioConfig }: ScenarioDetailsProps) => {
-   const [allEnemies] = useAtom(allEnemiesAtom)
-
    useEffect(() => {
       console.log("In ScenarioDetails, config", scenarioConfig)
    }, [scenarioConfig])
-
-   const getEnemyByName = (name: string) => {
-      const jotaiStore = getDefaultStore()
-      const enemyAtom = allEnemies.find((enemyAtom) => {
-         const enemyData = jotaiStore.get(enemyAtom)
-         return enemyData.name.toLowerCase() === name.toLowerCase()
-      })
-
-      if (!enemyAtom) {
-         return emptyEnemyAtom
-      } else {
-         return enemyAtom
-      }
-   }
 
    return (
       <Paper sx={{ height: "100%" }}>
@@ -63,7 +47,10 @@ const ScenarioDetails = ({ scenarioConfig }: ScenarioDetailsProps) => {
             return (
                <EnemyDetails
                   key={enemy.enemyName}
-                  enemyAtom={getEnemyByName(enemy.enemyName)}
+                  enemyAtom={
+                     getEnemyByName(enemy.enemyName)?.enemyAtom ||
+                     emptyEnemyAtom
+                  }
                   scenarioDetails={enemy}
                />
             )

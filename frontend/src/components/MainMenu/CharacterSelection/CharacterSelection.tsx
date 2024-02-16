@@ -79,11 +79,11 @@ const CharacterSelection = ({
             alignItems={"center"}
             justifyContent={"center"}
          >
-            <Grid2 xs={12} alignItems={"center"} container>
+            <Grid2 xs={12} alignItems={"center"} container columns={24}>
                {gameState.characterSelection &&
                   gameState.characterSelection.map((character) => {
                      return (
-                        <Grid2 key={character.name} xs={4} md={2}>
+                        <Grid2 key={character.name} xs={5} md={3}>
                            <img
                               src={character.spritePath}
                               style={{ width: "100%" }}
@@ -98,7 +98,7 @@ const CharacterSelection = ({
                   .fill(0)
                   .map((_, index) => {
                      return (
-                        <Grid2 xs={4} md={2} key={index}>
+                        <Grid2 xs={5} md={3} key={index}>
                            <div
                               style={{
                                  width: "100%",
@@ -119,11 +119,17 @@ const CharacterSelection = ({
                   })}
             </Grid2>
          </Grid2>
-         <Grid2 container className="character-selection-list">
+         <Grid2 columns={24} container className="character-selection-list">
             {allPlayerCharacterAtoms &&
                allPlayerCharacterAtoms.map((character) => {
                   return (
-                     <Grid2 key={character.toString()} xs={6} md={4} lg={3}>
+                     <Grid2
+                        key={character.toString()}
+                        xs={6}
+                        md={4}
+                        lg={3}
+                        xl={2}
+                     >
                         <CharacterOption
                            characterAtom={character}
                            handleSelection={handleCharacterSelected}
