@@ -1,7 +1,5 @@
 import { useAtom } from "jotai"
 import type { Atom } from "jotai"
-
-import ImageListItem from "@mui/material/ImageListItem"
 import { ZCharacter } from "../../../../../shared/types/types"
 
 interface Option {
@@ -30,12 +28,11 @@ const CharacterOption = ({
    }
 
    return (
-      <ImageListItem onClick={() => handleSelection(option)}>
-         <img
-            src={characterData.spritePath}
-            className="character-selection-img"
-         />
-      </ImageListItem>
+      <img
+         onClick={() => handleSelection(option)}
+         src={characterData.spritePath}
+         className="character-selection-img"
+      />
    )
 }
 

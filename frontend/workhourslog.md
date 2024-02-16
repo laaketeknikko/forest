@@ -50,6 +50,6 @@
 | 14.2. | 5    | Game logic and UI work                                      |
 | 15.2. | 2    | Testing, debugging                                          |
 | 15.2. | 2    | Testing, debugging                                          |
-| 16.2. | 2    | Small fixings                                               |
+| 16.2. | 3    | Small fixings                                               |
 
-94
+95
