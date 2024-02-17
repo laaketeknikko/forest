@@ -12,6 +12,7 @@ import { useIdleTimer } from "react-idle-timer"
 import { CameraControls } from "./CameraControls"
 import { ArenaBorderDecorations } from "./ArenaBorderDecorations"
 import { InstancedGround } from "./Ground/InstancedGround"
+import { currentlySelectedActionCardAtom } from "../../game/state/jotai/gameState"
 
 const DisableRender = () => useFrame(() => null, 1000)
 
@@ -19,6 +20,8 @@ const R3FCanvasWrapper = () => {
    const [activePartyCharacters] = useAtom(activePartyAtom)
    const [activeEnemies] = useAtom(activeScenarioEnemiesAtom)
    const [pauseAnimation, setPauseAnimation] = useState(false)
+   const [selectedCard] = useAtom(currentlySelectedActionCardAtom)
+   const [selectedCardData] = useAtom(selectedCard)
 
    const onIdle = () => {
       setPauseAnimation(true)
@@ -78,7 +81,7 @@ const R3FCanvasWrapper = () => {
             })}
 
          <InstancedGround />
-         <ActionHelper />
+         {selectedCardData.actions.length > 0 && <ActionHelper />}
          <ArenaBorderDecorations />
       </Canvas>
    )

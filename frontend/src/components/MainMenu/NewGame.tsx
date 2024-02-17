@@ -24,7 +24,7 @@ const NewGame = ({ setNavigationState, startLoadedScenario }: NewGameProps) => {
    }
 
    return (
-      <Stack>
+      <Stack width={"100%"}>
          <Button onClick={handleNewGameClick}>New game</Button>
          <SaveGame />
          <LoadGame startGame={startLoadedScenario} />

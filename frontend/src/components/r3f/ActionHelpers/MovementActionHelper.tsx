@@ -2,11 +2,12 @@ import { Edges } from "@react-three/drei"
 import { Atom, useAtom } from "jotai"
 import { MathUtils } from "three"
 import { ZActionEffect, ZCharacter } from "../../../../../shared/types/types"
+import { ThreeEvent } from "@react-three/fiber"
 
 interface MovementActionHelperProps {
    actionEffect: ZActionEffect | undefined | null
    activeCharacterAtom: Atom<ZCharacter>
-   onClick?: (event: object) => void
+   onClick?: (event: ThreeEvent<MouseEvent>) => void
 }
 
 const MovementActionHelper = ({

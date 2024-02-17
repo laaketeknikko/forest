@@ -9,7 +9,8 @@
       "build": "tsc && vite build",
       "lint": "eslint . --ext js,jsx,ts,tsx --report-unused-disable-directives --max-warnings 0",
       "preview": "vite preview",
-      "cypress:open": "cypress open"
+      "cypress:open": "cypress open",
+      "typedoc": "typedoc --out doc ./src/main.tsx"
    },
    "dependencies": {
       "@emotion/react": "^11.11.3",
@@ -50,6 +51,7 @@
       "eslint-plugin-react": "^7.33.2",
       "eslint-plugin-react-hooks": "^4.6.0",
       "eslint-plugin-react-refresh": "^0.4.5",
+      "typedoc": "^0.25.8",
       "typescript": "^5.3.3",
       "vite": "^5.0.8"
    }

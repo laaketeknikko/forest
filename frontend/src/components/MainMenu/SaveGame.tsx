@@ -1,9 +1,12 @@
 import Button from "@mui/material/Button"
 
 import { useSaveGame } from "../../game/hooks/useSaveGame"
+import { gameExecutionStateAtom } from "../../game/state/jotai/gameState"
+import { useAtomValue } from "jotai"
 
 const SaveGame = () => {
    const { updateSaveData, saveTheGame } = useSaveGame()
+   const menuState = useAtomValue(gameExecutionStateAtom)
 
    const handleSaveGame = () => {
       const saveData = updateSaveData()
@@ -19,7 +22,10 @@ const SaveGame = () => {
    }
 
    return (
-      <Button disabled onClick={handleSaveGame}>
+      <Button
+         disabled={!menuState.mainMenu.scenarioStarted}
+         onClick={handleSaveGame}
+      >
          Save
       </Button>
    )

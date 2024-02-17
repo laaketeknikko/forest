@@ -18,6 +18,7 @@ import { gameExecutionStateAtom } from "../../../game/state/jotai/gameState"
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2"
 
 import { generatedDarkThemeColors } from "../../../styles/mui/theme"
+import Stack from "@mui/material/Stack"
 
 interface CharacterSelectionProps {
    setNavigationState: SetNavigationState
@@ -71,72 +72,93 @@ const CharacterSelection = ({
          <Typography variant="h3" color="primary" textAlign={"center"}>
             Select characters
          </Typography>
-         <Grid2
-            container
-            marginTop={2}
-            marginBottom={4}
-            alignItems={"center"}
-            justifyContent={"center"}
-         >
-            <Grid2 xs={12} alignItems={"center"} container columns={24}>
-               {gameState.characterSelection &&
-                  gameState.characterSelection.map((character) => {
+
+         <Stack sx={{ justifyContent: "center", marginTop: 3 }}>
+            <Typography variant="h5" textAlign="center">
+               Current party
+            </Typography>
+            <Grid2
+               container
+               marginBottom={4}
+               marginTop={2}
+               justifyContent={"center"}
+            >
+               <Grid2
+                  xs={12}
+                  justifyContent={"center"}
+                  alignItems={"center"}
+                  container
+                  columns={24}
+               >
+                  {gameState.characterSelection &&
+                     gameState.characterSelection.map((character) => {
+                        return (
+                           <Grid2 key={character.name} xs={5} md={3}>
+                              <img
+                                 src={character.spritePath}
+                                 style={{ width: "100%" }}
+                              />
+                           </Grid2>
+                        )
+                     })}
+                  {Array(
+                     selectedScenarioConfig.maxPartySize -
+                        gameState.characterSelection.length
+                  )
+                     .fill(0)
+                     .map((_, index) => {
+                        return (
+                           <Grid2 xs={5} md={3} key={index}>
+                              <div
+                                 style={{
+                                    width: "100%",
+                                    aspectRatio: 1,
+                                    backgroundColor:
+                                       generatedDarkThemeColors.colors
+                                          .tertiaryContainer,
+                                    borderRadius: "50%",
+                                    borderColor:
+                                       generatedDarkThemeColors.colors
+                                          .tertiaryContainer,
+                                 }}
+                              >
+                                 {" "}
+                              </div>
+                           </Grid2>
+                        )
+                     })}
+               </Grid2>
+            </Grid2>
+            <Typography variant="h5" textAlign="center">
+               Available
+            </Typography>
+            <Grid2
+               marginTop={2}
+               columns={24}
+               container
+               className="character-selection-list"
+               justifyContent={"center"}
+               alignItems={"center"}
+            >
+               {allPlayerCharacterAtoms &&
+                  allPlayerCharacterAtoms.map((character) => {
                      return (
-                        <Grid2 key={character.name} xs={5} md={3}>
-                           <img
-                              src={character.spritePath}
-                              style={{ width: "100%" }}
+                        <Grid2
+                           key={character.toString()}
+                           xs={6}
+                           md={4}
+                           lg={3}
+                           xl={2}
+                        >
+                           <CharacterOption
+                              characterAtom={character}
+                              handleSelection={handleCharacterSelected}
                            />
                         </Grid2>
                      )
                   })}
-               {Array(
-                  selectedScenarioConfig.maxPartySize -
-                     gameState.characterSelection.length
-               )
-                  .fill(0)
-                  .map((_, index) => {
-                     return (
-                        <Grid2 xs={5} md={3} key={index}>
-                           <div
-                              style={{
-                                 width: "100%",
-                                 aspectRatio: 1,
-                                 backgroundColor:
-                                    generatedDarkThemeColors.colors
-                                       .tertiaryContainer,
-                                 borderRadius: "50%",
-                                 borderColor:
-                                    generatedDarkThemeColors.colors
-                                       .tertiaryContainer,
-                              }}
-                           >
-                              {" "}
-                           </div>
-                        </Grid2>
-                     )
-                  })}
             </Grid2>
-         </Grid2>
-         <Grid2 columns={24} container className="character-selection-list">
-            {allPlayerCharacterAtoms &&
-               allPlayerCharacterAtoms.map((character) => {
-                  return (
-                     <Grid2
-                        key={character.toString()}
-                        xs={6}
-                        md={4}
-                        lg={3}
-                        xl={2}
-                     >
-                        <CharacterOption
-                           characterAtom={character}
-                           handleSelection={handleCharacterSelected}
-                        />
-                     </Grid2>
-                  )
-               })}
-         </Grid2>
+         </Stack>
       </Box>
    )
 }

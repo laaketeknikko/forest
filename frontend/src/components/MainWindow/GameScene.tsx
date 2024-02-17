@@ -8,11 +8,28 @@ import { SelectedCharacterCards } from "./SelectedCharacterCards/SelectedCharact
 import IconButton from "@mui/material/IconButton"
 import MenuIcon from "@mui/icons-material/Menu"
 import Drawer from "@mui/material/Drawer"
-import { InGameMenu } from "./InGameMenu"
+
 import { CharacterPopupInfo } from "./CharacterPopupInfo"
+import { SaveGame } from "../MainMenu/SaveGame"
+import { LoadGame } from "../MainMenu/LoadGame"
+import { gameExecutionStateAtom } from "../../game/state/jotai/gameState"
+import { useAtom } from "jotai"
+import { GlobalExecutionState } from "../../config/types"
 
 const GameScene = () => {
    const [showInGameMenu, setShowInGameMenu] = useState(false)
+   const [gameExecutionState, setGameExecutionState] = useAtom(
+      gameExecutionStateAtom
+   )
+
+   const handleGameLoaded = (startGame: boolean) => {
+      if (startGame) {
+         setGameExecutionState({
+            ...gameExecutionState,
+            global: GlobalExecutionState.running,
+         })
+      }
+   }
 
    return (
       <>
@@ -21,7 +38,8 @@ const GameScene = () => {
             open={showInGameMenu}
             onClose={() => setShowInGameMenu(false)}
          >
-            <InGameMenu />
+            <SaveGame />
+            <LoadGame startGame={handleGameLoaded} />
          </Drawer>
          <Grid container columns={24} sx={{ height: "100vh" }}>
             <Grid xs={2} item>

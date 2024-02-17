@@ -110,7 +110,7 @@ const GuineanPigletActions: Record<string, types.ZSaveConfigActionCardAction> =
             {
                actionDelayMultiplier: 1,
                range: 2,
-               type: actionTypes.offensive,
+               type: actionTypes.support,
             },
          ],
       },

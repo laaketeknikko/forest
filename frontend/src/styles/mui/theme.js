@@ -1,5 +1,6 @@
 import { createTheme } from "@mui/material"
-import { lightGreen } from "@mui/material/colors"
+import { blueGrey, deepOrange, grey, lightGreen } from "@mui/material/colors"
+import { blue } from "@mui/material/colors"
 
 const theme = createTheme()
 
@@ -20,6 +21,21 @@ theme.palette.text = {
    primary: "rgb(190, 242, 145)",
    secondary: "rgb(190, 242, 145, 0.8)",
    disabled: "rgb(190, 242, 145, 0.3)",
+}
+
+const customTheme = {}
+customTheme.custom = {
+   colors: {
+      actionTypes: {
+         offensive: deepOrange[500],
+         support: lightGreen[500],
+         defensive: blueGrey[500],
+         movement: blue[500],
+      },
+      damageTypes: {
+         physical: grey[500],
+      },
+   },
 }
 
 const generatedDarkThemeColors = {
@@ -67,4 +83,4 @@ const generatedDarkThemeColors = {
    },
 }
 
-export { generatedDarkThemeColors, theme }
+export { generatedDarkThemeColors, theme, customTheme }

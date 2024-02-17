@@ -35,7 +35,7 @@ const LoadGame = ({ startGame }: LoadGameProps) => {
 
          <Input
             onChange={(e) => setKeyString(e.target.value)}
-            placeholder="Enter save key"
+            placeholder="Enter save key or load from URL"
             fullWidth
             type="text"
             slotProps={{
@@ -45,6 +45,7 @@ const LoadGame = ({ startGame }: LoadGameProps) => {
                   },
                },
             }}
+            value={keyString}
          ></Input>
       </>
    )

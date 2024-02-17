@@ -4,17 +4,20 @@ import CardContent from "@mui/material/CardContent"
 import CardActionArea from "@mui/material/CardActionArea"
 import CardHeader from "@mui/material/CardHeader"
 import { useAtom, Atom } from "jotai"
-import { currentlySelectedActionCardAtom } from "../../game/state/jotai/gameState"
+import {
+   currentlySelectedActionCardAtom,
+   gameExecutionStateAtom,
+} from "../../game/state/jotai/gameState"
 
 import { emptyActionCardAtom } from "../../game/state/initialStates"
 import { ZActionCard, ZCharacter } from "../../../../shared/types/types"
 import Accordion from "@mui/material/Accordion"
 import AccordionDetails from "@mui/material/AccordionDetails"
 import AccordionSummary from "@mui/material/AccordionSummary"
-import { memo, useMemo } from "react"
+import { memo, useMemo, useState } from "react"
 import { EffectDescription } from "./EffectDescription"
 import { theme } from "../../styles/mui/theme"
-import { Box } from "@mui/material"
+import Box from "@mui/material/Box"
 
 //export type onActionTriggeredFunc = (card: Atom<ActionCard>) => void
 export type onCardSelectedFunc = (card: Atom<ZActionCard>) => void
@@ -26,23 +29,32 @@ interface ActionCardProps {
    onCardSelected?: onCardSelectedFunc
 }
 
+// TODO: Allow expanding multiple action accordions
+// with controlled accordions.
+
 const ActionCard = ({ cardAtom, character }: ActionCardProps) => {
    const [card] = useAtom(cardAtom)
    const [currentlySelectedCard, setCurrentSelectedActionCard] = useAtom(
       currentlySelectedActionCardAtom
    )
+   const [gameExecutionState] = useAtom(gameExecutionStateAtom)
+   const [expandedAction, setExpandedAction] = useState<string | false>(false)
 
    const cardContent = useMemo(() => {
       return card.actions.map((action) => {
          const activeClass =
             card.nextActionId === action._id ? "active-action" : ""
-         const defaultExpanded = activeClass !== "" ? true : false
 
          return (
             <Accordion
                key={action._id}
                className={activeClass}
-               defaultExpanded={defaultExpanded}
+               expanded={
+                  expandedAction === action._id || activeClass.length > 0
+               }
+               onChange={() => {
+                  setExpandedAction(action._id || false)
+               }}
             >
                <AccordionSummary>
                   <Typography color={activeClass ? "primary" : "text.primary"}>
@@ -85,13 +97,17 @@ const ActionCard = ({ cardAtom, character }: ActionCardProps) => {
             </Accordion>
          )
       })
-   }, [card.actions, card.nextActionId, character])
+   }, [card.actions, card.nextActionId, character, expandedAction])
 
    return (
       <Card sx={{ width: "100%", padding: 0 }} className="action-card">
          <CardActionArea
             sx={{ padding: 0 }}
             onClick={() => {
+               // Prevent changing cards if in the middle of executing effects.
+               if (gameExecutionState.actions.isPerfomingAction) {
+                  return
+               }
                // Allow selecting and deselecting cards.
                if (cardAtom === currentlySelectedCard) {
                   setCurrentSelectedActionCard(emptyActionCardAtom)

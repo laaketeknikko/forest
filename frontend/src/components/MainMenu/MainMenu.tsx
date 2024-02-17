@@ -104,7 +104,10 @@ const MainMenu = () => {
                         alignItems: "center",
                      }}
                   >
-                     <TabPanel value="0">
+                     <TabPanel
+                        value="0"
+                        sx={{ width: "100%", maxWidth: "40rem" }}
+                     >
                         <NewGame
                            setNavigationState={setGameConfigLoaded}
                            startLoadedScenario={startLoadedScenario}

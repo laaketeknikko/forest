@@ -6,11 +6,8 @@ import {
 import { activeCharacterAtom } from "../../../game/state/jotai/characters"
 import { useEffect, useMemo, useRef, useState } from "react"
 
-import { MovementActionHelper } from "./MovementActionHelper"
-
 import { actionTypes } from "../../../config/actions/actionTypes"
 
-import { SupportActionHelper } from "./SupportActionHelper"
 import {
    performAction,
    performEffect,
@@ -21,16 +18,26 @@ import {
 } from "./useActionEffectsTracker"
 import { ZActionEffect } from "../../../../../shared/types/types"
 import { ThreeEvent } from "@react-three/fiber"
+import { MathUtils } from "three"
+
+import { customTheme } from "../../../styles/mui/theme"
+import { emptyActionCardAtom } from "../../../game/state/initialStates"
 
 // TODO: Unify action helpers and refactor
 
 // TODO: When user deselects a card, the action is undefined
 // but it's still possible to execute the effects. Fix.
 
+// TODO: When user has executed an effect from a card, it's still possible
+// to switch to another card. Fix.
+
 const ActionHelper = () => {
-   const [selectedCard] = useAtom(currentlySelectedActionCardAtom)
+   const [selectedCard, setSelectedCard] = useAtom(
+      currentlySelectedActionCardAtom
+   )
    const [selectedCardData] = useAtom(selectedCard)
    const [activeCharacter] = useAtom(activeCharacterAtom)
+   const [activeCharacterData] = useAtom(activeCharacter)
    const [gameExecutionState, setGameExecutionState] = useAtom(
       gameExecutionStateAtom
    )
@@ -73,7 +80,7 @@ const ActionHelper = () => {
       actionTrackerRef.current?.effectExecuted()
 
       if (!actionTrackerRef.current?.getNextUnexecutedEffect()) {
-         console.log("selected action", action)
+         console.log("last effect in action executed")
          performAction({
             activeCardAtom: selectedCard,
             // TODO: fix
@@ -88,38 +95,46 @@ const ActionHelper = () => {
                isPerfomingAction: false,
             },
          })
-         // TODO: Perform whole action updates
+         setSelectedCard(emptyActionCardAtom)
       } else {
+         console.log("STill effects to execute")
          setActiveEffect(actionTrackerRef.current?.getNextUnexecutedEffect())
       }
+   }
+
+   let helperColor
+   if (activeEffect?.type === actionTypes.movement) {
+      helperColor = customTheme.custom.colors.actionTypes.movement
+   } else if (activeEffect?.type === actionTypes.support) {
+      helperColor = customTheme.custom.colors.actionTypes.support
+   } else if (activeEffect?.type === actionTypes.offensive) {
+      helperColor = customTheme.custom.colors.actionTypes.offensive
+   } else if (activeEffect?.type === actionTypes.defensive) {
+      helperColor = customTheme.custom.colors.actionTypes.defensive
    }
 
    return (
       <group>
          {activeEffect && (
             <>
-               {activeEffect.type === actionTypes.movement && (
-                  <MovementActionHelper
-                     // NOTE: Fix assertion if check before is removed
-                     actionEffect={activeEffect}
-                     activeCharacterAtom={activeCharacter}
-                     onClick={onPerformEffect}
+               <mesh
+                  position={[
+                     activeCharacterData.position?.x || 0,
+                     0.1,
+                     activeCharacterData.position?.z || 0,
+                  ]}
+                  rotation-x={MathUtils.degToRad(-90)}
+                  onClick={onPerformEffect}
+               >
+                  <circleGeometry args={[activeEffect.range, 20]} />
+                  <meshBasicMaterial
+                     toneMapped={false}
+                     color={helperColor}
+                     transparent
+                     opacity={0.5}
+                     depthWrite={false}
                   />
-               )}
-               {activeEffect.type === actionTypes.offensive && (
-                  <MovementActionHelper
-                     // NOTE: Fix assertion if check before is removed
-                     actionEffect={activeEffect}
-                     activeCharacterAtom={activeCharacter}
-                     onClick={onPerformEffect}
-                  />
-               )}
-               {action?.effects[0].type === actionTypes.support && (
-                  <SupportActionHelper
-                     selectedCardAtom={selectedCard}
-                     activeCharacterAtom={activeCharacter}
-                  />
-               )}
+               </mesh>
             </>
          )}
       </group>
