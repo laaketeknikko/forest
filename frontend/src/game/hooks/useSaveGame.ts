@@ -9,9 +9,17 @@ import { useAtom } from "jotai"
 import { useState } from "react"
 import { ZSaveConfig } from "../../../../shared/types/types"
 
+/**
+ * Hook used for saving the game.
+ *
+ * @returns An object with the following functions:
+ * - getSaveData: returns data from activeSaveGameConfigAtom
+ * - updateSaveData: Builds a save state from the current game state.
+ *    Returns the state and sets it to activeSaveGameConfigAtom
+ * - saveTheGame: Saves the game data passed as argument, or, if not passed, from activeSaveGameConfigAtom.
+ */
 const useSaveGame = () => {
    const [saveGameData, setSaveGameData] = useAtom(activeSaveGameConfigAtom)
-
    const [isSaving, setIsSaving] = useState(false)
 
    const updateSaveData = () => {

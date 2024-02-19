@@ -12,6 +12,17 @@ import {
    ZSaveConfigScenarioConfig,
 } from "../../../../shared/types/types"
 
+/**
+ * Builds a save config from the current state.
+ * Notably, turns arrays of atoms to arrays of objects.
+ *
+ * Uses the following atoms to get the state:
+ * - activePartyAtom
+ * - activeScenarioEnemiesAtom
+ * - selectedScenarioConfigAtom
+ *
+ *
+ */
 const buildSaveFromState = () => {
    const jotaiStore = getDefaultStore()
 

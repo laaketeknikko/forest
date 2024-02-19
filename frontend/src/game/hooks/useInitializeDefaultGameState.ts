@@ -17,7 +17,7 @@ import {
 
 /**
  * This hook is used to fetch all the available default configs
- * from the server and load them.
+ * from the server and load them. This is used when navigating the main menu.
  *
  * Sets the following configs:
  * - allPlayerCharactersAtom

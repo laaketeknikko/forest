@@ -1,3 +1,5 @@
+// TODO: Add validation to the responses.
+
 const serverRoot = import.meta.env.VITE_SERVER_LOCATION
 
 const loadDefaultCharacterConfigs = async () => {

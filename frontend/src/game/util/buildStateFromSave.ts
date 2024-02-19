@@ -8,13 +8,22 @@ import { activeScenarioEnemiesAtom } from "../state/jotai/enemies"
 import { selectedScenarioConfigAtom } from "../state/jotai/scenarios"
 import { ZCharacter, ZEnemy, ZSaveConfig } from "../../../../shared/types/types"
 
+/**
+ * Builds up a game state from a save config.
+ * Creates atoms from the config and sets the following atoms:
+ * - activePartyAtom
+ * - activeScenarioEnemiesAtom
+ * - selectedScenarioConfigAtom
+ */
 const buildStateFromSave = (saveData: ZSaveConfig) => {
    const jotaiStore = getDefaultStore()
 
-   // Build character state
    const characters: Array<PrimitiveAtom<ZCharacter>> = []
 
-   // Clone the config simply to avoid possible reference issues.
+   /**
+    * Clone the config simply to avoid possible reference issues.
+    */
+
    const clonedConfig = clone(saveData)
 
    for (const characterConfig of clonedConfig.characters) {

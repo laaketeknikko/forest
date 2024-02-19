@@ -1,7 +1,7 @@
 import { getDefaultStore } from "jotai"
 import { allEnemiesAtom } from "../state/jotai/enemies"
 
-const getEnemyByName = (name: string) => {
+const getEnemyConfigByEnemyName = (name: string) => {
    const jotaiStore = getDefaultStore()
 
    const allEnemies = jotaiStore.get(allEnemiesAtom)
@@ -21,4 +21,4 @@ const getEnemyByName = (name: string) => {
    }
 }
 
-export { getEnemyByName }
+export { getEnemyConfigByEnemyName }

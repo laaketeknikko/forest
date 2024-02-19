@@ -11,7 +11,7 @@ import { useAtom } from "jotai"
 import { ScenarioStartCharacterInfo } from "./ScenarioStartCharacterInfo"
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2"
 
-import { getEnemyByName } from "../../game/util/getEnemyByName"
+import { getEnemyConfigByEnemyName } from "../../game/util/getEnemyByName"
 import Avatar from "@mui/material/Avatar"
 import { theme } from "../../styles/mui/theme"
 
@@ -41,7 +41,9 @@ const ScenarioStartConfirmation = ({
             <Grid2 xs={12}>
                <List>
                   {selectedScenarioConfig.enemies.map((enemy) => {
-                     const enemyInfo = getEnemyByName(enemy.enemyName)
+                     const enemyInfo = getEnemyConfigByEnemyName(
+                        enemy.enemyName
+                     )
 
                      return (
                         /**

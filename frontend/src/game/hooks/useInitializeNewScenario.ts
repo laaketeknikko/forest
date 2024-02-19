@@ -15,6 +15,38 @@ import {
    ZScenarioConfig,
 } from "../../../../shared/types/types"
 
+/**
+ * This hook is used when a new scenario is started by going through the main menu.
+ *
+ * It initializes the positions of enemies and characters in the scenario.
+ * The characters are taken from activePartyAtom and placed randomly on defined starting positions.
+ * The enemies are taken from selecteScenarioConfigAtom and found by name in allEnemiesAtom.
+ *
+ * Also creates new enemy atoms and adds them to activeScenarioEnemiesAtom.
+ */
+const useInitializeNewScenario = () => {
+   const [allEnemies] = useAtom(allEnemiesAtom)
+   const [activeParty] = useAtom(activePartyAtom)
+   const [selectedScenarioConfig] = useAtom(selectedScenarioConfigAtom)
+
+   const initializeScenario = () => {
+      setCharacterPositions({
+         scenarioConfig: selectedScenarioConfig,
+         activePartyAtom: activeParty,
+      })
+
+      setEnemyPositions({
+         scenarioConfig: selectedScenarioConfig,
+         activeEnemyAtoms: activeScenarioEnemiesAtom,
+         allEnemiesAtoms: allEnemies,
+      })
+
+      return true
+   }
+
+   return initializeScenario
+}
+
 const initializeEntityPosition = ({
    entityAtom,
    position,
@@ -112,29 +144,6 @@ const setEnemyPositions = ({
 
    // TODO: fix
    jotaiStore.set(activeEnemyAtoms, activeEnemies)
-}
-
-const useInitializeNewScenario = () => {
-   const [allEnemies] = useAtom(allEnemiesAtom)
-   const [activeParty] = useAtom(activePartyAtom)
-   const [selectedScenarioConfig] = useAtom(selectedScenarioConfigAtom)
-
-   const initializeScenario = () => {
-      setCharacterPositions({
-         scenarioConfig: selectedScenarioConfig,
-         activePartyAtom: activeParty,
-      })
-
-      setEnemyPositions({
-         scenarioConfig: selectedScenarioConfig,
-         activeEnemyAtoms: activeScenarioEnemiesAtom,
-         allEnemiesAtoms: allEnemies,
-      })
-
-      return true
-   }
-
-   return initializeScenario
 }
 
 export { useInitializeNewScenario }

@@ -4,7 +4,7 @@ import Paper from "@mui/material/Paper"
 import { EnemyDetails } from "./EnemyDetails"
 
 import { ZScenarioConfig } from "../../../../../shared/types/types"
-import { getEnemyByName } from "../../../game/util/getEnemyByName"
+import { getEnemyConfigByEnemyName } from "../../../game/util/getEnemyByName"
 import { emptyEnemyAtom } from "../../../game/state/initialStates"
 
 interface ScenarioDetailsProps {
@@ -42,7 +42,7 @@ const ScenarioDetails = ({ scenarioConfig }: ScenarioDetailsProps) => {
                <EnemyDetails
                   key={enemy.enemyName}
                   enemyAtom={
-                     getEnemyByName(enemy.enemyName)?.enemyAtom ||
+                     getEnemyConfigByEnemyName(enemy.enemyName)?.enemyAtom ||
                      emptyEnemyAtom
                   }
                   scenarioDetails={enemy}
