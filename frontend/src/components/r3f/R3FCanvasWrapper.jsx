@@ -16,6 +16,9 @@ import { currentlySelectedActionCardAtom } from "../../game/state/jotai/gameStat
 
 const DisableRender = () => useFrame(() => null, 1000)
 
+/**
+ * Wrapper around the actual game scene.
+ */
 const R3FCanvasWrapper = () => {
    const [activePartyCharacters] = useAtom(activePartyAtom)
    const [activeEnemies] = useAtom(activeScenarioEnemiesAtom)
@@ -23,14 +26,16 @@ const R3FCanvasWrapper = () => {
    const [selectedCard] = useAtom(currentlySelectedActionCardAtom)
    const [selectedCardData] = useAtom(selectedCard)
 
+   /**
+    * Because the game scene is static, we don't want the three.js render loop
+    * running constantly. So we stop the animation after 1 second of inactivity.
+    */
    const onIdle = () => {
       setPauseAnimation(true)
    }
-
    const onAction = () => {
       setPauseAnimation(false)
    }
-
    useIdleTimer({
       onIdle: onIdle,
       onAction: onAction,
@@ -60,6 +65,7 @@ const R3FCanvasWrapper = () => {
          <CameraControls />
 
          <ambientLight args={["white", 1]} />
+
          {activePartyCharacters.length > 0 &&
             activePartyCharacters.map((character) => {
                return (
@@ -69,13 +75,14 @@ const R3FCanvasWrapper = () => {
                   />
                )
             })}
+
          {activeEnemies.length > 0 &&
             activeEnemies.map((enemy) => {
                return (
                   <Character
                      key={enemy.toString()}
                      characterAtom={enemy}
-                     maxDimension={2}
+                     maxDimension={3}
                   />
                )
             })}

@@ -8,6 +8,13 @@ interface LoadGameProps {
    startGame: (value: boolean) => void
 }
 
+/**
+ * Asks user to input save key. Fetches save data and loads it.
+ * After loading save data, calls startGame(true).
+ * If error occurs, calls startGame(false)
+ *
+ * @param startGame - the function to be called after game is loaded
+ */
 const LoadGame = ({ startGame }: LoadGameProps) => {
    const loader = useLoadGame()
 
@@ -19,13 +26,11 @@ const LoadGame = ({ startGame }: LoadGameProps) => {
       // TODO: Implement setting the keystring to address and reading.
       try {
          const saveData = await loader.updateSaveData(keyString)
-         console.log("SaveData in handleOnClick of loadGame:", saveData)
-
          loader.loadTheGame(saveData)
-
          startGame(true)
       } catch (error) {
          console.error(`Error loading game with key ${keyString}`, error)
+         startGame(false)
       }
    }
 

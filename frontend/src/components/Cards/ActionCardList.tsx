@@ -1,5 +1,3 @@
-//import { useState } from "react"
-
 import { ActionCard } from "./ActionCard"
 
 import List from "@mui/material/List"
@@ -10,17 +8,21 @@ import { Atom } from "jotai"
 import type { onCardSelectedFunc } from "./ActionCard"
 import { ZActionCard, ZCharacter } from "../../../../shared/types/types"
 
-interface ActionCardListProps {
+export interface ActionCardListProps {
    cards: Array<Atom<ZActionCard>>
    character: ZCharacter
    onCardSelected?: onCardSelectedFunc
 }
 
+/**
+ * Calls onCardSelected() with no arguments.
+ *
+ */
 const ActionCardList = ({
    cards,
    character,
    onCardSelected,
-}: ActionCardListProps) => {
+}: ActionCardListProps): JSX.Element => {
    return (
       <List
          sx={{

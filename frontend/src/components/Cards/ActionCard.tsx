@@ -19,19 +19,26 @@ import { EffectDescription } from "./EffectDescription"
 import { theme } from "../../styles/mui/theme"
 import Box from "@mui/material/Box"
 
-//export type onActionTriggeredFunc = (card: Atom<ActionCard>) => void
 export type onCardSelectedFunc = (card: Atom<ZActionCard>) => void
 
 interface ActionCardProps {
    cardAtom: Atom<ZActionCard>
    character: ZCharacter
-   //   onActionTriggered: onActionTriggeredFunc
    onCardSelected?: onCardSelectedFunc
 }
 
-// TODO: Allow expanding multiple action accordions
-// with controlled accordions.
+/**
+ * TODO: Allow expanding multiple action accordions
+ *with controlled accordions.
+ */
 
+/**
+ * Renders an Action Card component.
+ *
+ * @param {ActionCardProps} cardAtom - the atom for the card
+ * @param {Character} character - the character associated with the card
+ * @return {JSX.Element} the Action Card component
+ */
 const ActionCard = ({ cardAtom, character }: ActionCardProps) => {
    const [card] = useAtom(cardAtom)
    const [currentlySelectedCard, setCurrentSelectedActionCard] = useAtom(
@@ -40,8 +47,14 @@ const ActionCard = ({ cardAtom, character }: ActionCardProps) => {
    const [gameExecutionState] = useAtom(gameExecutionStateAtom)
    const [expandedAction, setExpandedAction] = useState<string | false>(false)
 
+   /**
+    * Returns the JSX of a single card, rendering the actions and the effects.
+    */
    const cardContent = useMemo(() => {
       return card.actions.map((action) => {
+         /**
+          * The currently executable action is highlighted.
+          */
          const activeClass =
             card.nextActionId === action._id ? "active-action" : ""
 
@@ -104,11 +117,16 @@ const ActionCard = ({ cardAtom, character }: ActionCardProps) => {
          <CardActionArea
             sx={{ padding: 0 }}
             onClick={() => {
-               // Prevent changing cards if in the middle of executing effects.
+               /**
+                * Prevent changing cards if in the middle of executing effects.
+                * */
                if (gameExecutionState.actions.isPerfomingAction) {
                   return
                }
-               // Allow selecting and deselecting cards.
+               /**
+                * Allow selecting and deselecting cards.
+                * TODO: Does deselection work?
+                * */
                if (cardAtom === currentlySelectedCard) {
                   setCurrentSelectedActionCard(emptyActionCardAtom)
                } else {

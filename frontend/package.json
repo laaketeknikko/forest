@@ -10,7 +10,7 @@
       "lint": "eslint . --ext js,jsx,ts,tsx --report-unused-disable-directives --max-warnings 0",
       "preview": "vite preview",
       "cypress:open": "cypress open",
-      "typedoc": "typedoc --out doc ./src/main.tsx"
+      "typedoc": "typedoc --options typedoc.json"
    },
    "dependencies": {
       "@emotion/react": "^11.11.3",

@@ -7,15 +7,19 @@ import Typography from "@mui/material/Typography"
 
 import { useState } from "react"
 import { EnemyAvatars } from "./EnemyAvatars"
-import { ZEnemy, ZScenarioEnemyConfig } from "../../../../shared/types/types"
+import { ZEnemy, ZScenarioEnemyConfig } from "../../../../../shared/types/types"
 
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2"
 
-interface EnemyDetailsProps {
+export interface EnemyDetailsProps {
    enemyAtom: Atom<ZEnemy>
    scenarioDetails: ZScenarioEnemyConfig
 }
 
+/**
+ * Render avatars and details of an enemy.
+ 
+ */
 const EnemyDetails = ({ enemyAtom, scenarioDetails }: EnemyDetailsProps) => {
    const [enemy] = useAtom(enemyAtom)
    const [showDetails, setShowDetails] = useState(false)

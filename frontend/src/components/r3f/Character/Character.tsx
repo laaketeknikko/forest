@@ -6,17 +6,29 @@ import { TextureLoader } from "three"
 import { PrimitiveAtom, useAtom } from "jotai"
 
 import * as textureUtilities from "../../util/textureUtilities"
-import { useEffect } from "react"
+import { useMemo } from "react"
 import { ZCharacter } from "../../../../../shared/types/types"
 
 import { PositionSchema } from "../../../../../shared/zod/schemas"
 import { popupInfoAtom } from "../../../game/state/jotai/gameState"
 
-interface CharacterProps {
+export interface CharacterProps {
    characterAtom: PrimitiveAtom<ZCharacter>
    maxDimension: number
 }
 
+/**
+ * Used to render characters, enemies and other dynamic entities.
+ *
+ * @param props.characterAtom - character to display. .spritePath is used for image
+ * @param props.maxDimension - sets the maximum of the bigger dimensions of character
+ *
+ * maxDimensions corresponds to the larger of the image's x or y dimensions.
+ * For consistency, it should be an integer value. Value of 1 is normal size.
+ *
+ * Character's y dimensions is calculated based on image's y dimension
+ * and updated on the character directly so that character appears to stand on the ground.
+ */
 const Character = ({ characterAtom, maxDimension = 1 }: CharacterProps) => {
    const [character, setCharacter] = useAtom(characterAtom)
    const [, setPopupInfo] = useAtom(popupInfoAtom)
@@ -28,8 +40,10 @@ const Character = ({ characterAtom, maxDimension = 1 }: CharacterProps) => {
       maxDimension
    )
 
-   // Update character Y position to place character on ground level.
-   useEffect(() => {
+   /**
+   Update character Y position to place character on ground level.
+    */
+   useMemo(() => {
       const normalizedYPos = textureUtilities.getTextureYCenter(
          dimensions.height
       )
@@ -40,14 +54,14 @@ const Character = ({ characterAtom, maxDimension = 1 }: CharacterProps) => {
             position: { ...oldPos, y: normalizedYPos },
          })
       }
-   }, [character, colorMap, dimensions.height, maxDimension, setCharacter])
+   }, [character, dimensions.height, setCharacter])
 
    return (
       <mesh
          position={[
-            character.position?.x || 0,
-            character.position?.y || 0,
-            character.position?.z || 0,
+            character.position.x || 0,
+            character.position.y || 0,
+            character.position.z || 0,
          ]}
          onPointerEnter={() => setPopupInfo(character)}
          onPointerLeave={() => setPopupInfo(null)}

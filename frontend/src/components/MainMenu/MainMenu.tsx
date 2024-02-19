@@ -11,7 +11,7 @@ import TabPanel from "@mui/lab/TabPanel"
 import { useEffect, useState } from "react"
 
 import { NewGame } from "./NewGame"
-import { ScenarioSelection } from "./ScenarioSelection"
+import { ScenarioSelection } from "./ScenarioSelection/ScenarioSelection"
 import { CharacterSelection } from "./CharacterSelection/CharacterSelection"
 import { ScenarioStartConfirmation } from "./ScenarioStartConfirmation"
 import { gameExecutionStateAtom } from "../../game/state/jotai/gameState"
@@ -20,10 +20,10 @@ import { useAtom } from "jotai"
 import { useInitializeScenario } from "../../game/hooks/useInitializeNewGameScenario"
 
 const MainMenu = () => {
+   // TODO: Refactor to use the global gamexecutionstate for menu navigation.
    const [gameExecutionState, setGameExecutionState] = useAtom(
       gameExecutionStateAtom
    )
-
    const [gameConfigLoaded, setGameConfigLoaded] = useState(false)
    const [scenarioSelected, setScenarioSelected] = useState(false)
    const [charactersSelected, setCharactersSelected] = useState(false)
@@ -32,15 +32,20 @@ const MainMenu = () => {
 
    const initializeScenario = useInitializeScenario()
 
+   /**
+    * Switch to scenario selection automatically when new game config loaded.
+    */
    useEffect(() => {
       if (gameConfigLoaded) {
          setChosenTab("1")
       }
    }, [gameConfigLoaded])
 
+   /**
+    * Called when starting new scenario by going through main menu.
+    *
+    */
    const startNewScenario = (value: boolean) => {
-      console.log("In startNewScenario, value:", value)
-
       if (!initializeScenario()) {
          throw new Error("Error initializing scenario.")
       }
@@ -51,6 +56,10 @@ const MainMenu = () => {
       })
    }
 
+   /**
+    * Called when starting scenario from load button.
+    *
+    */
    const startLoadedScenario = (value: boolean) => {
       setScenarioStarted(value)
       setGameExecutionState({

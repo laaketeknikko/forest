@@ -1,26 +1,28 @@
 import { useAtom } from "jotai"
-import { allScenarioConfigsAtom } from "../../game/state/jotai/scenarios"
-import { selectedScenarioConfigAtom } from "../../game/state/jotai/scenarios"
+import { allScenarioConfigsAtom } from "../../../game/state/jotai/scenarios"
+import { selectedScenarioConfigAtom } from "../../../game/state/jotai/scenarios"
 import { ScenarioInfoCard } from "./ScenarioInfoCard"
 
 import Paper from "@mui/material/Paper"
 import List from "@mui/material/List"
 import Grid from "@mui/material/Unstable_Grid2"
 import { ScenarioDetails } from "./ScenarioDetails"
-import { SetNavigationState } from "./types"
-import { useState } from "react"
+import { SetNavigationState } from "../types"
 
 interface ScenerioSelectionProps {
    setNavigationState: SetNavigationState
 }
 
+/**
+ * Calls setNavigationState(true) when scenario selected. The selected scenario is set
+ * in selectedScenarioConfigAtom.
+ 
+ */
 const ScenarioSelection = ({ setNavigationState }: ScenerioSelectionProps) => {
    const [allScenarioConfigs] = useAtom(allScenarioConfigsAtom)
    const [selectedScenarioConfig] = useAtom(selectedScenarioConfigAtom)
-   const [, setScenarioSelected] = useState(false)
 
    const handleScenerioSelected = () => {
-      setScenarioSelected(true)
       setNavigationState(true)
    }
 

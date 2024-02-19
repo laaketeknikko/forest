@@ -31,6 +31,12 @@ import { emptyActionCardAtom } from "../../../game/state/initialStates"
 // TODO: When user has executed an effect from a card, it's still possible
 // to switch to another card. Fix.
 
+/**
+ * Provides visual and game logic helpers when performing actions and action effects.
+ * - Displays a circle for effect ranges
+ * - Takes care of executing actions in order
+ *
+ */
 const ActionHelper = () => {
    const [selectedCard, setSelectedCard] = useAtom(
       currentlySelectedActionCardAtom

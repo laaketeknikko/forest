@@ -4,6 +4,9 @@ import { turnOrderAtom } from "../../../game/state/jotai/gameState"
 import { useAtom } from "jotai"
 import { TurnOrderViewItem } from "./TurnOrderViewItem"
 
+/**
+ * Displays the turn order. Uses turnOrderAtom to get the order.
+ */
 const TurnOrderView = () => {
    const [turnOrder] = useAtom(turnOrderAtom)
 

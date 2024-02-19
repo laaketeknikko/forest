@@ -19,6 +19,9 @@ interface ScenarioStartConfirmationProps {
    setNavigationState: SetNavigationState
 }
 
+/**
+ * setNavigationState(true) is called when user confirms scenario start.
+ */
 const ScenarioStartConfirmation = ({
    setNavigationState,
 }: ScenarioStartConfirmationProps) => {
@@ -41,6 +44,9 @@ const ScenarioStartConfirmation = ({
                      const enemyInfo = getEnemyByName(enemy.enemyName)
 
                      return (
+                        /**
+                         * Display enemy image and quantity.
+                         */
                         <ListItem key={enemy.enemyName}>
                            <div>
                               <img src={enemyInfo?.enemyData?.spritePath} />

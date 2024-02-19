@@ -7,6 +7,10 @@ interface SelectedCharacterCardsProps {
    onCardSelected?: onCardSelectedFunc
 }
 
+/**
+ * Wrapper to display list of action cards for selected character.
+ 
+ */
 const SelectedCharacterCards = ({
    onCardSelected,
 }: SelectedCharacterCardsProps) => {

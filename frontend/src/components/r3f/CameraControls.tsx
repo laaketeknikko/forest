@@ -20,9 +20,13 @@ const CameraControls = () => {
       }
    }, [character.position, three.camera])*/
 
+   /**
+    * We don't want the camera following the characters all the time.
+    * By using useMemo, we set the target once and then user can control the camera freely.
+    */
    const controls = useMemo(() => {
       let position = character.position
-      if (!(position?.x && position.y && position.z)) {
+      if (!(position?.x && position?.y && position?.z)) {
          position = { x: 0, y: 0, z: 0 }
       }
       return <MapControls target={[position.x, position.y, position.z]} />

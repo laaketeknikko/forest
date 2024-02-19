@@ -1,23 +1,17 @@
 import Typography from "@mui/material/Typography"
 import Paper from "@mui/material/Paper"
 
-import { useEffect } from "react"
-
 import { EnemyDetails } from "./EnemyDetails"
 
-import { ZScenarioConfig } from "../../../../shared/types/types"
-import { getEnemyByName } from "../../game/util/getEnemyByName"
-import { emptyEnemyAtom } from "../../game/state/initialStates"
+import { ZScenarioConfig } from "../../../../../shared/types/types"
+import { getEnemyByName } from "../../../game/util/getEnemyByName"
+import { emptyEnemyAtom } from "../../../game/state/initialStates"
 
 interface ScenarioDetailsProps {
    scenarioConfig: ZScenarioConfig
 }
 
 const ScenarioDetails = ({ scenarioConfig }: ScenarioDetailsProps) => {
-   useEffect(() => {
-      console.log("In ScenarioDetails, config", scenarioConfig)
-   }, [scenarioConfig])
-
    return (
       <Paper sx={{ height: "100%" }}>
          <Typography variant="h3" sx={{ textAlign: "center" }} color="primary">

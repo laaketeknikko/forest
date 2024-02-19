@@ -21,6 +21,11 @@ const infoStyles = {
    },
 }
 
+/**
+ * Used inside the game scene, when hovering over a character.
+ * Display short info, like health, delay, etc.
+ *
+ */
 const CharacterPopupInfo = () => {
    const [characterInfo] = useAtom(popupInfoAtom)
 

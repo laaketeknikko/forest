@@ -30,14 +30,14 @@ const useInitializeCharacters = () => {
             for (const characterConfig of characterConfigs) {
                const character = clone(characterConfig, false)
 
-               character.cards = atomsFromCardConfigs(
+               const newCards = atomsFromCardConfigs(
                   setInitialActiveActions(character.cards)
                )
 
                character.currentActionDelay =
                   character.baseActionDelay * Math.random() * 2
 
-               const newCharacterAtom = atom(character)
+               const newCharacterAtom = atom({ ...character, cards: newCards })
                characterAtoms.push(newCharacterAtom)
             }
 

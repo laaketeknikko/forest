@@ -9,6 +9,12 @@ import {
 import { MathUtils } from "three"
 import { useMemo, memo } from "react"
 
+/**
+ * Used to render random decorations on the arena border.
+ *
+ */
+
+// TODO: pass the desired number of decorations as arguments.
 const ArenaBorderDecorations = () => {
    const [scenario] = useAtom(selectedScenarioConfigAtom)
 
@@ -115,23 +121,34 @@ interface randomizeDecorationsProps {
    maxDepth: number
 }
 
+/**
+ * Positions decorations on a line. Minimum position is 0, maximum is maxPos.
+ * *
+ * Decorations are randomly offset from the line by -maxDepth. Minimum offset
+ * is 0, "maximum" is -maxDepth.
+ *
+ *
+ * @param props.maxPos - ie. the distance of the line
+ * @param props.maxDepth - maximum offset to apply
+ *
+ */
 const randomizeDecorations = ({
    decorationOptions,
    numberOfDecorations,
    maxPos,
    maxDepth = 3,
-}: randomizeDecorationsProps) => {
+}: randomizeDecorationsProps): Array<{
+   mainDimension: number
+   depthDimension: number
+   yPos: number
+   decoration: THREE.Texture
+   height: number
+   width: number
+}> => {
    const maxHeight = 10
    const minHeight = 2
 
-   const results: Array<{
-      mainDimension: number
-      depthDimension: number
-      yPos: number
-      decoration: THREE.Texture
-      height: number
-      width: number
-   }> = []
+   const results = []
 
    for (let i = 0; i < numberOfDecorations; i++) {
       const decoration =

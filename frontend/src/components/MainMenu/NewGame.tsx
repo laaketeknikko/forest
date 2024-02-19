@@ -11,16 +11,23 @@ interface NewGameProps {
    startLoadedScenario: (value: boolean) => void
 }
 
+/**
+ * A function that handles the start of a new game. It initializes the default game state and updates the navigation state.
+ * Calls setNavigationState(true) after loading initial config on new game.
+ *
+ * startLoadedScenario is passed to LoadGame component.
+ *
+ * @param setNavigationState - A function to set the navigation state
+ * @param startLoadedScenario - The function to start a loaded scenario
+ * @return {void} This function does not return anything
+ */
 const NewGame = ({ setNavigationState, startLoadedScenario }: NewGameProps) => {
    const initializeDefaultGameState = useInitializeDefaultGameState()
 
-   const handleNewGameClick = () => {
-      const asyncWrapper = async () => {
-         // TODO: Maybe make result matter in some way.
-         const result = await initializeDefaultGameState()
-         setNavigationState(result)
-      }
-      asyncWrapper()
+   const handleNewGameClick = async () => {
+      // TODO: Maybe make result matter in some way.
+      const result = await initializeDefaultGameState()
+      setNavigationState(result)
    }
 
    return (

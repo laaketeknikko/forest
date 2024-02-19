@@ -26,6 +26,7 @@
       "strictNullChecks": true
    },
    "include": ["src", "cypress"],
+
    "references": [
       { "path": "./tsconfig.node.json" },
       { "path": "../shared/tsconfig.json" }

@@ -3,11 +3,17 @@ import CardHeader from "@mui/material/CardHeader"
 
 import Card from "@mui/material/Card"
 
-import { selectedScenarioConfigAtom } from "../../game/state/jotai/scenarios"
+import { selectedScenarioConfigAtom } from "../../../game/state/jotai/scenarios"
 import { useAtom } from "jotai"
 import CardMedia from "@mui/material/CardMedia"
-import { ZScenarioConfig } from "../../../../shared/types/types"
+import { ZScenarioConfig } from "../../../../../shared/types/types"
 
+/**
+ * Used to display scenario info in scenario selection list.
+ *
+ * Calls setScenarioSelected(true) when scenario is clicked on.
+ * Sets the selectedScenarioConfigAtom with scenario when clicked on.
+ */
 interface ScenarioInfoCardProps {
    scenarioInfo: ZScenarioConfig
    setScenarioSelected: (value: boolean) => void

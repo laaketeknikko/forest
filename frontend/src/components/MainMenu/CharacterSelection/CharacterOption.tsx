@@ -15,6 +15,10 @@ interface CharacterOptionProps {
    handleSelection: HandleSelectionFunc
 }
 
+/**
+ * Used to display a character option in the character selection menu
+ *
+ */
 const CharacterOption = ({
    characterAtom,
    handleSelection,

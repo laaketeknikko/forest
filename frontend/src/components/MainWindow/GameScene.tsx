@@ -16,6 +16,14 @@ import { gameExecutionStateAtom } from "../../game/state/jotai/gameState"
 import { useAtom } from "jotai"
 import { GlobalExecutionState } from "../../config/types"
 
+/**
+ * Top level wrapper when game is running. Contains three main components:
+ * - Turn order
+ * - The game scene (the canvas)
+ * - Action card list
+ *
+ * Also contains a MUI/drawer to display in-game menu.
+ */
 const GameScene = () => {
    const [showInGameMenu, setShowInGameMenu] = useState(false)
    const [gameExecutionState, setGameExecutionState] = useAtom(

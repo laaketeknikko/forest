@@ -6,6 +6,7 @@ interface ScenarioStartCharacterInfoProps {
    characterAtom: Atom<ZCharacter>
 }
 
+// TODO: Maybe expand this info.
 const ScenarioStartCharacterInfo = ({
    characterAtom,
 }: ScenarioStartCharacterInfoProps) => {

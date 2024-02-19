@@ -27,14 +27,23 @@ interface CharacterSelectionProps {
 const CharacterSelection = ({
    setNavigationState,
 }: CharacterSelectionProps) => {
+   /**
+    * allPlayerCharactersAtom is used to create list of all player characters.
+    * When characters are selected, they are added to activeParty.
+    */
    const [allPlayerCharacterAtoms] = useAtom(allPlayerCharactersAtom)
    const [selectedScenarioConfig] = useAtom(selectedScenarioConfigAtom)
    const [activeParty, setActiveParty] = useAtom(activePartyAtom)
    const [gameState, setGameState] = useAtom(gameExecutionStateAtom)
 
-   // Update local and global lists of selected characters.
-   // Local list contains name and image path for easier access.
+   /**
+    * Update local and global lists of selected characters.
+    * Local list contains name and image path for easier access.
+    */
    const handleCharacterSelected = (option: CharacterSelectionItem) => {
+      /**
+       * Selecting already added character removes character from selection.
+       */
       const isSelected = gameState.characterSelection.find((character) => {
          return character.name === option.name
       })
@@ -52,6 +61,9 @@ const CharacterSelection = ({
       setActiveParty(newSelection.map((character) => character.characterAtom))
    }
 
+   /**
+    * If not characters or too many characters selected, disable navigation to next section.
+    */
    useEffect(() => {
       if (
          activeParty.length > 0 &&
@@ -77,6 +89,9 @@ const CharacterSelection = ({
             <Typography variant="h5" textAlign="center">
                Current party
             </Typography>
+            {
+               // TODO: Is this outer grid needed?
+            }
             <Grid2
                container
                marginBottom={4}
@@ -90,6 +105,10 @@ const CharacterSelection = ({
                   container
                   columns={24}
                >
+                  {/***
+                   * First render avatars of selected characters, then add empty spaces
+                   * up to scenario maximum.
+                   */}
                   {gameState.characterSelection &&
                      gameState.characterSelection.map((character) => {
                         return (
@@ -140,23 +159,26 @@ const CharacterSelection = ({
                justifyContent={"center"}
                alignItems={"center"}
             >
-               {allPlayerCharacterAtoms &&
-                  allPlayerCharacterAtoms.map((character) => {
-                     return (
-                        <Grid2
-                           key={character.toString()}
-                           xs={6}
-                           md={4}
-                           lg={3}
-                           xl={2}
-                        >
-                           <CharacterOption
-                              characterAtom={character}
-                              handleSelection={handleCharacterSelected}
-                           />
-                        </Grid2>
-                     )
-                  })}
+               {
+                  // TODO: Add a visual cue to selected characters.
+                  allPlayerCharacterAtoms &&
+                     allPlayerCharacterAtoms.map((character) => {
+                        return (
+                           <Grid2
+                              key={character.toString()}
+                              xs={6}
+                              md={4}
+                              lg={3}
+                              xl={2}
+                           >
+                              <CharacterOption
+                                 characterAtom={character}
+                                 handleSelection={handleCharacterSelected}
+                              />
+                           </Grid2>
+                        )
+                     })
+               }
             </Grid2>
          </Stack>
       </Box>
