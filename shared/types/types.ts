@@ -45,6 +45,9 @@ export type ZArenaConfig = z.infer<typeof schemas.ArenaConfigSchema>
 export type ZScenarioEnemyConfig = z.infer<
    typeof schemas.ScenarioEnemyConfigSchema
 >
+export type ZScenarioUnlockCondition = z.infer<
+   typeof schemas.ScenarioUnlockConditionSchema
+>
 export type ZScenarioConfig = z.infer<typeof schemas.ScenarioConfigSchema>
 
 //
@@ -65,6 +68,9 @@ export type ZSaveConfigCharacter = z.infer<
    typeof schemas.SaveConfigCharacterSchema
 >
 export type ZSaveConfigEnemy = z.infer<typeof schemas.SaveConfigEnemySchema>
+export type ZSaveConfigScenarioStatistics = z.infer<
+   typeof schemas.SaveConfigScenarioStatisticsSchema
+>
 export type ZSaveConfigScenarioConfig = z.infer<
    typeof schemas.SaveConfigScenarioConfigSchema
 >

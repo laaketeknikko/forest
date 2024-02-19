@@ -23,6 +23,7 @@ newGameRouter.get("/", async (_req, res) => {
          characters: characterConfigs,
          enemies: enemyConfigs,
          scenario: scenarioConfigs,
+         scenarioStatistics: [],
       }
 
       const result = await saveGame(initialSaveConfig)

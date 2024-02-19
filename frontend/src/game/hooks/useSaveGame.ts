@@ -23,7 +23,11 @@ const useSaveGame = () => {
    const [isSaving, setIsSaving] = useState(false)
 
    const updateSaveData = () => {
-      const saveData = { ...buildSaveFromState(), keyString: "" }
+      const saveData = {
+         ...buildSaveFromState(),
+         keyString: "",
+         scenarioStatistics: saveGameData.scenarioStatistics,
+      }
       if (!saveGameData.keyString || saveGameData.keyString.length === 0) {
          saveData.keyString = v4()
       } else {

@@ -53,5 +53,6 @@
 | 16.2. | 5    | Small fixings                                               |
 | 17.2. | 2    | Debugging, fixing, polishing                                |
 | 19.2. | 4    | Documentation, refactoring                                  |
+| 19.2. | 2    | Refactoring                                                 |
 
-103
+105
