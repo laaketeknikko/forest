@@ -3,7 +3,7 @@ import Card from "@mui/material/Card"
 import CardContent from "@mui/material/CardContent"
 import CardActionArea from "@mui/material/CardActionArea"
 import CardHeader from "@mui/material/CardHeader"
-import { useAtom, Atom } from "jotai"
+import { useAtom, PrimitiveAtom } from "jotai"
 import {
    currentlySelectedActionCardAtom,
    gameExecutionStateAtom,
@@ -19,10 +19,10 @@ import { EffectDescription } from "./EffectDescription"
 import { theme } from "../../styles/mui/theme"
 import Box from "@mui/material/Box"
 
-export type onCardSelectedFunc = (card: Atom<ZActionCard>) => void
+export type onCardSelectedFunc = (card: PrimitiveAtom<ZActionCard>) => void
 
 interface ActionCardProps {
-   cardAtom: Atom<ZActionCard>
+   cardAtom: PrimitiveAtom<ZActionCard>
    character: ZCharacter
    onCardSelected?: onCardSelectedFunc
 }
@@ -35,11 +35,11 @@ interface ActionCardProps {
 /**
  * Renders an Action Card component.
  *
- * @param {ActionCardProps} cardAtom - the atom for the card
- * @param {Character} character - the character associated with the card
+ * @param props.cardAtom - the atom for the card
+ * @param props.character - the character associated with the card
  * @return {JSX.Element} the Action Card component
  */
-const ActionCard = ({ cardAtom, character }: ActionCardProps) => {
+const ActionCard = ({ cardAtom, character }: ActionCardProps): JSX.Element => {
    const [card] = useAtom(cardAtom)
    const [currentlySelectedCard, setCurrentSelectedActionCard] = useAtom(
       currentlySelectedActionCardAtom

@@ -1,4 +1,4 @@
-import type { Atom } from "jotai"
+import type { PrimitiveAtom } from "jotai"
 import { getDefaultStore } from "jotai"
 
 import { allActiveGameEntitiesAtom } from "../state/jotai/entities"
@@ -15,19 +15,19 @@ import { PositionSchema } from "../../../../shared/zod/schemas"
 
 interface PerformActionProps {
    // TODO: Fix the type never to Atom<Character>
-   selectedCharacterAtom: Atom<ZCharacter>
-   activeCardAtom: Atom<ZActionCard>
+   selectedCharacterAtom: PrimitiveAtom<ZCharacter>
+   activeCardAtom: PrimitiveAtom<ZActionCard>
    selectedAction: ZActionCardAction
 }
 
 interface AffectedEntity {
    entityData: ZGameEntity
-   entity: Atom<ZGameEntity>
+   entity: PrimitiveAtom<ZGameEntity>
 }
 
 interface PerformEffectProps {
    // TODO: Fix the type never to Atom<Character>
-   selectedCharacterAtom: Atom<ZCharacter>
+   selectedCharacterAtom: PrimitiveAtom<ZCharacter>
    activeEffect: ZActionEffect
    targetPoint: ZPosition2D
 }
@@ -75,7 +75,7 @@ const performMoveEffect = (props: PerformEffectProps) => {
    selectedCharacter.position.z = props.targetPoint.z
 
    // TODO: Fix
-   jotaiStore.set(props.selectedCharacterAtom as never, {
+   jotaiStore.set(props.selectedCharacterAtom, {
       ...selectedCharacter,
    })
 }
@@ -100,7 +100,11 @@ const performOffensiveEffect = (props: PerformEffectProps) => {
       const differenceZ = Math.abs(entityData.position!.z - tileCenter.z)
 
       if (differenceX <= 0.5 && differenceZ <= 0.5) {
-         affectedEntities.push({ entityData: entityData, entity: entity })
+         // TODO: Fix
+         affectedEntities.push({
+            entityData: entityData,
+            entity: entity as unknown as PrimitiveAtom<ZGameEntity>,
+         })
       }
    }
 
@@ -112,8 +116,8 @@ const performOffensiveEffect = (props: PerformEffectProps) => {
       if (entity.entityData.health && attackPower) {
          entity.entityData.health -= attackPower
       }
-      // TODO: Fix typing
-      jotaiStore.set(entity.entity as never, entity.entityData)
+
+      jotaiStore.set(entity.entity, entity.entityData)
    }
 }
 
@@ -145,9 +149,9 @@ const performAction = ({
    }
 
    // TODO: fix
-   jotaiStore.set(activeCardAtom as never, card)
+   jotaiStore.set(activeCardAtom, card)
 
-   jotaiStore.set(selectedCharacterAtom as never, { ...selectedCharacter })
+   jotaiStore.set(selectedCharacterAtom, { ...selectedCharacter })
 }
 
 export { performAction, performEffect }

@@ -1,4 +1,4 @@
-import { Atom } from "jotai"
+import { PrimitiveAtom } from "jotai"
 import { ZCharacter } from "../../../shared/types/types"
 
 enum DamageTypes {
@@ -37,7 +37,7 @@ interface GameExecutionState {
 interface CharacterSelectionItem {
    name: string
    spritePath: string
-   characterAtom: Atom<ZCharacter>
+   characterAtom: PrimitiveAtom<ZCharacter>
 }
 
 export { DamageTypes, ActionTypes, GlobalExecutionState }

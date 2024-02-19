@@ -1,10 +1,9 @@
-import { Atom, atom } from "jotai"
+import { atom } from "jotai"
 
 import { activePartyAtom } from "./characters"
 import { activeScenarioEnemiesAtom } from "./enemies"
-import { ZGameEntity } from "../../../../../shared/types/types"
 
-const allActiveGameEntitiesAtom = atom<Array<Atom<ZGameEntity>>>((get) => {
+const allActiveGameEntitiesAtom = atom((get) => {
    const activeCharacters = get(activePartyAtom)
    const activeEnemies = get(activeScenarioEnemiesAtom)
    const allEntities = [...activeCharacters, ...activeEnemies]

@@ -86,8 +86,8 @@ const ActionHelper = () => {
       actionTrackerRef.current?.effectExecuted()
 
       if (!actionTrackerRef.current?.getNextUnexecutedEffect()) {
-         console.log("last effect in action executed")
          performAction({
+            // TODO: Fix types
             activeCardAtom: selectedCard,
             // TODO: fix
             selectedAction: action!,
@@ -103,7 +103,6 @@ const ActionHelper = () => {
          })
          setSelectedCard(emptyActionCardAtom)
       } else {
-         console.log("STill effects to execute")
          setActiveEffect(actionTrackerRef.current?.getNextUnexecutedEffect())
       }
    }

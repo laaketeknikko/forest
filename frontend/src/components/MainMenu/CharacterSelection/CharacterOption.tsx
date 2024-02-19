@@ -1,17 +1,12 @@
 import { useAtom } from "jotai"
-import type { Atom } from "jotai"
+import type { PrimitiveAtom } from "jotai"
 import { ZCharacter } from "../../../../../shared/types/types"
+import { CharacterSelectionItem } from "../../../config/types"
 
-interface Option {
-   name: string
-   spritePath: string
-   characterAtom: Atom<ZCharacter>
-}
-
-type HandleSelectionFunc = (option: Option) => void
+type HandleSelectionFunc = (option: CharacterSelectionItem) => void
 
 interface CharacterOptionProps {
-   characterAtom: Atom<ZCharacter>
+   characterAtom: PrimitiveAtom<ZCharacter>
    handleSelection: HandleSelectionFunc
 }
 

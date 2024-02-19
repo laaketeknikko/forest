@@ -1,6 +1,6 @@
 import clone from "clone"
 
-import { Atom, atom, useAtom } from "jotai"
+import { PrimitiveAtom, atom, useAtom } from "jotai"
 import { allPlayerCharactersAtom } from "../state/jotai/characters"
 import { atomsFromCardConfigs } from "../util/atomsFromCardConfigs"
 import { allEnemiesAtom } from "../state/jotai/enemies"
@@ -9,9 +9,9 @@ import { allScenarioConfigsAtom } from "../state/jotai/scenarios"
 import { defaultConfigsAtom } from "../state/jotai/gameState"
 import { useEffect } from "react"
 import {
-   ZCharacter,
-   ZEnemy,
+   ZDynamicGameEntity,
    ZSaveConfigActionCard,
+   ZSaveConfigDynamicGameEntity,
    ZScenarioConfig,
 } from "../../../../shared/types/types"
 
@@ -23,6 +23,14 @@ import {
  * - allPlayerCharactersAtom
  * - allEnemiesAtom
  * - allScenarioConfigsAtom
+ *
+ * This hook uses the following hooks:
+ * - useInitializeCharacters
+ * - useInitializeEnemies
+ * - useInitializeScenarios
+ * These hooks use useEffect to listen on changes in the default configs,
+ * so the configs get initialized when initializeDefaultGameState is called.
+ *
  *
  * @returns - a function to be called to initialize the default configs
  */
@@ -55,32 +63,11 @@ const useInitializeCharacters = () => {
 
    useEffect(() => {
       if (defaultConfigs.characters && defaultConfigs.characters.length > 0) {
-         // wrapperFunc used to be async, that is why this construct.
-         // Keep it just in case.
-         const wrapperFunc = () => {
-            const characterConfigs = defaultConfigs.characters
-            const characterAtoms: Array<Atom<ZCharacter>> = []
-
-            for (const characterConfig of characterConfigs) {
-               const character = clone(characterConfig, false)
-
-               const newCards = atomsFromCardConfigs(
-                  setInitialActiveActions(character.cards)
-               )
-
-               character.currentActionDelay =
-                  character.baseActionDelay * Math.random() * 2
-
-               const newCharacterAtom = atom({ ...character, cards: newCards })
-               characterAtoms.push(newCharacterAtom)
-            }
-
-            setAllCharactersAtom(characterAtoms)
-         }
-
-         wrapperFunc()
+         setAllCharactersAtom(
+            initializeDynamicGameEntityAtoms(defaultConfigs.characters)
+         )
       }
-   }, [defaultConfigs, setAllCharactersAtom])
+   }, [defaultConfigs.characters, setAllCharactersAtom])
 }
 
 const useInitializeEnemies = () => {
@@ -89,31 +76,35 @@ const useInitializeEnemies = () => {
 
    useEffect(() => {
       if (defaultConfigs.enemies && defaultConfigs.enemies.length > 0) {
-         const enemyConfigs = defaultConfigs.enemies
-         const enemies: Array<Atom<ZEnemy>> = []
-         const wrapperFunc = () => {
-            for (const enemyConfig of enemyConfigs) {
-               const clonedConfig = clone(enemyConfig)
-               const cards = atomsFromCardConfigs(
-                  setInitialActiveActions(clonedConfig.cards)
-               )
-
-               const actionDelay =
-                  clonedConfig.baseActionDelay * Math.random() * 2
-               const enemyAtom = atom({
-                  ...clonedConfig,
-                  cards: cards,
-                  currentActionDelay: actionDelay,
-               })
-               enemies.push(enemyAtom)
-            }
-         }
-
-         wrapperFunc()
-
-         setAllEnemiesAtom(enemies)
+         setAllEnemiesAtom(
+            initializeDynamicGameEntityAtoms(defaultConfigs.enemies)
+         )
       }
-   }, [defaultConfigs, setAllEnemiesAtom])
+   }, [defaultConfigs.enemies, setAllEnemiesAtom])
+}
+
+const initializeDynamicGameEntityAtoms = (
+   entityConfigs: Array<ZSaveConfigDynamicGameEntity>
+): Array<PrimitiveAtom<ZDynamicGameEntity>> => {
+   const entityAtoms: Array<PrimitiveAtom<ZDynamicGameEntity>> = []
+
+   for (const entityConfig of entityConfigs) {
+      /**
+       * Clone just to be safe.
+       */
+      const entity = clone(entityConfig, false)
+
+      const newCards = atomsFromCardConfigs(
+         setInitialActiveActions(entity.cards)
+      )
+
+      entity.currentActionDelay = entity.baseActionDelay * Math.random() * 2
+
+      const newCharacterAtom = atom({ ...entity, cards: newCards })
+      entityAtoms.push(newCharacterAtom)
+   }
+
+   return entityAtoms
 }
 
 const useInitializeScenarios = () => {
@@ -125,15 +116,14 @@ const useInitializeScenarios = () => {
          const scenarioConfigs = defaultConfigs.scenarios
 
          const scenarios: Array<ZScenarioConfig> = []
-         const wrapperFunc = () => {
-            for (const scenarioConfig of scenarioConfigs) {
-               const scenario = clone(scenarioConfig)
 
-               scenarios.push(scenario)
-            }
+         for (const scenarioConfig of scenarioConfigs) {
+            /**
+             * Clone just to be safe.
+             */
+            const scenario = clone(scenarioConfig)
+            scenarios.push(scenario)
          }
-
-         wrapperFunc()
 
          setAllScenariosAtom(scenarios)
       }

@@ -3,13 +3,13 @@ import { ActionCard } from "./ActionCard"
 import List from "@mui/material/List"
 import ListItem from "@mui/material/ListItem"
 
-import { Atom } from "jotai"
+import { PrimitiveAtom } from "jotai"
 
 import type { onCardSelectedFunc } from "./ActionCard"
 import { ZActionCard, ZCharacter } from "../../../../shared/types/types"
 
 export interface ActionCardListProps {
-   cards: Array<Atom<ZActionCard>>
+   cards: Array<PrimitiveAtom<ZActionCard>>
    character: ZCharacter
    onCardSelected?: onCardSelectedFunc
 }

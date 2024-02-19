@@ -1,7 +1,7 @@
 import clone from "clone"
 import { getDefaultStore } from "jotai"
 import { atom } from "jotai"
-import type { Atom } from "jotai/vanilla"
+import type { PrimitiveAtom } from "jotai/vanilla"
 import { atomsFromCardConfigs } from "./atomsFromCardConfigs"
 import { activePartyAtom } from "../state/jotai/characters"
 import { activeScenarioEnemiesAtom } from "../state/jotai/enemies"
@@ -12,7 +12,7 @@ const buildStateFromSave = (saveData: ZSaveConfig) => {
    const jotaiStore = getDefaultStore()
 
    // Build character state
-   const characters: Array<Atom<ZCharacter>> = []
+   const characters: Array<PrimitiveAtom<ZCharacter>> = []
 
    // Clone the config simply to avoid possible reference issues.
    const clonedConfig = clone(saveData)
@@ -39,7 +39,7 @@ const buildStateFromSave = (saveData: ZSaveConfig) => {
    jotaiStore.set(activePartyAtom, characters)
 
    // Build enemy state
-   const enemies: Array<Atom<ZEnemy>> = []
+   const enemies: Array<PrimitiveAtom<ZEnemy>> = []
 
    for (const enemyConfig of clonedConfig.enemies) {
       const enemy: ZEnemy = {
@@ -63,7 +63,7 @@ const buildStateFromSave = (saveData: ZSaveConfig) => {
    jotaiStore.set(activeScenarioEnemiesAtom, enemies)
 
    // Build scenario state
-   // TOOD: Fix
+   // TOOD: Fix after loading refactor is done.
    jotaiStore.set(selectedScenarioConfigAtom, clonedConfig.scenario as never)
 
    return true

@@ -1,4 +1,4 @@
-import { Atom } from "jotai"
+import { PrimitiveAtom } from "jotai"
 import * as schemas from "../zod/schemas"
 import { z } from "zod"
 
@@ -34,10 +34,10 @@ export type ZCharacter = Omit<
    z.infer<typeof schemas.CharacterSchema>,
    "cards"
 > & {
-   cards: Array<Atom<z.infer<typeof schemas.ActionCardSchema>>>
+   cards: Array<PrimitiveAtom<z.infer<typeof schemas.ActionCardSchema>>>
 }
 export type ZEnemy = Omit<z.infer<typeof schemas.EnemySchema>, "cards"> & {
-   cards: Array<Atom<z.infer<typeof schemas.ActionCardSchema>>>
+   cards: Array<PrimitiveAtom<z.infer<typeof schemas.ActionCardSchema>>>
 }
 
 export type ZTurnOrderCard = z.infer<typeof schemas.TurnOrderCardSchema>

@@ -17,7 +17,7 @@ import { ScenarioStartConfirmation } from "./ScenarioStartConfirmation"
 import { gameExecutionStateAtom } from "../../game/state/jotai/gameState"
 import { GlobalExecutionState } from "../../config/types"
 import { useAtom } from "jotai"
-import { useInitializeScenario } from "../../game/hooks/useInitializeNewGameScenario"
+import { useInitializeNewScenario } from "../../game/hooks/useInitializeNewScenario"
 
 const MainMenu = () => {
    // TODO: Refactor to use the global gamexecutionstate for menu navigation.
@@ -30,7 +30,7 @@ const MainMenu = () => {
    const [, setScenarioStarted] = useState(false)
    const [chosenTab, setChosenTab] = useState("0")
 
-   const initializeScenario = useInitializeScenario()
+   const initializeScenario = useInitializeNewScenario()
 
    /**
     * Switch to scenario selection automatically when new game config loaded.

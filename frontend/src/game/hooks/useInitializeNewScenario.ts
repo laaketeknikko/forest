@@ -1,4 +1,4 @@
-import { Atom, atom, getDefaultStore, useAtom } from "jotai"
+import { PrimitiveAtom, atom, getDefaultStore, useAtom } from "jotai"
 import {
    activeScenarioEnemiesAtom,
    allEnemiesAtom,
@@ -19,7 +19,7 @@ const initializeEntityPosition = ({
    entityAtom,
    position,
 }: {
-   entityAtom: Atom<ZCharacter>
+   entityAtom: PrimitiveAtom<ZCharacter>
    position: ZPosition2D
 }) => {
    const jotaiStore = getDefaultStore()
@@ -32,21 +32,23 @@ const initializeEntityPosition = ({
    character.position.x = position.x
    character.position.z = position.z
 
-   // TODO: fix
-   jotaiStore.set(entityAtom as never, { ...character })
+   jotaiStore.set(entityAtom, { ...character })
 }
 
-const initializeCharacterPositions = ({
+/**
+ * Randomizes character starting positions based on scenario config.
+ */
+const setCharacterPositions = ({
    scenarioConfig,
-   activeParty,
+   activePartyAtom,
 }: {
    scenarioConfig: ZScenarioConfig
-   activeParty: Array<Atom<ZCharacter>>
+   activePartyAtom: Array<PrimitiveAtom<ZCharacter>>
 }) => {
    const positions = shuffle([
       ...scenarioConfig.playerCharacterStartingPositions,
    ])
-   for (const memberAtom of activeParty) {
+   for (const memberAtom of activePartyAtom) {
       const position = positions.pop()
 
       if (!position) {
@@ -62,19 +64,24 @@ const initializeCharacterPositions = ({
    }
 }
 
-const initializeEnemyPosition = ({
+/**
+ * Randomizes enemy starting positions based on scenario config.
+ * Also creates enemy atoms from enemy configs in scenarioConfig
+ * and adds atoms to activeEnemyAtosm.
+ */
+const setEnemyPositions = ({
    scenarioConfig,
    activeEnemyAtoms,
    allEnemiesAtoms,
 }: {
    scenarioConfig: ZScenarioConfig
-   activeEnemyAtoms: Atom<Array<Atom<ZEnemy>>>
-   allEnemiesAtoms: Array<Atom<ZEnemy>>
+   activeEnemyAtoms: PrimitiveAtom<Array<PrimitiveAtom<ZEnemy>>>
+   allEnemiesAtoms: Array<PrimitiveAtom<ZEnemy>>
 }) => {
    const jotaiStore = getDefaultStore()
 
    const scenarioEnemies = scenarioConfig.enemies
-   const activeEnemies: Array<Atom<ZEnemy>> = []
+   const activeEnemies: Array<PrimitiveAtom<ZEnemy>> = []
 
    for (const enemy of scenarioEnemies) {
       const enemyAtom = allEnemiesAtoms.find((atom) => {
@@ -104,21 +111,21 @@ const initializeEnemyPosition = ({
    }
 
    // TODO: fix
-   jotaiStore.set(activeEnemyAtoms as never, activeEnemies)
+   jotaiStore.set(activeEnemyAtoms, activeEnemies)
 }
 
-const useInitializeScenario = () => {
+const useInitializeNewScenario = () => {
    const [allEnemies] = useAtom(allEnemiesAtom)
    const [activeParty] = useAtom(activePartyAtom)
    const [selectedScenarioConfig] = useAtom(selectedScenarioConfigAtom)
 
    const initializeScenario = () => {
-      initializeCharacterPositions({
+      setCharacterPositions({
          scenarioConfig: selectedScenarioConfig,
-         activeParty: activeParty,
+         activePartyAtom: activeParty,
       })
 
-      initializeEnemyPosition({
+      setEnemyPositions({
          scenarioConfig: selectedScenarioConfig,
          activeEnemyAtoms: activeScenarioEnemiesAtom,
          allEnemiesAtoms: allEnemies,
@@ -130,4 +137,4 @@ const useInitializeScenario = () => {
    return initializeScenario
 }
 
-export { useInitializeScenario }
+export { useInitializeNewScenario }

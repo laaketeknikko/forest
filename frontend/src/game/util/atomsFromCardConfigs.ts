@@ -1,4 +1,4 @@
-import { Atom, atom } from "jotai"
+import { PrimitiveAtom, atom } from "jotai"
 import {
    ZActionCard,
    ZActionCardAction,
@@ -6,7 +6,7 @@ import {
 } from "../../../../shared/types/types"
 
 const atomsFromCardConfigs = (cardConfigs: Array<ZSaveConfigActionCard>) => {
-   const cardAtoms: Array<Atom<ZActionCard>> = []
+   const cardAtoms: Array<PrimitiveAtom<ZActionCard>> = []
 
    for (const config of cardConfigs) {
       const cardActions: Array<ZActionCardAction> = config.actions.map(

@@ -32,7 +32,7 @@ const InstancedGround = ({
     * instanceMeshRef is passed to <instancedMesh> and then updated in useEffect
     * after rendering.
     */
-   const instanceMeshRef = useRef<InstancedMesh>()
+   const instanceMeshRef = useRef<InstancedMesh | null>(null)
 
    useEffect(() => {
       if (instanceMeshRef.current) {
@@ -69,7 +69,7 @@ const InstancedGround = ({
 
    return (
       <instancedMesh
-         ref={instanceMeshRef as never}
+         ref={instanceMeshRef}
          args={[undefined, undefined, arenaSize.width * arenaSize.length]}
          onClick={handleTileClicked}
       >

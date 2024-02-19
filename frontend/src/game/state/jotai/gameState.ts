@@ -1,4 +1,4 @@
-import { Atom, atom } from "jotai"
+import { PrimitiveAtom, atom } from "jotai"
 import { activePartyAtom } from "./characters"
 import { emptyActionCard } from "../initialStates"
 import { activeScenarioEnemiesAtom } from "./enemies"
@@ -7,28 +7,29 @@ import {
    ZActionCard,
    ZActionEffect,
    ZCharacter,
+   ZDynamicGameEntity,
    ZSaveConfig,
    ZSaveConfigCharacter,
    ZSaveConfigEnemy,
    ZScenarioConfig,
 } from "../../../../../shared/types/types"
 
-const turnOrderAtom = atom<Array<Atom<ZCharacter>>>((get) => {
-   const characters = [
+const turnOrderAtom = atom<Array<PrimitiveAtom<ZDynamicGameEntity>>>((get) => {
+   const dynamicEntities = [
       ...get(activePartyAtom),
       ...get(activeScenarioEnemiesAtom),
    ]
-   characters.sort((aAtom, bAtom) => {
-      const a: ZCharacter = get(aAtom)
-      const b: ZCharacter = get(bAtom)
+   dynamicEntities.sort((aAtom, bAtom) => {
+      const a: ZDynamicGameEntity = get(aAtom)
+      const b: ZDynamicGameEntity = get(bAtom)
       if (a.currentActionDelay < b.currentActionDelay) return -1
       else if (a.currentActionDelay === b.currentActionDelay) return 0
       else return 1
    })
-   return characters
+   return dynamicEntities
 })
 
-const currentlySelectedActionCardAtom = atom<Atom<ZActionCard>>(
+const currentlySelectedActionCardAtom = atom<PrimitiveAtom<ZActionCard>>(
    atom<ZActionCard>({ ...emptyActionCard })
 )
 
