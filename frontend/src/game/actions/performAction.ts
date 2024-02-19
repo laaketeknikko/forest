@@ -32,6 +32,10 @@ interface PerformEffectProps {
    targetPoint: ZPosition2D
 }
 
+/**
+ * performEffect is called for each effect in action.
+ * Takes care of applying the effects.
+ */
 const performEffect = ({
    selectedCharacterAtom,
    activeEffect,
@@ -86,6 +90,9 @@ const performOffensiveEffect = (props: PerformEffectProps) => {
    const allGameEntities = jotaiStore.get(allActiveGameEntitiesAtom)
    const affectedEntities: Array<AffectedEntity> = []
 
+   /**
+    * Get all entities that are in the same tile as the target point
+    */
    for (const entity of allGameEntities) {
       const entityData: ZGameEntity = jotaiStore.get(entity)
 
@@ -110,7 +117,10 @@ const performOffensiveEffect = (props: PerformEffectProps) => {
    }
 }
 
-// TODO: Unify performing actions.
+/**
+ * performAction is called to apply the action-wide effects of actions,
+ * such as action delay and next action
+ */
 const performAction = ({
    selectedCharacterAtom,
    activeCardAtom,
@@ -119,9 +129,6 @@ const performAction = ({
    const jotaiStore = getDefaultStore()
    const selectedCharacter = jotaiStore.get(selectedCharacterAtom)
 
-   // Perform updates on character
-
-   // Update action delay
    selectedCharacter.currentActionDelay +=
       selectedCharacter.baseActionDelay * selectedAction.actionDelayMultiplier
 
@@ -140,7 +147,6 @@ const performAction = ({
    // TODO: fix
    jotaiStore.set(activeCardAtom as never, card)
 
-   // Update character atom
    jotaiStore.set(selectedCharacterAtom as never, { ...selectedCharacter })
 }
 

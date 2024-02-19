@@ -1,6 +1,6 @@
 import Button from "@mui/material/Button"
 import Stack from "@mui/material/Stack"
-import { useInitializeDefaultGameState } from "../../game/hooks/useInitializeDefaultGameState"
+import { useInitializeDefaultConfigs } from "../../game/hooks/useInitializeDefaultGameState"
 
 import type { SetNavigationState } from "./types"
 import { SaveGame } from "./SaveGame"
@@ -22,7 +22,7 @@ interface NewGameProps {
  * @return {void} This function does not return anything
  */
 const NewGame = ({ setNavigationState, startLoadedScenario }: NewGameProps) => {
-   const initializeDefaultGameState = useInitializeDefaultGameState()
+   const initializeDefaultGameState = useInitializeDefaultConfigs()
 
    const handleNewGameClick = async () => {
       // TODO: Maybe make result matter in some way.

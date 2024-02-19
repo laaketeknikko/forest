@@ -15,6 +15,40 @@ import {
    ZScenarioConfig,
 } from "../../../../shared/types/types"
 
+/**
+ * This hook is used to fetch all the available default configs
+ * from the server and load them.
+ *
+ * Sets the following configs:
+ * - allPlayerCharactersAtom
+ * - allEnemiesAtom
+ * - allScenarioConfigsAtom
+ *
+ * @returns - a function to be called to initialize the default configs
+ */
+const useInitializeDefaultConfigs = () => {
+   const [defaultConfigs] = useAtom(defaultConfigsAtom)
+
+   const configs = useLoadDefaultConfigs()
+
+   useInitializeCharacters()
+   useInitializeEnemies()
+   useInitializeScenarios()
+
+   const initializeDefaultGameState = async () => {
+      if (
+         defaultConfigs.characters.length === 0 ||
+         defaultConfigs.enemies.length === 0 ||
+         defaultConfigs.scenarios.length === 0
+      ) {
+         await configs.loadConfigs()
+      }
+      return true
+   }
+
+   return initializeDefaultGameState
+}
+
 const useInitializeCharacters = () => {
    const [, setAllCharactersAtom] = useAtom(allPlayerCharactersAtom)
    const [defaultConfigs] = useAtom(defaultConfigsAtom)
@@ -106,29 +140,6 @@ const useInitializeScenarios = () => {
    }, [defaultConfigs.scenarios, setAllScenariosAtom])
 }
 
-const useInitializeDefaultGameState = () => {
-   const [defaultConfigs] = useAtom(defaultConfigsAtom)
-
-   const configs = useLoadDefaultConfigs()
-
-   useInitializeCharacters()
-   useInitializeEnemies()
-   useInitializeScenarios()
-
-   const initializeDefaultGameState = async () => {
-      if (
-         defaultConfigs.characters.length === 0 ||
-         defaultConfigs.enemies.length === 0 ||
-         defaultConfigs.scenarios.length === 0
-      ) {
-         await configs.loadConfigs()
-      }
-      return true
-   }
-
-   return initializeDefaultGameState
-}
-
 const setInitialActiveActions = (cards: Array<ZSaveConfigActionCard>) => {
    const newCards: Array<ZSaveConfigActionCard> = []
    for (const card of cards) {
@@ -142,4 +153,4 @@ const setInitialActiveActions = (cards: Array<ZSaveConfigActionCard>) => {
    return newCards
 }
 
-export { useInitializeDefaultGameState }
+export { useInitializeDefaultConfigs }

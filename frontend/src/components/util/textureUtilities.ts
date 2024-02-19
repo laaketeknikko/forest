@@ -9,6 +9,10 @@ const getTextureAspectRatio = (texture: THREE.Texture) => {
    }
 }
 
+/**
+ * Reads the texture dimensions from texture. Sets the greater of width or height
+ * to maxDimension and calculates the aspect ratio of the other dimension.
+ */
 const getTextureNormalizedWidthAndHeight = (
    texture: THREE.Texture,
    maxDimension = 1
