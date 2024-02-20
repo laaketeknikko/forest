@@ -13,6 +13,7 @@ const DynamicGameEntitySchema =
       currentActionDelay: { type: Number, required: false },
       cards: { type: [ActionCardSchema], required: false },
       position: { x: Number, y: Number, z: Number },
+      strength: { type: Number, required: false },
    })
 
 const DynamicGameEntityModel =

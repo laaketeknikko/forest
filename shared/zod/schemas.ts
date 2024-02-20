@@ -107,6 +107,12 @@ export const ScenarioUnlockConditionSchema = z.object({
    ]),
 })
 
+export const ScenarioVictoryConditionSchema = z.object({
+   type: z.literal("enemy"),
+   status: z.literal("dead"),
+   enemyName: z.string(),
+})
+
 export const ScenarioConfigSchema = z.object({
    _id: z.string().optional(),
    name: z.string(),
@@ -118,6 +124,7 @@ export const ScenarioConfigSchema = z.object({
    thumbNailPath: z.string(),
    maxPartySize: z.number(),
    unlockCondition: ScenarioUnlockConditionSchema.optional(),
+   scenarioVictoryCondition: z.array(ScenarioVictoryConditionSchema),
 })
 
 export const SaveConfigScenarioConfigSchema = ScenarioConfigSchema.omit({

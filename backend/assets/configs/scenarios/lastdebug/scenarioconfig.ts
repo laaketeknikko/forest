@@ -1,7 +1,7 @@
 import { ZScenarioConfig } from "../../../../../shared/types/types"
 
 const scenarioConfig: ZScenarioConfig = {
-   name: "Last encounter",
+   name: "Last Debug",
    shortDescription: "Final level of the game.",
    description:
       "Your last chance to protect the forest. Victory or defeat, you will probably die trying. Go with blessing, and glory.",
@@ -13,73 +13,57 @@ const scenarioConfig: ZScenarioConfig = {
    },
    enemies: [
       {
-         enemyName: "Miinii",
-         quantity: 1,
-         startingPosition: {
-            x: 10.5,
-            z: 10.5,
-         },
-      },
-      {
-         enemyName: "Aulich",
+         enemyName: "Debug-Miinii",
          quantity: 1,
          startingPosition: {
             x: 20.5,
             z: 20.5,
          },
       },
+      {
+         enemyName: "Debug-Aulich",
+         quantity: 1,
+         startingPosition: {
+            x: 22.5,
+            z: 22.5,
+         },
+      },
    ],
    playerCharacterStartingPositions: [
       {
-         x: 35.5,
-         z: 35.5,
+         x: 19.5,
+         z: 19.5,
       },
       {
-         x: 37.5,
-         z: 37.5,
+         x: 19.5,
+         z: 20.5,
       },
       {
-         x: 39.5,
-         z: 39.5,
+         x: 23.5,
+         z: 23.5,
       },
       {
-         x: 33.5,
-         z: 33.5,
-      },
-      {
-         x: 0.5,
-         z: 0.5,
-      },
-      {
-         x: 2.5,
-         z: 2.5,
-      },
-      {
-         x: 4.5,
-         z: 4.5,
-      },
-      {
-         x: 6.5,
-         z: 6.5,
+         x: 23.5,
+         z: 21.5,
       },
    ],
    scenarioVictoryCondition: [
       {
          type: "enemy",
          status: "dead",
-         enemyName: "Miinii",
+         enemyName: "Debug-Miinii",
       },
       {
          type: "enemy",
          status: "dead",
-         enemyName: "Aulich",
+         enemyName: "Debug-Aulich",
       },
    ],
    maxPartySize: 8,
    thumbNailPath: "sprites/thumbnails/scenarios/swuippo.png",
    unlockCondition: {
       type: "scenario",
-      scenarioName: "First encounter",
+      scenarioName: "First Debug",
       status: "completed",
    },
 }

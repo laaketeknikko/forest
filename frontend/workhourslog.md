@@ -54,5 +54,6 @@
 | 17.2. | 2    | Debugging, fixing, polishing                                |
 | 19.2. | 4    | Documentation, refactoring                                  |
 | 19.2. | 2    | Refactoring                                                 |
+| 20.2. | 2    | Game logic work                                             |
 
-105
+107

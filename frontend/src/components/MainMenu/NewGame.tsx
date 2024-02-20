@@ -2,12 +2,12 @@ import Button from "@mui/material/Button"
 import Stack from "@mui/material/Stack"
 import { useInitializeDefaultConfigs } from "../../game/hooks/useInitializeDefaultGameState"
 
-import type { SetNavigationState } from "./types"
 import { SaveGame } from "./SaveGame"
 import { LoadGame } from "./LoadGame"
+import { gameExecutionStateAtom } from "../../game/state/jotai/gameState"
+import { useAtom } from "jotai"
 
 interface NewGameProps {
-   setNavigationState: SetNavigationState
    startLoadedScenario: (value: boolean) => void
 }
 
@@ -21,13 +21,22 @@ interface NewGameProps {
  * @param startLoadedScenario - The function to start a loaded scenario
  * @return {void} This function does not return anything
  */
-const NewGame = ({ setNavigationState, startLoadedScenario }: NewGameProps) => {
+const NewGame = ({ startLoadedScenario }: NewGameProps) => {
    const initializeDefaultGameState = useInitializeDefaultConfigs()
+   const [gameExecutionState, setGameExecutionState] = useAtom(
+      gameExecutionStateAtom
+   )
 
    const handleNewGameClick = async () => {
       // TODO: Maybe make result matter in some way.
       const result = await initializeDefaultGameState()
-      setNavigationState(result)
+      setGameExecutionState({
+         ...gameExecutionState,
+         mainMenu: {
+            ...gameExecutionState.mainMenu,
+            gameConfigLoaded: result,
+         },
+      })
    }
 
    return (

@@ -22,6 +22,7 @@ import { MathUtils } from "three"
 
 import { customTheme } from "../../../styles/mui/theme"
 import { emptyActionCardAtom } from "../../../game/state/initialStates"
+import { useScenarioVictoryConditions } from "../../../game/hooks/useScenarioVictoryConditions"
 
 // TODO: Unify action helpers and refactor
 
@@ -69,6 +70,16 @@ const ActionHelper = () => {
       }
    }, [action])
 
+   const victoryConditions = useScenarioVictoryConditions()
+
+   useEffect(() => {
+      const conditions = victoryConditions.victoryConditions
+      if (conditions.some((condition) => condition.fulfilled)) {
+         console.log("you won!!!")
+         alert("You won!!!!")
+      }
+   }, [victoryConditions.victoryConditions])
+
    const onPerformEffect = (event: ThreeEvent<MouseEvent>) => {
       event.stopPropagation()
 
@@ -78,6 +89,8 @@ const ActionHelper = () => {
          activeEffect: activeEffect!,
          targetPoint: event.point,
       })
+
+      victoryConditions.checkConditions()
 
       setGameExecutionState({
          ...gameExecutionState,

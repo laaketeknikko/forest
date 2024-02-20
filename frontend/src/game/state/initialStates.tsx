@@ -41,6 +41,7 @@ const emptyScenario: ZScenarioConfig = {
    arena: { size: { width: 0, length: 0 } },
    thumbNailPath: "",
    _id: "empty",
+   scenarioVictoryCondition: [],
 }
 
 const emptyScenarioAtom = atom(emptyScenario)

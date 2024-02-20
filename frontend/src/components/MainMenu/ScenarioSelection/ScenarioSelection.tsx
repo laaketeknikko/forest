@@ -7,23 +7,28 @@ import Paper from "@mui/material/Paper"
 import List from "@mui/material/List"
 import Grid from "@mui/material/Unstable_Grid2"
 import { ScenarioDetails } from "./ScenarioDetails"
-import { SetNavigationState } from "../types"
-
-interface ScenerioSelectionProps {
-   setNavigationState: SetNavigationState
-}
+import { gameExecutionStateAtom } from "../../../game/state/jotai/gameState"
 
 /**
  * Calls setNavigationState(true) when scenario selected. The selected scenario is set
  * in selectedScenarioConfigAtom.
  
  */
-const ScenarioSelection = ({ setNavigationState }: ScenerioSelectionProps) => {
+const ScenarioSelection = () => {
    const [allScenarioConfigs] = useAtom(allScenarioConfigsAtom)
    const [selectedScenarioConfig] = useAtom(selectedScenarioConfigAtom)
+   const [gameExecutionState, setGameExecutionState] = useAtom(
+      gameExecutionStateAtom
+   )
 
    const handleScenerioSelected = () => {
-      setNavigationState(true)
+      setGameExecutionState({
+         ...gameExecutionState,
+         mainMenu: {
+            ...gameExecutionState.mainMenu,
+            scenarioSelected: true,
+         },
+      })
    }
 
    return (
