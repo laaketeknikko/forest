@@ -127,9 +127,17 @@ export const ScenarioConfigSchema = z.object({
    scenarioVictoryCondition: z.array(ScenarioVictoryConditionSchema),
 })
 
+export const SaveConfigScenarioVictoryConditionSchema =
+   ScenarioVictoryConditionSchema.extend({
+      fulfilled: z.boolean(),
+   })
+
 export const SaveConfigScenarioConfigSchema = ScenarioConfigSchema.omit({
    enemies: true,
    playerCharacterStartingPositions: true,
+   scenarioVictoryCondition: true,
+}).extend({
+   scenarioVictoryCondition: z.array(SaveConfigScenarioVictoryConditionSchema),
 })
 
 export const SaveConfigScenarioStatisticsSchema = z.object({

@@ -11,6 +11,7 @@ import {
    ZSaveConfig,
    ZSaveConfigCharacter,
    ZSaveConfigEnemy,
+   ZSaveConfigScenarioConfig,
    ZScenarioConfig,
 } from "../../../../../shared/types/types"
 
@@ -80,7 +81,7 @@ const gameExecutionStateAtom = atom<GameExecutionState>({
 const activeSaveGameConfigAtom = atom<ZSaveConfig>({
    characters: [],
    enemies: [],
-   scenario: {} as ZScenarioConfig,
+   scenario: {} as ZSaveConfigScenarioConfig,
    keyString: "",
    scenarioStatistics: [],
 })

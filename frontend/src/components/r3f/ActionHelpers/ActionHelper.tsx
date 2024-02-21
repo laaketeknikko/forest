@@ -73,18 +73,16 @@ const ActionHelper = () => {
    const victoryConditions = useScenarioVictoryConditions()
 
    useEffect(() => {
-      const conditions = victoryConditions.victoryConditions
-      if (conditions.some((condition) => condition.fulfilled)) {
+      if (victoryConditions.allConditionsMet()) {
          console.log("you won!!!")
          alert("You won!!!!")
       }
-   }, [victoryConditions.victoryConditions])
+   }, [victoryConditions])
 
    const onPerformEffect = (event: ThreeEvent<MouseEvent>) => {
       event.stopPropagation()
 
       performEffect({
-         // TODO: Fix nevers
          selectedCharacterAtom: activeCharacter,
          activeEffect: activeEffect!,
          targetPoint: event.point,

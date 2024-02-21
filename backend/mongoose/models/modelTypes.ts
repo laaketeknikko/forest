@@ -20,7 +20,7 @@ interface IScenarioStatisticsModel
    extends types.ZSaveConfigScenarioStatistics {}
 
 export interface IScenarioVictoryConditionModel
-   extends types.ZScenarioVictoryCondition {}
+   extends types.ZSaveConfigScenarioVictoryCondition {}
 
 interface ISaveGameConfigModel extends types.ZSaveConfig {}
 

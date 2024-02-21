@@ -24,9 +24,9 @@ const useSaveGame = () => {
 
    const updateSaveData = () => {
       const saveData = {
+         ...saveGameData,
          ...buildSaveFromState(),
          keyString: "",
-         scenarioStatistics: saveGameData.scenarioStatistics,
       }
       if (!saveGameData.keyString || saveGameData.keyString.length === 0) {
          saveData.keyString = v4()

@@ -11,6 +11,7 @@ import {
    ZSaveConfigEnemy,
    ZSaveConfigScenarioConfig,
 } from "../../../../shared/types/types"
+import { activeSaveGameConfigAtom } from "../state/jotai/gameState"
 
 /**
  * Builds a save config from the current state.
@@ -29,6 +30,7 @@ const buildSaveFromState = () => {
    const characterAtoms = jotaiStore.get(activePartyAtom)
    const enemyAtoms = jotaiStore.get(activeScenarioEnemiesAtom)
    const scenarioConfig = jotaiStore.get(selectedScenarioConfigAtom)
+   const oldSave = jotaiStore.get(activeSaveGameConfigAtom)
 
    const saveGameData = {
       characters: [] as Array<ZSaveConfigCharacter>,
@@ -112,7 +114,10 @@ const buildSaveFromState = () => {
    }
 
    // Process scenario
-   saveGameData.scenario = { ...scenarioConfig }
+   saveGameData.scenario = {
+      ...scenarioConfig,
+      scenarioVictoryCondition: oldSave.scenario.scenarioVictoryCondition,
+   }
 
    return saveGameData
 }
