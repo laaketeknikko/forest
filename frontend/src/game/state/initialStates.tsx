@@ -3,6 +3,7 @@ import {
    ZActionCard,
    ZCharacter,
    ZEnemy,
+   ZSaveConfigScenarioConfig,
    ZScenarioConfig,
 } from "../../../../shared/types/types"
 
@@ -32,7 +33,7 @@ const emptyCharacter: ZCharacter = {
 const emptyCharacterAtom = atom<ZCharacter>(emptyCharacter)
 
 const emptyScenario: ZScenarioConfig = {
-   name: "Choose a scenario",
+   name: "",
    description: "",
    enemies: [],
    maxPartySize: 0,
@@ -45,6 +46,11 @@ const emptyScenario: ZScenarioConfig = {
 }
 
 const emptyScenarioAtom = atom(emptyScenario)
+
+const emptyScenarioSaveConfig: ZSaveConfigScenarioConfig = {
+   ...emptyScenario,
+   scenarioVictoryCondition: [],
+}
 
 const emptyEnemy: ZEnemy = {
    name: "",
@@ -77,4 +83,5 @@ export {
    emptyEnemy,
    emptyEnemyAtom,
    emptyConfig,
+   emptyScenarioSaveConfig,
 }

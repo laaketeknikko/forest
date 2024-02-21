@@ -18,6 +18,7 @@ import { gameExecutionStateAtom } from "../../game/state/jotai/gameState"
 import { GlobalExecutionState } from "../../config/types"
 import { useAtom } from "jotai"
 import { useInitializeNewScenario } from "../../game/hooks/useInitializeNewScenario"
+import { useSaveGame } from "../../game/hooks/useSaveGame"
 
 const MainMenu = () => {
    // TODO: Refactor to use the global gamexecutionstate for menu navigation.
@@ -25,8 +26,8 @@ const MainMenu = () => {
       gameExecutionStateAtom
    )
    const [chosenTab, setChosenTab] = useState("0")
-
    const initializeScenario = useInitializeNewScenario()
+   const saveGame = useSaveGame()
 
    /**
     * Switch to scenario selection automatically when new game config loaded.
@@ -45,6 +46,7 @@ const MainMenu = () => {
       if (!initializeScenario()) {
          throw new Error("Error initializing scenario.")
       }
+      saveGame.updateSaveData()
       setGameExecutionState({
          ...gameExecutionState,
          global: GlobalExecutionState.running,
@@ -60,6 +62,7 @@ const MainMenu = () => {
     *
     */
    const startLoadedScenario = (value: boolean) => {
+      saveGame.updateSaveData()
       setGameExecutionState({
          ...gameExecutionState,
          global: GlobalExecutionState.running,

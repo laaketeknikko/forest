@@ -1,17 +1,20 @@
 import { getDefaultStore } from "jotai"
 
 import { activeScenarioEnemiesAtom } from "../state/jotai/enemies"
-import { selectedScenarioConfigAtom } from "../state/jotai/scenarios"
 import { activePartyAtom } from "../state/jotai/characters"
 import {
    // TODO: Create saveconfig types
    ZActionCard,
-   ZActionCardAction,
+   ZCharacter,
+   ZEnemy,
    ZSaveConfigCharacter,
    ZSaveConfigEnemy,
    ZSaveConfigScenarioConfig,
 } from "../../../../shared/types/types"
 import { activeSaveGameConfigAtom } from "../state/jotai/gameState"
+import { PrimitiveAtom } from "jotai/vanilla"
+import clone from "clone"
+import { selectedScenarioConfigAtom } from "../state/jotai/scenarios"
 
 /**
  * Builds a save config from the current state.
@@ -26,11 +29,8 @@ import { activeSaveGameConfigAtom } from "../state/jotai/gameState"
  */
 const buildSaveFromState = () => {
    const jotaiStore = getDefaultStore()
-
    const characterAtoms = jotaiStore.get(activePartyAtom)
    const enemyAtoms = jotaiStore.get(activeScenarioEnemiesAtom)
-   const scenarioConfig = jotaiStore.get(selectedScenarioConfigAtom)
-   const oldSave = jotaiStore.get(activeSaveGameConfigAtom)
 
    const saveGameData = {
       characters: [] as Array<ZSaveConfigCharacter>,
@@ -40,86 +40,84 @@ const buildSaveFromState = () => {
 
    // Process characters and cards
    for (const characterAtom of characterAtoms) {
-      const character = jotaiStore.get(characterAtom)
-      const characterSaveData: ZSaveConfigCharacter = {
-         _id: character._id,
-         name: character.name,
-         position: character.position,
-         cards: [] as Array<ZActionCard>,
-         health: character.health,
-         baseActionDelay: character.baseActionDelay,
-         currentActionDelay: character.currentActionDelay,
-         selectedCardId: character.selectedCardId,
-         spritePath: character.spritePath,
-         strength: character.strength,
-      }
-
-      // Process cards and actions
-      for (const cardAtom of character.cards) {
-         const card: ZActionCard = jotaiStore.get(cardAtom)
-         const cardData = {
-            _id: card._id,
-            name: card.name,
-            description: card.description,
-            actions: [] as Array<ZActionCardAction>,
-            nextActionId: card.nextActionId,
-         }
-
-         for (const action of card.actions) {
-            const actionData = { ...action }
-            cardData.actions.push(actionData)
-         }
-
-         characterSaveData.cards.push(cardData)
-      }
-
+      const characterSaveData = saveConfigFromCharacterAtom(characterAtom)
       saveGameData.characters.push(characterSaveData)
    }
 
    // Process enemies
    for (const enemyAtom of enemyAtoms) {
-      const enemy = jotaiStore.get(enemyAtom)
-      const enemySaveData: ZSaveConfigEnemy = {
-         _id: enemy._id,
-         name: enemy.name,
-         position: enemy.position,
-         cards: [] as Array<ZActionCard>,
-         health: enemy.health,
-         baseActionDelay: enemy.baseActionDelay,
-         currentActionDelay: enemy.currentActionDelay,
-         selectedCardId: enemy.selectedCardId,
-         spritePath: enemy.spritePath,
-         strength: enemy.strength,
-      }
-
-      for (const cardAtom of enemy.cards) {
-         const card: ZActionCard = jotaiStore.get(cardAtom)
-         const cardData = {
-            _id: card._id,
-            name: card.name,
-            description: card.description,
-            actions: [] as Array<ZActionCardAction>,
-            nextActionId: card.nextActionId,
-         }
-
-         for (const action of card.actions) {
-            const actionData = { ...action }
-            cardData.actions.push(actionData)
-         }
-
-         enemySaveData.cards.push(cardData)
-      }
-
+      const enemySaveData = saveConfigFromEnemyAtom(enemyAtom)
       saveGameData.enemies.push(enemySaveData)
    }
 
    // Process scenario
-   saveGameData.scenario = {
-      ...scenarioConfig,
-      scenarioVictoryCondition: oldSave.scenario.scenarioVictoryCondition,
-   }
+   saveGameData.scenario = buildScenarioSave()
 
    return saveGameData
+}
+
+const buildScenarioSave = () => {
+   const jotaiStore = getDefaultStore()
+   const oldSave = jotaiStore.get(activeSaveGameConfigAtom)
+
+   if (oldSave.scenario._id && oldSave.scenario._id === "empty") {
+      const scenario = { ...jotaiStore.get(selectedScenarioConfigAtom) }
+      const victoryConditions = scenario.scenarioVictoryCondition.map(
+         (condition) => {
+            return {
+               ...condition,
+               fulfilled: false,
+            }
+         }
+      )
+
+      return {
+         ...scenario,
+         scenarioVictoryCondition: victoryConditions,
+      }
+   } else {
+      return oldSave.scenario
+   }
+}
+
+const saveConfigFromCharacterAtom = (
+   characterAtom: PrimitiveAtom<ZCharacter>
+) => {
+   const jotaiStore = getDefaultStore()
+
+   const character = jotaiStore.get(characterAtom)
+   const characterSaveData: ZSaveConfigCharacter = {
+      ...clone(character),
+      cards: [] as Array<ZActionCard>,
+   }
+
+   // Process cards and actions
+   for (const cardAtom of character.cards) {
+      const card: ZActionCard = jotaiStore.get(cardAtom)
+      const cardData = clone(card)
+      characterSaveData.cards.push(cardData)
+   }
+
+   return characterSaveData
+}
+
+const saveConfigFromEnemyAtom = (enemyAtom: PrimitiveAtom<ZEnemy>) => {
+   const jotaiStore = getDefaultStore()
+   const enemy = jotaiStore.get(enemyAtom)
+
+   const enemySaveData: ZSaveConfigCharacter = {
+      ...clone(enemy),
+      cards: [] as Array<ZActionCard>,
+   }
+
+   // Process cards and actions
+   for (const cardAtom of enemy.cards) {
+      const card: ZActionCard = jotaiStore.get(cardAtom)
+      const cardData = clone(card)
+      enemySaveData.cards.push(cardData)
+   }
+
+   return enemySaveData
 }
 
 export { buildSaveFromState }

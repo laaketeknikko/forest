@@ -55,8 +55,11 @@ const useScenarioVictoryConditions = () => {
    }
 
    const allConditionsMet = () => {
-      return saveData.scenario.scenarioVictoryCondition.every(
-         (condition) => condition.fulfilled
+      return (
+         saveData.scenario.scenarioVictoryCondition.length > 0 &&
+         saveData.scenario.scenarioVictoryCondition.every(
+            (condition) => condition.fulfilled
+         )
       )
    }
 

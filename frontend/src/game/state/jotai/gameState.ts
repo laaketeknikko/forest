@@ -1,6 +1,6 @@
 import { PrimitiveAtom, atom } from "jotai"
 import { activePartyAtom } from "./characters"
-import { emptyActionCard } from "../initialStates"
+import { emptyActionCard, emptyScenarioSaveConfig } from "../initialStates"
 import { activeScenarioEnemiesAtom } from "./enemies"
 import { GameExecutionState, GlobalExecutionState } from "../../../config/types"
 import {
@@ -11,7 +11,6 @@ import {
    ZSaveConfig,
    ZSaveConfigCharacter,
    ZSaveConfigEnemy,
-   ZSaveConfigScenarioConfig,
    ZScenarioConfig,
 } from "../../../../../shared/types/types"
 
@@ -81,8 +80,8 @@ const gameExecutionStateAtom = atom<GameExecutionState>({
 const activeSaveGameConfigAtom = atom<ZSaveConfig>({
    characters: [],
    enemies: [],
-   scenario: {} as ZSaveConfigScenarioConfig,
-   keyString: "",
+   scenario: emptyScenarioSaveConfig,
+   keyString: "empty",
    scenarioStatistics: [],
 })
 

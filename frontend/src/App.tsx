@@ -16,12 +16,16 @@ function App() {
       gameExecutionStateAtom
    )
 
-   // For use with loading save from url.
+   /**
+    * For use with loading save from url.
+    */
    const [urlKeyString, setUrlKeyString] = useState("")
 
    const loader = useLoadGame()
 
-   // Load game if keyString in URL is different than keyString in state.
+   /**
+    * Load game if keyString in URL is different than keyString in save state.
+    *  */
    useEffect(() => {
       const keyString = window.location.pathname.substring(1).trim()
       setUrlKeyString(keyString)

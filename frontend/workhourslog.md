@@ -55,6 +55,6 @@
 | 19.2. | 4    | Documentation, refactoring                                  |
 | 19.2. | 2    | Refactoring                                                 |
 | 20.2. | 2    | Game logic work                                             |
-| 21.2. | 1    | Game logic work                                             |
+| 21.2. | 2    | Game logic work                                             |
 
-108
+109
