@@ -25,3 +25,7 @@ TODO: Update save data when scenario is started.
 TODO: implement a victory screen on scenario over.
 
 TODO: Look into using jotai selectAtom.
+
+TODO: Debug scenario progression.
+
+TODO: Implement some frontend tests.

@@ -45,14 +45,12 @@ const performEffect = ({
       performMoveEffect({
          selectedCharacterAtom,
          activeEffect,
-
          targetPoint,
       })
    } else if (activeEffect.type === actionTypes.offensive) {
       performOffensiveEffect({
          selectedCharacterAtom,
          activeEffect,
-
          targetPoint,
       })
    }
@@ -71,8 +69,10 @@ const performMoveEffect = (props: PerformEffectProps) => {
       )
    }
 
-   selectedCharacter.position.x = props.targetPoint.x
-   selectedCharacter.position.z = props.targetPoint.z
+   selectedCharacter.targetPosition = {
+      x: props.targetPoint.x,
+      z: props.targetPoint.z,
+   }
 
    // TODO: Fix
    jotaiStore.set(props.selectedCharacterAtom, {

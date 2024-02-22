@@ -55,13 +55,13 @@ export const Position2DSchema = z.object({
 export const GameEntitySchema = z.object({
    position: PositionSchema,
    health: z.number(),
+   targetPosition: Position2DSchema.optional(),
 })
 
 export const DynamicGameEntitySchema = GameEntitySchema.extend({
    _id: z.string().optional(),
    name: z.string(),
    strength: z.number(),
-
    spritePath: z.string(),
    baseActionDelay: z.number(),
    currentActionDelay: z.number(),
