@@ -2,7 +2,11 @@ import { PrimitiveAtom, atom } from "jotai"
 import { activePartyAtom } from "./characters"
 import { emptyActionCard, emptyScenarioSaveConfig } from "../initialStates"
 import { activeScenarioEnemiesAtom } from "./enemies"
-import { GameExecutionState, GlobalExecutionState } from "../../../config/types"
+import {
+   GameExecutionState,
+   GlobalExecutionState,
+   MainWindowDisplayStatus,
+} from "../../../config/types"
 import {
    ZActionCard,
    ZActionEffect,
@@ -54,6 +58,7 @@ const gameExecutionStateAtom = atom<GameExecutionState>({
    },
 
    mainMenu: {
+      showMainmenu: true,
       gameConfigLoaded: false,
       scenarioSelected: false,
       charactersSelected: false,
@@ -66,6 +71,10 @@ const gameExecutionStateAtom = atom<GameExecutionState>({
       won: false,
       lost: false,
    },
+   debriefing: {
+      showDebriefing: false,
+   },
+   mainDisplay: MainWindowDisplayStatus.showMainMenu,
 })
 
 /**

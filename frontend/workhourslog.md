@@ -56,6 +56,6 @@
 | 19.2. | 2    | Refactoring                                                 |
 | 20.2. | 2    | Game logic work                                             |
 | 21.2. | 2    | Game logic work                                             |
-| 22.2. | 2    | Game logic work                                             |
+| 22.2. | 3    | Game logic work                                             |
 
-111
+112

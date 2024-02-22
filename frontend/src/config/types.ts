@@ -19,6 +19,7 @@ enum GlobalExecutionState {
 }
 
 interface MainMenuNavigationState {
+   showMainmenu: boolean
    gameConfigLoaded: boolean
    scenarioSelected: boolean
    charactersSelected: boolean
@@ -28,6 +29,16 @@ interface MainMenuNavigationState {
 interface GlobalScenarioStatus {
    won: boolean
    lost: boolean
+}
+
+interface GlobalDebriefingStatus {
+   showDebriefing: boolean
+}
+
+export enum MainWindowDisplayStatus {
+   showMainMenu = "showMainMenu",
+   showGameScene = "showGameScene",
+   showDebriefing = "showDebriefing",
 }
 
 interface GameExecutionState {
@@ -58,6 +69,10 @@ interface GameExecutionState {
     * Used to check whether should move from scenario scene to after scenario scene.
     */
    scenario: GlobalScenarioStatus
+
+   debriefing: GlobalDebriefingStatus
+
+   mainDisplay: MainWindowDisplayStatus
 }
 
 interface CharacterSelectionItem {

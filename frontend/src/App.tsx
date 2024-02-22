@@ -2,16 +2,16 @@ import { useState, useEffect } from "react"
 
 import { MainMenu } from "./components/MainMenu/MainMenu"
 
-import { GameScene } from "./components/MainWindow/GameScene"
+import { GameScene } from "./components/GameScene/GameScene"
 import { gameExecutionStateAtom } from "./game/state/jotai/gameState"
 
 import { useAtom } from "jotai"
 
-import { GlobalExecutionState } from "./config/types"
+import { GlobalExecutionState, MainWindowDisplayStatus } from "./config/types"
 import { useLoadGame } from "./game/hooks/useLoadGame"
+import { Debriefing } from "./components/Debriefing/Debriefing"
 
 function App() {
-   const [showMainMenu, setShowMainMenu] = useState(true)
    const [gameExecutionState, setGameExecutionState] = useAtom(
       gameExecutionStateAtom
    )
@@ -34,10 +34,10 @@ function App() {
          const saveData = await loader.updateSaveData(keyString)
          const result = loader.loadTheGame(saveData)
          if (result) {
-            setShowMainMenu(false)
             setGameExecutionState({
                ...gameExecutionState,
                global: GlobalExecutionState.running,
+               mainDisplay: MainWindowDisplayStatus.showGameScene,
             })
          }
       }
@@ -49,18 +49,14 @@ function App() {
       }
    }, [gameExecutionState, loader, setGameExecutionState, urlKeyString])
 
-   useEffect(() => {
-      if (gameExecutionState.global === GlobalExecutionState.running) {
-         setShowMainMenu(false)
-      }
-   }, [gameExecutionState.global])
-
    return (
       <>
-         {gameExecutionState.global === GlobalExecutionState.running && (
-            <GameScene />
-         )}
-         {showMainMenu && <MainMenu />}
+         {gameExecutionState.mainDisplay ===
+            MainWindowDisplayStatus.showGameScene && <GameScene />}
+         {gameExecutionState.mainDisplay ===
+            MainWindowDisplayStatus.showMainMenu && <MainMenu />}
+         {gameExecutionState.mainDisplay ===
+            MainWindowDisplayStatus.showDebriefing && <Debriefing />}
       </>
    )
 }

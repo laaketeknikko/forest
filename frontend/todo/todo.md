@@ -23,3 +23,5 @@ Saving scenario goals in the save also doesn't work with this model.
 TODO: Update save data when scenario is started.
 
 TODO: implement a victory screen on scenario over.
+
+TODO: Look into using jotai selectAtom.

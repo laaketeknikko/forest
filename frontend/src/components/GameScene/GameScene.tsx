@@ -17,7 +17,10 @@ import {
    gameExecutionStateAtom,
 } from "../../game/state/jotai/gameState"
 import { useAtom } from "jotai"
-import { GlobalExecutionState } from "../../config/types"
+import {
+   GlobalExecutionState,
+   MainWindowDisplayStatus,
+} from "../../config/types"
 import { useScenarioVictoryConditions } from "../../game/hooks/useScenarioVictoryConditions"
 import { ZSaveConfigScenarioStatistics } from "../../../../shared/types/types"
 
@@ -70,6 +73,8 @@ const GameScene = () => {
             })
             setGameExecutionState({
                ...gameExecutionState,
+               global: GlobalExecutionState.stopped,
+               mainDisplay: MainWindowDisplayStatus.showDebriefing,
                scenario: {
                   won: true,
                   lost: false,
@@ -90,6 +95,7 @@ const GameScene = () => {
          setGameExecutionState({
             ...gameExecutionState,
             global: GlobalExecutionState.running,
+            mainDisplay: MainWindowDisplayStatus.showGameScene,
          })
       }
    }

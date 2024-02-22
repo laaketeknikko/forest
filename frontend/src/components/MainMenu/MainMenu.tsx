@@ -15,7 +15,10 @@ import { ScenarioSelection } from "./ScenarioSelection/ScenarioSelection"
 import { CharacterSelection } from "./CharacterSelection/CharacterSelection"
 import { ScenarioStartConfirmation } from "./ScenarioStartConfirmation"
 import { gameExecutionStateAtom } from "../../game/state/jotai/gameState"
-import { GlobalExecutionState } from "../../config/types"
+import {
+   GlobalExecutionState,
+   MainWindowDisplayStatus,
+} from "../../config/types"
 import { useAtom } from "jotai"
 import { useInitializeNewScenario } from "../../game/hooks/useInitializeNewScenario"
 import { useSaveGame } from "../../game/hooks/useSaveGame"
@@ -53,6 +56,7 @@ const MainMenu = () => {
       setGameExecutionState({
          ...gameExecutionState,
          global: GlobalExecutionState.running,
+         mainDisplay: MainWindowDisplayStatus.showGameScene,
          mainMenu: {
             ...gameExecutionState.mainMenu,
             scenarioStarted: value,
@@ -70,6 +74,7 @@ const MainMenu = () => {
       setGameExecutionState({
          ...gameExecutionState,
          global: GlobalExecutionState.running,
+         mainDisplay: MainWindowDisplayStatus.showGameScene,
          mainMenu: {
             ...gameExecutionState.mainMenu,
             scenarioStarted: value,
