@@ -28,7 +28,11 @@ const useSaveGame = () => {
          ...buildSaveFromState(),
          keyString: "",
       }
-      if (!saveGameData.keyString || saveGameData.keyString.length === 0) {
+      if (
+         !saveGameData.keyString ||
+         saveGameData.keyString.length === 0 ||
+         saveGameData.keyString === "empty"
+      ) {
          saveData.keyString = v4()
       } else {
          saveData.keyString = saveGameData.keyString

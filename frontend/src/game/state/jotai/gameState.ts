@@ -48,30 +48,24 @@ const defaultConfigsAtom = atom<{
 }>({ characters: [], enemies: [], scenarios: [] })
 
 const gameExecutionStateAtom = atom<GameExecutionState>({
-   /**
-    * This is mainly used to determine whether to show menu or game scene.
-    * */
    global: GlobalExecutionState.stopped,
    actions: {
-      /**
-       * Set to true when user executes an effect from a card and the card has unexecuted effects remaining.
-       * Set to false after performing the last effect on the active card.
-       */
       isPerfomingAction: false,
    },
-   /**
-    * Used for main menu navigation.
-    */
+
    mainMenu: {
       gameConfigLoaded: false,
       scenarioSelected: false,
       charactersSelected: false,
       scenarioStarted: false,
    },
-   /**
-    * Used locally during character selection.
-    */
+
    characterSelection: [],
+
+   scenario: {
+      won: false,
+      lost: false,
+   },
 })
 
 /**

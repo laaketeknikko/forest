@@ -21,3 +21,5 @@ that are not in the scenario but are in the selection.
 Saving scenario goals in the save also doesn't work with this model.
 
 TODO: Update save data when scenario is started.
+
+TODO: implement a victory screen on scenario over.

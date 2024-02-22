@@ -6,7 +6,7 @@ const useScenarioVictoryConditions = () => {
    const [allScenarioEnemies] = useAtom(activeScenarioEnemiesAtom)
    const [saveData, setSaveData] = useAtom(activeSaveGameConfigAtom)
 
-   const checkConditions = () => {
+   const updateConditionStatuses = () => {
       console.log("checking conditions")
       const jotaiStore = getDefaultStore()
       let conditionsChanged = false
@@ -64,7 +64,7 @@ const useScenarioVictoryConditions = () => {
    }
 
    return {
-      checkConditions,
+      updateConditionStatuses,
       allConditionsMet,
       victoryConditions: saveData.scenario.scenarioVictoryCondition,
    }

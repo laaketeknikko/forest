@@ -72,13 +72,6 @@ const ActionHelper = () => {
 
    const victoryConditions = useScenarioVictoryConditions()
 
-   useEffect(() => {
-      if (victoryConditions.allConditionsMet()) {
-         console.log("you won!!!")
-         alert("You won!!!!")
-      }
-   }, [victoryConditions])
-
    const onPerformEffect = (event: ThreeEvent<MouseEvent>) => {
       event.stopPropagation()
 
@@ -88,7 +81,7 @@ const ActionHelper = () => {
          targetPoint: event.point,
       })
 
-      victoryConditions.checkConditions()
+      victoryConditions.updateConditionStatuses()
 
       setGameExecutionState({
          ...gameExecutionState,

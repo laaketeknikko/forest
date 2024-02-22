@@ -1,7 +1,7 @@
 import Grid from "@mui/material/Grid"
 import Paper from "@mui/material/Paper"
 import { TurnOrderView } from "./TurnOrderView/TurnOrderView"
-import { Suspense, useState } from "react"
+import { Suspense, useEffect, useState } from "react"
 import { R3FCanvasWrapper } from "../r3f/R3FCanvasWrapper"
 import { SelectedCharacterCards } from "./SelectedCharacterCards/SelectedCharacterCards"
 
@@ -12,9 +12,14 @@ import Drawer from "@mui/material/Drawer"
 import { CharacterPopupInfo } from "./CharacterPopupInfo"
 import { SaveGame } from "../MainMenu/SaveGame"
 import { LoadGame } from "../MainMenu/LoadGame"
-import { gameExecutionStateAtom } from "../../game/state/jotai/gameState"
+import {
+   activeSaveGameConfigAtom,
+   gameExecutionStateAtom,
+} from "../../game/state/jotai/gameState"
 import { useAtom } from "jotai"
 import { GlobalExecutionState } from "../../config/types"
+import { useScenarioVictoryConditions } from "../../game/hooks/useScenarioVictoryConditions"
+import { ZSaveConfigScenarioStatistics } from "../../../../shared/types/types"
 
 /**
  * Top level wrapper when game is running. Contains three main components:
@@ -29,6 +34,56 @@ const GameScene = () => {
    const [gameExecutionState, setGameExecutionState] = useAtom(
       gameExecutionStateAtom
    )
+   const victoryConditions = useScenarioVictoryConditions()
+   const [saveGame, setSaveGame] = useAtom(activeSaveGameConfigAtom)
+
+   // TODO: Move this somewhere.
+   useEffect(() => {
+      if (
+         !(gameExecutionState.scenario.won || gameExecutionState.scenario.lost)
+      ) {
+         console.log("checking victory conditions")
+         if (victoryConditions.allConditionsMet()) {
+            let scenarioStat: ZSaveConfigScenarioStatistics | undefined =
+               saveGame.scenarioStatistics.find((stat) => {
+                  return stat.scenarioName === saveGame.scenario.name
+               })
+
+            if (!scenarioStat) {
+               scenarioStat = {
+                  scenarioName: saveGame.scenario.name,
+                  wins: 1,
+                  losses: 0,
+                  timesAttempted: 1,
+               }
+            } else {
+               scenarioStat.wins++
+            }
+            setSaveGame({
+               ...saveGame,
+               scenarioStatistics: [
+                  ...saveGame.scenarioStatistics.filter((stat) => {
+                     stat.scenarioName !== scenarioStat?.scenarioName
+                  }),
+                  scenarioStat,
+               ],
+            })
+            setGameExecutionState({
+               ...gameExecutionState,
+               scenario: {
+                  won: true,
+                  lost: false,
+               },
+            })
+         }
+      }
+   }, [
+      gameExecutionState,
+      saveGame,
+      setGameExecutionState,
+      setSaveGame,
+      victoryConditions,
+   ])
 
    const handleGameLoaded = (startGame: boolean) => {
       if (startGame) {
