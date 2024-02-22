@@ -76,6 +76,7 @@ const activeSaveGameConfigAtom = atom<ZSaveConfig>({
    enemies: [],
    scenario: emptyScenarioSaveConfig,
    keyString: "empty",
+   isScenarioInProgress: false,
    scenarioStatistics: [],
 })
 

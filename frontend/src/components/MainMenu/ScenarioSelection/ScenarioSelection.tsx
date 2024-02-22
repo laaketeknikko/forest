@@ -8,6 +8,7 @@ import List from "@mui/material/List"
 import Grid from "@mui/material/Unstable_Grid2"
 import { ScenarioDetails } from "./ScenarioDetails"
 import { gameExecutionStateAtom } from "../../../game/state/jotai/gameState"
+import { useIsScenarioSelectable } from "../../../hooks/useIsScenarioSelectable"
 
 /**
  * Calls setNavigationState(true) when scenario selected. The selected scenario is set
@@ -20,6 +21,8 @@ const ScenarioSelection = () => {
    const [gameExecutionState, setGameExecutionState] = useAtom(
       gameExecutionStateAtom
    )
+
+   const { isScenarioSelectable } = useIsScenarioSelectable()
 
    const handleScenerioSelected = () => {
       setGameExecutionState({
@@ -42,6 +45,7 @@ const ScenarioSelection = () => {
                            setScenarioSelected={handleScenerioSelected}
                            scenarioInfo={config}
                            key={config._id}
+                           isSelectable={isScenarioSelectable(config)}
                         />
                      )
                   })}

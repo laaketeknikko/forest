@@ -46,7 +46,10 @@ const MainMenu = () => {
       if (!initializeScenario()) {
          throw new Error("Error initializing scenario.")
       }
-      saveGame.updateSaveData()
+      saveGame.updateSaveData({
+         isScenarioInProgress: true,
+      })
+
       setGameExecutionState({
          ...gameExecutionState,
          global: GlobalExecutionState.running,
@@ -63,6 +66,7 @@ const MainMenu = () => {
     */
    const startLoadedScenario = (value: boolean) => {
       saveGame.updateSaveData()
+      saveGame.setScenarioInProgress(true)
       setGameExecutionState({
          ...gameExecutionState,
          global: GlobalExecutionState.running,

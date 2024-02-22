@@ -14,6 +14,7 @@ const SaveGameSchema = new mongoose.Schema<modelTypes.ISaveGameConfigModel>({
       type: [ScenarioStatisticsSchema],
       required: false,
    },
+   isScenarioInProgress: { type: Boolean, required: true },
    keyString: { type: String, required: false },
 })
 

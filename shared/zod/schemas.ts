@@ -152,5 +152,6 @@ export const SaveConfigSchema = z.object({
    enemies: z.array(SaveConfigEnemySchema),
    scenario: SaveConfigScenarioConfigSchema,
    scenarioStatistics: z.array(SaveConfigScenarioStatisticsSchema),
+   isScenarioInProgress: z.boolean(),
    keyString: z.string(),
 })
