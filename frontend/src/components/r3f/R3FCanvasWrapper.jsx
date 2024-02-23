@@ -39,7 +39,7 @@ const R3FCanvasWrapper = () => {
    useIdleTimer({
       onIdle: onIdle,
       onAction: onAction,
-      timeout: 1000,
+      timeout: 3000,
       event: [
          "keydown",
          //'wheel',

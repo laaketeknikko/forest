@@ -1,23 +1,41 @@
 import { useRef } from "react"
 import { ZPosition2D } from "../../../../../shared/types/types"
-import { LineCurve, Vector2 } from "three"
+import { EllipseCurve, LineCurve, MathUtils, Vector2, Vector3 } from "three"
 
 const useEntityMoveAnimation = () => {
    const startEndRef = useRef<ZPosition2D[]>([])
-   const pointsRef = useRef<Vector2[]>([])
+   const pointsRef = useRef<Vector3[]>([])
 
    const setPoints = (start: ZPosition2D, end: ZPosition2D) => {
       if (pointsRef.current.length > 0) return
 
       startEndRef.current = [start, end]
 
-      const points = new LineCurve(
+      const line = new LineCurve(
          new Vector2(start.x, start.z),
          new Vector2(end.x, end.z)
       )
-         .getSpacedPoints(4)
+      const lineLength = line.getLength()
+      const numberOfPoints = lineLength * 5
+      const linePoints = line.getSpacedPoints(numberOfPoints).reverse()
+
+      const ellipsePoints = new EllipseCurve(
+         0,
+         0,
+         line.getLength() / 2,
+         line.getLength() / 2,
+         MathUtils.degToRad(180),
+         MathUtils.degToRad(0),
+         true
+      )
+         .getSpacedPoints(numberOfPoints)
          .reverse()
-      pointsRef.current = points
+
+      pointsRef.current = linePoints.map((point, index) => {
+         return new Vector3(point.x, ellipsePoints[index].y, point.y)
+      })
+
+      console.log("pointsRef.current:", pointsRef.current)
    }
 
    const getNextPoint = () => {

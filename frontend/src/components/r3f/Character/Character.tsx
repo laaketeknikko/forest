@@ -59,7 +59,7 @@ const Character = ({ characterAtom, maxDimension = 1 }: CharacterProps) => {
 
    const animator = useEntityMoveAnimation()
    useEffect(() => {
-      if (character.targetPosition && !animator.isAnimating) {
+      if (character.targetPosition && !animator.isAnimating()) {
          animator.setPoints(
             {
                x: character.position.x,
@@ -82,20 +82,23 @@ const Character = ({ characterAtom, maxDimension = 1 }: CharacterProps) => {
 
    const meshRef = useRef<Mesh | null>(null)
    const clockRef = useRef(new Clock(true))
+   const timeRef = useRef<number>(0)
 
    useFrame(() => {
-      console.log("in useframe")
-      if (animator.isAnimating() && clockRef.current.getDelta() >= 0.5) {
-         console.log("clock.getDelta() >= 0.5")
-         const nextPos = animator.getNextPoint()
-         console.log("nextpos", nextPos)
-         if (nextPos) {
-            console.log("updating mesh pos")
-            meshRef.current!.position.set(
-               nextPos.x,
-               character.position.y,
-               nextPos.y
-            )
+      if (animator.isAnimating()) {
+         timeRef.current += clockRef.current.getDelta()
+
+         if (timeRef.current >= 1 / 60) {
+            timeRef.current = 0
+            const nextPos = animator.getNextPoint()
+            console.log("nextPos:", nextPos)
+            meshRef.current!.position.set(nextPos!.x, nextPos!.y, nextPos!.z)
+            if (!animator.isAnimating()) {
+               setCharacter({
+                  ...character,
+                  targetPosition: null,
+               })
+            }
          }
       }
    })
