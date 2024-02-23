@@ -12,6 +12,7 @@ import { useIdleTimer } from "react-idle-timer"
 import { CameraControls } from "./CameraControls"
 import { ArenaBorderDecorations } from "./ArenaBorderDecorations"
 import { InstancedGround } from "./Ground/InstancedGround"
+import { InstancedGround as DreiInstancedGround } from "./Ground/DreiInstancedGround"
 import { currentlySelectedActionCardAtom } from "../../game/state/jotai/gameState"
 import { selectedScenarioConfigAtom } from "../../game/state/jotai/scenarios"
 
@@ -69,7 +70,7 @@ const R3FCanvasWrapper = () => {
 
          <ambientLight args={["white", 1]} />
 
-         <InstancedGround />
+         <DreiInstancedGround />
 
          {activePartyCharacters.length > 0 &&
             activePartyCharacters.map((character) => {
