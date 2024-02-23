@@ -24,7 +24,6 @@ import { useInitializeNewScenario } from "../../game/hooks/useInitializeNewScena
 import { useSaveGame } from "../../game/hooks/useSaveGame"
 
 const MainMenu = () => {
-   // TODO: Refactor to use the global gamexecutionstate for menu navigation.
    const [gameExecutionState, setGameExecutionState] = useAtom(
       gameExecutionStateAtom
    )

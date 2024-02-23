@@ -58,5 +58,6 @@
 | 21.2. | 2    | Game logic work                                             |
 | 22.2. | 3    | Game logic work                                             |
 | 23.2. | 2    | UI work                                                     |
+| 23.2. | 2    | UI work                                                     |
 
-114
+116

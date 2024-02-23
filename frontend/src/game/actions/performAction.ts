@@ -14,7 +14,6 @@ import {
 import { PositionSchema } from "../../../../shared/zod/schemas"
 
 interface PerformActionProps {
-   // TODO: Fix the type never to Atom<Character>
    selectedCharacterAtom: PrimitiveAtom<ZCharacter>
    activeCardAtom: PrimitiveAtom<ZActionCard>
    selectedAction: ZActionCardAction
@@ -26,7 +25,6 @@ interface AffectedEntity {
 }
 
 interface PerformEffectProps {
-   // TODO: Fix the type never to Atom<Character>
    selectedCharacterAtom: PrimitiveAtom<ZCharacter>
    activeEffect: ZActionEffect
    targetPoint: ZPosition2D
@@ -61,7 +59,7 @@ const performMoveEffect = (props: PerformEffectProps) => {
    const selectedCharacter: ZCharacter = jotaiStore.get(
       props.selectedCharacterAtom
    )
-   // TODO: Is this the right way? What if character actually has no position?
+
    const position = PositionSchema.safeParse(selectedCharacter.position)
    if (!position.success) {
       throw new Error(
@@ -74,7 +72,6 @@ const performMoveEffect = (props: PerformEffectProps) => {
       z: props.targetPoint.z,
    }
 
-   // TODO: Fix
    jotaiStore.set(props.selectedCharacterAtom, {
       ...selectedCharacter,
    })
@@ -148,7 +145,6 @@ const performAction = ({
       card.nextActionId = card.actions[actionIndex + 1]._id
    }
 
-   // TODO: fix
    jotaiStore.set(activeCardAtom, card)
 
    jotaiStore.set(selectedCharacterAtom, { ...selectedCharacter })

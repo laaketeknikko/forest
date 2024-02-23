@@ -24,13 +24,8 @@ import { customTheme } from "../../../styles/mui/theme"
 import { emptyActionCardAtom } from "../../../game/state/initialStates"
 import { useScenarioVictoryConditions } from "../../../game/hooks/useScenarioVictoryConditions"
 
-// TODO: Unify action helpers and refactor
-
 // TODO: When user deselects a card, the action is undefined
 // but it's still possible to execute the effects. Fix.
-
-// TODO: When user has executed an effect from a card, it's still possible
-// to switch to another card. Fix.
 
 /**
  * Provides visual and game logic helpers when performing actions and action effects.
@@ -91,7 +86,6 @@ const ActionHelper = () => {
 
       if (!actionTrackerRef.current?.getNextUnexecutedEffect()) {
          performAction({
-            // TODO: Fix types
             activeCardAtom: selectedCard,
             // TODO: fix
             selectedAction: action!,

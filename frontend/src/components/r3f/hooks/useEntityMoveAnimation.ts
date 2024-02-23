@@ -16,7 +16,7 @@ const useEntityMoveAnimation = () => {
          new Vector2(end.x, end.z)
       )
       const lineLength = line.getLength()
-      const numberOfPoints = lineLength * 5
+      const numberOfPoints = lineLength * 3
       const linePoints = line.getSpacedPoints(numberOfPoints).reverse()
 
       const ellipsePoints = new EllipseCurve(

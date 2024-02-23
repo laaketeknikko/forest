@@ -1,6 +1,6 @@
 import { useAtom } from "jotai"
 import { selectedScenarioConfigAtom } from "../../../game/state/jotai/scenarios"
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import { Color, InstancedMesh, MathUtils, Object3D } from "three"
 import { ThreeEvent } from "@react-three/fiber"
 
@@ -22,6 +22,7 @@ const InstancedGround = ({
    lengthZ = 15,
 }: InstancedGroundProps) => {
    const [selectedScenarioConfig] = useAtom(selectedScenarioConfigAtom)
+   const [, setGroundReady] = useState(false)
 
    const arenaSize = selectedScenarioConfig.arena.size || {
       length: lengthX,
@@ -46,10 +47,15 @@ const InstancedGround = ({
                   x * arenaSize.width + z,
                   tempObject.matrix
                )
+               instanceMeshRef.current.setColorAt(
+                  x * arenaSize.width + z,
+                  new Color("rgb(255, 80, 0)")
+               )
             }
          }
 
          instanceMeshRef.current!.instanceMatrix.needsUpdate = true
+         setGroundReady(true)
       }
    }, [arenaSize.length, arenaSize.width])
 
@@ -57,11 +63,12 @@ const InstancedGround = ({
    const handleTileClicked = (event: ThreeEvent<MouseEvent>) => {
       console.log("clicking on ground")
       if (instanceMeshRef.current && instanceMeshRef.current.instanceColor) {
+         console.log("we're here!")
          const xPos = Math.floor(event.point.x)
          const zPos = Math.floor(event.point.z)
          instanceMeshRef.current.setColorAt(
             xPos * arenaSize.width + zPos,
-            new Color("red")
+            new Color("yellow")
          )
          instanceMeshRef.current.instanceColor.needsUpdate = true
       }
@@ -77,7 +84,7 @@ const InstancedGround = ({
          <meshBasicMaterial
             toneMapped={false}
             transparent
-            opacity={0.2}
+            opacity={1}
             depthWrite={false}
             color="rgb(40, 80, 0)"
          />

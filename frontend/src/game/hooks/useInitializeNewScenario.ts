@@ -142,7 +142,6 @@ const setEnemyPositions = ({
       activeEnemies.push(newEnemyAtom)
    }
 
-   // TODO: fix
    jotaiStore.set(activeEnemyAtoms, activeEnemies)
 }
 

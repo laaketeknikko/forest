@@ -91,14 +91,23 @@ const Character = ({ characterAtom, maxDimension = 1 }: CharacterProps) => {
          if (timeRef.current >= 1 / 60) {
             timeRef.current = 0
             const nextPos = animator.getNextPoint()
-            console.log("nextPos:", nextPos)
-            meshRef.current!.position.set(nextPos!.x, nextPos!.y, nextPos!.z)
-            if (!animator.isAnimating()) {
-               setCharacter({
-                  ...character,
-                  targetPosition: null,
-               })
-            }
+            meshRef.current!.position.set(
+               nextPos!.x,
+               nextPos!.y + character.position.y,
+               nextPos!.z
+            )
+         }
+
+         if (!animator.isAnimating()) {
+            setCharacter({
+               ...character,
+               position: {
+                  x: character.targetPosition!.x,
+                  y: character.position.y,
+                  z: character.targetPosition!.z,
+               },
+               targetPosition: null,
+            })
          }
       }
    })

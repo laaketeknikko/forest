@@ -3,7 +3,6 @@ import { getDefaultStore } from "jotai"
 import { activeScenarioEnemiesAtom } from "../state/jotai/enemies"
 import { activePartyAtom } from "../state/jotai/characters"
 import {
-   // TODO: Create saveconfig types
    ZActionCard,
    ZCharacter,
    ZEnemy,

@@ -14,7 +14,6 @@ import { useMemo, memo } from "react"
  *
  */
 
-// TODO: pass the desired number of decorations as arguments.
 const ArenaBorderDecorations = () => {
    const [scenario] = useAtom(selectedScenarioConfigAtom)
 

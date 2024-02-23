@@ -13,6 +13,7 @@ import { CameraControls } from "./CameraControls"
 import { ArenaBorderDecorations } from "./ArenaBorderDecorations"
 import { InstancedGround } from "./Ground/InstancedGround"
 import { currentlySelectedActionCardAtom } from "../../game/state/jotai/gameState"
+import { selectedScenarioConfigAtom } from "../../game/state/jotai/scenarios"
 
 const DisableRender = () => useFrame(() => null, 1000)
 
@@ -25,6 +26,7 @@ const R3FCanvasWrapper = () => {
    const [pauseAnimation, setPauseAnimation] = useState(false)
    const [selectedCard] = useAtom(currentlySelectedActionCardAtom)
    const [selectedCardData] = useAtom(selectedCard)
+   const [selectedScenario] = useAtom(selectedScenarioConfigAtom)
 
    /**
     * Because the game scene is static, we don't want the three.js render loop
@@ -54,17 +56,20 @@ const R3FCanvasWrapper = () => {
       ],
    })
 
-   // TODO: Position camera based on arena size
    return (
       <Canvas
-         camera={{ position: [1, 4, 5], fov: [50] }}
+         camera={{
+            position: [0, 10, selectedScenario.arena.size.length],
+            fov: [50],
+         }}
          style={{ backgroundColor: "rgb(31, 27, 22)" }}
-         frameloop="demand"
       >
          {pauseAnimation && <DisableRender />}
          <CameraControls />
 
          <ambientLight args={["white", 1]} />
+
+         <InstancedGround />
 
          {activePartyCharacters.length > 0 &&
             activePartyCharacters.map((character) => {
@@ -87,7 +92,6 @@ const R3FCanvasWrapper = () => {
                )
             })}
 
-         <InstancedGround />
          {selectedCardData.actions.length > 0 && <ActionHelper />}
          <ArenaBorderDecorations />
       </Canvas>
