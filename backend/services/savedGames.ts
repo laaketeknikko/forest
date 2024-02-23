@@ -1,10 +1,8 @@
-import { ZSaveConfig } from "../../shared/types/types"
 import { SaveConfigSchema } from "../../shared/zod/schemas"
 
 import { SaveGameModel } from "../mongoose/models/SaveGame"
 
 const saveGame = async (saveGameData: unknown) => {
-   // TODO: Fix these errors somehow.
    const parsedConfig = SaveConfigSchema.safeParse(saveGameData)
 
    console.dir(parsedConfig, { depth: null })

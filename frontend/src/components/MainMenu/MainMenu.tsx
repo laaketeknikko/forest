@@ -15,31 +15,31 @@ import { ScenarioSelection } from "./ScenarioSelection/ScenarioSelection"
 import { CharacterSelection } from "./CharacterSelection/CharacterSelection"
 import { ScenarioStartConfirmation } from "./ScenarioStartConfirmation"
 import { gameExecutionStateAtom } from "../../game/state/jotai/gameState"
-import { GlobalExecutionState } from "../../config/types"
+import {
+   GlobalExecutionState,
+   MainWindowDisplayStatus,
+} from "../../config/types"
 import { useAtom } from "jotai"
 import { useInitializeNewScenario } from "../../game/hooks/useInitializeNewScenario"
+import { useSaveGame } from "../../game/hooks/useSaveGame"
 
 const MainMenu = () => {
    // TODO: Refactor to use the global gamexecutionstate for menu navigation.
    const [gameExecutionState, setGameExecutionState] = useAtom(
       gameExecutionStateAtom
    )
-   const [gameConfigLoaded, setGameConfigLoaded] = useState(false)
-   const [scenarioSelected, setScenarioSelected] = useState(false)
-   const [charactersSelected, setCharactersSelected] = useState(false)
-   const [, setScenarioStarted] = useState(false)
    const [chosenTab, setChosenTab] = useState("0")
-
    const initializeScenario = useInitializeNewScenario()
+   const saveGame = useSaveGame()
 
    /**
     * Switch to scenario selection automatically when new game config loaded.
     */
    useEffect(() => {
-      if (gameConfigLoaded) {
+      if (gameExecutionState.mainMenu.gameConfigLoaded) {
          setChosenTab("1")
       }
-   }, [gameConfigLoaded])
+   }, [gameExecutionState.mainMenu.gameConfigLoaded])
 
    /**
     * Called when starting new scenario by going through main menu.
@@ -49,10 +49,18 @@ const MainMenu = () => {
       if (!initializeScenario()) {
          throw new Error("Error initializing scenario.")
       }
-      setScenarioStarted(value)
+      saveGame.updateSaveData({
+         isScenarioInProgress: true,
+      })
+
       setGameExecutionState({
          ...gameExecutionState,
          global: GlobalExecutionState.running,
+         mainDisplay: MainWindowDisplayStatus.showGameScene,
+         mainMenu: {
+            ...gameExecutionState.mainMenu,
+            scenarioStarted: value,
+         },
       })
    }
 
@@ -61,10 +69,16 @@ const MainMenu = () => {
     *
     */
    const startLoadedScenario = (value: boolean) => {
-      setScenarioStarted(value)
+      saveGame.updateSaveData()
+      saveGame.setScenarioInProgress(true)
       setGameExecutionState({
          ...gameExecutionState,
          global: GlobalExecutionState.running,
+         mainDisplay: MainWindowDisplayStatus.showGameScene,
+         mainMenu: {
+            ...gameExecutionState.mainMenu,
+            scenarioStarted: value,
+         },
       })
    }
 
@@ -87,23 +101,33 @@ const MainMenu = () => {
                         orientation="vertical"
                      >
                         <Tab label="Main Menu" value="0"></Tab>
+
                         <Tab
                            label="Select scenario"
                            value="1"
-                           disabled={!gameConfigLoaded}
+                           disabled={
+                              !gameExecutionState.mainMenu.gameConfigLoaded
+                           }
                         ></Tab>
+
                         <Tab
                            label="Select characters"
                            value="2"
-                           disabled={!scenarioSelected}
+                           disabled={
+                              !gameExecutionState.mainMenu.scenarioSelected
+                           }
                         ></Tab>
+
                         <Tab
                            label="Confirmation"
                            value="3"
-                           disabled={!charactersSelected}
+                           disabled={
+                              !gameExecutionState.mainMenu.charactersSelected
+                           }
                         ></Tab>
                      </TabList>
                   </Grid>
+
                   <Grid
                      xs={10}
                      sx={{
@@ -117,20 +141,13 @@ const MainMenu = () => {
                         value="0"
                         sx={{ width: "100%", maxWidth: "40rem" }}
                      >
-                        <NewGame
-                           setNavigationState={setGameConfigLoaded}
-                           startLoadedScenario={startLoadedScenario}
-                        />
+                        <NewGame startLoadedScenario={startLoadedScenario} />
                      </TabPanel>
                      <TabPanel value="1">
-                        <ScenarioSelection
-                           setNavigationState={setScenarioSelected}
-                        />
+                        <ScenarioSelection />
                      </TabPanel>
                      <TabPanel value="2">
-                        <CharacterSelection
-                           setNavigationState={setCharactersSelected}
-                        />
+                        <CharacterSelection />
                      </TabPanel>
                      <TabPanel
                         value="3"

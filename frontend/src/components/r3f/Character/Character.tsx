@@ -1,16 +1,17 @@
 import PropTypes from "prop-types"
 
-import { useLoader } from "@react-three/fiber"
-import { TextureLoader } from "three"
+import { useFrame, useLoader } from "@react-three/fiber"
+import { Clock, Mesh, TextureLoader } from "three"
 
 import { PrimitiveAtom, useAtom } from "jotai"
 
 import * as textureUtilities from "../../util/textureUtilities"
-import { useMemo } from "react"
+import { useEffect, useMemo, useRef } from "react"
 import { ZCharacter } from "../../../../../shared/types/types"
 
 import { PositionSchema } from "../../../../../shared/zod/schemas"
 import { popupInfoAtom } from "../../../game/state/jotai/gameState"
+import { useEntityMoveAnimation } from "../hooks/useEntityMoveAnimation"
 
 export interface CharacterProps {
    characterAtom: PrimitiveAtom<ZCharacter>
@@ -56,8 +57,55 @@ const Character = ({ characterAtom, maxDimension = 1 }: CharacterProps) => {
       }
    }, [character, dimensions.height, setCharacter])
 
+   const animator = useEntityMoveAnimation()
+   useEffect(() => {
+      if (character.targetPosition && !animator.isAnimating()) {
+         animator.setPoints(
+            {
+               x: character.position.x,
+               z: character.position.z,
+            },
+            {
+               x: character.targetPosition.x,
+               z: character.targetPosition.z,
+            }
+         )
+      }
+   }, [
+      animator,
+      character.position.x,
+      character.position.z,
+      character.targetPosition,
+      character.targetPosition?.x,
+      character.targetPosition?.z,
+   ])
+
+   const meshRef = useRef<Mesh | null>(null)
+   const clockRef = useRef(new Clock(true))
+   const timeRef = useRef<number>(0)
+
+   useFrame(() => {
+      if (animator.isAnimating()) {
+         timeRef.current += clockRef.current.getDelta()
+
+         if (timeRef.current >= 1 / 60) {
+            timeRef.current = 0
+            const nextPos = animator.getNextPoint()
+            console.log("nextPos:", nextPos)
+            meshRef.current!.position.set(nextPos!.x, nextPos!.y, nextPos!.z)
+            if (!animator.isAnimating()) {
+               setCharacter({
+                  ...character,
+                  targetPosition: null,
+               })
+            }
+         }
+      }
+   })
+
    return (
       <mesh
+         ref={meshRef}
          position={[
             character.position.x || 0,
             character.position.y || 0,

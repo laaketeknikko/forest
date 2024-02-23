@@ -1,7 +1,7 @@
 import { ZScenarioConfig } from "../../../../../shared/types/types"
 
 const scenarioConfig: ZScenarioConfig = {
-   name: "First encounter",
+   name: "First Debug",
    shortDescription: "First encounter with Miinii.",
    description:
       "The bird of prey, Miinii, is hunting mouses in your forest. Stop them.",
@@ -13,35 +13,35 @@ const scenarioConfig: ZScenarioConfig = {
    },
    enemies: [
       {
-         enemyName: "Miinii",
+         enemyName: "Debug-Miinii",
          quantity: 1,
          startingPosition: {
-            x: 7.5,
-            z: 7.5,
+            x: 10.5,
+            z: 10.5,
          },
       },
    ],
    playerCharacterStartingPositions: [
       {
-         x: 0.5,
-         z: 0.5,
+         x: 9.5,
+         z: 9.5,
       },
       {
-         x: 19.5,
-         z: 19.5,
+         x: 11.5,
+         z: 11.5,
       },
       {
-         x: 0.5,
-         z: 19.5,
+         x: 9.5,
+         z: 11.5,
       },
       {
-         x: 19.5,
-         z: 0.5,
+         x: 11.5,
+         z: 9.5,
       },
    ],
    scenarioVictoryCondition: [
       {
-         enemyName: "Miinii",
+         enemyName: "Debug-Miinii",
          type: "enemy",
          status: "dead",
       },

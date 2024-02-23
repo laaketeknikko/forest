@@ -55,13 +55,13 @@ export const Position2DSchema = z.object({
 export const GameEntitySchema = z.object({
    position: PositionSchema,
    health: z.number(),
+   targetPosition: Position2DSchema.optional().nullable(),
 })
 
 export const DynamicGameEntitySchema = GameEntitySchema.extend({
    _id: z.string().optional(),
    name: z.string(),
    strength: z.number(),
-
    spritePath: z.string(),
    baseActionDelay: z.number(),
    currentActionDelay: z.number(),
@@ -97,6 +97,22 @@ export const ScenarioEnemyConfigSchema = z.object({
    startingPosition: Position2DSchema,
 })
 
+export const ScenarioUnlockConditionSchema = z.object({
+   type: z.literal("scenario"),
+   scenarioName: z.string(),
+   status: z.union([
+      z.literal("unlocked"),
+      z.literal("locked"),
+      z.literal("completed"),
+   ]),
+})
+
+export const ScenarioVictoryConditionSchema = z.object({
+   type: z.literal("enemy"),
+   status: z.literal("dead"),
+   enemyName: z.string(),
+})
+
 export const ScenarioConfigSchema = z.object({
    _id: z.string().optional(),
    name: z.string(),
@@ -107,16 +123,35 @@ export const ScenarioConfigSchema = z.object({
    playerCharacterStartingPositions: z.array(Position2DSchema),
    thumbNailPath: z.string(),
    maxPartySize: z.number(),
+   unlockCondition: ScenarioUnlockConditionSchema.optional(),
+   scenarioVictoryCondition: z.array(ScenarioVictoryConditionSchema),
 })
+
+export const SaveConfigScenarioVictoryConditionSchema =
+   ScenarioVictoryConditionSchema.extend({
+      fulfilled: z.boolean(),
+   })
 
 export const SaveConfigScenarioConfigSchema = ScenarioConfigSchema.omit({
    enemies: true,
    playerCharacterStartingPositions: true,
+   scenarioVictoryCondition: true,
+}).extend({
+   scenarioVictoryCondition: z.array(SaveConfigScenarioVictoryConditionSchema),
+})
+
+export const SaveConfigScenarioStatisticsSchema = z.object({
+   scenarioName: z.string(),
+   timesAttempted: z.number(),
+   wins: z.number(),
+   losses: z.number(),
 })
 
 export const SaveConfigSchema = z.object({
    characters: z.array(SaveConfigCharacterSchema),
    enemies: z.array(SaveConfigEnemySchema),
    scenario: SaveConfigScenarioConfigSchema,
+   scenarioStatistics: z.array(SaveConfigScenarioStatisticsSchema),
+   isScenarioInProgress: z.boolean(),
    keyString: z.string(),
 })

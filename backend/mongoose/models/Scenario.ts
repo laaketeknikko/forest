@@ -1,3 +1,4 @@
+import { VictoryConditionSchema } from "./VictoryCondition"
 import * as modelTypes from "./modelTypes"
 
 import mongoose from "mongoose"
@@ -12,6 +13,7 @@ const ScenarioSchema = new mongoose.Schema<modelTypes.IScenarioModel>({
          length: { type: Number, required: true },
       },
    },
+   scenarioVictoryCondition: [VictoryConditionSchema],
    thumbNailPath: { type: String, required: true },
    maxPartySize: { type: Number, required: true },
 })

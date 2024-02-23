@@ -1,5 +1,6 @@
 tsbuild
 typedocdocs
+.VSCodeCounter
 
 # Logs
 logs

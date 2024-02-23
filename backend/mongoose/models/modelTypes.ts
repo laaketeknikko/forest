@@ -16,6 +16,12 @@ interface ICharacterModel extends types.ZSaveConfigCharacter {}
 
 interface IScenarioModel extends types.ZSaveConfigScenarioConfig {}
 
+interface IScenarioStatisticsModel
+   extends types.ZSaveConfigScenarioStatistics {}
+
+export interface IScenarioVictoryConditionModel
+   extends types.ZSaveConfigScenarioVictoryCondition {}
+
 interface ISaveGameConfigModel extends types.ZSaveConfig {}
 
 export {
@@ -27,4 +33,5 @@ export {
    IScenarioModel,
    IDynamicGameEntityModel,
    IActionEffectModel,
+   IScenarioStatisticsModel,
 }

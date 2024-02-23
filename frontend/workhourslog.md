@@ -53,5 +53,10 @@
 | 16.2. | 5    | Small fixings                                               |
 | 17.2. | 2    | Debugging, fixing, polishing                                |
 | 19.2. | 4    | Documentation, refactoring                                  |
+| 19.2. | 2    | Refactoring                                                 |
+| 20.2. | 2    | Game logic work                                             |
+| 21.2. | 2    | Game logic work                                             |
+| 22.2. | 3    | Game logic work                                             |
+| 23.2. | 2    | UI work                                                     |
 
-103
+114

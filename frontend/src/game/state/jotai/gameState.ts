@@ -1,8 +1,12 @@
 import { PrimitiveAtom, atom } from "jotai"
 import { activePartyAtom } from "./characters"
-import { emptyActionCard } from "../initialStates"
+import { emptyActionCard, emptyScenarioSaveConfig } from "../initialStates"
 import { activeScenarioEnemiesAtom } from "./enemies"
-import { GameExecutionState, GlobalExecutionState } from "../../../config/types"
+import {
+   GameExecutionState,
+   GlobalExecutionState,
+   MainWindowDisplayStatus,
+} from "../../../config/types"
 import {
    ZActionCard,
    ZActionEffect,
@@ -48,30 +52,29 @@ const defaultConfigsAtom = atom<{
 }>({ characters: [], enemies: [], scenarios: [] })
 
 const gameExecutionStateAtom = atom<GameExecutionState>({
-   /**
-    * This is mainly used to determine whether to show menu or game scene.
-    * */
    global: GlobalExecutionState.stopped,
    actions: {
-      /**
-       * Set to true when user executes an effect from a card and the card has unexecuted effects remaining.
-       * Set to false after performing the last effect on the active card.
-       */
       isPerfomingAction: false,
    },
-   /**
-    * Used for main menu navigation.
-    */
+
    mainMenu: {
+      showMainmenu: true,
       gameConfigLoaded: false,
       scenarioSelected: false,
       charactersSelected: false,
       scenarioStarted: false,
    },
-   /**
-    * Used locally during character selection.
-    */
+
    characterSelection: [],
+
+   scenario: {
+      won: false,
+      lost: false,
+   },
+   debriefing: {
+      showDebriefing: false,
+   },
+   mainDisplay: MainWindowDisplayStatus.showMainMenu,
 })
 
 /**
@@ -80,8 +83,10 @@ const gameExecutionStateAtom = atom<GameExecutionState>({
 const activeSaveGameConfigAtom = atom<ZSaveConfig>({
    characters: [],
    enemies: [],
-   scenario: {} as ZScenarioConfig,
-   keyString: "",
+   scenario: emptyScenarioSaveConfig,
+   keyString: "empty",
+   isScenarioInProgress: false,
+   scenarioStatistics: [],
 })
 
 /**

@@ -11,7 +11,6 @@ import { CharacterOption } from "./CharacterOption"
 import { selectedScenarioConfigAtom } from "../../../game/state/jotai/scenarios"
 import Typography from "@mui/material/Typography"
 
-import { SetNavigationState } from "../types"
 import { CharacterSelectionItem } from "../../../config/types"
 import { gameExecutionStateAtom } from "../../../game/state/jotai/gameState"
 
@@ -20,13 +19,7 @@ import Grid2 from "@mui/material/Unstable_Grid2/Grid2"
 import { generatedDarkThemeColors } from "../../../styles/mui/theme"
 import Stack from "@mui/material/Stack"
 
-interface CharacterSelectionProps {
-   setNavigationState: SetNavigationState
-}
-
-const CharacterSelection = ({
-   setNavigationState,
-}: CharacterSelectionProps) => {
+const CharacterSelection = () => {
    /**
     * allPlayerCharactersAtom is used to create list of all player characters.
     * When characters are selected, they are added to activeParty.
@@ -65,18 +58,30 @@ const CharacterSelection = ({
     * If not characters or too many characters selected, disable navigation to next section.
     */
    useEffect(() => {
+      let selectionOK = false
       if (
          activeParty.length > 0 &&
          activeParty.length <= selectedScenarioConfig.maxPartySize
       ) {
-         setNavigationState(true)
+         selectionOK = true
       } else {
-         setNavigationState(false)
+         selectionOK = false
+      }
+
+      if (selectionOK !== gameState.mainMenu.charactersSelected) {
+         setGameState({
+            ...gameState,
+            mainMenu: {
+               ...gameState.mainMenu,
+               charactersSelected: selectionOK,
+            },
+         })
       }
    }, [
       activeParty.length,
+      gameState,
       selectedScenarioConfig.maxPartySize,
-      setNavigationState,
+      setGameState,
    ])
 
    return (

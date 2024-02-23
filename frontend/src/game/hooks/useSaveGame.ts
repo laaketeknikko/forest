@@ -22,9 +22,18 @@ const useSaveGame = () => {
    const [saveGameData, setSaveGameData] = useAtom(activeSaveGameConfigAtom)
    const [isSaving, setIsSaving] = useState(false)
 
-   const updateSaveData = () => {
-      const saveData = { ...buildSaveFromState(), keyString: "" }
-      if (!saveGameData.keyString || saveGameData.keyString.length === 0) {
+   const updateSaveData = (partialSaveUpdates: Partial<ZSaveConfig> = {}) => {
+      const saveData = {
+         ...saveGameData,
+         ...buildSaveFromState(),
+         keyString: "",
+         ...partialSaveUpdates,
+      }
+      if (
+         !saveGameData.keyString ||
+         saveGameData.keyString.length === 0 ||
+         saveGameData.keyString === "empty"
+      ) {
          saveData.keyString = v4()
       } else {
          saveData.keyString = saveGameData.keyString
@@ -36,6 +45,13 @@ const useSaveGame = () => {
 
    const getSaveData = () => {
       return saveGameData
+   }
+
+   const setScenarioInProgress = (inProgress: boolean) => {
+      setSaveGameData({
+         ...saveGameData,
+         isScenarioInProgress: inProgress,
+      })
    }
 
    const saveTheGame = async (saveData: ZSaveConfig | null = null) => {
@@ -56,6 +72,7 @@ const useSaveGame = () => {
    return {
       getSaveData: getSaveData,
       updateSaveData: updateSaveData,
+      setScenarioInProgress: setScenarioInProgress,
       saveTheGame: saveTheGame,
    }
 }
