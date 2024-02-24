@@ -1,6 +1,5 @@
 import { createTheme } from "@mui/material"
-import { blueGrey, deepOrange, grey, lightGreen } from "@mui/material/colors"
-import { blue } from "@mui/material/colors"
+import { grey, lightGreen } from "@mui/material/colors"
 
 const theme = createTheme()
 
@@ -27,10 +26,14 @@ const customTheme = {}
 customTheme.custom = {
    colors: {
       actionTypes: {
-         offensive: deepOrange[500],
-         support: lightGreen[500],
-         defensive: blueGrey[500],
-         movement: blue[500],
+         offensive: "#A85136",
+         offensiveOpposite: "#26764D",
+         support: "#18B364",
+         supportOpposite: "#ff5722",
+         defensive: "#5A25AE",
+         defensiveOpposite: "#FFE722",
+         movement: "#26764D",
+         movementOpposite: "#A85136",
       },
       damageTypes: {
          physical: grey[500],

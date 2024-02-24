@@ -20,7 +20,7 @@ import { ZActionEffect } from "../../../../../shared/types/types"
 import { ThreeEvent } from "@react-three/fiber"
 import { MathUtils } from "three"
 
-import { customTheme } from "../../../styles/mui/theme"
+import { customTheme, theme } from "../../../styles/mui/theme"
 import { emptyActionCardAtom } from "../../../game/state/initialStates"
 import { useScenarioVictoryConditions } from "../../../game/hooks/useScenarioVictoryConditions"
 
@@ -64,6 +64,8 @@ const ActionHelper = () => {
       if (action && actionTrackerRef.current) {
          actionTrackerRef.current.setAction(action)
          setActiveEffect(actionTrackerRef.current.getNextUnexecutedEffect())
+      } else {
+         setActiveEffect(undefined)
       }
    }, [action])
 
@@ -108,14 +110,19 @@ const ActionHelper = () => {
    }
 
    let helperColor
+   let gridColor
    if (activeEffect?.type === actionTypes.movement) {
-      helperColor = customTheme.custom.colors.actionTypes.movement
+      helperColor = customTheme.custom.colors.actionTypes.movementOpposite
+      gridColor = customTheme.custom.colors.actionTypes.movement
    } else if (activeEffect?.type === actionTypes.support) {
       helperColor = customTheme.custom.colors.actionTypes.support
+      gridColor = customTheme.custom.colors.actionTypes.supportOpposite
    } else if (activeEffect?.type === actionTypes.offensive) {
-      helperColor = customTheme.custom.colors.actionTypes.offensive
+      helperColor = customTheme.custom.colors.actionTypes.offensiveOpposite
+      gridColor = customTheme.custom.colors.actionTypes.offensive
    } else if (activeEffect?.type === actionTypes.defensive) {
       helperColor = customTheme.custom.colors.actionTypes.defensive
+      gridColor = customTheme.custom.colors.actionTypes.defensiveOpposite
    }
 
    return (
@@ -135,7 +142,10 @@ const ActionHelper = () => {
                      position={[0, 0, 0.05]}
                      cellSize={1}
                      cellThickness={1}
+                     cellColor={gridColor}
                      sectionThickness={0}
+                     sectionColor={theme.palette.primary.main}
+                     sectionSize={activeEffect.range ? activeEffect.range : 5}
                      args={[
                         activeEffect.range ? activeEffect.range * 2 + 2 : 10,
                         activeEffect.range ? activeEffect.range * 2 + 2 : 10,
@@ -146,14 +156,40 @@ const ActionHelper = () => {
                         activeEffect.range ? activeEffect.range * 1 + 2 : 5
                      }
                      fadeStrength={1}
-                     cellColor={helperColor}
                   />
-                  <circleGeometry args={[activeEffect.range, 20]} />
+                  <mesh position={[0, 0, 0]}>
+                     <circleGeometry
+                        args={[
+                           activeEffect.range ? activeEffect.range : 0.5,
+                           30,
+                        ]}
+                     />
+                     <meshBasicMaterial
+                        toneMapped={false}
+                        color={helperColor}
+                        transparent
+                        opacity={0}
+                        depthWrite={false}
+                     />
+                  </mesh>
+
+                  <ringGeometry
+                     args={[
+                        activeEffect.range ? activeEffect.range * 0.99 : 0.5,
+                        activeEffect.range ? activeEffect.range : 0.5,
+                        20,
+                        1,
+                     ]}
+                  />
+
+                  <circleGeometry
+                     args={[activeEffect.range ? activeEffect.range : 0.5, 30]}
+                  />
                   <meshBasicMaterial
                      toneMapped={false}
                      color={helperColor}
                      transparent
-                     opacity={0.1}
+                     opacity={0.5}
                      depthWrite={false}
                   />
                </mesh>

@@ -13,6 +13,7 @@ import { CameraControls } from "./CameraControls"
 import { ArenaBorderDecorations } from "./ArenaBorderDecorations"
 
 import { selectedScenarioConfigAtom } from "../../game/state/jotai/scenarios"
+import { FullGroundTile } from "./Ground/FullGroundTile"
 
 const DisableRender = () => useFrame(() => null, 1000)
 
@@ -65,7 +66,9 @@ const R3FCanvasWrapper = () => {
          {pauseAnimation && <DisableRender />}
          <CameraControls />
 
-         <ambientLight args={["white", 1]} />
+         <FullGroundTile />
+
+         <ambientLight args={["white", 0.1]} />
 
          {activePartyCharacters.length > 0 &&
             activePartyCharacters.map((character) => {
