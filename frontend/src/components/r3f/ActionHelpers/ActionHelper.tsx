@@ -24,6 +24,8 @@ import { customTheme } from "../../../styles/mui/theme"
 import { emptyActionCardAtom } from "../../../game/state/initialStates"
 import { useScenarioVictoryConditions } from "../../../game/hooks/useScenarioVictoryConditions"
 
+import { CustomGrid } from "../util/CustomGrid"
+
 // TODO: When user deselects a card, the action is undefined
 // but it's still possible to execute the effects. Fix.
 
@@ -123,18 +125,35 @@ const ActionHelper = () => {
                <mesh
                   position={[
                      activeCharacterData.position?.x || 0,
-                     0.1,
+                     0.05,
                      activeCharacterData.position?.z || 0,
                   ]}
                   rotation-x={MathUtils.degToRad(-90)}
                   onClick={onPerformEffect}
                >
+                  <CustomGrid
+                     position={[0, 0, 0.05]}
+                     cellSize={1}
+                     cellThickness={1}
+                     sectionThickness={0}
+                     args={[
+                        activeEffect.range ? activeEffect.range * 2 + 2 : 10,
+                        activeEffect.range ? activeEffect.range * 2 + 2 : 10,
+                     ]}
+                     infiniteGrid={false}
+                     rotation-x={MathUtils.degToRad(90)}
+                     fadeDistance={
+                        activeEffect.range ? activeEffect.range * 1 + 2 : 5
+                     }
+                     fadeStrength={1}
+                     cellColor={helperColor}
+                  />
                   <circleGeometry args={[activeEffect.range, 20]} />
                   <meshBasicMaterial
                      toneMapped={false}
                      color={helperColor}
                      transparent
-                     opacity={0.5}
+                     opacity={0.1}
                      depthWrite={false}
                   />
                </mesh>

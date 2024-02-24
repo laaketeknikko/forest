@@ -11,9 +11,7 @@ import { activeScenarioEnemiesAtom } from "../../game/state/jotai/enemies"
 import { useIdleTimer } from "react-idle-timer"
 import { CameraControls } from "./CameraControls"
 import { ArenaBorderDecorations } from "./ArenaBorderDecorations"
-import { InstancedGround } from "./Ground/InstancedGround"
-import { InstancedGround as DreiInstancedGround } from "./Ground/DreiInstancedGround"
-import { currentlySelectedActionCardAtom } from "../../game/state/jotai/gameState"
+
 import { selectedScenarioConfigAtom } from "../../game/state/jotai/scenarios"
 
 const DisableRender = () => useFrame(() => null, 1000)
@@ -25,8 +23,7 @@ const R3FCanvasWrapper = () => {
    const [activePartyCharacters] = useAtom(activePartyAtom)
    const [activeEnemies] = useAtom(activeScenarioEnemiesAtom)
    const [pauseAnimation, setPauseAnimation] = useState(false)
-   const [selectedCard] = useAtom(currentlySelectedActionCardAtom)
-   const [selectedCardData] = useAtom(selectedCard)
+
    const [selectedScenario] = useAtom(selectedScenarioConfigAtom)
 
    /**
@@ -70,8 +67,6 @@ const R3FCanvasWrapper = () => {
 
          <ambientLight args={["white", 1]} />
 
-         <DreiInstancedGround />
-
          {activePartyCharacters.length > 0 &&
             activePartyCharacters.map((character) => {
                return (
@@ -93,7 +88,7 @@ const R3FCanvasWrapper = () => {
                )
             })}
 
-         {selectedCardData.actions.length > 0 && <ActionHelper />}
+         <ActionHelper />
          <ArenaBorderDecorations />
       </Canvas>
    )
