@@ -2,7 +2,7 @@ import { useAtom } from "jotai"
 import { selectedScenarioConfigAtom } from "../../../game/state/jotai/scenarios"
 import { Edges, useTexture } from "@react-three/drei"
 import { MathUtils } from "three"
-import { theme } from "../../../styles/mui/theme"
+import { generatedDarkThemeColors, theme } from "../../../styles/mui/theme"
 
 export interface FullGroundTileProps {
    sizeX?: number
@@ -29,7 +29,10 @@ const FullGroundTile = ({ sizeX = 10, sizeZ = 10 }: FullGroundTileProps) => {
       >
          <mesh position={[0, 0, 0.135]}>
             <planeGeometry args={[arenaSize.length, arenaSize.width]} />
-            <meshStandardMaterial transparent opacity={0.7} color="blue" />
+            <meshBasicMaterial
+               toneMapped={false}
+               color={theme.palette.background.paper}
+            />
          </mesh>
          <Edges color={theme.palette.primary.main} scale={1} />
          <planeGeometry args={[arenaSize.length, arenaSize.width, 100, 100]} />

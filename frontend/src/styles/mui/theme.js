@@ -12,7 +12,7 @@ theme.palette.primary = {
 theme.palette.background = {
    ...theme.palette.background,
    default: lightGreen[900],
-   paper: "rgb(31, 27, 22)",
+   paper: "rgb(32, 21, 13)",
 }
 
 theme.palette.text = {

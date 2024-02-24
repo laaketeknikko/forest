@@ -29,3 +29,5 @@ TODO: Look into using jotai selectAtom.
 TODO: Debug scenario progression.
 
 TODO: Implement some frontend tests.
+
+TODO: Have characters face the active character.
