@@ -2,11 +2,7 @@ import { useAtom } from "jotai"
 import { selectedScenarioConfigAtom } from "../../../game/state/jotai/scenarios"
 import { Edges, useTexture } from "@react-three/drei"
 import { MathUtils } from "three"
-import {
-   customTheme,
-   generatedDarkThemeColors,
-   theme,
-} from "../../../styles/mui/theme"
+import { theme } from "../../../styles/mui/theme"
 
 export interface FullGroundTileProps {
    sizeX?: number
@@ -19,6 +15,7 @@ const FullGroundTile = ({ sizeX = 10, sizeZ = 10 }: FullGroundTileProps) => {
    const groundTexture = useTexture(
       "sprites/terrain/Architextures_Green_Tenement_Tile.jpg"
    )
+   const displacementMap = useTexture("sprites/terrain/arena_displacement.jpg")
 
    const arenaSize = selectedScenarioConfig.arena?.size || {
       length: sizeX,
@@ -30,18 +27,18 @@ const FullGroundTile = ({ sizeX = 10, sizeZ = 10 }: FullGroundTileProps) => {
          position={[arenaSize.length / 2, 0, arenaSize.width / 2]}
          rotation-x={MathUtils.degToRad(-90)}
       >
-         <mesh position={[0, 0, 0.01]}>
-            <planeGeometry
-               args={[arenaSize.length * 0.95, arenaSize.width * 0.95]}
-            />
-            <meshBasicMaterial
-               color={generatedDarkThemeColors.colors.surface}
-               toneMapped={false}
-            />
+         <mesh position={[0, 0, 0.135]}>
+            <planeGeometry args={[arenaSize.length, arenaSize.width]} />
+            <meshStandardMaterial transparent opacity={0.7} color="blue" />
          </mesh>
          <Edges color={theme.palette.primary.main} scale={1} />
-         <planeGeometry args={[arenaSize.length, arenaSize.width]} />
-         <meshStandardMaterial map={groundTexture} />
+         <planeGeometry args={[arenaSize.length, arenaSize.width, 100, 100]} />
+         <meshStandardMaterial
+            map={groundTexture}
+            displacementMap={displacementMap}
+            displacementScale={0.15}
+            displacementBias={0}
+         />
       </mesh>
    )
 }

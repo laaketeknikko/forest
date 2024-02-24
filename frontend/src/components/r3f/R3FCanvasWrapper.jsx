@@ -68,7 +68,7 @@ const R3FCanvasWrapper = () => {
 
          <FullGroundTile />
 
-         <ambientLight args={["white", 0.1]} />
+         <ambientLight args={["white", 0.5]} />
 
          {activePartyCharacters.length > 0 &&
             activePartyCharacters.map((character) => {

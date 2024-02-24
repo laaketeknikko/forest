@@ -112,14 +112,14 @@ const ActionHelper = () => {
    let helperColor
    let gridColor
    if (activeEffect?.type === actionTypes.movement) {
-      helperColor = customTheme.custom.colors.actionTypes.movementOpposite
-      gridColor = customTheme.custom.colors.actionTypes.movement
+      helperColor = customTheme.custom.colors.actionTypes.movement
+      gridColor = customTheme.custom.colors.actionTypes.movementOpposite
    } else if (activeEffect?.type === actionTypes.support) {
       helperColor = customTheme.custom.colors.actionTypes.support
       gridColor = customTheme.custom.colors.actionTypes.supportOpposite
    } else if (activeEffect?.type === actionTypes.offensive) {
-      helperColor = customTheme.custom.colors.actionTypes.offensiveOpposite
-      gridColor = customTheme.custom.colors.actionTypes.offensive
+      helperColor = customTheme.custom.colors.actionTypes.offensive
+      gridColor = customTheme.custom.colors.actionTypes.offensiveOpposite
    } else if (activeEffect?.type === actionTypes.defensive) {
       helperColor = customTheme.custom.colors.actionTypes.defensive
       gridColor = customTheme.custom.colors.actionTypes.defensiveOpposite
@@ -132,7 +132,7 @@ const ActionHelper = () => {
                <mesh
                   position={[
                      activeCharacterData.position?.x || 0,
-                     0.05,
+                     0.25,
                      activeCharacterData.position?.z || 0,
                   ]}
                   rotation-x={MathUtils.degToRad(-90)}
@@ -141,7 +141,7 @@ const ActionHelper = () => {
                   <CustomGrid
                      position={[0, 0, 0.05]}
                      cellSize={1}
-                     cellThickness={1}
+                     cellThickness={1.5}
                      cellColor={gridColor}
                      sectionThickness={0}
                      sectionColor={theme.palette.primary.main}
