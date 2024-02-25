@@ -52,10 +52,16 @@ export const Position2DSchema = z.object({
    z: z.number().default(0),
 })
 
+export const EntityAnimation = z.object({
+   type: z.literal("move").or(z.literal("melee")),
+   target: Position2DSchema,
+})
+
 export const GameEntitySchema = z.object({
    position: PositionSchema,
    health: z.number(),
    targetPosition: Position2DSchema.optional().nullable(),
+   activeAnimation: EntityAnimation.optional().nullable(),
 })
 
 export const DynamicGameEntitySchema = GameEntitySchema.extend({

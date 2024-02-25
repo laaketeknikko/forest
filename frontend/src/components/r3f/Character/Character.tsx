@@ -11,7 +11,7 @@ import { ZCharacter } from "../../../../../shared/types/types"
 
 import { PositionSchema } from "../../../../../shared/zod/schemas"
 import { popupInfoAtom } from "../../../game/state/jotai/gameState"
-import { useEntityMoveAnimation } from "../hooks/useEntityMoveAnimation"
+import { useEntityAnimation } from "../hooks/useEntityAnimation"
 import { activeCharacterAtomAtom } from "../../../game/state/jotai/characters"
 
 export interface CharacterProps {
@@ -60,27 +60,43 @@ const Character = ({ characterAtom, maxDimension = 1 }: CharacterProps) => {
       }
    }, [character, dimensions.height, setCharacter])
 
-   const animator = useEntityMoveAnimation()
+   const animator = useEntityAnimation()
    useEffect(() => {
-      if (character.targetPosition && !animator.isAnimating()) {
-         animator.setPoints(
-            {
-               x: character.position.x,
-               z: character.position.z,
-            },
-            {
-               x: character.targetPosition.x,
-               z: character.targetPosition.z,
-            }
-         )
+      if (!animator.isAnimating()) {
+         if (character.targetPosition) {
+            animator.setMoveAnimation(
+               {
+                  x: character.position.x,
+                  z: character.position.z,
+               },
+               {
+                  x: character.targetPosition.x,
+                  z: character.targetPosition.z,
+               }
+            )
+         } else if (
+            character.activeAnimation &&
+            character.activeAnimation.type === "melee"
+         ) {
+            animator.setMeleeAttackAnimation(
+               {
+                  x: character.position.x,
+                  z: character.position.z,
+               },
+               {
+                  x: character.position.x,
+                  z: character.position.z,
+               },
+               character.activeAnimation.target
+            )
+         }
       }
    }, [
       animator,
+      character.activeAnimation,
       character.position.x,
       character.position.z,
       character.targetPosition,
-      character.targetPosition?.x,
-      character.targetPosition?.z,
    ])
 
    const meshRef = useRef<Mesh | null>(null)
@@ -109,15 +125,23 @@ const Character = ({ characterAtom, maxDimension = 1 }: CharacterProps) => {
          }
 
          if (!animator.isAnimating()) {
-            setCharacter({
-               ...character,
-               position: {
-                  x: character.targetPosition!.x,
-                  y: character.position.y,
-                  z: character.targetPosition!.z,
-               },
-               targetPosition: null,
-            })
+            if (character.activeAnimation) {
+               setCharacter({
+                  ...character,
+                  position: character.position,
+                  activeAnimation: null,
+               })
+            } else {
+               setCharacter({
+                  ...character,
+                  position: {
+                     x: character.targetPosition!.x,
+                     y: character.position.y,
+                     z: character.targetPosition!.z,
+                  },
+                  targetPosition: null,
+               })
+            }
          }
       }
    })

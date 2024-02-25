@@ -84,6 +84,12 @@ const performOffensiveEffect = (props: PerformEffectProps) => {
    }
    const jotaiStore = getDefaultStore()
 
+   const character = jotaiStore.get(props.selectedCharacterAtom)
+   character.activeAnimation = {
+      type: "melee",
+      target: props.targetPoint,
+   }
+
    const allGameEntities = jotaiStore.get(allActiveGameEntitiesAtom)
    const affectedEntities: Array<AffectedEntity> = []
 
@@ -105,7 +111,6 @@ const performOffensiveEffect = (props: PerformEffectProps) => {
       }
    }
 
-   const character = jotaiStore.get(props.selectedCharacterAtom)
    // TODO: Implemented differente types for different actions to validate?
    const attackPower = props.activeEffect.powerMultiplier! * character.strength
 
