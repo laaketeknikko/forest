@@ -66,7 +66,7 @@ const R3FCanvasWrapper = () => {
       >
          {pauseAnimation && <DisableRender />}
          <CameraControls />
-
+         <axesHelper />
          <FullGroundTile />
 
          <ambientLight args={[theme.palette.text.primary, 0.2]} />

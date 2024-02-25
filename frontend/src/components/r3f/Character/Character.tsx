@@ -1,7 +1,7 @@
 import PropTypes from "prop-types"
 
 import { useFrame, useLoader } from "@react-three/fiber"
-import { Clock, Mesh, TextureLoader } from "three"
+import { Clock, DoubleSide, Mesh, TextureLoader } from "three"
 
 import { PrimitiveAtom, useAtom } from "jotai"
 
@@ -12,6 +12,7 @@ import { ZCharacter } from "../../../../../shared/types/types"
 import { PositionSchema } from "../../../../../shared/zod/schemas"
 import { popupInfoAtom } from "../../../game/state/jotai/gameState"
 import { useEntityMoveAnimation } from "../hooks/useEntityMoveAnimation"
+import { activeCharacterAtomAtom } from "../../../game/state/jotai/characters"
 
 export interface CharacterProps {
    characterAtom: PrimitiveAtom<ZCharacter>
@@ -33,6 +34,8 @@ export interface CharacterProps {
 const Character = ({ characterAtom, maxDimension = 1 }: CharacterProps) => {
    const [character, setCharacter] = useAtom(characterAtom)
    const [, setPopupInfo] = useAtom(popupInfoAtom)
+   const [activeCharacterAtom] = useAtom(activeCharacterAtomAtom)
+   const [activeCharacter] = useAtom(activeCharacterAtom)
 
    const colorMap = useLoader(TextureLoader, character.spritePath)
 
@@ -81,6 +84,13 @@ const Character = ({ characterAtom, maxDimension = 1 }: CharacterProps) => {
    ])
 
    const meshRef = useRef<Mesh | null>(null)
+   useEffect(() => {
+      if (!meshRef.current) return
+
+      const position = activeCharacter.position
+      meshRef.current.lookAt(position.x, character.position.y, position.z)
+   }, [activeCharacter.position, character.position.y])
+
    const clockRef = useRef(new Clock(true))
    const timeRef = useRef<number>(0)
 
@@ -124,12 +134,14 @@ const Character = ({ characterAtom, maxDimension = 1 }: CharacterProps) => {
          onPointerLeave={() => setPopupInfo(null)}
       >
          <planeGeometry args={[dimensions.width, dimensions.height]} />
+
          <meshBasicMaterial
             color="white"
             map={colorMap}
             transparent
             opacity={1}
             toneMapped={false}
+            side={DoubleSide}
          />
       </mesh>
    )

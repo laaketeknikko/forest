@@ -10,4 +10,18 @@ const getTilePositionFromPosition = (xPos: number, zPos: number) => {
    }
 }
 
-export { getTilePositionFromPosition }
+const getNearestTileCornerFromPosition = (xPos: number, zPos: number) => {
+   console.log("getting nearest tile corner from position: ", xPos, zPos)
+
+   const x = Math.round(xPos)
+   const z = Math.round(zPos)
+
+   console.log("nearest corner: ", x, z)
+
+   return {
+      x: x,
+      z: z,
+   }
+}
+
+export { getTilePositionFromPosition, getNearestTileCornerFromPosition }

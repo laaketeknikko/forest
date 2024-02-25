@@ -2,7 +2,7 @@ import { useAtom } from "jotai"
 import { selectedScenarioConfigAtom } from "../../../game/state/jotai/scenarios"
 import { Edges, useTexture } from "@react-three/drei"
 import { MathUtils } from "three"
-import { generatedDarkThemeColors, theme } from "../../../styles/mui/theme"
+import { theme } from "../../../styles/mui/theme"
 
 export interface FullGroundTileProps {
    sizeX?: number

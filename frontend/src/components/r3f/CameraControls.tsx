@@ -1,5 +1,5 @@
 //import { useThree } from "@react-three/fiber"
-import { activeCharacterAtom } from "../../game/state/jotai/characters"
+import { activeCharacterAtomAtom } from "../../game/state/jotai/characters"
 import { useAtom } from "jotai"
 import { useMemo } from "react"
 import { MapControls } from "@react-three/drei"
@@ -8,7 +8,7 @@ import { MapControls } from "@react-three/drei"
 
 const CameraControls = () => {
    //const three = useThree()
-   const [characterAtom] = useAtom(activeCharacterAtom)
+   const [characterAtom] = useAtom(activeCharacterAtomAtom)
    const [character] = useAtom(characterAtom)
 
    /*useMemo(() => {

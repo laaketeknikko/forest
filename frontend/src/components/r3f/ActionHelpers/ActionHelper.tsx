@@ -3,7 +3,7 @@ import {
    currentlySelectedActionCardAtom,
    gameExecutionStateAtom,
 } from "../../../game/state/jotai/gameState"
-import { activeCharacterAtom } from "../../../game/state/jotai/characters"
+import { activeCharacterAtomAtom } from "../../../game/state/jotai/characters"
 import { useEffect, useMemo, useRef, useState } from "react"
 
 import { actionTypes } from "../../../config/actions/actionTypes"
@@ -20,11 +20,12 @@ import { ZActionEffect } from "../../../../../shared/types/types"
 import { ThreeEvent } from "@react-three/fiber"
 import { MathUtils } from "three"
 
-import { customTheme, theme } from "../../../styles/mui/theme"
+import { customTheme } from "../../../styles/mui/theme"
 import { emptyActionCardAtom } from "../../../game/state/initialStates"
 import { useScenarioVictoryConditions } from "../../../game/hooks/useScenarioVictoryConditions"
 
 import { CustomGrid } from "../util/CustomGrid"
+import { getNearestTileCornerFromPosition } from "../../../game/util/mapUtils"
 
 // TODO: When user deselects a card, the action is undefined
 // but it's still possible to execute the effects. Fix.
@@ -40,7 +41,7 @@ const ActionHelper = () => {
       currentlySelectedActionCardAtom
    )
    const [selectedCardData] = useAtom(selectedCard)
-   const [activeCharacter] = useAtom(activeCharacterAtom)
+   const [activeCharacter] = useAtom(activeCharacterAtomAtom)
    const [activeCharacterData] = useAtom(activeCharacter)
    const [gameExecutionState, setGameExecutionState] = useAtom(
       gameExecutionStateAtom
@@ -125,6 +126,25 @@ const ActionHelper = () => {
       gridColor = customTheme.custom.colors.actionTypes.defensiveOpposite
    }
 
+   const gridCenter = useMemo(() => {
+      const gridCenter = {
+         x:
+            getNearestTileCornerFromPosition(
+               activeCharacterData.position!.x,
+               activeCharacterData.position!.z
+            ).x - activeCharacterData.position.x,
+         z:
+            getNearestTileCornerFromPosition(
+               activeCharacterData.position!.x,
+               activeCharacterData.position!.z
+            ).z - activeCharacterData.position.z,
+      }
+
+      console.log("gridcenter", gridCenter)
+      console.log("position", activeCharacterData.position)
+      return gridCenter
+   }, [activeCharacterData.position])
+
    return (
       <group>
          {activeEffect && (
@@ -132,54 +152,42 @@ const ActionHelper = () => {
                <mesh
                   position={[
                      activeCharacterData.position?.x || 0,
-                     0.25,
+                     0.2,
                      activeCharacterData.position?.z || 0,
                   ]}
                   rotation-x={MathUtils.degToRad(-90)}
                   onClick={onPerformEffect}
                >
+                  {/**
+                   * Positioning the custom grid is a bit tricky.
+                   *
+                   * The grid is y-up oriented. Because we have rotated the parent
+                   * mesh, y would be pointing to the side. So we need to rotate
+                   * the grid to point it globally up.
+                   *
+                   * We also want to position the grid horizontally to align with
+                   * full integer positions. Because the parent mesh is rotated -90
+                   * degrees, now the y dimension of the grid is pointing to the
+                   * z dimension globally. Increasing the y coordinate of the grid
+                   * pushes towards negative z coordinate, so we invert the coordinate
+                   * we set.
+                   */}
                   <CustomGrid
-                     position={[0, 0, 0.05]}
+                     position={[gridCenter.x, -gridCenter.z, 0.1]}
                      cellSize={1}
                      cellThickness={1.5}
                      cellColor={gridColor}
                      sectionThickness={0}
-                     sectionColor={theme.palette.primary.main}
-                     sectionSize={activeEffect.range ? activeEffect.range : 5}
                      args={[
-                        activeEffect.range ? activeEffect.range * 2 + 2 : 10,
-                        activeEffect.range ? activeEffect.range * 2 + 2 : 10,
+                        activeEffect.range ? activeEffect.range * 4 + 2 : 10,
+                        activeEffect.range ? activeEffect.range * 4 + 2 : 10,
                      ]}
                      infiniteGrid={false}
                      rotation-x={MathUtils.degToRad(90)}
                      fadeDistance={
-                        activeEffect.range ? activeEffect.range * 1 + 2 : 5
+                        activeEffect.range ? activeEffect.range * 2 + 1 : 5
                      }
-                     fadeStrength={1}
-                  />
-                  <mesh position={[0, 0, 0]}>
-                     <circleGeometry
-                        args={[
-                           activeEffect.range ? activeEffect.range : 0.5,
-                           30,
-                        ]}
-                     />
-                     <meshBasicMaterial
-                        toneMapped={false}
-                        color={helperColor}
-                        transparent
-                        opacity={0}
-                        depthWrite={false}
-                     />
-                  </mesh>
-
-                  <ringGeometry
-                     args={[
-                        activeEffect.range ? activeEffect.range * 0.99 : 0.5,
-                        activeEffect.range ? activeEffect.range : 0.5,
-                        20,
-                        1,
-                     ]}
+                     fadeStrength={1.5}
                   />
 
                   <circleGeometry

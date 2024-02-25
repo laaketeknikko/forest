@@ -6,7 +6,7 @@ import { ZCharacter } from "../../../../../shared/types/types"
 /**
  * This atom is used to determine the current character to act in turn order.
  */
-const activeCharacterAtom = atom((get) => {
+const activeCharacterAtomAtom = atom((get) => {
    const turnorder = get(turnOrderAtom)
    if (turnorder.length === 0) return emptyCharacterAtom
 
@@ -28,6 +28,6 @@ const activePartyAtom = atom<Array<PrimitiveAtom<ZCharacter>>>([])
 export {
    emptyCharacterAtom,
    allPlayerCharactersAtom,
-   activeCharacterAtom,
+   activeCharacterAtomAtom,
    activePartyAtom,
 }

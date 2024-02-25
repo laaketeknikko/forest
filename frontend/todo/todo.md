@@ -31,3 +31,5 @@ TODO: Debug scenario progression.
 TODO: Implement some frontend tests.
 
 TODO: Have characters face the active character.
+
+TODO: Center helper grid on real grid.
