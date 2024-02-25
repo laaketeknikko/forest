@@ -13,6 +13,7 @@ import { PositionSchema } from "../../../../../shared/zod/schemas"
 import { popupInfoAtom } from "../../../game/state/jotai/gameState"
 import { useEntityAnimation } from "../hooks/useEntityAnimation"
 import { activeCharacterAtomAtom } from "../../../game/state/jotai/characters"
+import { CharacterPopupInfo } from "../../GameScene/PopupInfo.tsx/CharacterPopupInfo"
 
 export interface CharacterProps {
    characterAtom: PrimitiveAtom<ZCharacter>
@@ -154,8 +155,14 @@ const Character = ({ characterAtom, maxDimension = 1 }: CharacterProps) => {
             character.position.y || 0,
             character.position.z || 0,
          ]}
-         onPointerEnter={() => setPopupInfo(character)}
-         onPointerLeave={() => setPopupInfo(null)}
+         onPointerEnter={(event) => {
+            event.stopPropagation()
+            setPopupInfo(<CharacterPopupInfo characterAtom={characterAtom} />)
+         }}
+         onPointerLeave={(event) => {
+            event.stopPropagation()
+            setPopupInfo(null)
+         }}
       >
          <planeGeometry args={[dimensions.width, dimensions.height]} />
 

@@ -1,10 +1,11 @@
-import { Atom, useSetAtom } from "jotai"
+import { PrimitiveAtom, useSetAtom } from "jotai"
 import { useAtom } from "jotai"
 import { ZCharacter } from "../../../../../shared/types/types"
 import { popupInfoAtom } from "../../../game/state/jotai/gameState"
+import { CharacterPopupInfo } from "../PopupInfo.tsx/CharacterPopupInfo"
 
 interface TurnOrderViewItemProps {
-   characterAtom: Atom<ZCharacter>
+   characterAtom: PrimitiveAtom<ZCharacter>
 }
 
 const TurnOrderViewItem = ({ characterAtom }: TurnOrderViewItemProps) => {
@@ -15,7 +16,9 @@ const TurnOrderViewItem = ({ characterAtom }: TurnOrderViewItemProps) => {
       <img
          className="turn-order-image"
          src={character.spritePath}
-         onMouseEnter={() => setPopupInfo(character)}
+         onMouseEnter={() =>
+            setPopupInfo(<CharacterPopupInfo characterAtom={characterAtom} />)
+         }
          onMouseLeave={() => setPopupInfo(null)}
       />
    )

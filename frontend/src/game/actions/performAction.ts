@@ -1,27 +1,21 @@
 import type { PrimitiveAtom } from "jotai"
 import { getDefaultStore } from "jotai"
 
-import { allActiveGameEntitiesAtom } from "../state/jotai/entities"
 import { actionTypes } from "../../config/actions/actionTypes"
 import {
    ZActionCard,
    ZActionCardAction,
    ZActionEffect,
    ZCharacter,
-   ZGameEntity,
    ZPosition2D,
 } from "../../../../shared/types/types"
 import { PositionSchema } from "../../../../shared/zod/schemas"
+import { getEntitiesForPosition } from "../util/mapUtils"
 
 interface PerformActionProps {
    selectedCharacterAtom: PrimitiveAtom<ZCharacter>
    activeCardAtom: PrimitiveAtom<ZActionCard>
    selectedAction: ZActionCardAction
-}
-
-interface AffectedEntity {
-   entityData: ZGameEntity
-   entity: PrimitiveAtom<ZGameEntity>
 }
 
 interface PerformEffectProps {
@@ -90,26 +84,10 @@ const performOffensiveEffect = (props: PerformEffectProps) => {
       target: props.targetPoint,
    }
 
-   const allGameEntities = jotaiStore.get(allActiveGameEntitiesAtom)
-   const affectedEntities: Array<AffectedEntity> = []
-
    /**
     * Get all entities that are in the same tile as the target point
     */
-   for (const entity of allGameEntities) {
-      const entityData: ZGameEntity = jotaiStore.get(entity)
-
-      const differenceX = Math.abs(entityData.position!.x - tileCenter.x)
-      const differenceZ = Math.abs(entityData.position!.z - tileCenter.z)
-
-      if (differenceX <= 0.5 && differenceZ <= 0.5) {
-         // TODO: Fix
-         affectedEntities.push({
-            entityData: entityData,
-            entity: entity as unknown as PrimitiveAtom<ZGameEntity>,
-         })
-      }
-   }
+   const affectedEntities = getEntitiesForPosition(tileCenter)
 
    // TODO: Implemented differente types for different actions to validate?
    const attackPower = props.activeEffect.powerMultiplier! * character.strength

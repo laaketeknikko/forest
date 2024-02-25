@@ -9,7 +9,6 @@ import IconButton from "@mui/material/IconButton"
 import MenuIcon from "@mui/icons-material/Menu"
 import Drawer from "@mui/material/Drawer"
 
-import { CharacterPopupInfo } from "./CharacterPopupInfo"
 import { SaveGame } from "../MainMenu/SaveGame"
 import { LoadGame } from "../MainMenu/LoadGame"
 import {
@@ -23,6 +22,7 @@ import {
 } from "../../config/types"
 import { useScenarioVictoryConditions } from "../../game/hooks/useScenarioVictoryConditions"
 import { ZSaveConfigScenarioStatistics } from "../../../../shared/types/types"
+import { PopupInfo } from "./PopupInfo.tsx/PopupInfo"
 
 /**
  * Top level wrapper when game is running. Contains three main components:
@@ -144,7 +144,7 @@ const GameScene = () => {
                      zIndex: 100,
                   }}
                >
-                  <CharacterPopupInfo />
+                  <PopupInfo />
                </div>
 
                <Suspense>

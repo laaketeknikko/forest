@@ -10,13 +10,13 @@ import {
 import {
    ZActionCard,
    ZActionEffect,
-   ZCharacter,
    ZDynamicGameEntity,
    ZSaveConfig,
    ZSaveConfigCharacter,
    ZSaveConfigEnemy,
    ZScenarioConfig,
 } from "../../../../../shared/types/types"
+import { ReactNode } from "react"
 
 /**
  * Calculates the turn order from all active game entities.
@@ -92,7 +92,7 @@ const activeSaveGameConfigAtom = atom<ZSaveConfig>({
 /**
  * The info displayed on character hover.
  */
-const popupInfoAtom = atom<ZCharacter | null>(null)
+const popupInfoAtom = atom<ReactNode | null>(null)
 
 /**
  * The effect user is currently executing.

@@ -1,13 +1,17 @@
 import Paper from "@mui/material/Paper"
 
-import { theme } from "../../styles/mui/theme"
+import { theme } from "../../../styles/mui/theme"
 import Typography from "@mui/material/Typography"
 import Table from "@mui/material/Table"
 import TableBody from "@mui/material/TableBody"
 import TableCell from "@mui/material/TableCell"
 import TableRow from "@mui/material/TableRow"
-import { useAtom } from "jotai"
-import { popupInfoAtom } from "../../game/state/jotai/gameState"
+import { PrimitiveAtom, useAtom } from "jotai"
+import { ZCharacter } from "../../../../../shared/types/types"
+
+interface CharacterPopupInfoProps {
+   characterAtom: PrimitiveAtom<ZCharacter>
+}
 
 // TODO: Style this properly
 
@@ -26,8 +30,8 @@ const infoStyles = {
  * Display short info, like health, delay, etc.
  *
  */
-const CharacterPopupInfo = () => {
-   const [characterInfo] = useAtom(popupInfoAtom)
+const CharacterPopupInfo = ({ characterAtom }: CharacterPopupInfoProps) => {
+   const [characterInfo] = useAtom(characterAtom)
 
    if (!characterInfo) {
       return null

@@ -1,7 +1,8 @@
-import { useAtom } from "jotai"
+import { useAtom, useSetAtom } from "jotai"
 import {
    currentlySelectedActionCardAtom,
    gameExecutionStateAtom,
+   popupInfoAtom,
 } from "../../../game/state/jotai/gameState"
 import { activeCharacterAtomAtom } from "../../../game/state/jotai/characters"
 import { useEffect, useMemo, useRef, useState } from "react"
@@ -16,7 +17,7 @@ import {
    ActionEffectsTracker,
    useActionEffectsTracker,
 } from "./useActionEffectsTracker"
-import { ZActionEffect } from "../../../../../shared/types/types"
+import { ZActionEffect, ZCharacter } from "../../../../../shared/types/types"
 import { ThreeEvent } from "@react-three/fiber"
 import { MathUtils } from "three"
 
@@ -25,7 +26,12 @@ import { emptyActionCardAtom } from "../../../game/state/initialStates"
 import { useScenarioVictoryConditions } from "../../../game/hooks/useScenarioVictoryConditions"
 
 import { CustomGrid } from "../util/CustomGrid"
-import { getNearestTileCornerFromPosition } from "../../../game/util/mapUtils"
+import {
+   getEntitiesForPosition,
+   getNearestTileCornerFromPosition,
+} from "../../../game/util/mapUtils"
+import { AffectedPopupInfo } from "../../GameScene/PopupInfo.tsx/AffectedPopupInfo"
+import { PrimitiveAtom } from "jotai/vanilla"
 
 // TODO: When user deselects a card, the action is undefined
 // but it's still possible to execute the effects. Fix.
@@ -46,6 +52,7 @@ const ActionHelper = () => {
    const [gameExecutionState, setGameExecutionState] = useAtom(
       gameExecutionStateAtom
    )
+   const setPopupInfo = useSetAtom(popupInfoAtom)
    const [activeEffect, setActiveEffect] = useState<ZActionEffect | undefined>(
       undefined
    )
@@ -110,6 +117,25 @@ const ActionHelper = () => {
       }
    }
 
+   const onHelperHover = (event: ThreeEvent<PointerEvent>) => {
+      event.stopPropagation()
+
+      const entities = getEntitiesForPosition({
+         x: event.point.x,
+         z: event.point.z,
+      })
+
+      console.log("entities: ", entities)
+
+      setPopupInfo(
+         <AffectedPopupInfo
+            entityAtoms={entities.map(
+               (e) => e.entity as unknown as PrimitiveAtom<ZCharacter>
+            )}
+         />
+      )
+   }
+
    let helperColor
    let gridColor
    if (activeEffect?.type === actionTypes.movement) {
@@ -157,6 +183,8 @@ const ActionHelper = () => {
                   ]}
                   rotation-x={MathUtils.degToRad(-90)}
                   onClick={onPerformEffect}
+                  onPointerMove={onHelperHover}
+                  onPointerLeave={() => setPopupInfo(null)}
                >
                   {/**
                    * Positioning the custom grid is a bit tricky.
