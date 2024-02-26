@@ -1,6 +1,3 @@
-import Paper from "@mui/material/Paper"
-
-import { theme } from "../../../styles/mui/theme"
 import Typography from "@mui/material/Typography"
 import Table from "@mui/material/Table"
 import TableBody from "@mui/material/TableBody"
@@ -8,6 +5,7 @@ import TableCell from "@mui/material/TableCell"
 import TableRow from "@mui/material/TableRow"
 import { PrimitiveAtom, useAtom } from "jotai"
 import { ZCharacter } from "../../../../../shared/types/types"
+import TableHead from "@mui/material/TableHead"
 
 interface CharacterPopupInfoProps {
    characterAtom: PrimitiveAtom<ZCharacter>
@@ -26,8 +24,8 @@ const infoStyles = {
 }
 
 /**
- * Used inside the game scene, when hovering over a character.
- * Display short info, like health, delay, etc.
+ * Used to display character information in the popup.
+ * This doesn't set the info, it only returns the JSX.
  *
  */
 const CharacterPopupInfo = ({ characterAtom }: CharacterPopupInfoProps) => {
@@ -38,40 +36,37 @@ const CharacterPopupInfo = ({ characterAtom }: CharacterPopupInfoProps) => {
    }
 
    return (
-      <Paper
-         sx={{
-            color: theme.palette.text.primary,
-            width: "fit-content",
-            textAlign: "center",
-            padding: 1,
-         }}
-      >
-         <Typography color="primary">{characterInfo.name}</Typography>
-         <Table size="small">
-            <TableBody>
-               <TableRow sx={{ border: 0 }}>
-                  <TableCell component="th" sx={infoStyles.td}>
-                     <Typography>Health</Typography>
-                  </TableCell>
-                  <TableCell align="right" sx={infoStyles.td}>
-                     <Typography color="primary">
-                        {characterInfo.health}
-                     </Typography>
-                  </TableCell>
-               </TableRow>
-               <TableRow>
-                  <TableCell component="th" sx={infoStyles.td}>
-                     <Typography>Delay</Typography>
-                  </TableCell>
-                  <TableCell align="right" sx={infoStyles.td}>
-                     <Typography color="primary">
-                        {characterInfo.currentActionDelay.toFixed(1)}
-                     </Typography>
-                  </TableCell>
-               </TableRow>
-            </TableBody>
-         </Table>
-      </Paper>
+      <Table size="small">
+         <TableHead>
+            <TableRow>
+               <TableCell>
+                  <Typography color="primary">{characterInfo.name}</Typography>
+               </TableCell>
+            </TableRow>
+         </TableHead>
+         <TableBody>
+            <TableRow sx={{ border: 0 }}>
+               <TableCell component="th" sx={infoStyles.td}>
+                  <Typography>Health</Typography>
+               </TableCell>
+               <TableCell align="right" sx={infoStyles.td}>
+                  <Typography color="primary">
+                     {characterInfo.health}
+                  </Typography>
+               </TableCell>
+            </TableRow>
+            <TableRow>
+               <TableCell component="th" sx={infoStyles.td}>
+                  <Typography>Delay</Typography>
+               </TableCell>
+               <TableCell align="right" sx={infoStyles.td}>
+                  <Typography color="primary">
+                     {characterInfo.currentActionDelay.toFixed(1)}
+                  </Typography>
+               </TableCell>
+            </TableRow>
+         </TableBody>
+      </Table>
    )
 }
 

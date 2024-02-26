@@ -56,6 +56,15 @@ interface GameExecutionState {
    }
 
    /**
+    * Can be used to check whether an animation is ongoing.
+    * This is used by R3FCanvasWrapper to pause the frame loop
+    * when no animation is ongoing.
+    */
+   animations: {
+      isAnimating: boolean
+   }
+
+   /**
     * Used for main menu navigation.
     */
    mainMenu: MainMenuNavigationState

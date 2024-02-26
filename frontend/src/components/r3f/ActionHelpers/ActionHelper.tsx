@@ -40,6 +40,7 @@ import { PrimitiveAtom } from "jotai/vanilla"
  * Provides visual and game logic helpers when performing actions and action effects.
  * - Displays a circle for effect ranges
  * - Takes care of executing actions in order
+ * - Displays a popup with the affected entities
  *
  */
 const ActionHelper = () => {
@@ -79,7 +80,9 @@ const ActionHelper = () => {
 
    const victoryConditions = useScenarioVictoryConditions()
 
-   const onPerformEffect = (event: ThreeEvent<MouseEvent>) => {
+   const handlePerformEffect = (event: ThreeEvent<MouseEvent>) => {
+      if (!actionTrackerRef.current) return
+
       event.stopPropagation()
 
       performEffect({
@@ -94,12 +97,17 @@ const ActionHelper = () => {
          ...gameExecutionState,
          actions: { ...gameExecutionState.actions, isPerfomingAction: true },
       })
-      actionTrackerRef.current?.effectExecuted()
+      actionTrackerRef.current.effectExecuted()
 
-      if (!actionTrackerRef.current?.getNextUnexecutedEffect()) {
+      /**
+       * If there are no more effects to execute, perform whole-action updates.
+       */
+      if (!actionTrackerRef.current.getNextUnexecutedEffect()) {
          performAction({
             activeCardAtom: selectedCard,
-            // TODO: fix
+            /**
+             * It's not possible to get here without an action.
+             */
             selectedAction: action!,
             selectedCharacterAtom: activeCharacter,
          })
@@ -117,7 +125,7 @@ const ActionHelper = () => {
       }
    }
 
-   const onHelperHover = (event: ThreeEvent<PointerEvent>) => {
+   const handleHelperHover = (event: ThreeEvent<PointerEvent>) => {
       event.stopPropagation()
 
       const entities = getEntitiesForPosition({
@@ -153,21 +161,16 @@ const ActionHelper = () => {
    }
 
    const gridCenter = useMemo(() => {
+      const corner = getNearestTileCornerFromPosition(
+         activeCharacterData.position.x,
+         activeCharacterData.position.z
+      )
+
       const gridCenter = {
-         x:
-            getNearestTileCornerFromPosition(
-               activeCharacterData.position!.x,
-               activeCharacterData.position!.z
-            ).x - activeCharacterData.position.x,
-         z:
-            getNearestTileCornerFromPosition(
-               activeCharacterData.position!.x,
-               activeCharacterData.position!.z
-            ).z - activeCharacterData.position.z,
+         x: corner.x - activeCharacterData.position.x,
+         z: corner.z - activeCharacterData.position.z,
       }
 
-      console.log("gridcenter", gridCenter)
-      console.log("position", activeCharacterData.position)
       return gridCenter
    }, [activeCharacterData.position])
 
@@ -182,8 +185,8 @@ const ActionHelper = () => {
                      activeCharacterData.position?.z || 0,
                   ]}
                   rotation-x={MathUtils.degToRad(-90)}
-                  onClick={onPerformEffect}
-                  onPointerMove={onHelperHover}
+                  onClick={handlePerformEffect}
+                  onPointerMove={handleHelperHover}
                   onPointerLeave={() => setPopupInfo(null)}
                >
                   {/**
@@ -203,7 +206,7 @@ const ActionHelper = () => {
                   <CustomGrid
                      position={[gridCenter.x, -gridCenter.z, 0.1]}
                      cellSize={1}
-                     cellThickness={1.5}
+                     cellThickness={1}
                      cellColor={gridColor}
                      sectionThickness={0}
                      args={[

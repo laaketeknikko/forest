@@ -17,6 +17,7 @@ import {
    ZScenarioConfig,
 } from "../../../../../shared/types/types"
 import { ReactNode } from "react"
+import { focusAtom } from "jotai-optics"
 
 /**
  * Calculates the turn order from all active game entities.
@@ -57,6 +58,10 @@ const gameExecutionStateAtom = atom<GameExecutionState>({
       isPerfomingAction: false,
    },
 
+   animations: {
+      isAnimating: false,
+   },
+
    mainMenu: {
       showMainmenu: true,
       gameConfigLoaded: false,
@@ -76,6 +81,10 @@ const gameExecutionStateAtom = atom<GameExecutionState>({
    },
    mainDisplay: MainWindowDisplayStatus.showMainMenu,
 })
+
+const animationFocusAtom = focusAtom(gameExecutionStateAtom, (optic) =>
+   optic.prop("animations")
+)
 
 /**
  * This is updated by useSaveGame and useLoadGame to hold the current save state.
@@ -107,4 +116,5 @@ export {
    activeSaveGameConfigAtom,
    popupInfoAtom,
    activeEffectAtom,
+   animationFocusAtom,
 }

@@ -10,7 +10,10 @@ import { useEffect, useMemo, useRef } from "react"
 import { ZCharacter } from "../../../../../shared/types/types"
 
 import { PositionSchema } from "../../../../../shared/zod/schemas"
-import { popupInfoAtom } from "../../../game/state/jotai/gameState"
+import {
+   animationFocusAtom,
+   popupInfoAtom,
+} from "../../../game/state/jotai/gameState"
 import { useEntityAnimation } from "../hooks/useEntityAnimation"
 import { activeCharacterAtomAtom } from "../../../game/state/jotai/characters"
 import { CharacterPopupInfo } from "../../GameScene/PopupInfo.tsx/CharacterPopupInfo"
@@ -37,6 +40,7 @@ const Character = ({ characterAtom, maxDimension = 1 }: CharacterProps) => {
    const [, setPopupInfo] = useAtom(popupInfoAtom)
    const [activeCharacterAtom] = useAtom(activeCharacterAtomAtom)
    const [activeCharacter] = useAtom(activeCharacterAtom)
+   const [, setAnimationFocus] = useAtom(animationFocusAtom)
 
    const colorMap = useLoader(TextureLoader, character.spritePath)
 
@@ -75,6 +79,7 @@ const Character = ({ characterAtom, maxDimension = 1 }: CharacterProps) => {
                   z: character.targetPosition.z,
                }
             )
+            setAnimationFocus({ isAnimating: true })
          } else if (
             character.activeAnimation &&
             character.activeAnimation.type === "melee"
@@ -90,6 +95,7 @@ const Character = ({ characterAtom, maxDimension = 1 }: CharacterProps) => {
                },
                character.activeAnimation.target
             )
+            setAnimationFocus({ isAnimating: true })
          }
       }
    }, [
@@ -98,9 +104,14 @@ const Character = ({ characterAtom, maxDimension = 1 }: CharacterProps) => {
       character.position.x,
       character.position.z,
       character.targetPosition,
+      setAnimationFocus,
    ])
 
    const meshRef = useRef<Mesh | null>(null)
+
+   /**
+    * lookAt the active character.
+    */
    useEffect(() => {
       if (!meshRef.current) return
 
@@ -125,6 +136,10 @@ const Character = ({ characterAtom, maxDimension = 1 }: CharacterProps) => {
             )
          }
 
+         /**
+          * Animation depends on activeAnimation or targetPosition,
+          * so if we don't animate anymore, remove those.
+          */
          if (!animator.isAnimating()) {
             if (character.activeAnimation) {
                setCharacter({
@@ -143,6 +158,7 @@ const Character = ({ characterAtom, maxDimension = 1 }: CharacterProps) => {
                   targetPosition: null,
                })
             }
+            setAnimationFocus({ isAnimating: false })
          }
       }
    })
@@ -151,9 +167,9 @@ const Character = ({ characterAtom, maxDimension = 1 }: CharacterProps) => {
       <mesh
          ref={meshRef}
          position={[
-            character.position.x || 0,
-            character.position.y || 0,
-            character.position.z || 0,
+            character.position.x,
+            character.position.y,
+            character.position.z,
          ]}
          onPointerEnter={(event) => {
             event.stopPropagation()
@@ -172,6 +188,7 @@ const Character = ({ characterAtom, maxDimension = 1 }: CharacterProps) => {
             transparent
             opacity={1}
             toneMapped={false}
+            depthTest={false}
             side={DoubleSide}
          />
       </mesh>

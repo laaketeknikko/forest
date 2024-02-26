@@ -15,6 +15,7 @@ import { ArenaBorderDecorations } from "./ArenaBorderDecorations"
 import { selectedScenarioConfigAtom } from "../../game/state/jotai/scenarios"
 import { FullGroundTile } from "./Ground/FullGroundTile"
 import { theme } from "../../styles/mui/theme"
+import { animationFocusAtom } from "../../game/state/jotai/gameState"
 
 const DisableRender = () => useFrame(() => null, 1000)
 
@@ -25,8 +26,8 @@ const R3FCanvasWrapper = () => {
    const [activePartyCharacters] = useAtom(activePartyAtom)
    const [activeEnemies] = useAtom(activeScenarioEnemiesAtom)
    const [pauseAnimation, setPauseAnimation] = useState(false)
-
    const [selectedScenario] = useAtom(selectedScenarioConfigAtom)
+   const [animationState] = useAtom(animationFocusAtom)
 
    /**
     * Because the game scene is static, we don't want the three.js render loop
@@ -58,6 +59,7 @@ const R3FCanvasWrapper = () => {
 
    return (
       <Canvas
+         frameloop={animationState.isAnimating ? "always" : "demand"}
          camera={{
             position: [0, 10, selectedScenario.arena.size.length],
             fov: [50],
