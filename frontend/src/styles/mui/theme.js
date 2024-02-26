@@ -1,5 +1,5 @@
 import { createTheme } from "@mui/material"
-import { grey, lightGreen } from "@mui/material/colors"
+import { grey } from "@mui/material/colors"
 
 const theme = createTheme()
 
@@ -11,12 +11,14 @@ theme.palette.primary = {
 
 theme.palette.background = {
    ...theme.palette.background,
-   default: lightGreen[900],
+
+   default: "rgb(32, 21, 13)",
    paper: "rgb(32, 21, 13)",
 }
 
 theme.palette.text = {
    ...theme.palette.text,
+
    primary: "rgb(190, 242, 145)",
    secondary: "rgb(190, 242, 145, 0.8)",
    disabled: "rgb(190, 242, 145, 0.3)",

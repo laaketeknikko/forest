@@ -45,7 +45,6 @@ const GameScene = () => {
       if (
          !(gameExecutionState.scenario.won || gameExecutionState.scenario.lost)
       ) {
-         console.log("checking victory conditions")
          if (victoryConditions.allConditionsMet()) {
             let scenarioStat: ZSaveConfigScenarioStatistics | undefined =
                saveGame.scenarioStatistics.find((stat) => {
@@ -110,6 +109,8 @@ const GameScene = () => {
             <SaveGame />
             <LoadGame startGame={handleGameLoaded} />
          </Drawer>
+
+         {/** In-game menu button and turn order */}
          <Grid container columns={24} sx={{ height: "100vh" }}>
             <Grid xs={2} item>
                <Paper elevation={1} sx={{ height: "100%" }}>
@@ -135,6 +136,8 @@ const GameScene = () => {
                   <TurnOrderView />
                </Paper>
             </Grid>
+
+            {/**Main game scene */}
             <Grid xs={16} lg={18} xl={19} item style={{ position: "relative" }}>
                <div
                   style={{
@@ -151,6 +154,8 @@ const GameScene = () => {
                   <R3FCanvasWrapper />
                </Suspense>
             </Grid>
+
+            {/** Cards display */}
             <Grid xs={6} lg={4} xl={3} item>
                <Paper elevation={1} sx={{ height: "100%" }}>
                   <SelectedCharacterCards />

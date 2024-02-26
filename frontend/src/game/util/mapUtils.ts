@@ -2,6 +2,11 @@ import { PrimitiveAtom, getDefaultStore } from "jotai"
 import { ZGameEntity, ZPosition2D } from "../../../../shared/types/types"
 import { allActiveGameEntitiesAtom } from "../state/jotai/entities"
 
+/**
+ * Returns the center position of the tile the given
+ * position is on.
+ 
+ */
 const getTilePositionFromPosition = (xPos: number, zPos: number) => {
    const x = Math.floor(xPos)
    const z = Math.floor(zPos)
@@ -14,13 +19,13 @@ const getTilePositionFromPosition = (xPos: number, zPos: number) => {
    }
 }
 
+/**
+ * Return the nearest tile corner to the given position.
+ * Used to position the helper grid, for example.
+ */
 const getNearestTileCornerFromPosition = (xPos: number, zPos: number) => {
-   console.log("getting nearest tile corner from position: ", xPos, zPos)
-
    const x = Math.round(xPos)
    const z = Math.round(zPos)
-
-   console.log("nearest corner: ", x, z)
 
    return {
       x: x,
@@ -28,6 +33,15 @@ const getNearestTileCornerFromPosition = (xPos: number, zPos: number) => {
    }
 }
 
+/**
+ * Return the list of entities on the tile that corresponds
+ * to the given position.
+ *
+ * @returns - an array of objects: {
+ *   entityData: entity data
+ *   entity: entity atom
+ * }
+ */
 const getEntitiesForPosition = (position: ZPosition2D) => {
    const jotaiStore = getDefaultStore()
    const allEntities = jotaiStore.get(allActiveGameEntitiesAtom)
@@ -46,7 +60,7 @@ const getEntitiesForPosition = (position: ZPosition2D) => {
       const differenceZ = Math.abs(entityData.position!.z - tileCenter.center.z)
 
       if (differenceX <= 0.5 && differenceZ <= 0.5) {
-         // TODO: Fix
+         // TODO: Fix?
          entitiesOnTile.push({
             entityData: entityData,
             entity: entity as unknown as PrimitiveAtom<ZGameEntity>,

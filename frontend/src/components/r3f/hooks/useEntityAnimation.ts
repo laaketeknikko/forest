@@ -3,6 +3,16 @@ import { ZPosition2D } from "../../../../../shared/types/types"
 import { Vector3 } from "three"
 import { getPointsForJumpAnimation } from "../util/animation"
 
+/**
+ * Used to manage the animation points through an animation.
+ * 
+ * Returns an object with the following functions:
+ * - setMoveAnimation: sets a jump animation from start to end
+ * - setMeleeAttackAnimation: sets a jump animation from start to target
+   and from target to end. The latter jump is slower.
+   - getNextPoint: returns the next point in the animation
+   - isAnimating: returns true if there animation points remaining.
+ */
 const useEntityAnimation = () => {
    const startEndRef = useRef<ZPosition2D[]>([])
    const pointsRef = useRef<Vector3[]>([])

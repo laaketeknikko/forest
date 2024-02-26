@@ -6,8 +6,10 @@
 */
 /**
    Copied from @react-three/drei Grid.
-   Changed only the distance calculation to base calculation on
+   Changed only the distance calculation to base the calculation on
    worldPlanePosition instead of worldCamProjPosition.
+   This allows the grid to fade from center of the grid 
+   instead of the camera.
 */
 
 import * as React from "react"

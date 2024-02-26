@@ -15,10 +15,10 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
    <React.StrictMode>
       <DevTools />
       <JotaiDebugComponent />
-      <CssBaseline>
-         <ThemeProvider theme={theme}>
+      <ThemeProvider theme={theme}>
+         <CssBaseline>
             <App />
-         </ThemeProvider>
-      </CssBaseline>
+         </CssBaseline>
+      </ThemeProvider>
    </React.StrictMode>
 )

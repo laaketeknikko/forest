@@ -4,6 +4,9 @@ import { Edges, useTexture } from "@react-three/drei"
 import { MathUtils } from "three"
 import { theme } from "../../../styles/mui/theme"
 
+/**
+ * Renders a single ground mesh and texture.
+ */
 export interface FullGroundTileProps {
    sizeX?: number
    sizeZ?: number
