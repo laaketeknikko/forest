@@ -13,7 +13,7 @@ import { CameraControls } from "./CameraControls"
 import { ArenaBorderDecorations } from "./ArenaBorderDecorations"
 
 import { selectedScenarioConfigAtom } from "../../game/state/jotai/scenarios"
-import { FullGroundTile } from "./Ground/FullGroundTile"
+import { FullGround2 } from "./Ground/FullGround2"
 import { theme } from "../../styles/mui/theme"
 import { animationFocusAtom } from "../../game/state/jotai/gameState"
 
@@ -69,9 +69,9 @@ const R3FCanvasWrapper = () => {
          {pauseAnimation && <DisableRender />}
          <CameraControls />
          <axesHelper />
-         <FullGroundTile />
-
-         <ambientLight args={[theme.palette.text.primary, 0.2]} />
+         <FullGround2 />
+         <ActionHelper />
+         <ambientLight args={["white", 1]} />
 
          {activePartyCharacters.length > 0 &&
             activePartyCharacters.map((character) => {
@@ -94,7 +94,6 @@ const R3FCanvasWrapper = () => {
                )
             })}
 
-         <ActionHelper />
          <ArenaBorderDecorations />
       </Canvas>
    )
