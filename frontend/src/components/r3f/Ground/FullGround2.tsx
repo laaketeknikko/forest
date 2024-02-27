@@ -30,23 +30,32 @@ const FullGround2 = ({ sizeX = 10, sizeZ = 10 }: FullGroundTileProps) => {
    const solidColor = "rgb(69, 43, 0)"
 
    return (
-      <mesh
+      <group
          position={[arenaSize.length / 2, 0, arenaSize.width / 2]}
          rotation-x={MathUtils.degToRad(-90)}
       >
-         <Edges color={theme.palette.primary.main} scale={1} />
+         <mesh>
+            {/**We multiply size by 1.4 so that the arena square is fully inside the round arena texture. */}
+            <planeGeometry
+               args={[arenaSize.length * 1.4, arenaSize.width * 1.4, 100, 100]}
+            />
 
-         <planeGeometry args={[arenaSize.length, arenaSize.width, 100, 100]} />
+            <meshStandardMaterial
+               map={groundTexture}
+               displacementMap={displacementMap}
+               displacementScale={1}
+               transparent
+               opacity={1}
+               color="white"
+            />
+         </mesh>
 
-         <meshStandardMaterial
-            map={groundTexture}
-            displacementMap={displacementMap}
-            displacementScale={1}
-            transparent
-            opacity={1}
-            color="white"
-         />
-      </mesh>
+         <mesh>
+            <planeGeometry args={[arenaSize.length, arenaSize.width, 1, 1]} />
+            <meshBasicMaterial transparent opacity={0} />
+            <Edges color={theme.palette.primary.main} scale={1} />
+         </mesh>
+      </group>
    )
 
    /*

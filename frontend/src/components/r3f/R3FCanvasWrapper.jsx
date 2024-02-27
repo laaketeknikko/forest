@@ -16,7 +16,8 @@ import { selectedScenarioConfigAtom } from "../../game/state/jotai/scenarios"
 import { FullGround2 } from "./Ground/FullGround2"
 import { theme } from "../../styles/mui/theme"
 import { animationFocusAtom } from "../../game/state/jotai/gameState"
-import { ArenaBorderSmallDecorations } from "./Decorations/ArenaBorderSmallDecorations"
+import { ArenaLeafDecorations } from "./Decorations/ArenaLeafDecorations"
+import { ArenaShrubDecorations } from "./Decorations/ArenaShrubDecorations"
 
 const DisableRender = () => useFrame(() => null, 1000)
 
@@ -95,17 +96,30 @@ const R3FCanvasWrapper = () => {
                )
             })}
 
-         <ArenaBorderSmallDecorations
+         <ArenaLeafDecorations
             amount={150}
             baseSize={0.2}
-            minDistance={0}
-            maxDistance={(selectedScenario.arena.size.width / 2) * 1.5}
+            minDistance={3}
+            maxDistance={(selectedScenario.arena.size.width / 2) * 2}
             center={{
                x: selectedScenario.arena.size.width / 2,
                z: selectedScenario.arena.size.width / 2,
             }}
-            sizeVariance={0.1}
+            sizeVariance={0.3}
          />
+
+         <ArenaShrubDecorations
+            amount={50}
+            baseSize={0.5}
+            minDistance={3}
+            maxDistance={(selectedScenario.arena.size.width / 2) * 2}
+            center={{
+               x: selectedScenario.arena.size.width / 2,
+               z: selectedScenario.arena.size.width / 2,
+            }}
+            sizeVariance={0.3}
+         />
+
          <ArenaBorderDecorations />
       </Canvas>
    )

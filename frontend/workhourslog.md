@@ -63,6 +63,6 @@
 | 25.2. | 2    | Debugging                                                   |
 | 25.2. | 3    | UI work / refactoring                                       |
 | 26.2. | 5    | Documentation, debugging                                    |
-| 27.2. | 1    | UI work                                                     |
+| 27.2. | 3    | UI work                                                     |
 
-133
+135
