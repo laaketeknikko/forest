@@ -1,11 +1,11 @@
-import { selectedScenarioConfigAtom } from "../../game/state/jotai/scenarios"
+import { selectedScenarioConfigAtom } from "../../../game/state/jotai/scenarios"
 import { useAtom } from "jotai"
 
 import { useTexture } from "@react-three/drei"
 import {
    getTextureNormalizedWidthAndHeight,
    getTextureYCenter,
-} from "../util/textureUtilities"
+} from "../../util/textureUtilities"
 import { MathUtils } from "three"
 import { useMemo, memo } from "react"
 

@@ -188,7 +188,6 @@ const Character = ({ characterAtom, maxDimension = 1 }: CharacterProps) => {
             transparent
             opacity={1}
             toneMapped={false}
-            depthTest={false}
             side={DoubleSide}
          />
       </mesh>

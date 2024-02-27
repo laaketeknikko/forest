@@ -8,7 +8,7 @@ import {
 import { useAtom } from "jotai"
 import { MainWindowDisplayStatus } from "../../config/types"
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2"
-import { Divider } from "@mui/material"
+import Divider from "@mui/material/Divider"
 import { theme } from "../../styles/mui/theme"
 
 const Debriefing = () => {

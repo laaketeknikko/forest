@@ -10,12 +10,14 @@ import { activeScenarioEnemiesAtom } from "../../game/state/jotai/enemies"
 
 import { useIdleTimer } from "react-idle-timer"
 import { CameraControls } from "./CameraControls"
-import { ArenaBorderDecorations } from "./ArenaBorderDecorations"
+import { ArenaBorderDecorations } from "./Decorations/ArenaBorderDecorations"
 
 import { selectedScenarioConfigAtom } from "../../game/state/jotai/scenarios"
-import { FullGroundTile } from "./Ground/FullGroundTile"
+import { FullGround2 } from "./Ground/FullGround2"
 import { theme } from "../../styles/mui/theme"
 import { animationFocusAtom } from "../../game/state/jotai/gameState"
+import { ArenaLeafDecorations } from "./Decorations/ArenaLeafDecorations"
+import { ArenaShrubDecorations } from "./Decorations/ArenaShrubDecorations"
 
 const DisableRender = () => useFrame(() => null, 1000)
 
@@ -69,9 +71,9 @@ const R3FCanvasWrapper = () => {
          {pauseAnimation && <DisableRender />}
          <CameraControls />
          <axesHelper />
-         <FullGroundTile />
-
-         <ambientLight args={[theme.palette.text.primary, 0.2]} />
+         <FullGround2 />
+         <ActionHelper />
+         <ambientLight args={["white", 1]} />
 
          {activePartyCharacters.length > 0 &&
             activePartyCharacters.map((character) => {
@@ -94,7 +96,30 @@ const R3FCanvasWrapper = () => {
                )
             })}
 
-         <ActionHelper />
+         <ArenaLeafDecorations
+            amount={150}
+            baseSize={0.2}
+            minDistance={3}
+            maxDistance={(selectedScenario.arena.size.width / 2) * 2}
+            center={{
+               x: selectedScenario.arena.size.width / 2,
+               z: selectedScenario.arena.size.width / 2,
+            }}
+            sizeVariance={0.3}
+         />
+
+         <ArenaShrubDecorations
+            amount={50}
+            baseSize={0.5}
+            minDistance={3}
+            maxDistance={(selectedScenario.arena.size.width / 2) * 2}
+            center={{
+               x: selectedScenario.arena.size.width / 2,
+               z: selectedScenario.arena.size.width / 2,
+            }}
+            sizeVariance={0.3}
+         />
+
          <ArenaBorderDecorations />
       </Canvas>
    )
