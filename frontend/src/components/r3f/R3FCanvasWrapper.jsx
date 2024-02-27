@@ -18,6 +18,7 @@ import { theme } from "../../styles/mui/theme"
 import { animationFocusAtom } from "../../game/state/jotai/gameState"
 import { ArenaLeafDecorations } from "./Decorations/ArenaLeafDecorations"
 import { ArenaShrubDecorations } from "./Decorations/ArenaShrubDecorations"
+import { ArenaBorderRadiusDecorations } from "./Decorations/ArenaBorderRadiusDecorations"
 
 const DisableRender = () => useFrame(() => null, 1000)
 
@@ -97,7 +98,7 @@ const R3FCanvasWrapper = () => {
             })}
 
          <ArenaLeafDecorations
-            amount={150}
+            amount={100}
             baseSize={0.2}
             minDistance={3}
             maxDistance={(selectedScenario.arena.size.width / 2) * 2}
@@ -120,7 +121,7 @@ const R3FCanvasWrapper = () => {
             sizeVariance={0.3}
          />
 
-         <ArenaBorderDecorations />
+         <ArenaBorderRadiusDecorations />
       </Canvas>
    )
 }

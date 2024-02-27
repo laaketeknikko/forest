@@ -6,11 +6,18 @@ export interface ArenaShrubDecorationsProps {
    minDistance: number
    maxDistance: number
    amount: number
+
+   /** Where to center the decorations */
    center: ZPosition2D
    sizeVariance: number
    baseSize: number
 }
 
+/**
+ * Generates random shrub decorations on the arena.
+ * Shrubs are y-up, and generated at a circle radius
+ * of minDistance to maxDistance centered on center.
+ */
 const ArenaShrubDecorations = ({
    minDistance,
    maxDistance,

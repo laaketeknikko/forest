@@ -1,13 +1,13 @@
 import { selectedScenarioConfigAtom } from "../../../game/state/jotai/scenarios"
 import { useAtom } from "jotai"
 
-import { useTexture } from "@react-three/drei"
 import {
    getTextureNormalizedWidthAndHeight,
    getTextureYCenter,
 } from "../../util/textureUtilities"
 import { MathUtils } from "three"
 import { useMemo, memo } from "react"
+import { useTexture } from "@react-three/drei"
 
 /**
  * Used to render random decorations on the arena border.
@@ -28,18 +28,14 @@ const ArenaBorderDecorations = () => {
       [bushTexture, treeTexture]
    )
 
-   const widthDecorations = useMemo(
-      () =>
-         randomizeDecorations({
-            decorationOptions,
-            numberOfDecorations: Math.floor(
-               (Math.random() * arenaWidth) / 2 + 4
-            ),
-            maxPos: arenaWidth,
-            maxDepth: 12,
-         }),
-      [arenaWidth, decorationOptions]
-   )
+   const widthDecorations = useMemo(() => {
+      return randomizeDecorations({
+         decorationOptions,
+         numberOfDecorations: Math.floor((Math.random() * arenaWidth) / 2 + 4),
+         maxPos: arenaWidth,
+         maxDepth: 12,
+      })
+   }, [arenaWidth, decorationOptions])
    const lengthDecorations = useMemo(
       () =>
          randomizeDecorations({

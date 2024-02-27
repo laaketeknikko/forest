@@ -1,4 +1,12 @@
-import { DoubleSide, FrontSide, MathUtils, Texture } from "three"
+import {
+   DoubleSide,
+   Euler,
+   FrontSide,
+   MathUtils,
+   Texture,
+   Vector2,
+   Vector3,
+} from "three"
 import { useMemo } from "react"
 import {
    getTextureNormalizedWidthAndHeight,
@@ -11,11 +19,23 @@ export interface UseSmallArenaDecorationsProps {
    minDistance: number
    maxDistance: number
    amount: number
+
+   /**
+    * a random number between 0 and sizeVariance is added to baseSize.
+    */
    sizeVariance: number
    baseSize: number
-   facing: "horizontal" | "vertical"
+
+   /**center facing is special case and meant for large decorations.
+    * It renders decorations in half circle at a longer distance.
+    */
+   facing: "horizontal" | "vertical" | "center"
 }
 
+/**
+ * Takes an array of textures and returns an array of drei/<Instances>
+ * containing <Instance>s.
+ */
 const useSmallArenaDecorations = ({
    textures,
    minDistance,
@@ -26,8 +46,12 @@ const useSmallArenaDecorations = ({
    facing,
 }: UseSmallArenaDecorationsProps) => {
    const texturesInstances = useMemo(() => {
-      const facingAngle = MathUtils.degToRad(facing === "horizontal" ? 0 : -90)
+      const mainFacing = MathUtils.degToRad(facing === "horizontal" ? 0 : -90)
 
+      /**
+       * Randomize the amount of each texture, then get percentage of total
+       * amount of decorations.
+       */
       const amounts: Array<number> = []
       let total = 0
       for (let i = 0; i < textures.length; i++) {
@@ -35,7 +59,6 @@ const useSmallArenaDecorations = ({
          amounts.push(count)
          total += count
       }
-
       for (let i = 0; i < amounts.length; i++) {
          amounts[i] = Math.floor((amounts[i] / total) * amount)
       }
@@ -55,7 +78,8 @@ const useSmallArenaDecorations = ({
                   color="white"
                   opacity={1}
                   toneMapped={false}
-                  alphaTest={0.5}
+                  alphaTest={0.9}
+                  /**Only need doublesided if looking sideways. */
                   side={facing === "horizontal" ? DoubleSide : FrontSide}
                />
                <group>
@@ -65,22 +89,44 @@ const useSmallArenaDecorations = ({
                         const distance =
                            Math.random() * (maxDistance - minDistance) +
                            minDistance
-                        const angle = Math.random() * Math.PI * 2
+                        const positionAngle =
+                           facing === "center"
+                              ? MathUtils.degToRad(225) +
+                                Math.random() * Math.PI
+                              : Math.random() * Math.PI * 2
+
+                        const position = new Vector3(
+                           distance * Math.cos(positionAngle),
+                           facing === "vertical"
+                              ? 0.01
+                              : /**Position to ground level if facing horisontal */
+                                getTextureYCenter(size.height),
+                           distance * Math.sin(positionAngle)
+                        )
+
+                        const rotation = [
+                           mainFacing,
+                           facing === "horizontal" || facing === "center"
+                              ? Math.random() * Math.PI * 2
+                              : 0,
+                           facing === "vertical"
+                              ? Math.random() * Math.PI * 2
+                              : 0,
+                        ]
 
                         return (
                            <Instance
                               key={amountIndex}
                               scale={1}
-                              position={[
-                                 distance * Math.cos(angle),
-                                 facing === "vertical"
-                                    ? 0.01
-                                    : getTextureYCenter(size.height),
-                                 distance * Math.sin(angle),
-                              ]}
-                              rotation-x={facingAngle}
-                              rotation-z={facing === "vertical" ? angle : 0}
-                              rotation-y={facing === "horizontal" ? angle : 0}
+                              position={position}
+                              rotation={
+                                 new Euler(
+                                    rotation[0],
+                                    rotation[1],
+                                    rotation[2],
+                                    "XYZ"
+                                 )
+                              }
                            />
                         )
                      })}

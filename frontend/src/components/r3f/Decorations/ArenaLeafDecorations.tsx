@@ -11,6 +11,11 @@ export interface ArenaLeafDecorationsProps {
    baseSize: number
 }
 
+/**
+ * Generated small leaf foliage decorations on the arena.
+ * Decorations are placed in a circle, at radius minDistance to maxDistance.
+ * Uses drei/Instances.
+ */
 const ArenaLeafDecorations = ({
    minDistance,
    maxDistance,
@@ -40,7 +45,7 @@ const ArenaLeafDecorations = ({
 
    return (
       <group position={[center.x, 0.02, center.z]}>
-         {texturesInstances.map((mesh) => mesh)}
+         {texturesInstances.map((instance) => instance)}
       </group>
    )
 }
