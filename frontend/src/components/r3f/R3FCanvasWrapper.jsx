@@ -10,12 +10,13 @@ import { activeScenarioEnemiesAtom } from "../../game/state/jotai/enemies"
 
 import { useIdleTimer } from "react-idle-timer"
 import { CameraControls } from "./CameraControls"
-import { ArenaBorderDecorations } from "./ArenaBorderDecorations"
+import { ArenaBorderDecorations } from "./Decorations/ArenaBorderDecorations"
 
 import { selectedScenarioConfigAtom } from "../../game/state/jotai/scenarios"
 import { FullGround2 } from "./Ground/FullGround2"
 import { theme } from "../../styles/mui/theme"
 import { animationFocusAtom } from "../../game/state/jotai/gameState"
+import { ArenaBorderSmallDecorations } from "./Decorations/ArenaBorderSmallDecorations"
 
 const DisableRender = () => useFrame(() => null, 1000)
 
@@ -94,6 +95,17 @@ const R3FCanvasWrapper = () => {
                )
             })}
 
+         <ArenaBorderSmallDecorations
+            amount={150}
+            baseSize={0.2}
+            minDistance={0}
+            maxDistance={(selectedScenario.arena.size.width / 2) * 1.5}
+            center={{
+               x: selectedScenario.arena.size.width / 2,
+               z: selectedScenario.arena.size.width / 2,
+            }}
+            sizeVariance={0.1}
+         />
          <ArenaBorderDecorations />
       </Canvas>
    )
