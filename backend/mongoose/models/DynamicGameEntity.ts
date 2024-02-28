@@ -9,6 +9,7 @@ const DynamicGameEntitySchema =
       name: { type: String, required: false },
       spritePath: { type: String, required: false },
       health: { type: Number, required: false },
+      maxHealth: { type: Number, required: false },
       baseActionDelay: { type: Number, required: false },
       currentActionDelay: { type: Number, required: false },
       cards: { type: [ActionCardSchema], required: false },
