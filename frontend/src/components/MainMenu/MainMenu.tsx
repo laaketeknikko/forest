@@ -1,7 +1,7 @@
 import Paper from "@mui/material/Paper"
 
 import Tab from "@mui/material/Tab"
-import Box from "@mui/material/Box"
+
 import Grid from "@mui/material/Unstable_Grid2"
 
 import TabContext from "@mui/lab/TabContext"
@@ -82,85 +82,76 @@ const MainMenu = () => {
    }
 
    return (
-      <Box component="div" sx={{ height: "100%" }}>
-         <Paper sx={{ height: "100%" }}>
-            <TabContext value={chosenTab}>
-               <Grid container sx={{ height: "100%" }}>
-                  <Grid
-                     xs={2}
-                     sx={{
-                        height: "100%",
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                     }}
+      <Paper sx={{ height: "100%" }}>
+         <TabContext value={chosenTab}>
+            <Grid container alignItems={"center"} height={"100%"}>
+               <Grid
+                  xs={2}
+                  sx={{
+                     height: "100%",
+                     display: "flex",
+                     justifyContent: "center",
+                     alignItems: "center",
+                  }}
+               >
+                  <TabList
+                     onChange={(_e, newTab) => setChosenTab(newTab)}
+                     orientation="vertical"
                   >
-                     <TabList
-                        onChange={(_e, newTab) => setChosenTab(newTab)}
-                        orientation="vertical"
-                     >
-                        <Tab label="Main Menu" value="0"></Tab>
+                     <Tab label="Main Menu" value="0"></Tab>
 
-                        <Tab
-                           label="Select scenario"
-                           value="1"
-                           disabled={
-                              !gameExecutionState.mainMenu.gameConfigLoaded
-                           }
-                        ></Tab>
+                     <Tab
+                        label="Select scenario"
+                        value="1"
+                        disabled={!gameExecutionState.mainMenu.gameConfigLoaded}
+                     ></Tab>
 
-                        <Tab
-                           label="Select characters"
-                           value="2"
-                           disabled={
-                              !gameExecutionState.mainMenu.scenarioSelected
-                           }
-                        ></Tab>
+                     <Tab
+                        label="Select characters"
+                        value="2"
+                        disabled={!gameExecutionState.mainMenu.scenarioSelected}
+                     ></Tab>
 
-                        <Tab
-                           label="Confirmation"
-                           value="3"
-                           disabled={
-                              !gameExecutionState.mainMenu.charactersSelected
-                           }
-                        ></Tab>
-                     </TabList>
-                  </Grid>
-
-                  <Grid
-                     xs={10}
-                     sx={{
-                        height: "100%",
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                     }}
-                  >
-                     <TabPanel
-                        value="0"
-                        sx={{ width: "100%", maxWidth: "40rem" }}
-                     >
-                        <NewGame startLoadedScenario={startLoadedScenario} />
-                     </TabPanel>
-                     <TabPanel value="1">
-                        <ScenarioSelection />
-                     </TabPanel>
-                     <TabPanel value="2">
-                        <CharacterSelection />
-                     </TabPanel>
-                     <TabPanel
+                     <Tab
+                        label="Confirmation"
                         value="3"
-                        sx={{ height: "100%", overflowY: "scroll" }}
-                     >
-                        <ScenarioStartConfirmation
-                           setNavigationState={startNewScenario}
-                        />
-                     </TabPanel>
-                  </Grid>
+                        disabled={
+                           !gameExecutionState.mainMenu.charactersSelected
+                        }
+                     ></Tab>
+                  </TabList>
                </Grid>
-            </TabContext>
-         </Paper>
-      </Box>
+
+               <Grid
+                  xs={10}
+                  sx={{
+                     height: "100%",
+                     display: "flex",
+                     justifyContent: "center",
+                     alignItems: "center",
+                  }}
+               >
+                  <TabPanel value="0" sx={{ width: "100%", maxWidth: "40rem" }}>
+                     <NewGame startLoadedScenario={startLoadedScenario} />
+                  </TabPanel>
+                  <TabPanel value="1">
+                     <ScenarioSelection />
+                  </TabPanel>
+                  <TabPanel value="2">
+                     <CharacterSelection />
+                  </TabPanel>
+                  <TabPanel
+                     value="3"
+                     sx={{ height: "100%", overflowY: "scroll" }}
+                  >
+                     <ScenarioStartConfirmation
+                        setNavigationState={startNewScenario}
+                     />
+                  </TabPanel>
+               </Grid>
+            </Grid>
+         </TabContext>
+      </Paper>
    )
 }
 

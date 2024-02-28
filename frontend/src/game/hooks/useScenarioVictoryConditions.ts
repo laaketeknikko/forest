@@ -11,7 +11,7 @@ const useScenarioVictoryConditions = () => {
       const jotaiStore = getDefaultStore()
       let conditionsChanged = false
 
-      const updatedConditions = saveData.scenario.scenarioVictoryCondition.map(
+      const updatedConditions = saveData.scenario.scenarioVictoryConditions.map(
          (condition) => {
             if (condition.type === "enemy") {
                console.log("condition type is enemy")
@@ -48,7 +48,7 @@ const useScenarioVictoryConditions = () => {
             ...saveData,
             scenario: {
                ...saveData.scenario,
-               scenarioVictoryCondition: updatedConditions,
+               scenarioVictoryConditions: updatedConditions,
             },
          })
       }
@@ -56,8 +56,8 @@ const useScenarioVictoryConditions = () => {
 
    const allConditionsMet = () => {
       return (
-         saveData.scenario.scenarioVictoryCondition.length > 0 &&
-         saveData.scenario.scenarioVictoryCondition.every(
+         saveData.scenario.scenarioVictoryConditions.length > 0 &&
+         saveData.scenario.scenarioVictoryConditions.every(
             (condition) => condition.fulfilled
          )
       )
@@ -66,7 +66,7 @@ const useScenarioVictoryConditions = () => {
    return {
       updateConditionStatuses,
       allConditionsMet,
-      victoryConditions: saveData.scenario.scenarioVictoryCondition,
+      victoryConditions: saveData.scenario.scenarioVictoryConditions,
    }
 }
 

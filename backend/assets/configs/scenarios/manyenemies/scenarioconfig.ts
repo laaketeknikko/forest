@@ -1,14 +1,14 @@
 import { ZScenarioConfig } from "../../../../../shared/types/types"
 
 const scenarioConfig: ZScenarioConfig = {
-   name: "Last Debug",
-   shortDescription: "Final level of the game.",
+   name: "Many enemies",
+   shortDescription: "There are quite a few of them.",
    description:
       "Your last chance to protect the forest. Victory or defeat, you will probably die trying. Go with blessing, and glory.",
    arena: {
       size: {
-         width: 40,
-         length: 40,
+         width: 80,
+         length: 80,
       },
    },
    enemies: [
@@ -16,16 +16,56 @@ const scenarioConfig: ZScenarioConfig = {
          enemyName: "Debug-Miinii",
          quantity: 1,
          startingPosition: {
-            x: 20.5,
-            z: 20.5,
+            x: 24.5,
+            z: 24.5,
          },
       },
       {
          enemyName: "Debug-Aulich",
          quantity: 1,
          startingPosition: {
-            x: 22.5,
-            z: 22.5,
+            x: 28.5,
+            z: 28.5,
+         },
+      },
+      {
+         enemyName: "Debug-Miinii",
+         quantity: 1,
+         startingPosition: {
+            x: 32.5,
+            z: 32.5,
+         },
+      },
+      {
+         enemyName: "Debug-Miinii",
+         quantity: 1,
+         startingPosition: {
+            x: 36.5,
+            z: 36.5,
+         },
+      },
+      {
+         enemyName: "Debug-Miinii",
+         quantity: 1,
+         startingPosition: {
+            x: 44.5,
+            z: 44.5,
+         },
+      },
+      {
+         enemyName: "Debug-Miinii",
+         quantity: 1,
+         startingPosition: {
+            x: 48.5,
+            z: 48.5,
+         },
+      },
+      {
+         enemyName: "Debug-Miinii",
+         quantity: 1,
+         startingPosition: {
+            x: 50.5,
+            z: 50.5,
          },
       },
    ],
@@ -70,11 +110,6 @@ const scenarioConfig: ZScenarioConfig = {
    ],
    maxPartySize: 8,
    thumbNailPath: "sprites/thumbnails/scenarios/swuippo.png",
-   unlockCondition: {
-      type: "scenario",
-      scenarioName: "First Debug",
-      status: "completed",
-   },
 }
 
 export { scenarioConfig }

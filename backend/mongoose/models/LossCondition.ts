@@ -6,6 +6,7 @@ const LossConditionSchema =
    new mongoose.Schema<modelTypes.IScenarioLossConditionModel>({
       type: { type: String, required: true },
       status: { type: String, required: true },
+      description: { type: String, required: true },
    })
 
 const LossConditionModel =

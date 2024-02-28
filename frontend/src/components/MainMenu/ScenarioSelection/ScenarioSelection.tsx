@@ -53,7 +53,12 @@ const ScenarioSelection = () => {
             </Grid>
             <Grid
                xs={9}
-               sx={{ alignItems: "center", justifyContent: "center" }}
+               sx={{
+                  alignItems: "center",
+                  justifyContent: "center",
+                  height: "100vh",
+                  overflowY: "scroll",
+               }}
             >
                <ScenarioDetails scenarioConfig={selectedScenarioConfig} />
             </Grid>

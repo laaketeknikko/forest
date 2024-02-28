@@ -44,12 +44,14 @@ const scenarioConfig: ZScenarioConfig = {
          enemyName: "Miinii",
          type: "enemy",
          status: "dead",
+         description: "Defeat Miinii",
       },
    ],
    scenarioLossConditions: [
       {
          type: "party",
          status: "defeated",
+         description: "All characters are defeat",
       },
    ],
    maxPartySize: 4,

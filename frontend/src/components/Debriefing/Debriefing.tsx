@@ -14,7 +14,7 @@ import { activePartyAtom } from "../../game/state/jotai/characters"
 import { DebriefingEntityCard } from "./DebriefingEntityCard"
 import { activeScenarioEnemiesAtom } from "../../game/state/jotai/enemies"
 import Stack from "@mui/material/Stack"
-import { Box } from "@mui/material"
+import Box from "@mui/material/Box"
 
 const Debriefing = () => {
    const [gameExecutionState, setGameExecutionState] = useAtom(

@@ -1,5 +1,5 @@
 import { useAtom } from "jotai"
-import type { Atom } from "jotai"
+import type { PrimitiveAtom } from "jotai"
 
 import Container from "@mui/material/Container"
 import Box from "@mui/material/Box"
@@ -10,9 +10,10 @@ import { EnemyAvatars } from "./EnemyAvatars"
 import { ZEnemy, ZScenarioEnemyConfig } from "../../../../../shared/types/types"
 
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2"
+import { DebriefingEntityCard } from "../../Debriefing/DebriefingEntityCard"
 
 export interface EnemyDetailsProps {
-   enemyAtom: Atom<ZEnemy>
+   enemyAtom: PrimitiveAtom<ZEnemy>
    scenarioDetails: ZScenarioEnemyConfig
 }
 
@@ -29,13 +30,13 @@ const EnemyDetails = ({ enemyAtom, scenarioDetails }: EnemyDetailsProps) => {
       <Container
          sx={{ marginTop: 5, textAlign: "center", justifyContent: "center" }}
       >
-         <EnemyAvatars
-            imagePath={enemy.spritePath}
-            quantity={scenarioDetails.quantity}
+         <div
             onClick={() => {
                setShowDetails(!showDetails)
             }}
-         />
+         >
+            <DebriefingEntityCard entityAtom={enemyAtom} direction="vertical" />
+         </div>
 
          {showDetails && (
             <Box component="div">

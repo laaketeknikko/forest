@@ -1,7 +1,11 @@
 import { createTheme } from "@mui/material"
 import { grey } from "@mui/material/colors"
 
-const theme = createTheme()
+const theme = createTheme({
+   spacing: 2,
+})
+
+theme.spacing
 
 theme.palette.primary = {
    ...theme.palette.primary,
