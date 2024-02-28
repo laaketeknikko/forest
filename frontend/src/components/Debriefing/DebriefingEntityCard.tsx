@@ -27,12 +27,14 @@ const DebriefingEntityCard = ({
                <Typography variant="h6" textAlign="center" color={"primary"}>
                   {entity.name}
                </Typography>
+
                <Typography>
                   HP:{" "}
                   <Typography component="span" color="primary">
                      {entity.health}
                   </Typography>
                </Typography>
+
                <CharacterHealthIndicator
                   current={entity.health}
                   max={entity.maxHealth}
