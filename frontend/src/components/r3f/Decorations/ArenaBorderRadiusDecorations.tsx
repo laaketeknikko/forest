@@ -21,9 +21,9 @@ const ArenaBorderRadiusDecorations = () => {
 
    const decorations = useSmallArenaDecorations({
       textures: decorationOptions,
-      minDistance: distance,
+      minDistance: (distance / 2) * 1.5,
       maxDistance: arenaWidth * 1.5,
-      amount: 50,
+      amount: 30,
       sizeVariance: 5,
       baseSize: 5,
       facing: "center",

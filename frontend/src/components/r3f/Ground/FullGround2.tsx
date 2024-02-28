@@ -27,7 +27,7 @@ const FullGround2 = ({ sizeX = 10, sizeZ = 10 }: FullGroundTileProps) => {
       width: sizeZ,
    }
 
-   const solidColor = "rgb(69, 43, 0)"
+   //const solidColor = "rgb(69, 43, 0)"
 
    return (
       <group

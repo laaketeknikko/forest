@@ -4,7 +4,6 @@ import {
    FrontSide,
    MathUtils,
    Texture,
-   Vector2,
    Vector3,
 } from "three"
 import { useMemo } from "react"
@@ -27,7 +26,7 @@ export interface UseSmallArenaDecorationsProps {
    baseSize: number
 
    /**center facing is special case and meant for large decorations.
-    * It renders decorations in half circle at a longer distance.
+    * It renders decorations in half circle.
     */
    facing: "horizontal" | "vertical" | "center"
 }
@@ -46,7 +45,9 @@ const useSmallArenaDecorations = ({
    facing,
 }: UseSmallArenaDecorationsProps) => {
    const texturesInstances = useMemo(() => {
-      const mainFacing = MathUtils.degToRad(facing === "horizontal" ? 0 : -90)
+      const mainFacing = MathUtils.degToRad(
+         facing === "horizontal" || facing === "center" ? 0 : -90
+      )
 
       /**
        * Randomize the amount of each texture, then get percentage of total
@@ -80,8 +81,13 @@ const useSmallArenaDecorations = ({
                   toneMapped={false}
                   alphaTest={0.9}
                   /**Only need doublesided if looking sideways. */
-                  side={facing === "horizontal" ? DoubleSide : FrontSide}
+                  side={
+                     facing === "horizontal" || facing === "center"
+                        ? DoubleSide
+                        : FrontSide
+                  }
                />
+
                <group>
                   {Array(amounts[index])
                      .fill(0)
@@ -89,6 +95,8 @@ const useSmallArenaDecorations = ({
                         const distance =
                            Math.random() * (maxDistance - minDistance) +
                            minDistance
+
+                        /**Positioning angle on the circle */
                         const positionAngle =
                            facing === "center"
                               ? MathUtils.degToRad(225) +
@@ -97,13 +105,16 @@ const useSmallArenaDecorations = ({
 
                         const position = new Vector3(
                            distance * Math.cos(positionAngle),
+
                            facing === "vertical"
                               ? 0.01
                               : /**Position to ground level if facing horisontal */
                                 getTextureYCenter(size.height),
+
                            distance * Math.sin(positionAngle)
                         )
 
+                        /**Rotate sideways */
                         const rotation = [
                            mainFacing,
                            facing === "horizontal" || facing === "center"

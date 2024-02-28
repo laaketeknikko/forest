@@ -10,7 +10,6 @@ import { activeScenarioEnemiesAtom } from "../../game/state/jotai/enemies"
 
 import { useIdleTimer } from "react-idle-timer"
 import { CameraControls } from "./CameraControls"
-import { ArenaBorderDecorations } from "./Decorations/ArenaBorderDecorations"
 
 import { selectedScenarioConfigAtom } from "../../game/state/jotai/scenarios"
 import { FullGround2 } from "./Ground/FullGround2"
