@@ -78,6 +78,7 @@ interface IEnemyConfig extends Omit<types.ZEnemy, "position" | "cards"> {
 const enemyConfig: IEnemyConfig = {
    name: "Miinii",
    health: 200,
+   maxHealth: 200,
    spritePath: "sprites/characters/miinii.png",
    baseActionDelay: 10,
    currentActionDelay: 10,

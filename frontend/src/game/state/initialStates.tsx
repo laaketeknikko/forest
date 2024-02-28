@@ -26,6 +26,7 @@ const emptyCharacter: ZCharacter = {
    currentActionDelay: 0,
    position: { x: 0, y: 0, z: 0 },
    health: 0,
+   maxHealth: 0,
    _id: "empty",
    strength: 0,
 }
@@ -58,6 +59,7 @@ const emptyEnemy: ZEnemy = {
    cards: [],
    currentActionDelay: 0,
    health: 0,
+   maxHealth: 0,
    position: { x: 0, z: 0, y: 0 },
    selectedCardId: "",
    spritePath: "",

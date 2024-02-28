@@ -10,53 +10,103 @@ import { MainWindowDisplayStatus } from "../../config/types"
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2"
 import Divider from "@mui/material/Divider"
 import { theme } from "../../styles/mui/theme"
+import { activePartyAtom } from "../../game/state/jotai/characters"
+import { DebriefingEntityCard } from "./DebriefingEntityCard"
+import { activeScenarioEnemiesAtom } from "../../game/state/jotai/enemies"
+import Stack from "@mui/material/Stack"
+import { Box } from "@mui/material"
 
 const Debriefing = () => {
    const [gameExecutionState, setGameExecutionState] = useAtom(
       gameExecutionStateAtom
    )
    const [saveGame] = useAtom(activeSaveGameConfigAtom)
+   const [characterAtoms] = useAtom(activePartyAtom)
+   const [enemyAtoms] = useAtom(activeScenarioEnemiesAtom)
+
+   const scenarioStatistics = saveGame.scenarioStatistics.find((stat) => {
+      return stat.scenarioName === saveGame.scenario.name
+   })
 
    return (
-      <Container>
+      <Container
+         sx={{
+            overflowY: "auto",
+            height: "100%",
+         }}
+      >
          <Typography variant="h3" color="primary" textAlign={"center"}>
             Debriefing
          </Typography>
-         <Grid2 columns={24} container justifyItems={"center"}>
-            <Grid2 xs={12}>
-               <Typography variant="h5" textAlign={"center"}>
-                  {saveGame.scenario.name}
+
+         <Typography variant="h5" textAlign={"center"}>
+            {saveGame.scenario.name}
+         </Typography>
+         <Stack
+            direction={"row"}
+            spacing={2}
+            justifyContent={"center"}
+            marginTop={3}
+         >
+            <Typography variant="h6">
+               Result:{" "}
+               {gameExecutionState.scenario.won ? (
+                  <Typography variant="body1" component="span" color="primary">
+                     Victory
+                  </Typography>
+               ) : (
+                  <Typography variant="body1" component="span" color="primary">
+                     Defeat
+                  </Typography>
+               )}
+            </Typography>
+
+            <Typography variant="h6">
+               Times attempted:{" "}
+               <Typography component="span" color="primary">
+                  {scenarioStatistics?.timesAttempted}
                </Typography>
+            </Typography>
+
+            <Typography variant="h6">
+               Wins:{" "}
+               <Typography component="span" color="primary">
+                  {scenarioStatistics?.wins}
+               </Typography>
+            </Typography>
+
+            <Typography variant="h6">
+               Losses:{" "}
+               <Typography component="span" color="primary">
+                  {scenarioStatistics?.losses}
+               </Typography>
+            </Typography>
+         </Stack>
+         <Grid2
+            columns={24}
+            container
+            justifyItems={"center"}
+            sx={{ marginTop: 3 }}
+         >
+            <Grid2 xs={12}>
+               <Typography variant="h5">Enemies defeated</Typography>
                <Divider
                   variant="middle"
                   color="primary"
                   aria-hidden="true"
                   sx={{ borderColor: theme.palette.primary.main }}
                />
-               <Typography variant="h6">
-                  Result:{" "}
-                  {gameExecutionState.scenario.won ? (
-                     <Typography
-                        variant="body1"
-                        component="span"
-                        background-color="primary"
-                     >
-                        Victory
-                     </Typography>
-                  ) : (
-                     <Typography
-                        variant="body1"
-                        component="span"
-                        color="primary"
-                     >
-                        Defeat
-                     </Typography>
-                  )}
-               </Typography>
-
-               <Typography variant="h5">Enemies defeated</Typography>
+               {enemyAtoms.map((atom) => {
+                  return (
+                     <DebriefingEntityCard
+                        key={atom.toString()}
+                        entityAtom={atom}
+                     />
+                  )
+               })}
             </Grid2>
 
+            {/** Party section*/}
             <Grid2 xs={12}>
                <Typography variant="h5" textAlign={"center"}>
                   Participating characters
@@ -67,6 +117,15 @@ const Debriefing = () => {
                   aria-hidden="true"
                   sx={{ borderColor: theme.palette.primary.main }}
                />
+               <Stack>
+                  {characterAtoms.map((atom) => {
+                     return (
+                        <Box component="div" key={atom.toString()}>
+                           <DebriefingEntityCard entityAtom={atom} />
+                        </Box>
+                     )
+                  })}
+               </Stack>
             </Grid2>
          </Grid2>
 

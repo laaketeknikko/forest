@@ -60,6 +60,7 @@ export const EntityAnimation = z.object({
 export const GameEntitySchema = z.object({
    position: PositionSchema,
    health: z.number(),
+   maxHealth: z.number(),
    targetPosition: Position2DSchema.optional().nullable(),
    activeAnimation: EntityAnimation.optional().nullable(),
 })

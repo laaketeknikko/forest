@@ -128,6 +128,7 @@ interface IEnemyConfig extends Omit<types.ZEnemy, "position" | "cards"> {
 const enemyConfig: IEnemyConfig = {
    name: "Debug-Aulich",
    health: 20,
+   maxHealth: 20,
    spritePath: "sprites/characters/swuippo.png",
    baseActionDelay: 15,
    currentActionDelay: 10,

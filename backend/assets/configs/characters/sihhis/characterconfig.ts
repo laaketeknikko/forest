@@ -283,7 +283,8 @@ const characterConfig: types.ZSaveConfigCharacter = {
    baseActionDelay: 8,
    selectedCardId: "",
    currentActionDelay: 8,
-   health: 10,
+   health: 30,
+   maxHealth: 30,
    position: { x: 0, y: 0, z: 0 },
    strength: 4,
 }
