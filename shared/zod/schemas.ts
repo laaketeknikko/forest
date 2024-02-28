@@ -120,6 +120,11 @@ export const ScenarioVictoryConditionSchema = z.object({
    enemyName: z.string(),
 })
 
+export const ScenarioLossConditionSchema = z.object({
+   type: z.literal("party"),
+   status: z.literal("defeated"),
+})
+
 export const ScenarioConfigSchema = z.object({
    _id: z.string().optional(),
    name: z.string(),
@@ -131,7 +136,8 @@ export const ScenarioConfigSchema = z.object({
    thumbNailPath: z.string(),
    maxPartySize: z.number(),
    unlockCondition: ScenarioUnlockConditionSchema.optional(),
-   scenarioVictoryCondition: z.array(ScenarioVictoryConditionSchema),
+   scenarioVictoryConditions: z.array(ScenarioVictoryConditionSchema),
+   scenarioLossConditions: z.array(ScenarioLossConditionSchema),
 })
 
 export const SaveConfigScenarioVictoryConditionSchema =

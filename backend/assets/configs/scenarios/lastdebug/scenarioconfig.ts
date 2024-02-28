@@ -47,7 +47,7 @@ const scenarioConfig: ZScenarioConfig = {
          z: 21.5,
       },
    ],
-   scenarioVictoryCondition: [
+   scenarioVictoryConditions: [
       {
          type: "enemy",
          status: "dead",
@@ -57,6 +57,12 @@ const scenarioConfig: ZScenarioConfig = {
          type: "enemy",
          status: "dead",
          enemyName: "Debug-Aulich",
+      },
+   ],
+   scenarioLossConditions: [
+      {
+         type: "party",
+         status: "defeated",
       },
    ],
    maxPartySize: 8,
