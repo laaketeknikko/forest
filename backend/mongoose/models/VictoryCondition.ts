@@ -8,6 +8,7 @@ const VictoryConditionSchema =
       status: { type: String, required: true },
       enemyName: { type: String, required: true },
       fulfilled: { type: Boolean, required: true },
+      description: { type: String, required: true },
    })
 
 const VictoryConditionModel =

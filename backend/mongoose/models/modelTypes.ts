@@ -22,6 +22,8 @@ interface IScenarioStatisticsModel
 export interface IScenarioVictoryConditionModel
    extends types.ZSaveConfigScenarioVictoryCondition {}
 
+interface IScenarioLossConditionModel extends types.ZScenarioLossCondition {}
+
 interface ISaveGameConfigModel extends types.ZSaveConfig {}
 
 export {
@@ -34,4 +36,5 @@ export {
    IDynamicGameEntityModel,
    IActionEffectModel,
    IScenarioStatisticsModel,
+   IScenarioLossConditionModel,
 }

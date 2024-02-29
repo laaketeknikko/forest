@@ -61,7 +61,7 @@ const buildScenarioSave = () => {
 
    if (oldSave.scenario._id && oldSave.scenario._id === "empty") {
       const scenario = { ...jotaiStore.get(selectedScenarioConfigAtom) }
-      const victoryConditions = scenario.scenarioVictoryCondition.map(
+      const victoryConditions = scenario.scenarioVictoryConditions.map(
          (condition) => {
             return {
                ...condition,
@@ -72,7 +72,7 @@ const buildScenarioSave = () => {
 
       return {
          ...scenario,
-         scenarioVictoryCondition: victoryConditions,
+         scenarioVictoryConditions: victoryConditions,
       }
    } else {
       return oldSave.scenario

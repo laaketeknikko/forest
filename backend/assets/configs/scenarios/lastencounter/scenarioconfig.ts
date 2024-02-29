@@ -63,16 +63,25 @@ const scenarioConfig: ZScenarioConfig = {
          z: 6.5,
       },
    ],
-   scenarioVictoryCondition: [
+   scenarioVictoryConditions: [
       {
          type: "enemy",
          status: "dead",
          enemyName: "Miinii",
+         description: "Defeat the bird of prey Miinii",
       },
       {
          type: "enemy",
          status: "dead",
          enemyName: "Aulich",
+         description: "Defeat the Aulich",
+      },
+   ],
+   scenarioLossConditions: [
+      {
+         type: "party",
+         status: "defeated",
+         description: "All characters are defeated",
       },
    ],
    maxPartySize: 8,

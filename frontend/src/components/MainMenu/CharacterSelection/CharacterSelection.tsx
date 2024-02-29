@@ -1,11 +1,11 @@
 import Box from "@mui/material/Box"
 
-import { useAtom } from "jotai"
+import { PrimitiveAtom, useAtom } from "jotai"
 import {
    activePartyAtom,
    allPlayerCharactersAtom,
 } from "../../../game/state/jotai/characters"
-import { useEffect } from "react"
+import { useCallback, useEffect, useState } from "react"
 import { CharacterOption } from "./CharacterOption"
 
 import { selectedScenarioConfigAtom } from "../../../game/state/jotai/scenarios"
@@ -15,9 +15,15 @@ import { CharacterSelectionItem } from "../../../config/types"
 import { gameExecutionStateAtom } from "../../../game/state/jotai/gameState"
 
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2"
+import HelpOutlineIcon from "@mui/icons-material/HelpOutline"
+import TaskAltIcon from "@mui/icons-material/TaskAlt"
 
-import { generatedDarkThemeColors } from "../../../styles/mui/theme"
+import { theme } from "../../../styles/mui/theme"
 import Stack from "@mui/material/Stack"
+import { ZCharacter } from "../../../../../shared/types/types"
+import Avatar from "@mui/material/Avatar"
+
+import { CharacterSelectionDetails } from "./CharacterSelectionDetails"
 
 const CharacterSelection = () => {
    /**
@@ -28,31 +34,59 @@ const CharacterSelection = () => {
    const [selectedScenarioConfig] = useAtom(selectedScenarioConfigAtom)
    const [activeParty, setActiveParty] = useAtom(activePartyAtom)
    const [gameState, setGameState] = useAtom(gameExecutionStateAtom)
+   const [detailDisplayAtom, setDetailDisplayAtom] =
+      useState<PrimitiveAtom<ZCharacter> | null>(null)
 
    /**
     * Update local and global lists of selected characters.
     * Local list contains name and image path for easier access.
     */
-   const handleCharacterSelected = (option: CharacterSelectionItem) => {
-      /**
-       * Selecting already added character removes character from selection.
-       */
-      const isSelected = gameState.characterSelection.find((character) => {
-         return character.name === option.name
-      })
-      let newSelection: Array<CharacterSelectionItem> = []
-      if (isSelected) {
-         newSelection = gameState.characterSelection.filter((character) => {
-            return character.name !== option.name
+   const handleCharacterSelected = useCallback(
+      (option: CharacterSelectionItem) => {
+         /**
+          * Selecting already added character removes character from selection.
+          */
+         const isSelected = gameState.characterSelection.find((character) => {
+            return character.name === option.name
          })
-         setGameState({ ...gameState, characterSelection: newSelection })
-      } else {
-         newSelection = [...gameState.characterSelection, option]
-         setGameState({ ...gameState, characterSelection: newSelection })
-      }
+         let newSelection: Array<CharacterSelectionItem> = []
+         if (isSelected) {
+            newSelection = gameState.characterSelection.filter((character) => {
+               return character.name !== option.name
+            })
+            setGameState({ ...gameState, characterSelection: newSelection })
+         } else {
+            newSelection = [...gameState.characterSelection, option]
+            setGameState({ ...gameState, characterSelection: newSelection })
+         }
 
-      setActiveParty(newSelection.map((character) => character.characterAtom))
-   }
+         setActiveParty(
+            newSelection.map((character) => character.characterAtom)
+         )
+      },
+      [gameState, setActiveParty, setGameState]
+   )
+
+   const handleDetailDisplay = useCallback(
+      (option: CharacterSelectionItem) => {
+         if (detailDisplayAtom === option.characterAtom) {
+            handleCharacterSelected(option)
+         } else {
+            setDetailDisplayAtom(option.characterAtom)
+         }
+      },
+      [detailDisplayAtom, handleCharacterSelected]
+   )
+
+   useEffect(() => {
+      if (!detailDisplayAtom) {
+         handleDetailDisplay({
+            name: "",
+            spritePath: "",
+            characterAtom: allPlayerCharacterAtoms[0],
+         })
+      }
+   }, [allPlayerCharacterAtoms, detailDisplayAtom, handleDetailDisplay])
 
    /**
     * If not characters or too many characters selected, disable navigation to next section.
@@ -85,31 +119,120 @@ const CharacterSelection = () => {
    ])
 
    return (
-      <Box component="div">
+      <Box component="div" sx={{ overflowY: "auto", height: "100vh" }}>
          <Typography variant="h3" color="primary" textAlign={"center"}>
             Select characters
          </Typography>
 
-         <Stack sx={{ justifyContent: "center", marginTop: 3 }}>
-            <Typography variant="h5" textAlign="center">
-               Current party
-            </Typography>
-            {
-               // TODO: Is this outer grid needed?
-            }
-            <Grid2
-               container
-               marginBottom={4}
-               marginTop={2}
-               justifyContent={"center"}
-            >
-               <Grid2
-                  xs={12}
-                  justifyContent={"center"}
-                  alignItems={"center"}
-                  container
-                  columns={24}
+         <Grid2 container columns={24}>
+            <Grid2 xs={21}>
+               <Stack
+                  spacing={10}
+                  sx={{ justifyContent: "center", marginTop: 3 }}
                >
+                  {
+                     // TODO: Is this outer grid needed?
+                  }
+                  <Grid2
+                     container
+                     marginBottom={4}
+                     marginTop={2}
+                     justifyContent={"center"}
+                  >
+                     <Grid2
+                        xs={12}
+                        justifyContent={"center"}
+                        alignItems={"center"}
+                        container
+                        columns={24}
+                     ></Grid2>
+                  </Grid2>
+
+                  {/**
+                   *  Available characters
+                   * */}
+
+                  <Grid2
+                     marginTop={2}
+                     columns={24}
+                     container
+                     className="character-selection-list"
+                     justifyContent={"center"}
+                     alignItems={"center"}
+                  >
+                     {allPlayerCharacterAtoms &&
+                        allPlayerCharacterAtoms.map((character) => {
+                           const isInParty = activeParty.find(
+                              (atom) => atom === character
+                           )
+                           const IsSelected = character === detailDisplayAtom
+
+                           return (
+                              <Grid2
+                                 key={character.toString()}
+                                 xs={6}
+                                 md={4}
+                                 lg={3}
+                                 xl={2}
+                              >
+                                 <Box
+                                    component="div"
+                                    sx={{
+                                       borderStyle: "solid",
+                                       borderColor: theme.palette.primary.main,
+                                       borderRadius: "1rem",
+                                       borderWidth: isInParty ? 1 : 0,
+                                       aspectRatio: 1,
+                                       display: "flex",
+                                       alignItems: "center",
+                                       padding: isInParty ? 3 : 0,
+                                       position: "relative",
+                                    }}
+                                 >
+                                    <Avatar
+                                       sx={{
+                                          position: "absolute",
+                                          top: 0,
+                                          left: 0,
+                                          color:
+                                             !isInParty && !IsSelected
+                                                ? theme.palette.text.secondary
+                                                : theme.palette.primary.main,
+                                          backgroundColor: "transparent",
+                                       }}
+                                    >
+                                       {isInParty ? (
+                                          <TaskAltIcon />
+                                       ) : (
+                                          <HelpOutlineIcon />
+                                       )}
+                                    </Avatar>
+                                    <Box component="div">
+                                       <CharacterOption
+                                          characterAtom={character}
+                                          handleSelection={handleDetailDisplay}
+                                       />
+                                    </Box>
+                                 </Box>
+                              </Grid2>
+                           )
+                        })}
+                  </Grid2>
+
+                  {!detailDisplayAtom && (
+                     <Typography variant="body1" textAlign="center">
+                        Select a character to view stats
+                     </Typography>
+                  )}
+                  {detailDisplayAtom && (
+                     <CharacterSelectionDetails
+                        characterAtom={detailDisplayAtom}
+                     />
+                  )}
+               </Stack>
+            </Grid2>
+            <Grid2 xs={3}>
+               <Stack spacing={4}>
                   {/***
                    * First render avatars of selected characters, then add empty spaces
                    * up to scenario maximum.
@@ -117,14 +240,15 @@ const CharacterSelection = () => {
                   {gameState.characterSelection &&
                      gameState.characterSelection.map((character) => {
                         return (
-                           <Grid2 key={character.name} xs={5} md={3}>
-                              <img
-                                 src={character.spritePath}
-                                 style={{ width: "100%" }}
-                              />
-                           </Grid2>
+                           <img
+                              key={character.name}
+                              src={character.spritePath}
+                              style={{ width: "100%" }}
+                           />
                         )
                      })}
+
+                  {/**Add empty spaces up to scenario maximum. */}
                   {Array(
                      selectedScenarioConfig.maxPartySize -
                         gameState.characterSelection.length
@@ -132,60 +256,25 @@ const CharacterSelection = () => {
                      .fill(0)
                      .map((_, index) => {
                         return (
-                           <Grid2 xs={5} md={3} key={index}>
-                              <div
-                                 style={{
-                                    width: "100%",
-                                    aspectRatio: 1,
-                                    backgroundColor:
-                                       generatedDarkThemeColors.colors
-                                          .tertiaryContainer,
-                                    borderRadius: "50%",
-                                    borderColor:
-                                       generatedDarkThemeColors.colors
-                                          .tertiaryContainer,
-                                 }}
-                              >
-                                 {" "}
-                              </div>
-                           </Grid2>
+                           <div
+                              key={index}
+                              style={{
+                                 width: "100%",
+                                 aspectRatio: 1,
+                                 backgroundColor: theme.palette.text.secondary,
+                                 borderRadius: "50%",
+                                 borderColor: theme.palette.primary.main,
+                                 borderStyle: "solid",
+                                 borderWidth: 0,
+                              }}
+                           >
+                              {" "}
+                           </div>
                         )
                      })}
-               </Grid2>
+               </Stack>
             </Grid2>
-            <Typography variant="h5" textAlign="center">
-               Available
-            </Typography>
-            <Grid2
-               marginTop={2}
-               columns={24}
-               container
-               className="character-selection-list"
-               justifyContent={"center"}
-               alignItems={"center"}
-            >
-               {
-                  // TODO: Add a visual cue to selected characters.
-                  allPlayerCharacterAtoms &&
-                     allPlayerCharacterAtoms.map((character) => {
-                        return (
-                           <Grid2
-                              key={character.toString()}
-                              xs={6}
-                              md={4}
-                              lg={3}
-                              xl={2}
-                           >
-                              <CharacterOption
-                                 characterAtom={character}
-                                 handleSelection={handleCharacterSelected}
-                              />
-                           </Grid2>
-                        )
-                     })
-               }
-            </Grid2>
-         </Stack>
+         </Grid2>
       </Box>
    )
 }

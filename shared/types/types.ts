@@ -54,6 +54,9 @@ export type ZScenarioVictoryCondition = z.infer<
 export type ZSaveConfigScenarioVictoryCondition = z.infer<
    typeof schemas.SaveConfigScenarioVictoryConditionSchema
 >
+export type ZScenarioLossCondition = z.infer<
+   typeof schemas.ScenarioLossConditionSchema
+>
 export type ZScenarioConfig = z.infer<typeof schemas.ScenarioConfigSchema>
 
 //

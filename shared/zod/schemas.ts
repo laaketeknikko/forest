@@ -118,6 +118,13 @@ export const ScenarioVictoryConditionSchema = z.object({
    type: z.literal("enemy"),
    status: z.literal("dead"),
    enemyName: z.string(),
+   description: z.string(),
+})
+
+export const ScenarioLossConditionSchema = z.object({
+   type: z.literal("party"),
+   status: z.literal("defeated"),
+   description: z.string(),
 })
 
 export const ScenarioConfigSchema = z.object({
@@ -131,7 +138,8 @@ export const ScenarioConfigSchema = z.object({
    thumbNailPath: z.string(),
    maxPartySize: z.number(),
    unlockCondition: ScenarioUnlockConditionSchema.optional(),
-   scenarioVictoryCondition: z.array(ScenarioVictoryConditionSchema),
+   scenarioVictoryConditions: z.array(ScenarioVictoryConditionSchema),
+   scenarioLossConditions: z.array(ScenarioLossConditionSchema),
 })
 
 export const SaveConfigScenarioVictoryConditionSchema =
@@ -142,9 +150,9 @@ export const SaveConfigScenarioVictoryConditionSchema =
 export const SaveConfigScenarioConfigSchema = ScenarioConfigSchema.omit({
    enemies: true,
    playerCharacterStartingPositions: true,
-   scenarioVictoryCondition: true,
+   scenarioVictoryConditions: true,
 }).extend({
-   scenarioVictoryCondition: z.array(SaveConfigScenarioVictoryConditionSchema),
+   scenarioVictoryConditions: z.array(SaveConfigScenarioVictoryConditionSchema),
 })
 
 export const SaveConfigScenarioStatisticsSchema = z.object({

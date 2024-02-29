@@ -23,6 +23,7 @@ import {
 import { useScenarioVictoryConditions } from "../../game/hooks/useScenarioVictoryConditions"
 import { ZSaveConfigScenarioStatistics } from "../../../../shared/types/types"
 import { PopupInfo } from "./PopupInfo.tsx/PopupInfo"
+import { useScenarioLossConditions } from "../../game/hooks/useScenarioLossConditions"
 
 /**
  * Top level wrapper when game is running. Contains three main components:
@@ -38,6 +39,7 @@ const GameScene = () => {
       gameExecutionStateAtom
    )
    const victoryConditions = useScenarioVictoryConditions()
+   const lossConditions = useScenarioLossConditions()
    const [saveGame, setSaveGame] = useAtom(activeSaveGameConfigAtom)
 
    // TODO: Move this somewhere.
@@ -45,22 +47,35 @@ const GameScene = () => {
       if (
          !(gameExecutionState.scenario.won || gameExecutionState.scenario.lost)
       ) {
-         if (victoryConditions.allConditionsMet()) {
-            let scenarioStat: ZSaveConfigScenarioStatistics | undefined =
-               saveGame.scenarioStatistics.find((stat) => {
-                  return stat.scenarioName === saveGame.scenario.name
-               })
-
-            if (!scenarioStat) {
-               scenarioStat = {
-                  scenarioName: saveGame.scenario.name,
-                  wins: 1,
-                  losses: 0,
-                  timesAttempted: 1,
-               }
-            } else {
-               scenarioStat.wins++
+         let scenarioStat: ZSaveConfigScenarioStatistics | undefined =
+            saveGame.scenarioStatistics.find((stat) => {
+               return stat.scenarioName === saveGame.scenario.name
+            })
+         if (!scenarioStat) {
+            scenarioStat = {
+               scenarioName: saveGame.scenario.name,
+               wins: 0,
+               losses: 0,
+               timesAttempted: 0,
             }
+         }
+
+         let scenarioWon = victoryConditions.allConditionsMet()
+         let scenarioLost = lossConditions.isConditionMet()
+
+         if (scenarioWon || scenarioLost) {
+            scenarioStat.timesAttempted++
+
+            if (scenarioWon) {
+               scenarioStat.wins++
+               scenarioWon = true
+               /** If you won, you can't lose */
+               scenarioLost = false
+            } else if (scenarioLost) {
+               scenarioStat.losses++
+               scenarioLost = true
+            }
+
             setSaveGame({
                ...saveGame,
                scenarioStatistics: [
@@ -75,14 +90,15 @@ const GameScene = () => {
                global: GlobalExecutionState.stopped,
                mainDisplay: MainWindowDisplayStatus.showDebriefing,
                scenario: {
-                  won: true,
-                  lost: false,
+                  won: scenarioWon,
+                  lost: scenarioLost,
                },
             })
          }
       }
    }, [
       gameExecutionState,
+      lossConditions,
       saveGame,
       setGameExecutionState,
       setSaveGame,

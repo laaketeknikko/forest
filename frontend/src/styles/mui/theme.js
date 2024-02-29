@@ -1,7 +1,11 @@
 import { createTheme } from "@mui/material"
 import { grey } from "@mui/material/colors"
 
-const theme = createTheme()
+const theme = createTheme({
+   spacing: 2,
+})
+
+theme.spacing
 
 theme.palette.primary = {
    ...theme.palette.primary,
@@ -20,7 +24,7 @@ theme.palette.text = {
    ...theme.palette.text,
 
    primary: "rgb(190, 242, 145)",
-   secondary: "rgb(190, 242, 145, 0.8)",
+   secondary: "rgb(190, 242, 145, 0.7)",
    disabled: "rgb(190, 242, 145, 0.3)",
 }
 

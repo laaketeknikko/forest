@@ -1,44 +1,46 @@
 import { PrimitiveAtom, useAtom } from "jotai"
 import { ZDynamicGameEntity } from "../../../../shared/types/types"
-import Grid2 from "@mui/material/Unstable_Grid2/Grid2"
 import Card from "@mui/material/Card"
 import CardContent from "@mui/material/CardContent"
 import CardMedia from "@mui/material/CardMedia"
 import Typography from "@mui/material/Typography"
 import { CharacterHealthIndicator } from "../util/CharacterHealthIndicator"
+import Stack from "@mui/material/Stack"
 
 export interface DebriefingEntityCardProps {
    entityAtom: PrimitiveAtom<ZDynamicGameEntity>
+   direction: "vertical" | "horizontal"
 }
 
-const DebriefingEntityCard = ({ entityAtom }: DebriefingEntityCardProps) => {
+const DebriefingEntityCard = ({
+   entityAtom,
+   direction,
+}: DebriefingEntityCardProps) => {
    const [entity] = useAtom(entityAtom)
 
    return (
-      <Card sx={{ margin: 2 }}>
-         <Grid2 columns={24} container>
-            <Grid2 xs={10}>
-               <CardMedia component="img" image={entity.spritePath} />
-            </Grid2>
+      <Card sx={{ margin: 1 }}>
+         <Stack direction={direction === "vertical" ? "column" : "row"}>
+            <CardMedia component="img" image={entity.spritePath} />
 
-            <Grid2 xs={14} alignSelf={"center"}>
-               <CardContent>
-                  <Typography variant="h5" textAlign="center" color={"primary"}>
-                     {entity.name}
+            <CardContent>
+               <Typography variant="h6" textAlign="center" color={"primary"}>
+                  {entity.name}
+               </Typography>
+
+               <Typography>
+                  HP:{" "}
+                  <Typography component="span" color="primary">
+                     {entity.health}
                   </Typography>
-                  <Typography>
-                     HP:{" "}
-                     <Typography component="span" color="primary">
-                        {entity.health}
-                     </Typography>
-                  </Typography>
-                  <CharacterHealthIndicator
-                     current={entity.health}
-                     max={entity.maxHealth}
-                  />
-               </CardContent>
-            </Grid2>
-         </Grid2>
+               </Typography>
+
+               <CharacterHealthIndicator
+                  current={entity.health}
+                  max={entity.maxHealth}
+               />
+            </CardContent>
+         </Stack>
       </Card>
    )
 }

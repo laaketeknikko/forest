@@ -1,18 +1,20 @@
 import { useAtom } from "jotai"
-import type { Atom } from "jotai"
+import type { PrimitiveAtom } from "jotai"
 
 import Container from "@mui/material/Container"
 import Box from "@mui/material/Box"
 import Typography from "@mui/material/Typography"
 
 import { useState } from "react"
-import { EnemyAvatars } from "./EnemyAvatars"
+
 import { ZEnemy, ZScenarioEnemyConfig } from "../../../../../shared/types/types"
 
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2"
+import Avatar from "@mui/material/Avatar"
+import { theme } from "../../../styles/mui/theme"
 
 export interface EnemyDetailsProps {
-   enemyAtom: Atom<ZEnemy>
+   enemyAtom: PrimitiveAtom<ZEnemy>
    scenarioDetails: ZScenarioEnemyConfig
 }
 
@@ -24,23 +26,48 @@ const EnemyDetails = ({ enemyAtom, scenarioDetails }: EnemyDetailsProps) => {
    const [enemy] = useAtom(enemyAtom)
    const [showDetails, setShowDetails] = useState(false)
 
-   // TODO: Add support for multiple enemies.
    return (
       <Container
          sx={{ marginTop: 5, textAlign: "center", justifyContent: "center" }}
       >
-         <EnemyAvatars
-            imagePath={enemy.spritePath}
-            quantity={scenarioDetails.quantity}
+         <Box
+            component="div"
+            sx={{ position: "relative" }}
             onClick={() => {
                setShowDetails(!showDetails)
             }}
-         />
+         >
+            <div
+               style={{
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+               }}
+            >
+               <Avatar
+                  sizes="large"
+                  sx={{
+                     width: "2rem",
+                     height: "2rem",
+                     fontSize: "2rem",
+                     backgroundColor: "transparent",
+                     color: theme.palette.primary.main,
+                  }}
+               >
+                  {scenarioDetails.quantity}
+               </Avatar>
+            </div>
+            <img src={enemy.spritePath} />
+         </Box>
 
          {showDetails && (
             <Box component="div">
                <Grid2 container>
-                  <Grid2 xs={6} alignItems={"center"} justifyContent={"center"}>
+                  <Grid2
+                     xs={12}
+                     alignItems={"center"}
+                     justifyContent={"center"}
+                  >
                      <Typography variant="body1" textAlign={"center"}>
                         Name:{" "}
                         <Typography color="primary" component="span">
@@ -57,9 +84,6 @@ const EnemyDetails = ({ enemyAtom, scenarioDetails }: EnemyDetailsProps) => {
                            {enemy.baseActionDelay}
                         </Typography>
                      </Typography>
-                  </Grid2>
-                  <Grid2 xs={6}>
-                     <img src={enemy.spritePath} style={{ width: "100%" }} />
                   </Grid2>
                </Grid2>
             </Box>

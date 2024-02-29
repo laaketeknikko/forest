@@ -14,7 +14,7 @@ import { activePartyAtom } from "../../game/state/jotai/characters"
 import { DebriefingEntityCard } from "./DebriefingEntityCard"
 import { activeScenarioEnemiesAtom } from "../../game/state/jotai/enemies"
 import Stack from "@mui/material/Stack"
-import { Box } from "@mui/material"
+import Box from "@mui/material/Box"
 
 const Debriefing = () => {
    const [gameExecutionState, setGameExecutionState] = useAtom(
@@ -101,6 +101,7 @@ const Debriefing = () => {
                      <DebriefingEntityCard
                         key={atom.toString()}
                         entityAtom={atom}
+                        direction="vertical"
                      />
                   )
                })}
@@ -121,7 +122,10 @@ const Debriefing = () => {
                   {characterAtoms.map((atom) => {
                      return (
                         <Box component="div" key={atom.toString()}>
-                           <DebriefingEntityCard entityAtom={atom} />
+                           <DebriefingEntityCard
+                              entityAtom={atom}
+                              direction="vertical"
+                           />
                         </Box>
                      )
                   })}

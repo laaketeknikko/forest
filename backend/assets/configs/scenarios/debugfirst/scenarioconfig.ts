@@ -39,11 +39,19 @@ const scenarioConfig: ZScenarioConfig = {
          z: 9.5,
       },
    ],
-   scenarioVictoryCondition: [
+   scenarioVictoryConditions: [
       {
          enemyName: "Debug-Miinii",
          type: "enemy",
          status: "dead",
+         description: "Defeat the mouses",
+      },
+   ],
+   scenarioLossConditions: [
+      {
+         type: "party",
+         status: "defeated",
+         description: "All characters are defeated",
       },
    ],
    maxPartySize: 4,

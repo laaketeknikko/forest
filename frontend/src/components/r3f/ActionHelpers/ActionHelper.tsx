@@ -66,6 +66,10 @@ const ActionHelper = () => {
       [selectedCardData.actions, selectedCardData.nextActionId]
    )
 
+   const entitiesOnTileRef = useRef<ReturnType<
+      typeof getEntitiesForPosition
+   > | null>(null)
+
    const actionTrackerRef = useRef<ActionEffectsTracker>()
    actionTrackerRef.current = useActionEffectsTracker()
 
@@ -128,16 +132,14 @@ const ActionHelper = () => {
    const handleHelperHover = (event: ThreeEvent<PointerEvent>) => {
       event.stopPropagation()
 
-      const entities = getEntitiesForPosition({
+      entitiesOnTileRef.current = getEntitiesForPosition({
          x: event.point.x,
          z: event.point.z,
       })
 
-      console.log("entities: ", entities)
-
       setPopupInfo(
          <AffectedPopupInfo
-            entityAtoms={entities.map(
+            entityAtoms={entitiesOnTileRef.current.map(
                (e) => e.entity as unknown as PrimitiveAtom<ZCharacter>
             )}
          />

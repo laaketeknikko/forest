@@ -21,3 +21,7 @@ TODO: performance optimizations.
 TODO: prevent characters from leaving the arena.
 
 TODO: Victory conditions don't seem to reset between scenarios.
+
+TODO: Make enemy starting positions an array to support multiples of same type
+
+TODO: Make the cards prettier.
