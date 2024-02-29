@@ -101,6 +101,7 @@ const Debriefing = () => {
                      <DebriefingEntityCard
                         key={atom.toString()}
                         entityAtom={atom}
+                        direction="vertical"
                      />
                   )
                })}
@@ -121,7 +122,10 @@ const Debriefing = () => {
                   {characterAtoms.map((atom) => {
                      return (
                         <Box component="div" key={atom.toString()}>
-                           <DebriefingEntityCard entityAtom={atom} />
+                           <DebriefingEntityCard
+                              entityAtom={atom}
+                              direction="vertical"
+                           />
                         </Box>
                      )
                   })}
