@@ -14,7 +14,7 @@ export interface DebriefingEntityCardProps {
 
 const DebriefingEntityCard = ({
    entityAtom,
-   direction = "vertical",
+   direction,
 }: DebriefingEntityCardProps) => {
    const [entity] = useAtom(entityAtom)
 

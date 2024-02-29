@@ -1,11 +1,11 @@
 import Box from "@mui/material/Box"
 
-import { useAtom } from "jotai"
+import { PrimitiveAtom, useAtom } from "jotai"
 import {
    activePartyAtom,
    allPlayerCharactersAtom,
 } from "../../../game/state/jotai/characters"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { CharacterOption } from "./CharacterOption"
 
 import { selectedScenarioConfigAtom } from "../../../game/state/jotai/scenarios"
@@ -16,8 +16,13 @@ import { gameExecutionStateAtom } from "../../../game/state/jotai/gameState"
 
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2"
 
-import { generatedDarkThemeColors } from "../../../styles/mui/theme"
+import { generatedDarkThemeColors, theme } from "../../../styles/mui/theme"
 import Stack from "@mui/material/Stack"
+import { ZCharacter } from "../../../../../shared/types/types"
+import { DebriefingEntityCard } from "../../Debriefing/DebriefingEntityCard"
+import { Container } from "@mui/material"
+import { ActionCardList } from "../../Cards/ActionCardList"
+import { CharacterSelectionDetails } from "./CharacterSelectionDetails"
 
 const CharacterSelection = () => {
    /**
@@ -28,6 +33,14 @@ const CharacterSelection = () => {
    const [selectedScenarioConfig] = useAtom(selectedScenarioConfigAtom)
    const [activeParty, setActiveParty] = useAtom(activePartyAtom)
    const [gameState, setGameState] = useAtom(gameExecutionStateAtom)
+   const [detailDisplayAtom, setDetailDisplayAtom] =
+      useState<PrimitiveAtom<ZCharacter> | null>(null)
+
+   const handleDetailDisplay = (option: CharacterSelectionItem) => {
+      detailDisplayAtom === option.characterAtom
+         ? setDetailDisplayAtom(null)
+         : setDetailDisplayAtom(option.characterAtom)
+   }
 
    /**
     * Update local and global lists of selected characters.
@@ -85,7 +98,7 @@ const CharacterSelection = () => {
    ])
 
    return (
-      <Box component="div">
+      <Box component="div" sx={{ overflowY: "auto", height: "100vh" }}>
          <Typography variant="h3" color="primary" textAlign={"center"}>
             Select characters
          </Typography>
@@ -138,12 +151,11 @@ const CharacterSelection = () => {
                                     width: "100%",
                                     aspectRatio: 1,
                                     backgroundColor:
-                                       generatedDarkThemeColors.colors
-                                          .tertiaryContainer,
+                                       theme.palette.text.secondary,
                                     borderRadius: "50%",
-                                    borderColor:
-                                       generatedDarkThemeColors.colors
-                                          .tertiaryContainer,
+                                    borderColor: theme.palette.primary.main,
+                                    borderStyle: "solid",
+                                    borderWidth: 0,
                                  }}
                               >
                                  {" "}
@@ -168,6 +180,10 @@ const CharacterSelection = () => {
                   // TODO: Add a visual cue to selected characters.
                   allPlayerCharacterAtoms &&
                      allPlayerCharacterAtoms.map((character) => {
+                        const isSelected = activeParty.find(
+                           (atom) => atom === character
+                        )
+
                         return (
                            <Grid2
                               key={character.toString()}
@@ -176,15 +192,40 @@ const CharacterSelection = () => {
                               lg={3}
                               xl={2}
                            >
-                              <CharacterOption
-                                 characterAtom={character}
-                                 handleSelection={handleCharacterSelected}
-                              />
+                              <Box
+                                 component="div"
+                                 sx={{
+                                    borderStyle: "solid",
+                                    borderColor: theme.palette.primary.main,
+                                    borderRadius: "1rem",
+                                    borderWidth: isSelected ? 1 : 0,
+                                    aspectRatio: 1,
+                                    display: "flex",
+                                    alignItems: "center",
+                                    padding: isSelected ? 3 : 0,
+                                 }}
+                              >
+                                 <Box component="div">
+                                    <CharacterOption
+                                       characterAtom={character}
+                                       handleSelection={handleDetailDisplay}
+                                    />
+                                 </Box>
+                              </Box>
                            </Grid2>
                         )
                      })
                }
             </Grid2>
+
+            {!detailDisplayAtom && (
+               <Typography variant="body1" textAlign="center">
+                  Select a character to view stats
+               </Typography>
+            )}
+            {detailDisplayAtom && (
+               <CharacterSelectionDetails characterAtom={detailDisplayAtom} />
+            )}
          </Stack>
       </Box>
    )

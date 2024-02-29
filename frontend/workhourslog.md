@@ -67,5 +67,6 @@
 | 27.2. | 2    | Debugging                                                   |
 | 28.2. | 2    | UI work                                                     |
 | 28.2. | 3    | UI and game logic work                                      |
+| 29.2. | 1    | UI work                                                     |
 
-142
+143
