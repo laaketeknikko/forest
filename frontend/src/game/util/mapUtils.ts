@@ -43,6 +43,9 @@ const getNearestTileCornerFromPosition = (xPos: number, zPos: number) => {
  * }
  */
 const getEntitiesForPosition = (position: ZPosition2D) => {
+   // TODO: Make into hook.
+   // by turning the point to tile coordinates first, we
+   // can memo the result.
    const jotaiStore = getDefaultStore()
    const allEntities = jotaiStore.get(allActiveGameEntitiesAtom)
 
