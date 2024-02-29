@@ -10,9 +10,9 @@ import { MainWindowDisplayStatus } from "../../config/types"
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2"
 import Divider from "@mui/material/Divider"
 import { theme } from "../../styles/mui/theme"
-import { activePartyAtom } from "../../game/state/jotai/characters"
+import { selectedPartyAtom } from "../../game/state/jotai/characters"
 import { DebriefingEntityCard } from "./DebriefingEntityCard"
-import { activeScenarioEnemiesAtom } from "../../game/state/jotai/enemies"
+import { selectedScenarioEnemiesAtom } from "../../game/state/jotai/enemies"
 import Stack from "@mui/material/Stack"
 import Box from "@mui/material/Box"
 
@@ -21,8 +21,8 @@ const Debriefing = () => {
       gameExecutionStateAtom
    )
    const [saveGame] = useAtom(activeSaveGameConfigAtom)
-   const [characterAtoms] = useAtom(activePartyAtom)
-   const [enemyAtoms] = useAtom(activeScenarioEnemiesAtom)
+   const [characterAtoms] = useAtom(selectedPartyAtom)
+   const [enemyAtoms] = useAtom(selectedScenarioEnemiesAtom)
 
    const scenarioStatistics = saveGame.scenarioStatistics.find((stat) => {
       return stat.scenarioName === saveGame.scenario.name

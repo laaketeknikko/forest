@@ -1,9 +1,9 @@
 import { PrimitiveAtom, atom, getDefaultStore, useAtom } from "jotai"
 import {
-   activeScenarioEnemiesAtom,
+   selectedScenarioEnemiesAtom,
    allEnemiesAtom,
 } from "../state/jotai/enemies"
-import { activePartyAtom } from "../state/jotai/characters"
+import { selectedPartyAtom } from "../state/jotai/characters"
 import { selectedScenarioConfigAtom } from "../state/jotai/scenarios"
 
 import { shuffle } from "lodash"
@@ -26,7 +26,7 @@ import {
  */
 const useInitializeNewScenario = () => {
    const [allEnemies] = useAtom(allEnemiesAtom)
-   const [activeParty] = useAtom(activePartyAtom)
+   const [activeParty] = useAtom(selectedPartyAtom)
    const [selectedScenarioConfig] = useAtom(selectedScenarioConfigAtom)
 
    const initializeScenario = () => {
@@ -37,7 +37,7 @@ const useInitializeNewScenario = () => {
 
       setEnemyPositions({
          scenarioConfig: selectedScenarioConfig,
-         activeEnemyAtoms: activeScenarioEnemiesAtom,
+         activeEnemyAtoms: selectedScenarioEnemiesAtom,
          allEnemiesAtoms: allEnemies,
       })
 
@@ -114,6 +114,8 @@ const setEnemyPositions = ({
 
    const scenarioEnemies = scenarioConfig.enemies
    const activeEnemies: Array<PrimitiveAtom<ZEnemy>> = []
+
+   // TODO: By cloning the enemy we fuck up the derived enemy atoms.
 
    for (const enemy of scenarioEnemies) {
       const enemyAtom = allEnemiesAtoms.find((atom) => {

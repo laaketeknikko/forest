@@ -2,7 +2,7 @@ import Box from "@mui/material/Box"
 
 import { PrimitiveAtom, useAtom } from "jotai"
 import {
-   activePartyAtom,
+   selectedPartyAtom,
    allPlayerCharactersAtom,
 } from "../../../game/state/jotai/characters"
 import { useCallback, useEffect, useState } from "react"
@@ -32,7 +32,7 @@ const CharacterSelection = () => {
     */
    const [allPlayerCharacterAtoms] = useAtom(allPlayerCharactersAtom)
    const [selectedScenarioConfig] = useAtom(selectedScenarioConfigAtom)
-   const [activeParty, setActiveParty] = useAtom(activePartyAtom)
+   const [activeParty, setActiveParty] = useAtom(selectedPartyAtom)
    const [gameState, setGameState] = useAtom(gameExecutionStateAtom)
    const [detailDisplayAtom, setDetailDisplayAtom] =
       useState<PrimitiveAtom<ZCharacter> | null>(null)

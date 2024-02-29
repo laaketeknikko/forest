@@ -1,10 +1,12 @@
-import { activeScenarioEnemiesAtom } from "../state/jotai/enemies"
+import { defeatedScenarioEnemiesAtom } from "../state/jotai/enemies"
 import { getDefaultStore, useAtom } from "jotai"
 import { activeSaveGameConfigAtom } from "../state/jotai/gameState"
 
 const useScenarioVictoryConditions = () => {
-   const [allScenarioEnemies] = useAtom(activeScenarioEnemiesAtom)
+   const [defeatedEnemies] = useAtom(defeatedScenarioEnemiesAtom)
    const [saveData, setSaveData] = useAtom(activeSaveGameConfigAtom)
+
+   console.log("defeatedEnemies", defeatedEnemies)
 
    const updateConditionStatuses = () => {
       const jotaiStore = getDefaultStore()
@@ -13,7 +15,7 @@ const useScenarioVictoryConditions = () => {
       const updatedConditions = saveData.scenario.scenarioVictoryConditions.map(
          (condition) => {
             if (condition.type === "enemy") {
-               const enemyAtom = allScenarioEnemies.find((enemyAtom) => {
+               const enemyAtom = defeatedEnemies.find((enemyAtom) => {
                   const enemy = jotaiStore.get(enemyAtom)
 
                   return (

@@ -3,8 +3,8 @@ import { getDefaultStore } from "jotai"
 import { atom } from "jotai"
 import type { PrimitiveAtom } from "jotai/vanilla"
 import { atomsFromCardConfigs } from "./atomsFromCardConfigs"
-import { activePartyAtom } from "../state/jotai/characters"
-import { activeScenarioEnemiesAtom } from "../state/jotai/enemies"
+import { selectedPartyAtom } from "../state/jotai/characters"
+import { selectedScenarioEnemiesAtom } from "../state/jotai/enemies"
 import { selectedScenarioConfigAtom } from "../state/jotai/scenarios"
 import { ZCharacter, ZEnemy, ZSaveConfig } from "../../../../shared/types/types"
 
@@ -46,7 +46,7 @@ const buildStateFromSave = (saveData: ZSaveConfig) => {
       characters.push(newCharacterAtom)
    }
 
-   jotaiStore.set(activePartyAtom, characters)
+   jotaiStore.set(selectedPartyAtom, characters)
 
    // Build enemy state
    const enemies: Array<PrimitiveAtom<ZEnemy>> = []
@@ -71,7 +71,7 @@ const buildStateFromSave = (saveData: ZSaveConfig) => {
       enemies.push(newEnemyAtom)
    }
 
-   jotaiStore.set(activeScenarioEnemiesAtom, enemies)
+   jotaiStore.set(selectedScenarioEnemiesAtom, enemies)
 
    // Build scenario state
    // TOOD: Fix after loading refactor is done.

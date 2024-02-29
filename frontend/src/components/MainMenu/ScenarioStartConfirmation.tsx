@@ -3,7 +3,7 @@ import { SetNavigationState } from "./types"
 import Stack from "@mui/material/Stack"
 
 import { selectedScenarioConfigAtom } from "../../game/state/jotai/scenarios"
-import { activePartyAtom } from "../../game/state/jotai/characters"
+import { selectedPartyAtom } from "../../game/state/jotai/characters"
 
 import List from "@mui/material/List"
 import ListItem from "@mui/material/ListItem"
@@ -26,7 +26,7 @@ const ScenarioStartConfirmation = ({
    setNavigationState,
 }: ScenarioStartConfirmationProps) => {
    const [selectedScenarioConfig] = useAtom(selectedScenarioConfigAtom)
-   const [selectedCharacterAtoms] = useAtom(activePartyAtom)
+   const [selectedCharacterAtoms] = useAtom(selectedPartyAtom)
 
    return (
       <Stack>

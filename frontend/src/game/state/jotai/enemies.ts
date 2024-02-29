@@ -9,6 +9,45 @@ const allEnemiesAtom = atom<Array<PrimitiveAtom<ZEnemy>>>([])
 /**
  * List of active enemies. Used when inside a scenario.
  */
-const activeScenarioEnemiesAtom = atom<Array<PrimitiveAtom<ZEnemy>>>([])
+const selectedScenarioEnemiesAtom = atom<Array<PrimitiveAtom<ZEnemy>>>([])
 
-export { allEnemiesAtom, activeScenarioEnemiesAtom }
+/**
+ * List of enemies not defeated yet. Derived from selectedScenarioEnemiesAtom.
+ */
+const activeScenarioEnemiesAtom = atom<Array<PrimitiveAtom<ZEnemy>>>((get) => {
+   const enemies = get(selectedScenarioEnemiesAtom)
+
+   console.log("enemies in activeenemiesatom", enemies)
+
+   const activeEnemies = enemies.filter(
+      (enemyAtom) => get(enemyAtom).health > 0
+   )
+
+   console.log("active enemies in activeenemiesatom", activeEnemies)
+
+   return activeEnemies
+})
+
+/**
+ * List of defeated enemies. Derived from selectedScenarioEnemiesAtom.
+ */
+const defeatedScenarioEnemiesAtom = atom<Array<PrimitiveAtom<ZEnemy>>>(
+   (get) => {
+      const enemies = get(selectedScenarioEnemiesAtom)
+      const defeatedEnemies = enemies.filter(
+         (enemyAtom) => get(enemyAtom).health <= 0
+      )
+
+      console.log("enemies in defeatedeneiesatom", enemies)
+      console.log("defeated enemies in defeatedeneiesatom", defeatedEnemies)
+
+      return defeatedEnemies
+   }
+)
+
+export {
+   allEnemiesAtom,
+   selectedScenarioEnemiesAtom,
+   activeScenarioEnemiesAtom,
+   defeatedScenarioEnemiesAtom,
+}
