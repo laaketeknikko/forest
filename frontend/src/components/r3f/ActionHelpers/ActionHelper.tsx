@@ -23,7 +23,6 @@ import { MathUtils } from "three"
 
 import { customTheme } from "../../../styles/mui/theme"
 import { emptyActionCardAtom } from "../../../game/state/initialStates"
-import { useScenarioVictoryConditions } from "../../../game/hooks/useScenarioVictoryConditions"
 
 import { CustomGrid } from "../util/CustomGrid"
 import {
@@ -82,8 +81,6 @@ const ActionHelper = () => {
       }
    }, [action])
 
-   const victoryConditions = useScenarioVictoryConditions()
-
    const handlePerformEffect = (event: ThreeEvent<MouseEvent>) => {
       if (!actionTrackerRef.current) return
 
@@ -94,8 +91,6 @@ const ActionHelper = () => {
          activeEffect: activeEffect!,
          targetPoint: event.point,
       })
-
-      victoryConditions.updateConditionStatuses()
 
       setGameExecutionState({
          ...gameExecutionState,

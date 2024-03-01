@@ -1,34 +1,53 @@
 import { defeatedScenarioEnemiesAtom } from "../state/jotai/enemies"
 import { getDefaultStore, useAtom } from "jotai"
 import { activeSaveGameConfigAtom } from "../state/jotai/gameState"
+import { useEffect } from "react"
 
 const useScenarioVictoryConditions = () => {
    const [defeatedEnemies] = useAtom(defeatedScenarioEnemiesAtom)
    const [saveData, setSaveData] = useAtom(activeSaveGameConfigAtom)
 
-   console.log("defeatedEnemies", defeatedEnemies)
+   useEffect(() => {
+      console.log("updating conditions")
+      console.log(
+         "scenariovictoryconditions",
+         saveData.scenario.scenarioVictoryConditions
+      )
 
-   const updateConditionStatuses = () => {
       const jotaiStore = getDefaultStore()
       let conditionsChanged = false
 
       const updatedConditions = saveData.scenario.scenarioVictoryConditions.map(
          (condition) => {
             if (condition.type === "enemy") {
+               console.log("condition is enemy")
+
                const enemyAtom = defeatedEnemies.find((enemyAtom) => {
                   const enemy = jotaiStore.get(enemyAtom)
-
+                  console.log("finding enemy")
                   return (
                      enemy.name.toLowerCase() ===
                      condition.enemyName.toLowerCase()
                   )
                })
-
+               console.log("fouund enemy atom", enemyAtom)
+               console.log(
+                  "found enemy: ",
+                  enemyAtom ? jotaiStore.get(enemyAtom) : null
+               )
                if (enemyAtom) {
+                  console.log("have enemy atom")
                   const enemy = jotaiStore.get(enemyAtom)
+
+                  console.log(
+                     "enemy and enemy atom in updateconditions",
+                     enemy,
+                     enemyAtom
+                  )
 
                   if (condition.status === "dead") {
                      if (enemy.health <= 0) {
+                        console.log("enemy health is dead")
                         condition.fulfilled = true
                         conditionsChanged = true
                      }
@@ -48,7 +67,7 @@ const useScenarioVictoryConditions = () => {
             },
          })
       }
-   }
+   }, [defeatedEnemies, saveData, setSaveData])
 
    const allConditionsMet = () => {
       return (
@@ -60,7 +79,6 @@ const useScenarioVictoryConditions = () => {
    }
 
    return {
-      updateConditionStatuses,
       allConditionsMet,
       victoryConditions: saveData.scenario.scenarioVictoryConditions,
    }

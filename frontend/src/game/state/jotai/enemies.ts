@@ -17,8 +17,6 @@ const selectedScenarioEnemiesAtom = atom<Array<PrimitiveAtom<ZEnemy>>>([])
 const activeScenarioEnemiesAtom = atom<Array<PrimitiveAtom<ZEnemy>>>((get) => {
    const enemies = get(selectedScenarioEnemiesAtom)
 
-   console.log("enemies in activeenemiesatom", enemies)
-
    const activeEnemies = enemies.filter(
       (enemyAtom) => get(enemyAtom).health > 0
    )
@@ -38,7 +36,6 @@ const defeatedScenarioEnemiesAtom = atom<Array<PrimitiveAtom<ZEnemy>>>(
          (enemyAtom) => get(enemyAtom).health <= 0
       )
 
-      console.log("enemies in defeatedeneiesatom", enemies)
       console.log("defeated enemies in defeatedeneiesatom", defeatedEnemies)
 
       return defeatedEnemies

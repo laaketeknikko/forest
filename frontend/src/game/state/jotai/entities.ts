@@ -1,6 +1,6 @@
 import { atom } from "jotai"
 
-import { selectedPartyAtom } from "./characters"
+import { activePartyAtom } from "./characters"
 import { activeScenarioEnemiesAtom } from "./enemies"
 
 /**
@@ -10,7 +10,7 @@ import { activeScenarioEnemiesAtom } from "./enemies"
  * This list includes entities that don't take turns.
  */
 const allActiveGameEntitiesAtom = atom((get) => {
-   const activeCharacters = get(selectedPartyAtom)
+   const activeCharacters = get(activePartyAtom)
    const activeEnemies = get(activeScenarioEnemiesAtom)
    const allEntities = [...activeCharacters, ...activeEnemies]
 
