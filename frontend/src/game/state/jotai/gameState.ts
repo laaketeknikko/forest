@@ -1,5 +1,5 @@
 import { PrimitiveAtom, atom } from "jotai"
-import { selectedPartyAtom } from "./characters"
+import { activePartyAtom } from "./characters"
 import { emptyActionCard, emptyScenarioSaveConfig } from "../initialStates"
 import { activeScenarioEnemiesAtom } from "./enemies"
 import {
@@ -26,7 +26,7 @@ import { focusAtom } from "jotai-optics"
  */
 const turnOrderAtom = atom<Array<PrimitiveAtom<ZDynamicGameEntity>>>((get) => {
    const dynamicEntities = [
-      ...get(selectedPartyAtom),
+      ...get(activePartyAtom),
       ...get(activeScenarioEnemiesAtom),
    ]
    dynamicEntities.sort((aAtom, bAtom) => {

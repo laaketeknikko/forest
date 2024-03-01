@@ -26,13 +26,13 @@ import {
  */
 const useInitializeNewScenario = () => {
    const [allEnemies] = useAtom(allEnemiesAtom)
-   const [activeParty] = useAtom(selectedPartyAtom)
+   const [selectedParty] = useAtom(selectedPartyAtom)
    const [selectedScenarioConfig] = useAtom(selectedScenarioConfigAtom)
 
    const initializeScenario = () => {
       setCharacterPositions({
          scenarioConfig: selectedScenarioConfig,
-         activePartyAtom: activeParty,
+         activePartyAtom: selectedParty,
       })
 
       setEnemyPositions({

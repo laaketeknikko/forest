@@ -1,7 +1,7 @@
 import { defeatedScenarioEnemiesAtom } from "../state/jotai/enemies"
 import { getDefaultStore, useAtom } from "jotai"
 import { activeSaveGameConfigAtom } from "../state/jotai/gameState"
-import { useEffect } from "react"
+import { useCallback, useEffect } from "react"
 
 const useScenarioVictoryConditions = () => {
    const [defeatedEnemies] = useAtom(defeatedScenarioEnemiesAtom)
@@ -48,8 +48,10 @@ const useScenarioVictoryConditions = () => {
                   if (condition.status === "dead") {
                      if (enemy.health <= 0) {
                         console.log("enemy health is dead")
-                        condition.fulfilled = true
-                        conditionsChanged = true
+                        if (!condition.fulfilled) {
+                           condition.fulfilled = true
+                           conditionsChanged = true
+                        }
                      }
                   }
                }
@@ -69,14 +71,14 @@ const useScenarioVictoryConditions = () => {
       }
    }, [defeatedEnemies, saveData, setSaveData])
 
-   const allConditionsMet = () => {
+   const allConditionsMet = useCallback(() => {
       return (
          saveData.scenario.scenarioVictoryConditions.length > 0 &&
          saveData.scenario.scenarioVictoryConditions.every(
             (condition) => condition.fulfilled
          )
       )
-   }
+   }, [saveData.scenario.scenarioVictoryConditions])
 
    return {
       allConditionsMet,

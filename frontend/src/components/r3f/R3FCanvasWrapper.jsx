@@ -4,9 +4,9 @@ import { Canvas, useFrame } from "@react-three/fiber"
 
 import { useAtom } from "jotai"
 import { Character } from "./Character/Character"
-import { selectedPartyAtom } from "../../game/state/jotai/characters"
+import { activePartyAtom } from "../../game/state/jotai/characters"
 import { ActionHelper } from "./ActionHelpers/ActionHelper"
-import { selectedScenarioEnemiesAtom } from "../../game/state/jotai/enemies"
+import { activeScenarioEnemiesAtom } from "../../game/state/jotai/enemies"
 
 import { useIdleTimer } from "react-idle-timer"
 import { CameraControls } from "./CameraControls"
@@ -25,8 +25,8 @@ const DisableRender = () => useFrame(() => null, 1000)
  * Wrapper around the actual game scene.
  */
 const R3FCanvasWrapper = () => {
-   const [activePartyCharacters] = useAtom(selectedPartyAtom)
-   const [activeEnemies] = useAtom(selectedScenarioEnemiesAtom)
+   const [activePartyCharacters] = useAtom(activePartyAtom)
+   const [activeEnemies] = useAtom(activeScenarioEnemiesAtom)
    const [pauseAnimation, setPauseAnimation] = useState(false)
    const [selectedScenario] = useAtom(selectedScenarioConfigAtom)
    const [animationState] = useAtom(animationFocusAtom)

@@ -28,46 +28,6 @@ const scenarioConfig: ZScenarioConfig = {
             z: 28.5,
          },
       },
-      {
-         enemyName: "Debug-Miinii",
-         quantity: 1,
-         startingPosition: {
-            x: 32.5,
-            z: 32.5,
-         },
-      },
-      {
-         enemyName: "Debug-Miinii",
-         quantity: 1,
-         startingPosition: {
-            x: 36.5,
-            z: 36.5,
-         },
-      },
-      {
-         enemyName: "Debug-Miinii",
-         quantity: 1,
-         startingPosition: {
-            x: 44.5,
-            z: 44.5,
-         },
-      },
-      {
-         enemyName: "Debug-Miinii",
-         quantity: 1,
-         startingPosition: {
-            x: 48.5,
-            z: 48.5,
-         },
-      },
-      {
-         enemyName: "Debug-Miinii",
-         quantity: 1,
-         startingPosition: {
-            x: 50.5,
-            z: 50.5,
-         },
-      },
    ],
    playerCharacterStartingPositions: [
       {
