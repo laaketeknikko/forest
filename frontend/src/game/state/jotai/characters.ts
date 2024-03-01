@@ -20,14 +20,34 @@ const activeCharacterAtomAtom = atom((get) => {
 const allPlayerCharactersAtom = atom<Array<PrimitiveAtom<ZCharacter>>>([])
 
 /**
- * This atom contains the states of the currently active party,
+ * This atom contains the states of the currently selected party,
  * usually when inside a scenario.
+ * This should not be modified until a scenario is complete.
  */
-const activePartyAtom = atom<Array<PrimitiveAtom<ZCharacter>>>([])
+const selectedPartyAtom = atom<Array<PrimitiveAtom<ZCharacter>>>([])
+
+/**
+ * A derived atom holding characters from the selectedPartAtom
+ * with health > 0.
+ */
+const activePartyAtom = atom<Array<PrimitiveAtom<ZCharacter>>>((get) => {
+   const party = get(selectedPartyAtom)
+   return party.filter((characterAtom) => get(characterAtom).health > 0)
+})
+
+/**
+ * Derived from selectedPartyAtom. This atom contains the characters that have been defeated.
+ */
+const defeatedCharactersAtom = atom<Array<PrimitiveAtom<ZCharacter>>>((get) => {
+   const party = get(selectedPartyAtom)
+   return party.filter((characterAtom) => get(characterAtom).health <= 0)
+})
 
 export {
    emptyCharacterAtom,
    allPlayerCharactersAtom,
    activeCharacterAtomAtom,
+   selectedPartyAtom,
    activePartyAtom,
+   defeatedCharactersAtom,
 }

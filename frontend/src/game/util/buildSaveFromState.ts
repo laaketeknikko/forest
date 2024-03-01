@@ -1,7 +1,7 @@
 import { getDefaultStore } from "jotai"
 
-import { activeScenarioEnemiesAtom } from "../state/jotai/enemies"
-import { activePartyAtom } from "../state/jotai/characters"
+import { selectedScenarioEnemiesAtom } from "../state/jotai/enemies"
+import { selectedPartyAtom } from "../state/jotai/characters"
 import {
    ZActionCard,
    ZCharacter,
@@ -28,8 +28,8 @@ import { selectedScenarioConfigAtom } from "../state/jotai/scenarios"
  */
 const buildSaveFromState = () => {
    const jotaiStore = getDefaultStore()
-   const characterAtoms = jotaiStore.get(activePartyAtom)
-   const enemyAtoms = jotaiStore.get(activeScenarioEnemiesAtom)
+   const characterAtoms = jotaiStore.get(selectedPartyAtom)
+   const enemyAtoms = jotaiStore.get(selectedScenarioEnemiesAtom)
 
    const saveGameData = {
       characters: [] as Array<ZSaveConfigCharacter>,

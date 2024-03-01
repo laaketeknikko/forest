@@ -47,7 +47,7 @@ const getEntitiesForPosition = (position: ZPosition2D) => {
    // by turning the point to tile coordinates first, we
    // can memo the result.
    const jotaiStore = getDefaultStore()
-   const allEntities = jotaiStore.get(allActiveGameEntitiesAtom)
+   const activeEntities = jotaiStore.get(allActiveGameEntitiesAtom)
 
    const tileCenter = getTilePositionFromPosition(position.x, position.z)
 
@@ -56,7 +56,7 @@ const getEntitiesForPosition = (position: ZPosition2D) => {
       entity: PrimitiveAtom<ZGameEntity>
    }> = []
 
-   for (const entity of allEntities) {
+   for (const entity of activeEntities) {
       const entityData: ZGameEntity = jotaiStore.get(entity)
 
       const differenceX = Math.abs(entityData.position!.x - tileCenter.center.x)

@@ -97,7 +97,7 @@ const performOffensiveEffect = (props: PerformEffectProps) => {
          entity.entityData.health -= attackPower
       }
 
-      jotaiStore.set(entity.entity, entity.entityData)
+      jotaiStore.set(entity.entity, { ...entity.entityData })
    }
 }
 
