@@ -79,7 +79,7 @@ const ScenarioDetails = ({ scenarioConfig }: ScenarioDetailsProps) => {
          <Grid2 container>
             {scenarioConfig.enemies.map((enemy) => {
                return (
-                  <Grid2 key={enemy.enemyName} xs={4}>
+                  <Grid2 key={enemy.enemyName} xs={6} sm={5} lg={4}>
                      <EnemyDetails
                         enemyAtom={
                            getEnemyConfigByEnemyName(enemy.enemyName)

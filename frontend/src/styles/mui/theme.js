@@ -5,8 +5,6 @@ const theme = createTheme({
    spacing: 2,
 })
 
-theme.spacing
-
 theme.palette.primary = {
    ...theme.palette.primary,
 

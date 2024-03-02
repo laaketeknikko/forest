@@ -19,11 +19,15 @@ const DebriefingEntityCard = ({
    const [entity] = useAtom(entityAtom)
 
    return (
-      <Card sx={{ margin: 1 }}>
+      <Card sx={{ margin: 1, padding: 0 }} variant="elevation" elevation={0}>
          <Stack direction={direction === "vertical" ? "column" : "row"}>
-            <CardMedia component="img" image={entity.spritePath} />
+            <CardMedia
+               component="img"
+               image={entity.spritePath}
+               sx={{ padding: 0 }}
+            />
 
-            <CardContent>
+            <CardContent sx={{ padding: 0 }}>
                <Typography variant="h6" textAlign="center" color={"primary"}>
                   {entity.name}
                </Typography>

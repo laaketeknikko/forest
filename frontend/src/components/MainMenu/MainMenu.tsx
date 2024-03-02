@@ -22,6 +22,7 @@ import {
 import { useAtom } from "jotai"
 import { useInitializeNewScenario } from "../../game/hooks/useInitializeNewScenario"
 import { useSaveGame } from "../../game/hooks/useSaveGame"
+import Container from "@mui/material/Container"
 
 const MainMenu = () => {
    const [gameExecutionState, setGameExecutionState] = useAtom(
@@ -82,76 +83,112 @@ const MainMenu = () => {
    }
 
    return (
-      <Paper sx={{ height: "100%" }}>
-         <TabContext value={chosenTab}>
-            <Grid container alignItems={"center"} height={"100%"}>
-               <Grid
-                  xs={2}
-                  sx={{
-                     height: "100%",
-                     display: "flex",
-                     justifyContent: "center",
-                     alignItems: "center",
-                  }}
-               >
-                  <TabList
-                     onChange={(_e, newTab) => setChosenTab(newTab)}
-                     orientation="vertical"
+      <Container
+         sx={{
+            height: "100%",
+            margin: "0 !important",
+            padding: "0 !important",
+         }}
+      >
+         <Paper sx={{ height: "100%", margin: 0, padding: 0 }}>
+            <TabContext value={chosenTab}>
+               <Grid container alignItems={"center"} height={"100%"}>
+                  <Grid
+                     xs={2}
+                     sx={{
+                        height: "100%",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                     }}
                   >
-                     <Tab label="Main Menu" value="0"></Tab>
+                     <TabList
+                        onChange={(_e, newTab) => setChosenTab(newTab)}
+                        orientation="vertical"
+                     >
+                        <Tab
+                           label="Main Menu"
+                           value="0"
+                           sx={{ margin: 2, padding: 2 }}
+                        ></Tab>
 
-                     <Tab
-                        label="Select scenario"
-                        value="1"
-                        disabled={!gameExecutionState.mainMenu.gameConfigLoaded}
-                     ></Tab>
+                        <Tab
+                           label="Select scenario"
+                           value="1"
+                           disabled={
+                              !gameExecutionState.mainMenu.gameConfigLoaded
+                           }
+                           sx={{ margin: 2, padding: 2 }}
+                        ></Tab>
 
-                     <Tab
-                        label="Select characters"
+                        <Tab
+                           label="Select characters"
+                           value="2"
+                           disabled={
+                              !gameExecutionState.mainMenu.scenarioSelected
+                           }
+                           sx={{ margin: 2, padding: 2 }}
+                        ></Tab>
+
+                        <Tab
+                           label="Confirmation"
+                           value="3"
+                           disabled={
+                              !gameExecutionState.mainMenu.charactersSelected
+                           }
+                           sx={{ margin: 2, padding: 2 }}
+                        ></Tab>
+                     </TabList>
+                  </Grid>
+
+                  <Grid
+                     xs={10}
+                     sx={{
+                        height: "100%",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                     }}
+                  >
+                     <TabPanel
+                        value="0"
+                        sx={{
+                           width: "100%",
+                           maxWidth: "40rem",
+                           margin: 0,
+                           padding: 0,
+                        }}
+                     >
+                        <NewGame startLoadedScenario={startLoadedScenario} />
+                     </TabPanel>
+                     <TabPanel value="1" sx={{ margin: 0, padding: 0 }}>
+                        <ScenarioSelection />
+                     </TabPanel>
+                     <TabPanel
                         value="2"
-                        disabled={!gameExecutionState.mainMenu.scenarioSelected}
-                     ></Tab>
-
-                     <Tab
-                        label="Confirmation"
+                        sx={{ margin: 0, marginRight: 2, padding: 0 }}
+                     >
+                        <CharacterSelection />
+                     </TabPanel>
+                     <TabPanel
                         value="3"
-                        disabled={
-                           !gameExecutionState.mainMenu.charactersSelected
-                        }
-                     ></Tab>
-                  </TabList>
+                        sx={{
+                           height: "100%",
+                           overflowY: "scroll",
+                           margin: 0,
+                           marginRight: 2,
+                           padding: 0,
+                        }}
+                     >
+                        <ScenarioStartConfirmation
+                           setNavigationState={startNewScenario}
+                        />
+                     </TabPanel>
+                  </Grid>
                </Grid>
-
-               <Grid
-                  xs={10}
-                  sx={{
-                     height: "100%",
-                     display: "flex",
-                     justifyContent: "center",
-                     alignItems: "center",
-                  }}
-               >
-                  <TabPanel value="0" sx={{ width: "100%", maxWidth: "40rem" }}>
-                     <NewGame startLoadedScenario={startLoadedScenario} />
-                  </TabPanel>
-                  <TabPanel value="1">
-                     <ScenarioSelection />
-                  </TabPanel>
-                  <TabPanel value="2">
-                     <CharacterSelection />
-                  </TabPanel>
-                  <TabPanel
-                     value="3"
-                     sx={{ height: "100%", overflowY: "scroll" }}
-                  >
-                     <ScenarioStartConfirmation
-                        setNavigationState={startNewScenario}
-                     />
-                  </TabPanel>
-               </Grid>
-            </Grid>
-         </TabContext>
-      </Paper>
+            </TabContext>
+         </Paper>
+      </Container>
    )
 }
 

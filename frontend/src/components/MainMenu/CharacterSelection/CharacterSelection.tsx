@@ -120,38 +120,19 @@ const CharacterSelection = () => {
 
    return (
       <Box component="div" sx={{ overflowY: "auto", height: "100vh" }}>
-         <Typography variant="h3" color="primary" textAlign={"center"}>
-            Select characters
-         </Typography>
-
          <Grid2 container columns={24}>
             <Grid2 xs={21}>
                <Stack
                   spacing={10}
                   sx={{ justifyContent: "center", marginTop: 3 }}
                >
-                  {
-                     // TODO: Is this outer grid needed?
-                  }
-                  <Grid2
-                     container
-                     marginBottom={4}
-                     marginTop={2}
-                     justifyContent={"center"}
-                  >
-                     <Grid2
-                        xs={12}
-                        justifyContent={"center"}
-                        alignItems={"center"}
-                        container
-                        columns={24}
-                     ></Grid2>
-                  </Grid2>
+                  <Typography variant="h3" color="primary" textAlign={"center"}>
+                     Select characters
+                  </Typography>
 
                   {/**
                    *  Available characters
                    * */}
-
                   <Grid2
                      marginTop={2}
                      columns={24}

@@ -40,15 +40,24 @@ const ScenarioInfoCard = ({
    return (
       <Card sx={isSelectable ? {} : disabledStyles}>
          <div>
-            <CardActionArea onClick={handleClick} disabled={!isSelectable}>
+            <CardActionArea
+               sx={{ padding: 0 }}
+               onClick={handleClick}
+               disabled={!isSelectable}
+            >
                <CardMedia
                   component="img"
                   image={scenarioInfo.thumbNailPath}
                   width="100%"
+                  sx={{ padding: 0 }}
                />
                <CardHeader
-                  titleTypographyProps={{ color: "primary" }}
+                  titleTypographyProps={{
+                     color: "primary",
+                     textAlign: "center",
+                  }}
                   title={scenarioInfo.name}
+                  sx={{ padding: 0 }}
                ></CardHeader>
             </CardActionArea>
          </div>
