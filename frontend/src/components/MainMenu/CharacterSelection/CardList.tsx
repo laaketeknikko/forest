@@ -21,11 +21,11 @@ const CardList = ({ character, direction }: CardListProps) => {
             return (
                <Box component="div" key={cardData.name}>
                   <Typography color="primary">{cardData.name}</Typography>
-                  {cardData.actions.map((action) => {
+                  {cardData.actions.map((action, actionIndex) => {
                      return (
                         <Typography
                            variant="body2"
-                           key={`${cardData.name}${action.name}`}
+                           key={`${actionIndex}${cardData.name}${action.name}`}
                         >
                            {action.name}
                         </Typography>

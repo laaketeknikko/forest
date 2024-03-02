@@ -178,7 +178,7 @@ const BushiActions: Record<string, types.ZSaveConfigActionCardAction> = {
       ],
    },
    walk: {
-      name: "walk",
+      name: "Walk",
       description: "Your steady step never fails",
 
       effects: [

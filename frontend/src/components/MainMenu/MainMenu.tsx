@@ -175,6 +175,7 @@ const MainMenu = () => {
                         sx={{
                            height: "100%",
                            overflowY: "scroll",
+                           overflowX: "hidden",
                            margin: 0,
                            marginRight: 2,
                            padding: 0,
