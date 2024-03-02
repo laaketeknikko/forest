@@ -19,15 +19,8 @@ const CharacterSelectionDetails = ({
 
    return (
       <Container>
-         <Grid2 container alignItems={"center"}>
-            <Grid2 xs={3} sm={4} lg={4}></Grid2>
-            <Grid2
-               xs={6}
-               sm={4}
-               lg={3}
-               alignContent={"center"}
-               alignItems={"center"}
-            >
+         <Grid2 container alignItems={"center"} justifyContent={"space-around"}>
+            <Grid2 xs={6} sm={4} md={3} lg={3}>
                <Typography variant="h6" textAlign="center" color="primary">
                   Stats
                </Typography>
@@ -43,16 +36,9 @@ const CharacterSelectionDetails = ({
                   />
                </Box>
             </Grid2>
-            <Grid2 xs={3} sm={4} lg={4}></Grid2>
          </Grid2>
-         <Grid2
-            container
-            columns={24}
-            justifyItems={"center"}
-            justifyContent={"center"}
-         >
-            <Grid2 xs={1} sm={3} md={4} lg={5} xl={6}></Grid2>
-            <Grid2 xs={22} sm={18} md={16} lg={14} xl={12}>
+         <Grid2 container columns={24} justifyContent={"space-around"}>
+            <Grid2>
                <Typography
                   variant="h6"
                   textAlign="center"
@@ -63,7 +49,6 @@ const CharacterSelectionDetails = ({
                </Typography>
                <CardList character={character} direction="horizontal" />
             </Grid2>
-            <Grid2 xs={1} sm={3} md={4} lg={5} xl={6}></Grid2>
          </Grid2>
       </Container>
    )

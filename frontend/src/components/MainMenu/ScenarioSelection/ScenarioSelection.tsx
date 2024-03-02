@@ -52,7 +52,7 @@ const ScenarioSelection = () => {
       <Box component="div">
          <Grid container>
             <Grid xs={4} md={3}>
-               <List sx={{ overflowY: "scroll", height: "100vh" }}>
+               <List sx={{ overflowY: "auto", height: "100vh" }}>
                   {allScenarioConfigs.map((config) => {
                      return (
                         <Box
@@ -90,7 +90,7 @@ const ScenarioSelection = () => {
                   alignItems: "center",
                   justifyContent: "center",
                   height: "100vh",
-                  overflowY: "scroll",
+                  overflowY: "auto",
                }}
             >
                <ScenarioDetails scenarioConfig={selectedScenarioConfig} />

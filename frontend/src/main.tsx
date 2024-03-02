@@ -9,7 +9,7 @@ import "./styles/global.css"
 import "./styles/cards.css"
 
 import { ThemeProvider } from "@mui/material/styles"
-import { theme } from "./styles/mui/theme.js"
+import { customTheme, theme } from "./styles/mui/theme.js"
 import GlobalStyles from "@mui/material/GlobalStyles"
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
@@ -21,7 +21,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
             <GlobalStyles
                styles={{
                   body: {
-                     scrollbarColor: `${theme.palette.text.secondary} ${theme.palette.background.default}`,
+                     scrollbarColor: `${customTheme.custom.colors.scrollbars.handle} ${customTheme.custom.colors.scrollbars.background}`,
                      scrollbarWidth: "thin",
                   },
                }}

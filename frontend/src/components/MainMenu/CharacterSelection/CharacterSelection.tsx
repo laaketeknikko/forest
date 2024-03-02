@@ -119,7 +119,7 @@ const CharacterSelection = () => {
    ])
 
    return (
-      <Box component="div" sx={{ overflowY: "auto", height: "100vh" }}>
+      <Box component="div" sx={{ overflowY: "scroll", height: "100vh" }}>
          <Grid2 container columns={24}>
             <Grid2 xs={21}>
                <Stack
@@ -154,7 +154,6 @@ const CharacterSelection = () => {
                                  xs={6}
                                  md={4}
                                  lg={3}
-                                 xl={2}
                               >
                                  <Box
                                     component="div"
@@ -212,7 +211,7 @@ const CharacterSelection = () => {
                   )}
                </Stack>
             </Grid2>
-            <Grid2 xs={3}>
+            <Grid2 xs={3} md={2} lg={2}>
                <Stack spacing={4}>
                   {/***
                    * First render avatars of selected characters, then add empty spaces

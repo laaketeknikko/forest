@@ -7,7 +7,8 @@ import { ZScenarioConfig } from "../../../../../shared/types/types"
 import { getEnemyConfigByEnemyName } from "../../../game/util/getEnemyByName"
 import { emptyEnemyAtom } from "../../../game/state/initialStates"
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2"
-import { List, ListItem } from "@mui/material"
+import List from "@mui/material/List"
+import ListItem from "@mui/material/ListItem"
 
 interface ScenarioDetailsProps {
    scenarioConfig: ZScenarioConfig
@@ -20,9 +21,12 @@ const ScenarioDetails = ({ scenarioConfig }: ScenarioDetailsProps) => {
             {scenarioConfig.name}
          </Typography>
 
-         <List dense={true}>
+         <List
+            dense={true}
+            sx={{ marginBottom: 5, paddingTop: 0, paddingBottom: 0 }}
+         >
             <ListItem>
-               <Typography variant="body1">
+               <Typography variant="body1" textAlign="center" width={"100%"}>
                   Maximum party size:&nbsp;
                   <Typography component="span" color="primary">
                      {scenarioConfig.maxPartySize}
@@ -30,7 +34,7 @@ const ScenarioDetails = ({ scenarioConfig }: ScenarioDetailsProps) => {
                </Typography>
             </ListItem>
             <ListItem>
-               <Typography variant="body1">
+               <Typography variant="body1" textAlign="center" width={"100%"}>
                   Arena size:{" "}
                   <Typography component="span" color="primary">
                      {scenarioConfig.arena.size.length}x
@@ -43,12 +47,19 @@ const ScenarioDetails = ({ scenarioConfig }: ScenarioDetailsProps) => {
             Victory conditions
          </Typography>
 
-         <List dense={true}>
+         <List
+            dense={true}
+            sx={{ marginBottom: 5, paddingTop: 0, paddingBottom: 0 }}
+         >
             {scenarioConfig.scenarioVictoryConditions.map(
                (condition, index) => {
                   return (
                      <ListItem key={index}>
-                        <Typography variant="body1">
+                        <Typography
+                           variant="body1"
+                           textAlign="center"
+                           width={"100%"}
+                        >
                            {index + 1}. {condition.description}
                         </Typography>
                      </ListItem>
@@ -60,11 +71,18 @@ const ScenarioDetails = ({ scenarioConfig }: ScenarioDetailsProps) => {
          <Typography variant="h5" color="primary" textAlign="center">
             Loss conditions
          </Typography>
-         <List dense={true}>
+         <List
+            dense={true}
+            sx={{ marginBottom: 5, paddingTop: 0, paddingBottom: 0 }}
+         >
             {scenarioConfig.scenarioLossConditions.map((condition, index) => {
                return (
                   <ListItem key={index}>
-                     <Typography variant="body1">
+                     <Typography
+                        variant="body1"
+                        textAlign="center"
+                        width={"100%"}
+                     >
                         {index + 1}. {condition.description}
                      </Typography>
                   </ListItem>

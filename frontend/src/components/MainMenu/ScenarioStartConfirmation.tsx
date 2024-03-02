@@ -8,12 +8,12 @@ import { selectedPartyAtom } from "../../game/state/jotai/characters"
 import List from "@mui/material/List"
 import ListItem from "@mui/material/ListItem"
 import { useAtom } from "jotai"
-import { ScenarioStartCharacterInfo } from "./ScenarioStartCharacterInfo"
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2"
 
 import { getEnemyConfigByEnemyName } from "../../game/util/getEnemyByName"
 import Avatar from "@mui/material/Avatar"
 import { theme } from "../../styles/mui/theme"
+import { DebriefingEntityCard } from "../Debriefing/DebriefingEntityCard"
 
 interface ScenarioStartConfirmationProps {
    setNavigationState: SetNavigationState
@@ -38,7 +38,7 @@ const ScenarioStartConfirmation = ({
             Start scenario
          </Button>
          <Grid2 container columns={24}>
-            <Grid2 xs={12}>
+            <Grid2 xs={6}>
                <List>
                   {selectedScenarioConfig.enemies.map((enemy) => {
                      const enemyInfo = getEnemyConfigByEnemyName(
@@ -78,18 +78,26 @@ const ScenarioStartConfirmation = ({
                   })}
                </List>
             </Grid2>
-            <Grid2 xs={12}>
-               <List>
+            <Grid2 xs={18}>
+               <Grid2 container columns={24} alignItems={"end"}>
                   {selectedCharacterAtoms.map((characterAtom) => {
                      return (
-                        <ListItem key={characterAtom.toString()}>
-                           <ScenarioStartCharacterInfo
-                              characterAtom={characterAtom}
+                        <Grid2
+                           xs={8}
+                           sm={8}
+                           md={6}
+                           lg={5}
+                           xl={5}
+                           key={characterAtom.toString()}
+                        >
+                           <DebriefingEntityCard
+                              entityAtom={characterAtom}
+                              direction={"vertical"}
                            />
-                        </ListItem>
+                        </Grid2>
                      )
                   })}
-               </List>
+               </Grid2>
             </Grid2>
          </Grid2>
       </Stack>

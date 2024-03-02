@@ -13,7 +13,7 @@ const CardList = ({ character, direction }: CardListProps) => {
    return (
       <Stack
          direction={direction === "vertical" ? "column" : "row"}
-         spacing={4}
+         spacing={10}
       >
          {character.cards.map((card, _index) => {
             const jotaiStore = getDefaultStore()
@@ -23,7 +23,10 @@ const CardList = ({ character, direction }: CardListProps) => {
                   <Typography color="primary">{cardData.name}</Typography>
                   {cardData.actions.map((action) => {
                      return (
-                        <Typography variant="body2" key={action.name}>
+                        <Typography
+                           variant="body2"
+                           key={`${cardData.name}${action.name}`}
+                        >
                            {action.name}
                         </Typography>
                      )

@@ -72,6 +72,6 @@
 | 29.2. | 1    | Debugging                                                   |
 | 1.3.  | 2    | Debugging                                                   |
 | 1.3.  | 1    | UI work                                                     |
-| 2.3.  | 1    | UI work                                                     |
+| 2.3.  | 2    | UI work                                                     |
 
-149
+150

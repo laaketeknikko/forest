@@ -42,6 +42,10 @@ customTheme.custom = {
       damageTypes: {
          physical: grey[500],
       },
+      scrollbars: {
+         background: "rgb(32, 21, 13)",
+         handle: "rgb(69, 43, 0)",
+      },
    },
 }
 
