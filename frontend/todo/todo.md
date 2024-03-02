@@ -27,3 +27,6 @@ TODO: Make enemy starting positions an array to support multiples of same type
 TODO: Make the cards prettier.
 
 TODO: Fix in-game menu
+
+TODO: Apparently it might not be a good idea to unmount and remount
+the Fiber canvas. Should change to just mount once somehow.

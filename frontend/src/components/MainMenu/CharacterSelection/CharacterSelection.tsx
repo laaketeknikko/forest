@@ -182,9 +182,9 @@ const CharacterSelection = () => {
                                        }}
                                     >
                                        {isInParty ? (
-                                          <TaskAltIcon />
+                                          <TaskAltIcon fontSize="large" />
                                        ) : (
-                                          <HelpOutlineIcon />
+                                          <HelpOutlineIcon fontSize="large" />
                                        )}
                                     </Avatar>
                                     <Box component="div">

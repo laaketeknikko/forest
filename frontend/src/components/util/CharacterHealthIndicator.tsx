@@ -9,13 +9,17 @@ const CharacterHealthIndicator = ({
    current,
    max,
 }: CharacterHealthIndicatorProps) => {
+   // TODO: Progress indicator needs to be replaced. It uses too processing power.
    return (
-      <LinearProgress
+      <div>
+         Moi
+         {/*<LinearProgress
          value={(current / max) * 100}
          valueBuffer={100}
          variant="buffer"
          color="primary"
-      />
+   />*/}
+      </div>
    )
 }
 
