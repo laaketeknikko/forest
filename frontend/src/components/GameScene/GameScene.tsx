@@ -120,6 +120,11 @@ const GameScene = () => {
    return (
       <>
          <Drawer
+            PaperProps={{
+               sx: {
+                  width: "50vw",
+               },
+            }}
             anchor="left"
             open={showInGameMenu}
             onClose={() => setShowInGameMenu(false)}
@@ -129,9 +134,9 @@ const GameScene = () => {
          </Drawer>
 
          {/** In-game menu button and turn order */}
-         <Grid container columns={24} sx={{ height: "100vh" }}>
-            <Grid xs={2} item>
-               <Paper elevation={1} sx={{ height: "100%" }}>
+         <Grid container columns={36} sx={{ height: "100vh" }}>
+            <Grid xs={4} md={3} lg={2} item>
+               <Paper elevation={0} sx={{ height: "100vh", overflowY: "auto" }}>
                   <IconButton
                      sx={{
                         width: "100%",
@@ -156,7 +161,15 @@ const GameScene = () => {
             </Grid>
 
             {/**Main game scene */}
-            <Grid xs={16} lg={18} xl={19} item style={{ position: "relative" }}>
+            <Grid
+               xs={22}
+               sm={23}
+               md={25}
+               lg={28}
+               xl={29}
+               item
+               style={{ position: "relative" }}
+            >
                <div
                   style={{
                      position: "absolute",
@@ -174,7 +187,7 @@ const GameScene = () => {
             </Grid>
 
             {/** Cards display */}
-            <Grid xs={6} lg={4} xl={3} item>
+            <Grid xs={10} sm={9} md={8} lg={6} xl={5} item>
                <Paper elevation={1} sx={{ height: "100%" }}>
                   <SelectedCharacterCards />
                </Paper>
