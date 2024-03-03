@@ -15,18 +15,43 @@ import { DebriefingEntityCard } from "./DebriefingEntityCard"
 import { selectedScenarioEnemiesAtom } from "../../game/state/jotai/enemies"
 import Stack from "@mui/material/Stack"
 import Box from "@mui/material/Box"
+import { emptyScenarioSaveConfig } from "../../game/state/initialStates"
 
 const Debriefing = () => {
    const [gameExecutionState, setGameExecutionState] = useAtom(
       gameExecutionStateAtom
    )
-   const [saveGame] = useAtom(activeSaveGameConfigAtom)
+   const [saveGame, setSaveGame] = useAtom(activeSaveGameConfigAtom)
    const [characterAtoms] = useAtom(selectedPartyAtom)
    const [enemyAtoms] = useAtom(selectedScenarioEnemiesAtom)
 
    const scenarioStatistics = saveGame.scenarioStatistics.find((stat) => {
       return stat.scenarioName === saveGame.scenario.name
    })
+
+   const handleConfirmation = () => {
+      setGameExecutionState({
+         ...gameExecutionState,
+         scenario: {
+            lost: false,
+            won: false,
+         },
+         mainDisplay: MainWindowDisplayStatus.showMainMenu,
+         mainMenu: {
+            showMainmenu: true,
+            gameConfigLoaded: true,
+            scenarioSelected: false,
+            charactersSelected: false,
+            scenarioStarted: false,
+         },
+      })
+
+      setSaveGame({
+         ...saveGame,
+         isScenarioInProgress: false,
+         scenario: emptyScenarioSaveConfig,
+      })
+   }
 
    return (
       <Container
@@ -83,12 +108,17 @@ const Debriefing = () => {
                </Typography>
             </Typography>
          </Stack>
-         <Grid2 columns={24} container sx={{ marginTop: 3 }}>
+         <Grid2
+            columns={24}
+            container
+            sx={{ marginTop: 3 }}
+            alignItems={"start"}
+         >
             {/** Enemies section
              *
              */}
             <Grid2 xs={12} container columns={24}>
-               <Grid2 xs={24} height={"min-content"}>
+               <Grid2 xs={24}>
                   <Typography variant="h5" textAlign="center">
                      Enemies
                   </Typography>
@@ -99,7 +129,12 @@ const Debriefing = () => {
                      sx={{ borderColor: theme.palette.primary.main }}
                   />
                </Grid2>
-               <Grid2 container columns={24} justifyContent={"center"} xs={24}>
+               <Grid2
+                  container
+                  columns={24}
+                  justifyContent={"center"}
+                  alignItems={"flex-start"}
+               >
                   {enemyAtoms.map((atom) => {
                      return (
                         <Grid2 key={atom.toString()} xs={12} sm={8} lg={6}>
@@ -146,27 +181,7 @@ const Debriefing = () => {
             </Grid2>
          </Grid2>
 
-         <Button
-            onClick={() => {
-               setGameExecutionState({
-                  ...gameExecutionState,
-                  scenario: {
-                     lost: false,
-                     won: false,
-                  },
-                  mainDisplay: MainWindowDisplayStatus.showMainMenu,
-                  mainMenu: {
-                     showMainmenu: true,
-                     gameConfigLoaded: true,
-                     scenarioSelected: false,
-                     charactersSelected: false,
-                     scenarioStarted: false,
-                  },
-               })
-            }}
-         >
-            Accept
-         </Button>
+         <Button onClick={handleConfirmation}>Accept</Button>
       </Container>
    )
 }

@@ -72,6 +72,7 @@ const useScenarioVictoryConditions = () => {
    }, [defeatedEnemies, saveData, setSaveData])
 
    const allConditionsMet = useCallback(() => {
+      console.log("in allconditionsmet")
       return (
          saveData.scenario.scenarioVictoryConditions.length > 0 &&
          saveData.scenario.scenarioVictoryConditions.every(
