@@ -62,7 +62,6 @@ const GameScene = () => {
 
          let scenarioWon = victoryConditions.allConditionsMet()
 
-         console.log("all conditions met?", scenarioWon)
          let scenarioLost = lossConditions.isConditionMet()
 
          if (scenarioWon || scenarioLost) {

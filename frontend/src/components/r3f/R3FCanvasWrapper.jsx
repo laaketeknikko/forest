@@ -18,6 +18,8 @@ import { animationFocusAtom } from "../../game/state/jotai/gameState"
 import { ArenaLeafDecorations } from "./Decorations/ArenaLeafDecorations"
 import { ArenaShrubDecorations } from "./Decorations/ArenaShrubDecorations"
 import { ArenaBorderRadiusDecorations } from "./Decorations/ArenaBorderRadiusDecorations"
+import { InstancedGround } from "./Ground/DreiInstancedGround"
+import { GroundGrid } from "./Ground/GroundGrid"
 
 const DisableRender = () => useFrame(() => null, 1000)
 
@@ -72,6 +74,8 @@ const R3FCanvasWrapper = () => {
          <CameraControls />
          <axesHelper />
          <FullGround2 />
+         <InstancedGround />
+         <GroundGrid />
          <ActionHelper />
          <ambientLight args={["white", 1]} />
 

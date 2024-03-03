@@ -29,6 +29,8 @@ const InstancedGround = ({
 
    const onTileClicked = useCallback(
       (event: ThreeEvent<MouseEvent>) => {
+         console.log("clicking on ground")
+
          const x = Math.floor(event.point.x)
          const z = Math.floor(event.point.z)
          const index = x * arenaSize.width + z
@@ -54,7 +56,7 @@ const InstancedGround = ({
             for (let z = 0; z < arenaSize.length; z++) {
                const xPos = x + 0.5
                const zPos = z + 0.5
-               const yPos = 0
+               const yPos = 0.1
 
                instancesRef.current[x * arenaSize.width + z] = (
                   <Instance
@@ -72,16 +74,19 @@ const InstancedGround = ({
    }, [arenaSize.length, arenaSize.width, groundReady, onTileClicked])
 
    return (
-      <Instances limit={arenaSize.length * arenaSize.width}>
-         <planeGeometry args={[1, 1]} />
-         <meshBasicMaterial
-            toneMapped={false}
-            transparent
-            opacity={1}
-            depthWrite={false}
-         />
-         {groundReady && instancesRef.current.map((instance) => instance)}
-      </Instances>
+      <group position={[0, 0.01, 0]}>
+         <Instances limit={arenaSize.length * arenaSize.width}>
+            <planeGeometry args={[1, 1]} />
+            <meshBasicMaterial
+               toneMapped={false}
+               transparent
+               opacity={0}
+               depthWrite={false}
+               alphaTest={1}
+            />
+            {groundReady && instancesRef.current.map((instance) => instance)}
+         </Instances>
+      </group>
    )
 }
 
