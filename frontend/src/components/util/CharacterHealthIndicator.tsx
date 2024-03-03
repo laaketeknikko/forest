@@ -1,4 +1,4 @@
-import LinearProgress from "@mui/material/LinearProgress"
+import Typography from "@mui/material/Typography"
 
 export interface CharacterHealthIndicatorProps {
    current: number
@@ -9,17 +9,17 @@ const CharacterHealthIndicator = ({
    current,
    max,
 }: CharacterHealthIndicatorProps) => {
-   // TODO: Progress indicator needs to be replaced. It uses too processing power.
    return (
-      <div>
-         Moi
-         {/*<LinearProgress
-         value={(current / max) * 100}
-         valueBuffer={100}
-         variant="buffer"
-         color="primary"
-   />*/}
-      </div>
+      <Typography>
+         HP:{" "}
+         <Typography component="span" color="primary">
+            {current}
+         </Typography>
+         <Typography component="span">/</Typography>
+         <Typography component="span" color="primary">
+            {max}
+         </Typography>
+      </Typography>
    )
 }
 

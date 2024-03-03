@@ -178,7 +178,7 @@ const ActionHelper = () => {
                <mesh
                   position={[
                      activeCharacterData.position?.x || 0,
-                     0.2,
+                     0.05,
                      activeCharacterData.position?.z || 0,
                   ]}
                   rotation-x={MathUtils.degToRad(-90)}
@@ -201,7 +201,7 @@ const ActionHelper = () => {
                    * we set.
                    */}
                   <CustomGrid
-                     position={[gridCenter.x, -gridCenter.z, 0.1]}
+                     position={[gridCenter.x, -gridCenter.z, 0.05]}
                      cellSize={1}
                      cellThickness={1}
                      cellColor={gridColor}
@@ -215,19 +215,13 @@ const ActionHelper = () => {
                      fadeDistance={
                         activeEffect.range ? activeEffect.range * 2 + 1 : 5
                      }
-                     fadeStrength={1.5}
+                     fadeStrength={0.5}
                   />
 
                   <circleGeometry
                      args={[activeEffect.range ? activeEffect.range : 0.5, 30]}
                   />
-                  <meshBasicMaterial
-                     toneMapped={false}
-                     color={helperColor}
-                     transparent
-                     opacity={0.5}
-                     depthWrite={false}
-                  />
+                  <meshBasicMaterial toneMapped={false} color={helperColor} />
                </mesh>
             </>
          )}

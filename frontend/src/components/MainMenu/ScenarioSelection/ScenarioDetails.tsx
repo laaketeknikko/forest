@@ -17,7 +17,7 @@ interface ScenarioDetailsProps {
 const ScenarioDetails = ({ scenarioConfig }: ScenarioDetailsProps) => {
    return (
       <Paper sx={{ height: "100%" }}>
-         <Typography variant="h3" sx={{ textAlign: "center" }} color="primary">
+         <Typography variant="h4" sx={{ textAlign: "center" }} color="primary">
             {scenarioConfig.name}
          </Typography>
 

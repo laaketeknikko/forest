@@ -114,10 +114,16 @@ const Character = ({ characterAtom, maxDimension = 1 }: CharacterProps) => {
     */
    useEffect(() => {
       if (!meshRef.current) return
+      if (character._id === activeCharacter._id) return
 
       const position = activeCharacter.position
       meshRef.current.lookAt(position.x, character.position.y, position.z)
-   }, [activeCharacter.position, character.position.y])
+   }, [
+      activeCharacter._id,
+      activeCharacter.position,
+      character._id,
+      character.position.y,
+   ])
 
    const clockRef = useRef(new Clock(true))
    const timeRef = useRef<number>(0)
@@ -187,6 +193,7 @@ const Character = ({ characterAtom, maxDimension = 1 }: CharacterProps) => {
             map={colorMap}
             transparent
             opacity={1}
+            alphaTest={0.01}
             toneMapped={false}
             side={DoubleSide}
          />

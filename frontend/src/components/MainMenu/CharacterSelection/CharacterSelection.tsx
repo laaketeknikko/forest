@@ -56,15 +56,27 @@ const CharacterSelection = () => {
             })
             setGameState({ ...gameState, characterSelection: newSelection })
          } else {
-            newSelection = [...gameState.characterSelection, option]
-            setGameState({ ...gameState, characterSelection: newSelection })
+            if (
+               gameState.characterSelection.length <
+               selectedScenarioConfig.maxPartySize
+            ) {
+               newSelection = [...gameState.characterSelection, option]
+               setGameState({ ...gameState, characterSelection: newSelection })
+            } else {
+               newSelection = [...gameState.characterSelection]
+            }
          }
 
          setActiveParty(
             newSelection.map((character) => character.characterAtom)
          )
       },
-      [gameState, setActiveParty, setGameState]
+      [
+         gameState,
+         selectedScenarioConfig.maxPartySize,
+         setActiveParty,
+         setGameState,
+      ]
    )
 
    const handleDetailDisplay = useCallback(
@@ -121,12 +133,12 @@ const CharacterSelection = () => {
    return (
       <Box component="div" sx={{ overflowY: "scroll", height: "100vh" }}>
          <Grid2 container columns={24}>
-            <Grid2 xs={21} md={22}>
+            <Grid2 xs={20} sm={21} md={22}>
                <Stack
                   spacing={10}
                   sx={{ justifyContent: "center", marginTop: 3 }}
                >
-                  <Typography variant="h3" color="primary" textAlign={"center"}>
+                  <Typography variant="h4" color="primary" textAlign={"center"}>
                      Select characters
                   </Typography>
 
@@ -152,7 +164,8 @@ const CharacterSelection = () => {
                               <Grid2
                                  key={character.toString()}
                                  xs={6}
-                                 md={4}
+                                 sm={4}
+                                 md={3}
                                  lg={3}
                               >
                                  <Box
@@ -211,7 +224,7 @@ const CharacterSelection = () => {
                   )}
                </Stack>
             </Grid2>
-            <Grid2 xs={3} md={2} lg={2}>
+            <Grid2 xs={4} sm={3} md={2} lg={2}>
                <Stack
                   spacing={4}
                   sx={{ paddingTop: 3, paddingRight: 3, paddingLeft: 3 }}

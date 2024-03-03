@@ -19,14 +19,11 @@ const CardList = ({ character, direction }: CardListProps) => {
             const jotaiStore = getDefaultStore()
             const cardData = jotaiStore.get(card)
             return (
-               <Box component="div" key={cardData.name}>
+               <Box component="div" key={cardData._id}>
                   <Typography color="primary">{cardData.name}</Typography>
-                  {cardData.actions.map((action, actionIndex) => {
+                  {cardData.actions.map((action) => {
                      return (
-                        <Typography
-                           variant="body2"
-                           key={`${actionIndex}${cardData.name}${action.name}`}
-                        >
+                        <Typography variant="body2" key={action._id}>
                            {action.name}
                         </Typography>
                      )
