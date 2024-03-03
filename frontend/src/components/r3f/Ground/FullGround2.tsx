@@ -31,7 +31,7 @@ const FullGround2 = ({ sizeX = 10, sizeZ = 10 }: FullGroundTileProps) => {
 
    return (
       <group
-         position={[arenaSize.length / 2, 0, arenaSize.width / 2]}
+         position={[arenaSize.length / 2, -0.05, arenaSize.width / 2]}
          rotation-x={MathUtils.degToRad(-90)}
       >
          <mesh>
@@ -45,8 +45,9 @@ const FullGround2 = ({ sizeX = 10, sizeZ = 10 }: FullGroundTileProps) => {
                displacementMap={displacementMap}
                displacementScale={1}
                transparent
-               opacity={1}
+               opacity={0.5}
                color="white"
+               alphaTest={0.5}
             />
          </mesh>
 

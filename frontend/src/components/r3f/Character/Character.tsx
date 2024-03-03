@@ -171,6 +171,7 @@ const Character = ({ characterAtom, maxDimension = 1 }: CharacterProps) => {
 
    return (
       <mesh
+         renderOrder={2}
          ref={meshRef}
          position={[
             character.position.x,

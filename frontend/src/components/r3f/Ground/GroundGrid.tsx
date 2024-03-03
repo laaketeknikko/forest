@@ -3,6 +3,7 @@ import { selectedScenarioConfigAtom } from "../../../game/state/jotai/scenarios"
 import { Line } from "@react-three/drei"
 import { MathUtils, Vector2 } from "three"
 import { useMemo } from "react"
+import { theme } from "../../../styles/mui/theme"
 
 export interface GroundGridProps {
    lenghtX: number
@@ -34,7 +35,12 @@ const GroundGrid = ({ lenghtX, lengthZ }: GroundGridProps) => {
 
    return (
       <group rotation-x={MathUtils.degToRad(90)}>
-         <Line points={linePoints} color="red" lineWidth={2} segments={true} />
+         <Line
+            points={linePoints}
+            color={theme.palette.text.disabled}
+            lineWidth={1}
+            segments={true}
+         />
       </group>
    )
 }

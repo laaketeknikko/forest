@@ -74,7 +74,7 @@ const R3FCanvasWrapper = () => {
          <CameraControls />
          <axesHelper />
          <FullGround2 />
-         <InstancedGround />
+         {/*<InstancedGround />*/}
          <GroundGrid />
          <ActionHelper />
          <ambientLight args={["white", 1]} />

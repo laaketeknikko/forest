@@ -24,11 +24,7 @@ import { MathUtils } from "three"
 import { customTheme } from "../../../styles/mui/theme"
 import { emptyActionCardAtom } from "../../../game/state/initialStates"
 
-import { CustomGrid } from "../util/CustomGrid"
-import {
-   getEntitiesForPosition,
-   getNearestTileCornerFromPosition,
-} from "../../../game/util/mapUtils"
+import { getEntitiesForPosition } from "../../../game/util/mapUtils"
 import { AffectedPopupInfo } from "../../GameScene/PopupInfo.tsx/AffectedPopupInfo"
 import { PrimitiveAtom } from "jotai/vanilla"
 
@@ -142,86 +138,45 @@ const ActionHelper = () => {
    }
 
    let helperColor
-   let gridColor
+
    if (activeEffect?.type === actionTypes.movement) {
       helperColor = customTheme.custom.colors.actionTypes.movement
-      gridColor = customTheme.custom.colors.actionTypes.movementOpposite
    } else if (activeEffect?.type === actionTypes.support) {
       helperColor = customTheme.custom.colors.actionTypes.support
-      gridColor = customTheme.custom.colors.actionTypes.supportOpposite
    } else if (activeEffect?.type === actionTypes.offensive) {
       helperColor = customTheme.custom.colors.actionTypes.offensive
-      gridColor = customTheme.custom.colors.actionTypes.offensiveOpposite
    } else if (activeEffect?.type === actionTypes.defensive) {
       helperColor = customTheme.custom.colors.actionTypes.defensive
-      gridColor = customTheme.custom.colors.actionTypes.defensiveOpposite
    }
 
-   const gridCenter = useMemo(() => {
-      const corner = getNearestTileCornerFromPosition(
-         activeCharacterData.position.x,
-         activeCharacterData.position.z
-      )
-
-      const gridCenter = {
-         x: corner.x - activeCharacterData.position.x,
-         z: corner.z - activeCharacterData.position.z,
-      }
-
-      return gridCenter
-   }, [activeCharacterData.position])
-
    return (
-      <group>
+      <group
+         position={[
+            activeCharacterData.position?.x || 0,
+            0.05,
+            activeCharacterData.position?.z || 0,
+         ]}
+      >
          {activeEffect && (
             <>
                <mesh
-                  position={[
-                     activeCharacterData.position?.x || 0,
-                     0.05,
-                     activeCharacterData.position?.z || 0,
-                  ]}
+                  renderOrder={1}
                   rotation-x={MathUtils.degToRad(-90)}
                   onClick={handlePerformEffect}
                   onPointerMove={handleHelperHover}
                   onPointerLeave={() => setPopupInfo(null)}
                >
-                  {/**
-                   * Positioning the custom grid is a bit tricky.
-                   *
-                   * The grid is y-up oriented. Because we have rotated the parent
-                   * mesh, y would be pointing to the side. So we need to rotate
-                   * the grid to point it globally up.
-                   *
-                   * We also want to position the grid horizontally to align with
-                   * full integer positions. Because the parent mesh is rotated -90
-                   * degrees, now the y dimension of the grid is pointing to the
-                   * z dimension globally. Increasing the y coordinate of the grid
-                   * pushes towards negative z coordinate, so we invert the coordinate
-                   * we set.
-                   */}
-                  <CustomGrid
-                     position={[gridCenter.x, -gridCenter.z, 0.05]}
-                     cellSize={1}
-                     cellThickness={1}
-                     cellColor={gridColor}
-                     sectionThickness={0}
-                     args={[
-                        activeEffect.range ? activeEffect.range * 4 + 2 : 10,
-                        activeEffect.range ? activeEffect.range * 4 + 2 : 10,
-                     ]}
-                     infiniteGrid={false}
-                     rotation-x={MathUtils.degToRad(90)}
-                     fadeDistance={
-                        activeEffect.range ? activeEffect.range * 2 + 1 : 5
-                     }
-                     fadeStrength={0.5}
-                  />
-
                   <circleGeometry
                      args={[activeEffect.range ? activeEffect.range : 0.5, 30]}
                   />
-                  <meshBasicMaterial toneMapped={false} color={helperColor} />
+                  <meshBasicMaterial
+                     toneMapped={false}
+                     color={helperColor}
+                     transparent
+                     opacity={0.2}
+                     alphaTest={0.1}
+                     depthTest={false}
+                  />
                </mesh>
             </>
          )}
