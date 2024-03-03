@@ -70,7 +70,7 @@ const ArenaBorderDecorations = () => {
                      transparent
                      opacity={1}
                      toneMapped={false}
-                     alphaTest={0.5}
+                     alphaTest={0.1}
                   />
                </mesh>
             )

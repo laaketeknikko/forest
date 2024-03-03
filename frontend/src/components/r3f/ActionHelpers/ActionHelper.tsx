@@ -28,6 +28,8 @@ import { getEntitiesForPosition } from "../../../game/util/mapUtils"
 import { AffectedPopupInfo } from "../../GameScene/PopupInfo.tsx/AffectedPopupInfo"
 import { PrimitiveAtom } from "jotai/vanilla"
 
+import { throttle } from "lodash"
+
 // TODO: When user deselects a card, the action is undefined
 // but it's still possible to execute the effects. Fix.
 
@@ -163,7 +165,7 @@ const ActionHelper = () => {
                   renderOrder={1}
                   rotation-x={MathUtils.degToRad(-90)}
                   onClick={handlePerformEffect}
-                  onPointerMove={handleHelperHover}
+                  onPointerMove={throttle(handleHelperHover, 200)}
                   onPointerLeave={() => setPopupInfo(null)}
                >
                   <circleGeometry

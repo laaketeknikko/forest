@@ -5,6 +5,7 @@ import { activeScenarioEnemiesAtom } from "./enemies"
 import {
    GameExecutionState,
    GlobalExecutionState,
+   InGameOptions,
    MainWindowDisplayStatus,
 } from "../../../config/types"
 import {
@@ -108,6 +109,15 @@ const popupInfoAtom = atom<ReactNode | null>(null)
  */
 const activeEffectAtom = atom<ZActionEffect | null>(null)
 
+const inGameOptionsAtom = atom<InGameOptions>({
+   graphics: {
+      showBorderDecorations: true,
+      showBrushes: true,
+      showFoliage: true,
+      showArenaImage: true,
+   },
+})
+
 export {
    turnOrderAtom,
    currentlySelectedActionCardAtom,
@@ -117,4 +127,5 @@ export {
    popupInfoAtom,
    activeEffectAtom,
    animationFocusAtom,
+   inGameOptionsAtom,
 }

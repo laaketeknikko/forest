@@ -79,7 +79,7 @@ const useSmallArenaDecorations = ({
                   color="white"
                   opacity={1}
                   toneMapped={false}
-                  alphaTest={0.9}
+                  alphaTest={0.1}
                   /**Only need doublesided if looking sideways. */
                   side={
                      facing === "horizontal" || facing === "center"

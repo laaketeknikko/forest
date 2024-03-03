@@ -24,6 +24,7 @@ import { useScenarioVictoryConditions } from "../../game/hooks/useScenarioVictor
 import { ZSaveConfigScenarioStatistics } from "../../../../shared/types/types"
 import { PopupInfo } from "./PopupInfo.tsx/PopupInfo"
 import { useScenarioLossConditions } from "../../game/hooks/useScenarioLossConditions"
+import { InGameMenu } from "./InGameMenu.tsx/InGameMenu"
 
 /**
  * Top level wrapper when game is running. Contains three main components:
@@ -106,16 +107,6 @@ const GameScene = () => {
       victoryConditions,
    ])
 
-   const handleGameLoaded = (startGame: boolean) => {
-      if (startGame) {
-         setGameExecutionState({
-            ...gameExecutionState,
-            global: GlobalExecutionState.running,
-            mainDisplay: MainWindowDisplayStatus.showGameScene,
-         })
-      }
-   }
-
    return (
       <>
          <Drawer
@@ -128,8 +119,7 @@ const GameScene = () => {
             open={showInGameMenu}
             onClose={() => setShowInGameMenu(false)}
          >
-            <SaveGame />
-            <LoadGame startGame={handleGameLoaded} />
+            <InGameMenu />
          </Drawer>
 
          {/** In-game menu button and turn order */}

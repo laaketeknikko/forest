@@ -90,5 +90,14 @@ interface CharacterSelectionItem {
    characterAtom: PrimitiveAtom<ZCharacter>
 }
 
+export interface InGameOptions {
+   graphics: {
+      showBorderDecorations: boolean
+      showBrushes: boolean
+      showFoliage: boolean
+      showArenaImage: boolean
+   }
+}
+
 export { DamageTypes, ActionTypes, GlobalExecutionState }
 export type { GameExecutionState, CharacterSelectionItem }

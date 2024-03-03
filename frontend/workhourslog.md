@@ -76,5 +76,6 @@
 | 2.3.  | 1    | Game design work                                            |
 | 3.3.  | 2    | Debugging                                                   |
 | 3.3.  | 2    | UI work / debugging                                         |
+| 3.3.  | 1    | UX work                                                     |
 
-156
+157

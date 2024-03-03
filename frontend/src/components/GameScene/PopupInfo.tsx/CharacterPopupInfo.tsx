@@ -11,8 +11,6 @@ interface CharacterPopupInfoProps {
    characterAtom: PrimitiveAtom<ZCharacter>
 }
 
-// TODO: Style this properly
-
 const infoStyles = {
    td: {
       border: 0,

@@ -74,31 +74,8 @@ const R3FCanvasWrapper = () => {
          <CameraControls />
          <axesHelper />
          <FullGround2 />
-         {/*<InstancedGround />*/}
+         <InstancedGround />
          <GroundGrid />
-         <ActionHelper />
-         <ambientLight args={["white", 1]} />
-
-         {activePartyCharacters.length > 0 &&
-            activePartyCharacters.map((character) => {
-               return (
-                  <Character
-                     key={character.toString()}
-                     characterAtom={character}
-                  />
-               )
-            })}
-
-         {activeEnemies.length > 0 &&
-            activeEnemies.map((enemy) => {
-               return (
-                  <Character
-                     key={enemy.toString()}
-                     characterAtom={enemy}
-                     maxDimension={3}
-                  />
-               )
-            })}
 
          <ArenaLeafDecorations
             amount={100}
@@ -125,6 +102,30 @@ const R3FCanvasWrapper = () => {
          />
 
          <ArenaBorderRadiusDecorations />
+
+         <ActionHelper />
+         <ambientLight args={["white", 1]} />
+
+         {activePartyCharacters.length > 0 &&
+            activePartyCharacters.map((character) => {
+               return (
+                  <Character
+                     key={character.toString()}
+                     characterAtom={character}
+                  />
+               )
+            })}
+
+         {activeEnemies.length > 0 &&
+            activeEnemies.map((enemy) => {
+               return (
+                  <Character
+                     key={enemy.toString()}
+                     characterAtom={enemy}
+                     maxDimension={3}
+                  />
+               )
+            })}
       </Canvas>
    )
 }
