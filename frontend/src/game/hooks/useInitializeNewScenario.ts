@@ -115,8 +115,6 @@ const setEnemyPositions = ({
    const scenarioEnemies = scenarioConfig.enemies
    const activeEnemies: Array<PrimitiveAtom<ZEnemy>> = []
 
-   // TODO: By cloning the enemy we fuck up the derived enemy atoms.
-
    for (const enemy of scenarioEnemies) {
       const enemyAtom = allEnemiesAtoms.find((atom) => {
          const enemyData = jotaiStore.get(atom)

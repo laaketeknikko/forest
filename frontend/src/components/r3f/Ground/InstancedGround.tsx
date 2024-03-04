@@ -11,8 +11,6 @@ interface InstancedGroundProps {
    lengthZ?: number
 }
 
-// TODO: Implement grid on instanced ground.
-
 /**
  * Uses three.js instancing to display ground tiles
  *
@@ -59,7 +57,6 @@ const InstancedGround = ({
       }
    }, [arenaSize.length, arenaSize.width])
 
-   // TODO: Fix clicking on instancedMesh event.
    const handleTileClicked = (event: ThreeEvent<MouseEvent>) => {
       console.log("clicking on ground")
       if (instanceMeshRef.current && instanceMeshRef.current.instanceColor) {

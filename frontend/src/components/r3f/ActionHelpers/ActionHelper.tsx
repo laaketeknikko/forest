@@ -29,6 +29,7 @@ import { AffectedPopupInfo } from "../../GameScene/PopupInfo.tsx/AffectedPopupIn
 import { PrimitiveAtom } from "jotai/vanilla"
 
 import { throttle } from "lodash"
+import { useGetEntitiesForPosition } from "../../../game/hooks/useGetEntitiesForPosition"
 
 /**
  * Provides visual and game logic helpers when performing actions and action effects.
@@ -59,6 +60,8 @@ const ActionHelper = () => {
          ),
       [selectedCardData.actions, selectedCardData.nextActionId]
    )
+
+   const tileEntities = useGetEntitiesForPosition()
 
    const entitiesOnTileRef = useRef<ReturnType<
       typeof getEntitiesForPosition
@@ -122,10 +125,13 @@ const ActionHelper = () => {
    const handleHelperHover = (event: ThreeEvent<PointerEvent>) => {
       event.stopPropagation()
 
-      entitiesOnTileRef.current = getEntitiesForPosition({
+      entitiesOnTileRef.current = tileEntities.getEntities({
          x: event.point.x,
          z: event.point.z,
       })
+
+      if (!entitiesOnTileRef.current || entitiesOnTileRef.current.length === 0)
+         return
 
       setPopupInfo(
          <AffectedPopupInfo

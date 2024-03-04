@@ -43,9 +43,6 @@ const getNearestTileCornerFromPosition = (xPos: number, zPos: number) => {
  * }
  */
 const getEntitiesForPosition = (position: ZPosition2D) => {
-   // TODO: Make into hook.
-   // by turning the point to tile coordinates first, we
-   // can memo the result.
    const jotaiStore = getDefaultStore()
    const activeEntities = jotaiStore.get(allActiveGameEntitiesAtom)
 
@@ -63,7 +60,6 @@ const getEntitiesForPosition = (position: ZPosition2D) => {
       const differenceZ = Math.abs(entityData.position!.z - tileCenter.center.z)
 
       if (differenceX <= 0.5 && differenceZ <= 0.5) {
-         // TODO: Fix?
          entitiesOnTile.push({
             entityData: entityData,
             entity: entity as unknown as PrimitiveAtom<ZGameEntity>,

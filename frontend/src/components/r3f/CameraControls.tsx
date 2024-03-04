@@ -4,8 +4,6 @@ import { useAtom } from "jotai"
 import { useEffect, useMemo, useRef } from "react"
 import { CameraControls } from "@react-three/drei"
 
-// TODO: Implement to use drei/CameraControls
-
 /**
  * Drei/CameraControls doesn't actually export the necessary
  * constants to modify the controls.
@@ -111,7 +109,7 @@ const CustomCameraControls = () => {
       return <MapControls target={[position.x, position.y, position.z]} />
    }, [character.position])
 
-   // TODO: Return some helpers controls or turn into hook.
+   
    return controls*/
 }
 
