@@ -38,3 +38,5 @@ TODO: Generate a new save on newgame
 TODO: Autosave?
 
 TODO: config menu
+
+TODO: Allow defining own keystring.
