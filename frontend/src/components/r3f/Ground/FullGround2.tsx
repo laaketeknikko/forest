@@ -4,6 +4,7 @@ import { selectedScenarioConfigAtom } from "../../../game/state/jotai/scenarios"
 import { MathUtils, TextureLoader } from "three"
 
 import { useLoader } from "@react-three/fiber"
+import { inGameOptionsAtom } from "../../../game/state/jotai/gameState"
 
 /**
  * Renders a single ground mesh and texture.
@@ -15,6 +16,7 @@ export interface FullGroundTileProps {
 
 const FullGround2 = ({ sizeX = 10, sizeZ = 10 }: FullGroundTileProps) => {
    const [selectedScenarioConfig] = useAtom(selectedScenarioConfigAtom)
+   const [inGameOptions] = useAtom(inGameOptionsAtom)
 
    const groundTexture = useLoader(TextureLoader, "sprites/terrain/areena.png")
    const displacementMap = useLoader(
@@ -28,6 +30,8 @@ const FullGround2 = ({ sizeX = 10, sizeZ = 10 }: FullGroundTileProps) => {
    }
 
    //const solidColor = "rgb(69, 43, 0)"
+
+   if (!inGameOptions.graphics.showArenaImage) return null
 
    return (
       <group

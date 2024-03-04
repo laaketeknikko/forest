@@ -1,6 +1,8 @@
 import { useTexture } from "@react-three/drei"
 import { ZPosition2D } from "../../../../../shared/types/types"
 import { useSmallArenaDecorations } from "../hooks/useSmallArenaDecorations"
+import { inGameOptionsAtom } from "../../../game/state/jotai/gameState"
+import { useAtom } from "jotai"
 
 export interface ArenaShrubDecorationsProps {
    minDistance: number
@@ -26,6 +28,8 @@ const ArenaShrubDecorations = ({
    baseSize = 0.2,
    sizeVariance = 0.5,
 }: ArenaShrubDecorationsProps) => {
+   const [inGameOptions] = useAtom(inGameOptionsAtom)
+
    const textures = useTexture([
       "sprites/foliage/ruoho1_small.png",
       "sprites/foliage/ruoho2_small.png",
@@ -42,6 +46,8 @@ const ArenaShrubDecorations = ({
       baseSize,
       facing: "horizontal",
    })
+
+   if (!inGameOptions.graphics.showBrushes) return null
 
    return (
       <group position={[center.x, 0.02, center.z]}>

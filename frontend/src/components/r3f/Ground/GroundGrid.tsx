@@ -37,7 +37,7 @@ const GroundGrid = ({ lenghtX, lengthZ }: GroundGridProps) => {
       <group rotation-x={MathUtils.degToRad(90)}>
          <Line
             points={linePoints}
-            color={theme.palette.text.disabled}
+            color={theme.palette.text.primary}
             lineWidth={1}
             segments={true}
          />
