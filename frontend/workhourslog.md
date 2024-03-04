@@ -77,5 +77,6 @@
 | 3.3.  | 2    | Debugging                                                   |
 | 3.3.  | 2    | UI work / debugging                                         |
 | 3.3.  | 1    | UX work                                                     |
+| 4.3.  | 2    | UI work                                                     |
 
-157
+159

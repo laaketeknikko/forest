@@ -9,7 +9,7 @@ import { ActionHelper } from "./ActionHelpers/ActionHelper"
 import { activeScenarioEnemiesAtom } from "../../game/state/jotai/enemies"
 
 import { useIdleTimer } from "react-idle-timer"
-import { CameraControls } from "./CameraControls"
+import { CustomCameraControls } from "./CameraControls"
 
 import { selectedScenarioConfigAtom } from "../../game/state/jotai/scenarios"
 import { FullGround2 } from "./Ground/FullGround2"
@@ -20,6 +20,7 @@ import { ArenaShrubDecorations } from "./Decorations/ArenaShrubDecorations"
 import { ArenaBorderRadiusDecorations } from "./Decorations/ArenaBorderRadiusDecorations"
 import { InstancedGround } from "./Ground/DreiInstancedGround"
 import { GroundGrid } from "./Ground/GroundGrid"
+import { CustomMapController } from "./util/CustomMapController"
 
 const DisableRender = () => useFrame(() => null, 1000)
 
@@ -71,7 +72,9 @@ const R3FCanvasWrapper = () => {
          style={{ backgroundColor: theme.palette.background.paper }}
       >
          {pauseAnimation && <DisableRender />}
-         <CameraControls />
+
+         <CustomMapController />
+
          <axesHelper />
          <FullGround2 />
          <InstancedGround />

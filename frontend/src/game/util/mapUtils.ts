@@ -74,8 +74,17 @@ const getEntitiesForPosition = (position: ZPosition2D) => {
    return entitiesOnTile
 }
 
+const approximatelyEqual = (
+   number1: number,
+   number2: number,
+   precision: number
+) => {
+   return Math.abs(number1 - number2) < precision
+}
+
 export {
    getTilePositionFromPosition,
    getNearestTileCornerFromPosition,
    getEntitiesForPosition,
+   approximatelyEqual,
 }

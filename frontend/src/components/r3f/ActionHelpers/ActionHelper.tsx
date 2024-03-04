@@ -30,9 +30,6 @@ import { PrimitiveAtom } from "jotai/vanilla"
 
 import { throttle } from "lodash"
 
-// TODO: When user deselects a card, the action is undefined
-// but it's still possible to execute the effects. Fix.
-
 /**
  * Provides visual and game logic helpers when performing actions and action effects.
  * - Displays a circle for effect ranges
