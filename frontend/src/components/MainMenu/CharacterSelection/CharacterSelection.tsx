@@ -1,28 +1,22 @@
-import Box from "@mui/material/Box"
-
-import { PrimitiveAtom, useAtom } from "jotai"
-import {
-   selectedPartyAtom,
-   allPlayerCharactersAtom,
-} from "../../../game/state/jotai/characters"
-import { useCallback, useEffect, useState } from "react"
-import { CharacterOption } from "./CharacterOption"
-
-import { selectedScenarioConfigAtom } from "../../../game/state/jotai/scenarios"
-import Typography from "@mui/material/Typography"
-
-import { CharacterSelectionItem } from "../../../config/types"
-import { gameExecutionStateAtom } from "../../../game/state/jotai/gameState"
-
-import Grid2 from "@mui/material/Unstable_Grid2/Grid2"
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline"
 import TaskAltIcon from "@mui/icons-material/TaskAlt"
-
-import { theme } from "../../../styles/mui/theme"
-import Stack from "@mui/material/Stack"
-import { ZCharacter } from "../../../../../shared/types/types"
 import Avatar from "@mui/material/Avatar"
-
+import Box from "@mui/material/Box"
+import Stack from "@mui/material/Stack"
+import Typography from "@mui/material/Typography"
+import Grid2 from "@mui/material/Unstable_Grid2/Grid2"
+import { PrimitiveAtom, useAtom } from "jotai"
+import { useCallback, useEffect, useState } from "react"
+import { ZCharacter } from "../../../../../shared/types/types"
+import { CharacterSelectionItem } from "../../../config/types"
+import {
+   allPlayerCharactersAtom,
+   selectedPartyAtom,
+} from "../../../game/state/jotai/characters"
+import { gameExecutionStateAtom } from "../../../game/state/jotai/gameState"
+import { selectedScenarioConfigAtom } from "../../../game/state/jotai/scenarios"
+import { theme } from "../../../styles/mui/theme"
+import { CharacterOption } from "./CharacterOption"
 import { CharacterSelectionDetails } from "./CharacterSelectionDetails"
 
 const CharacterSelection = () => {
@@ -133,6 +127,10 @@ const CharacterSelection = () => {
    return (
       <Box component="div" sx={{ overflowY: "scroll", height: "100vh" }}>
          <Grid2 container columns={24}>
+            {/**
+             * Main character selection screen
+             *
+             * */}
             <Grid2 xs={20} sm={21} md={22}>
                <Stack
                   spacing={10}
@@ -182,6 +180,10 @@ const CharacterSelection = () => {
                                        position: "relative",
                                     }}
                                  >
+                                    {/**
+                                     * Show the "selection state" icon
+                                     * on top left corner of character
+                                     */}
                                     <Avatar
                                        sx={{
                                           position: "absolute",
@@ -224,6 +226,10 @@ const CharacterSelection = () => {
                   )}
                </Stack>
             </Grid2>
+
+            {/**
+             * Selected party display.
+             */}
             <Grid2 xs={4} sm={3} md={2} lg={2}>
                <Stack
                   spacing={4}
@@ -263,9 +269,7 @@ const CharacterSelection = () => {
                                  borderStyle: "solid",
                                  borderWidth: 0,
                               }}
-                           >
-                              {" "}
-                           </div>
+                           ></div>
                         )
                      })}
                </Stack>

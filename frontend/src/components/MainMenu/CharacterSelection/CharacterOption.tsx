@@ -3,9 +3,9 @@ import type { PrimitiveAtom } from "jotai"
 import { ZCharacter } from "../../../../../shared/types/types"
 import { CharacterSelectionItem } from "../../../config/types"
 
-type HandleSelectionFunc = (option: CharacterSelectionItem) => void
+export type HandleSelectionFunc = (option: CharacterSelectionItem) => void
 
-interface CharacterOptionProps {
+export interface CharacterOptionProps {
    characterAtom: PrimitiveAtom<ZCharacter>
    handleSelection: HandleSelectionFunc
 }

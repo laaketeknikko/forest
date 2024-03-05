@@ -9,6 +9,9 @@ export interface CardListProps {
    direction: "vertical" | "horizontal"
 }
 
+/**
+ * A simple list to display a character's cards an action names.
+ */
 const CardList = ({ character, direction }: CardListProps) => {
    return (
       <Stack
