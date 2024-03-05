@@ -1,7 +1,10 @@
 import { useAtom } from "jotai"
-import { activeSaveGameConfigAtom } from "../state/jotai/gameState"
+import {
+   activeSaveGameConfigAtom,
+   gameExecutionStateAtom,
+} from "../state/jotai/gameState"
 import { activePartyAtom } from "../state/jotai/characters"
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 
 /**
  * There is only one loss condition: all player characters are defeated.
@@ -12,7 +15,8 @@ import { useEffect, useState } from "react"
 const useScenarioLossConditions = () => {
    const [saveData] = useAtom(activeSaveGameConfigAtom)
    const [activeParty] = useAtom(activePartyAtom)
-   const [isLossConditionMet, setIsLossConditionMet] = useState(false)
+
+   const [gameState, setGameState] = useAtom(gameExecutionStateAtom)
 
    useEffect(() => {
       const conditions = saveData.scenario.scenarioLossConditions
@@ -20,16 +24,23 @@ const useScenarioLossConditions = () => {
       for (const condition of conditions) {
          /** We only have one loss condition type */
          if (condition.type === "party" && condition.status === "defeated") {
-            if (activeParty.length === 0) {
-               setIsLossConditionMet(true)
+            if (activeParty.length === 0 && !gameState.scenario.lost) {
+               setGameState({
+                  ...gameState,
+                  scenario: {
+                     ...gameState.scenario,
+                     lost: true,
+                  },
+               })
             }
          }
       }
-   }, [activeParty.length, saveData.scenario.scenarioLossConditions])
-
-   return {
-      isLossConditionMet,
-   }
+   }, [
+      activeParty.length,
+      gameState,
+      saveData.scenario.scenarioLossConditions,
+      setGameState,
+   ])
 }
 
 export { useScenarioLossConditions }

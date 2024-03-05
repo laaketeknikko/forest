@@ -21,6 +21,7 @@ import { PopupInfo } from "./PopupInfo.tsx/PopupInfo"
 import { useScenarioLossConditions } from "../../game/hooks/useScenarioLossConditions"
 import { InGameMenu } from "./InGameMenu.tsx/InGameMenu"
 import { useScenarioStatsUpdater } from "../../game/hooks/useScenarioStatsUpdater"
+import Box from "@mui/material/Box"
 
 /**
  * Top level wrapper when game is running. Contains three main components:
@@ -46,9 +47,7 @@ import { useScenarioStatsUpdater } from "../../game/hooks/useScenarioStatsUpdate
  * - First a victory or loss condition dependency changes,
  *    such as defeatedEnemies array being modified
  * - useVictory- or useLossCondition hook updates the scenario
- *    conditions state in save config
- * - an effect in GameScene subscribes to victory and loss conditions.
- *    If either is met, it marks the scenario as won or lost
+ *    conditions state in save config and marks scenario as lost or won
  * - useScenarioStatsUpdater is subscribed to the scenario state
  *    changes. It checks whether scenario is won or lost.
  *    If either is true, it updates the scenario statistics and marks
@@ -62,8 +61,9 @@ const GameScene = () => {
    const [gameExecutionState, setGameExecutionState] = useAtom(
       gameExecutionStateAtom
    )
-   const victoryConditions = useScenarioVictoryConditions()
-   const lossConditions = useScenarioLossConditions()
+
+   useScenarioVictoryConditions()
+   useScenarioLossConditions()
    useScenarioStatsUpdater()
 
    useEffect(() => {
@@ -76,39 +76,11 @@ const GameScene = () => {
       }
    }, [gameExecutionState, setGameExecutionState])
 
-   useEffect(() => {
-      if (
-         victoryConditions.allConditionsMet &&
-         !gameExecutionState.scenario.won
-      ) {
-         setGameExecutionState({
-            ...gameExecutionState,
-            scenario: {
-               ...gameExecutionState.scenario,
-               won: true,
-            },
-         })
-      } else if (
-         lossConditions.isLossConditionMet &&
-         !gameExecutionState.scenario.lost
-      ) {
-         setGameExecutionState({
-            ...gameExecutionState,
-            scenario: {
-               ...gameExecutionState.scenario,
-               lost: true,
-            },
-         })
-      }
-   }, [
-      gameExecutionState,
-      lossConditions.isLossConditionMet,
-      setGameExecutionState,
-      victoryConditions.allConditionsMet,
-   ])
-
    return (
       <>
+         {/**In-game menu
+          *
+          */}
          <Drawer
             PaperProps={{
                sx: {
@@ -122,7 +94,9 @@ const GameScene = () => {
             <InGameMenu />
          </Drawer>
 
-         {/** In-game menu button and turn order */}
+         {/** In-game menu button and turn order
+          *
+          */}
          <Grid container columns={36} sx={{ height: "100vh" }}>
             <Grid xs={4} md={3} lg={2} item>
                <Paper elevation={0} sx={{ height: "100vh", overflowY: "auto" }}>
@@ -149,7 +123,9 @@ const GameScene = () => {
                </Paper>
             </Grid>
 
-            {/**Main game scene */}
+            {/**Main game scene
+             *
+             */}
             <Grid
                xs={22}
                sm={23}
@@ -159,6 +135,9 @@ const GameScene = () => {
                item
                style={{ position: "relative" }}
             >
+               {/**
+                * Position popup info on top of scene
+                */}
                <div
                   style={{
                      position: "absolute",
@@ -175,11 +154,13 @@ const GameScene = () => {
                </Suspense>
             </Grid>
 
-            {/** Cards display */}
+            {/** Cards display
+             *
+             */}
             <Grid xs={10} sm={9} md={8} lg={6} xl={5} item>
-               <Paper elevation={1} sx={{ height: "100%" }}>
+               <Box component="div" sx={{ height: "100%" }}>
                   <SelectedCharacterCards />
-               </Paper>
+               </Box>
             </Grid>
          </Grid>
       </>

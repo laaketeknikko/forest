@@ -28,7 +28,7 @@ const AffectedPopupInfo = ({ entityAtoms }: AffectedPopupInfoProps) => {
 
    return (
       <div>
-         <Typography variant="h5">Affected</Typography>
+         <Typography variant="h5">Targets</Typography>
          {characterInfos.map((info) => info)}
       </div>
    )

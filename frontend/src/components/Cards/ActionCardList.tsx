@@ -25,6 +25,7 @@ const ActionCardList = ({
 }: ActionCardListProps): JSX.Element => {
    return (
       <List
+         disablePadding
          sx={{
             maxHeight: "100vh",
             overflowX: "hidden",
@@ -40,6 +41,8 @@ const ActionCardList = ({
          {cards.map((card, index) => {
             return (
                <ListItem
+                  dense
+                  divider={false}
                   key={index}
                   sx={{
                      padding: 0,

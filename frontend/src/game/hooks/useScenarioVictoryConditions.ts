@@ -1,7 +1,10 @@
 import { defeatedScenarioEnemiesAtom } from "../state/jotai/enemies"
 import { getDefaultStore, useAtom } from "jotai"
-import { activeSaveGameConfigAtom } from "../state/jotai/gameState"
-import { useEffect, useState } from "react"
+import {
+   activeSaveGameConfigAtom,
+   gameExecutionStateAtom,
+} from "../state/jotai/gameState"
+import { useEffect } from "react"
 
 /**
  * Check if scenario victory conditions are met.
@@ -11,13 +14,14 @@ import { useEffect, useState } from "react"
  * Uses two effects:
  * - one to subscribe to defeatedEnemies. Updates the victory condition
  *    status in saveGame if condition is met.
- * - one to subscribe to scenarioVictoryConditions. Updates the
- *    allConditionsMet is all conditions are met.
+ * - one to subscribe to scenarioVictoryConditions. Sets scenario in
+ * gameExecutionState to victory if all conditions are met.
  */
 const useScenarioVictoryConditions = () => {
    const [defeatedEnemies] = useAtom(defeatedScenarioEnemiesAtom)
    const [saveData, setSaveData] = useAtom(activeSaveGameConfigAtom)
-   const [allConditionsMet, setAllConditionsMet] = useState(false)
+
+   const [gameState, setGameState] = useAtom(gameExecutionStateAtom)
 
    useEffect(() => {
       const jotaiStore = getDefaultStore()
@@ -73,11 +77,19 @@ const useScenarioVictoryConditions = () => {
          saveData.scenario.scenarioVictoryConditions.every(
             (condition) => condition.fulfilled
          )
-      setAllConditionsMet(allConditionsMet)
-   }, [saveData.scenario.scenarioVictoryConditions])
+
+      if (allConditionsMet && !gameState.scenario.won) {
+         setGameState({
+            ...gameState,
+            scenario: {
+               ...gameState.scenario,
+               won: true,
+            },
+         })
+      }
+   }, [gameState, saveData.scenario.scenarioVictoryConditions, setGameState])
 
    return {
-      allConditionsMet,
       victoryConditions: saveData.scenario.scenarioVictoryConditions,
    }
 }
