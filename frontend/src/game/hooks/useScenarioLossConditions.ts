@@ -1,28 +1,28 @@
 import { useAtom } from "jotai"
 import { activeSaveGameConfigAtom } from "../state/jotai/gameState"
 import { activePartyAtom } from "../state/jotai/characters"
-import { useCallback } from "react"
+import { useEffect, useState } from "react"
 
 const useScenarioLossConditions = () => {
    const [saveData] = useAtom(activeSaveGameConfigAtom)
    const [activeParty] = useAtom(activePartyAtom)
+   const [isLossConditionMet, setIsLossConditionMet] = useState(false)
 
-   const isConditionMet = useCallback(() => {
+   useEffect(() => {
       const conditions = saveData.scenario.scenarioLossConditions
 
       for (const condition of conditions) {
          /** We only have one loss condition type */
          if (condition.type === "party" && condition.status === "defeated") {
             if (activeParty.length === 0) {
-               return true
+               setIsLossConditionMet(true)
             }
          }
       }
-      return false
-   }, [activeParty, saveData.scenario.scenarioLossConditions])
+   }, [activeParty.length, saveData.scenario.scenarioLossConditions])
 
    return {
-      isConditionMet,
+      isLossConditionMet,
    }
 }
 

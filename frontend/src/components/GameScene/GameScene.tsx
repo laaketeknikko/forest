@@ -9,22 +9,18 @@ import IconButton from "@mui/material/IconButton"
 import MenuIcon from "@mui/icons-material/Menu"
 import Drawer from "@mui/material/Drawer"
 
-import { SaveGame } from "../MainMenu/SaveGame"
-import { LoadGame } from "../MainMenu/LoadGame"
-import {
-   activeSaveGameConfigAtom,
-   gameExecutionStateAtom,
-} from "../../game/state/jotai/gameState"
+import { gameExecutionStateAtom } from "../../game/state/jotai/gameState"
 import { useAtom } from "jotai"
 import {
    GlobalExecutionState,
    MainWindowDisplayStatus,
 } from "../../config/types"
 import { useScenarioVictoryConditions } from "../../game/hooks/useScenarioVictoryConditions"
-import { ZSaveConfigScenarioStatistics } from "../../../../shared/types/types"
+
 import { PopupInfo } from "./PopupInfo.tsx/PopupInfo"
 import { useScenarioLossConditions } from "../../game/hooks/useScenarioLossConditions"
 import { InGameMenu } from "./InGameMenu.tsx/InGameMenu"
+import { useScenarioStatsUpdater } from "../../game/hooks/useScenarioStatsUpdater"
 
 /**
  * Top level wrapper when game is running. Contains three main components:
@@ -33,6 +29,33 @@ import { InGameMenu } from "./InGameMenu.tsx/InGameMenu"
  * - Action card list
  *
  * Also contains a MUI/drawer to display in-game menu.
+ *
+ * GameScene is the main component keeping track of the scenario state
+ * and whether scenario should end or not.
+ *
+ * A few hooks are involved in updating the state:
+ * - useScenarioVictoryConditions
+ * - useScenarioLossConditions
+ * - useScenarioStatsUpdater
+ *
+ * We only have victory and one loss condition type. The hooks keep
+ * track of these by subscribing to the relevant states
+ * (such as defeatedEnemies).
+ *
+ * The update sequence as is follows:
+ * - First a victory or loss condition dependency changes,
+ *    such as defeatedEnemies array being modified
+ * - useVictory- or useLossCondition hook updates the scenario
+ *    conditions state in save config
+ * - an effect in GameScene subscribes to victory and loss conditions.
+ *    If either is met, it marks the scenario as won or lost
+ * - useScenarioStatsUpdater is subscribed to the scenario state
+ *    changes. It checks whether scenario is won or lost.
+ *    If either is true, it updates the scenario statistics and marks
+ *    the result as recorded
+ * - finally, if the scenario result is recorded, an effect in GameScene
+ *    marks the game execution state as stopped and shows
+ *    after-scenario scene.
  */
 const GameScene = () => {
    const [showInGameMenu, setShowInGameMenu] = useState(false)
@@ -41,70 +64,47 @@ const GameScene = () => {
    )
    const victoryConditions = useScenarioVictoryConditions()
    const lossConditions = useScenarioLossConditions()
-   const [saveGame, setSaveGame] = useAtom(activeSaveGameConfigAtom)
+   useScenarioStatsUpdater()
 
-   // TODO: Move this somewhere.
+   useEffect(() => {
+      if (gameExecutionState.scenario.resultRecorded) {
+         setGameExecutionState({
+            ...gameExecutionState,
+            global: GlobalExecutionState.stopped,
+            mainDisplay: MainWindowDisplayStatus.showDebriefing,
+         })
+      }
+   }, [gameExecutionState, setGameExecutionState])
+
    useEffect(() => {
       if (
-         !(gameExecutionState.scenario.won || gameExecutionState.scenario.lost)
+         victoryConditions.allConditionsMet &&
+         !gameExecutionState.scenario.won
       ) {
-         let scenarioStat: ZSaveConfigScenarioStatistics | undefined =
-            saveGame.scenarioStatistics.find((stat) => {
-               return stat.scenarioName === saveGame.scenario.name
-            })
-         if (!scenarioStat) {
-            scenarioStat = {
-               scenarioName: saveGame.scenario.name,
-               wins: 0,
-               losses: 0,
-               timesAttempted: 0,
-            }
-         }
-
-         let scenarioWon = victoryConditions.allConditionsMet()
-
-         let scenarioLost = lossConditions.isConditionMet()
-
-         if (scenarioWon || scenarioLost) {
-            scenarioStat.timesAttempted++
-
-            if (scenarioWon) {
-               scenarioStat.wins++
-               scenarioWon = true
-               /** If you won, you can't lose */
-               scenarioLost = false
-            } else if (scenarioLost) {
-               scenarioStat.losses++
-               scenarioLost = true
-            }
-
-            setSaveGame({
-               ...saveGame,
-               scenarioStatistics: [
-                  ...saveGame.scenarioStatistics.filter((stat) => {
-                     stat.scenarioName !== scenarioStat?.scenarioName
-                  }),
-                  scenarioStat,
-               ],
-            })
-            setGameExecutionState({
-               ...gameExecutionState,
-               global: GlobalExecutionState.stopped,
-               mainDisplay: MainWindowDisplayStatus.showDebriefing,
-               scenario: {
-                  won: scenarioWon,
-                  lost: scenarioLost,
-               },
-            })
-         }
+         setGameExecutionState({
+            ...gameExecutionState,
+            scenario: {
+               ...gameExecutionState.scenario,
+               won: true,
+            },
+         })
+      } else if (
+         lossConditions.isLossConditionMet &&
+         !gameExecutionState.scenario.lost
+      ) {
+         setGameExecutionState({
+            ...gameExecutionState,
+            scenario: {
+               ...gameExecutionState.scenario,
+               lost: true,
+            },
+         })
       }
    }, [
       gameExecutionState,
-      lossConditions,
-      saveGame,
+      lossConditions.isLossConditionMet,
       setGameExecutionState,
-      setSaveGame,
-      victoryConditions,
+      victoryConditions.allConditionsMet,
    ])
 
    return (

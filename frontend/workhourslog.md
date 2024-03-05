@@ -78,5 +78,6 @@
 | 3.3.  | 2    | UI work / debugging                                         |
 | 3.3.  | 1    | UX work                                                     |
 | 4.3.  | 2    | UI work                                                     |
+| 5.3.  | 3    | Refactoring                                                 |
 
-159
+162

@@ -36,6 +36,7 @@ const Debriefing = () => {
          scenario: {
             lost: false,
             won: false,
+            resultRecorded: false,
          },
          mainDisplay: MainWindowDisplayStatus.showMainMenu,
          mainMenu: {
@@ -106,12 +107,15 @@ const Debriefing = () => {
             {/** Enemies section
              *
              */}
-            <DebriefingEntityList entityAtoms={enemyAtoms} />
+            <DebriefingEntityList header={"Enemies"} entityAtoms={enemyAtoms} />
 
             {/** Party section
              *
              */}
-            <DebriefingEntityList entityAtoms={characterAtoms} />
+            <DebriefingEntityList
+               header={"Party"}
+               entityAtoms={characterAtoms}
+            />
          </Grid2>
 
          <Button onClick={handleConfirmation}>Accept</Button>

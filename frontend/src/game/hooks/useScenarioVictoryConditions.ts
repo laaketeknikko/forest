@@ -1,53 +1,37 @@
 import { defeatedScenarioEnemiesAtom } from "../state/jotai/enemies"
 import { getDefaultStore, useAtom } from "jotai"
 import { activeSaveGameConfigAtom } from "../state/jotai/gameState"
-import { useCallback, useEffect } from "react"
+import { useEffect, useState } from "react"
 
 const useScenarioVictoryConditions = () => {
    const [defeatedEnemies] = useAtom(defeatedScenarioEnemiesAtom)
    const [saveData, setSaveData] = useAtom(activeSaveGameConfigAtom)
+   const [allConditionsMet, setAllConditionsMet] = useState(false)
 
    useEffect(() => {
-      console.log("updating conditions")
-      console.log(
-         "scenariovictoryconditions",
-         saveData.scenario.scenarioVictoryConditions
-      )
-
+      console.log("in scenariovictoryconditions")
       const jotaiStore = getDefaultStore()
       let conditionsChanged = false
 
       const updatedConditions = saveData.scenario.scenarioVictoryConditions.map(
          (condition) => {
             if (condition.type === "enemy") {
-               console.log("condition is enemy")
-
                const enemyAtom = defeatedEnemies.find((enemyAtom) => {
                   const enemy = jotaiStore.get(enemyAtom)
-                  console.log("finding enemy")
+
                   return (
                      enemy.name.toLowerCase() ===
                      condition.enemyName.toLowerCase()
                   )
                })
-               console.log("fouund enemy atom", enemyAtom)
-               console.log(
-                  "found enemy: ",
-                  enemyAtom ? jotaiStore.get(enemyAtom) : null
-               )
+
                if (enemyAtom) {
-                  console.log("have enemy atom")
                   const enemy = jotaiStore.get(enemyAtom)
 
-                  console.log(
-                     "enemy and enemy atom in updateconditions",
-                     enemy,
-                     enemyAtom
-                  )
+                  console.log("enemy data", enemy)
 
                   if (condition.status === "dead") {
                      if (enemy.health <= 0) {
-                        console.log("enemy health is dead")
                         if (!condition.fulfilled) {
                            condition.fulfilled = true
                            conditionsChanged = true
@@ -60,6 +44,10 @@ const useScenarioVictoryConditions = () => {
             return condition
          }
       )
+
+      console.log("updated conditions", updatedConditions)
+      console.log("condition changed", conditionsChanged)
+
       if (conditionsChanged) {
          setSaveData({
             ...saveData,
@@ -71,14 +59,15 @@ const useScenarioVictoryConditions = () => {
       }
    }, [defeatedEnemies, saveData, setSaveData])
 
-   const allConditionsMet = useCallback(() => {
-      console.log("in allconditionsmet")
-      return (
+   useEffect(() => {
+      console.log("checking victory conditions met")
+      const allConditionsMet =
          saveData.scenario.scenarioVictoryConditions.length > 0 &&
          saveData.scenario.scenarioVictoryConditions.every(
             (condition) => condition.fulfilled
          )
-      )
+      console.log("all conditions met?", allConditionsMet)
+      setAllConditionsMet(allConditionsMet)
    }, [saveData.scenario.scenarioVictoryConditions])
 
    return {

@@ -34,10 +34,13 @@ const ActionCardList = ({
          }}
          className="action-card-list"
       >
-         {cards.map((card, _index) => {
+         {/** using index works fine for us here,
+          * since list is not modified.
+          */}
+         {cards.map((card, index) => {
             return (
                <ListItem
-                  key={card.toString()}
+                  key={index}
                   sx={{
                      padding: 0,
                      paddingLeft: 0.5,

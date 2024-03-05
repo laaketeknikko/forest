@@ -29,6 +29,7 @@ interface MainMenuNavigationState {
 interface GlobalScenarioStatus {
    won: boolean
    lost: boolean
+   resultRecorded: boolean
 }
 
 interface GlobalDebriefingStatus {

@@ -7,7 +7,7 @@ import { PrimitiveAtom, useAtom } from "jotai"
 import { ZCharacter } from "../../../../../shared/types/types"
 import TableHead from "@mui/material/TableHead"
 
-interface CharacterPopupInfoProps {
+export interface CharacterPopupInfoProps {
    characterAtom: PrimitiveAtom<ZCharacter>
 }
 
@@ -37,7 +37,7 @@ const CharacterPopupInfo = ({ characterAtom }: CharacterPopupInfoProps) => {
       <Table size="small">
          <TableHead>
             <TableRow>
-               <TableCell>
+               <TableCell colSpan={2}>
                   <Typography color="primary">{characterInfo.name}</Typography>
                </TableCell>
             </TableRow>

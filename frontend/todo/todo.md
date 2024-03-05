@@ -27,3 +27,7 @@ TODO: Generate a new save on newgame
 TODO: Autosave?
 
 TODO: Allow defining own keystring.
+
+TODO: empty party on entering main menu after scenario won.
+Probably required separating active party from all available charactesr
+in save game.

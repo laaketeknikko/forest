@@ -76,6 +76,7 @@ const gameExecutionStateAtom = atom<GameExecutionState>({
    scenario: {
       won: false,
       lost: false,
+      resultRecorded: false,
    },
    debriefing: {
       showDebriefing: false,

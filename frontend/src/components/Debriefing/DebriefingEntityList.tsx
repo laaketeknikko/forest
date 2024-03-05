@@ -7,15 +7,19 @@ import { PrimitiveAtom } from "jotai"
 import { ZDynamicGameEntity } from "../../../../shared/types/types"
 
 export interface DebriefingEntityListProps {
+   header: string
    entityAtoms: Array<PrimitiveAtom<ZDynamicGameEntity>>
 }
 
-const DebriefingEntityList = ({ entityAtoms }: DebriefingEntityListProps) => {
+const DebriefingEntityList = ({
+   header,
+   entityAtoms,
+}: DebriefingEntityListProps) => {
    return (
       <Grid2 xs={12} container columns={24}>
          <Grid2 xs={24}>
             <Typography variant="h5" textAlign="center">
-               Enemies
+               {header}
             </Typography>
             <Divider
                variant="middle"

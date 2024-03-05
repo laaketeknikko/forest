@@ -3,12 +3,12 @@ import { activeCharacterAtomAtom } from "../../../game/state/jotai/characters"
 import { ActionCardList } from "../../Cards/ActionCardList"
 import type { onCardSelectedFunc } from "../../Cards/ActionCard"
 
-interface SelectedCharacterCardsProps {
+export interface SelectedCharacterCardsProps {
    onCardSelected?: onCardSelectedFunc
 }
 
 /**
- * Wrapper to display list of action cards for selected character.
+ * Wrapper to display list of action cards for the active character.
  
  */
 const SelectedCharacterCards = ({
