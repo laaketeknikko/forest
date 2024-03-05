@@ -7,6 +7,14 @@ import {
    activeSaveGameConfigAtom,
 } from "../state/jotai/gameState"
 
+/**
+ * A simple wrapper around a useEffect().
+ *
+ * Uses an effect to check whether scenario is won or lost.
+ * If so, updates the statistics for the scenario.
+ *
+ * Sets resultRecorded to true in gameState once result is recorded.
+ */
 const useScenarioStatsUpdater = () => {
    const [gameExecutionState, setGameExecutionState] = useAtom(
       gameExecutionStateAtom
@@ -14,13 +22,9 @@ const useScenarioStatsUpdater = () => {
    const [saveGame, setSaveGame] = useAtom(activeSaveGameConfigAtom)
 
    useEffect(() => {
-      console.log("in scenariostatsupdater")
-
       if (!gameExecutionState.scenario.resultRecorded) {
          const scenarioWon = gameExecutionState.scenario.won
          let scenarioLost = gameExecutionState.scenario.lost
-
-         console.log("scenario won, scenario lost", scenarioWon, scenarioLost)
 
          if (scenarioWon || scenarioLost) {
             let scenarioStat: ZSaveConfigScenarioStatistics | undefined =

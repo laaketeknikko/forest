@@ -3,14 +3,26 @@ import { getDefaultStore, useAtom } from "jotai"
 import { activeSaveGameConfigAtom } from "../state/jotai/gameState"
 import { useEffect, useState } from "react"
 
+/**
+ * Check if scenario victory conditions are met.
+ *
+ * There is only type of victory condition: a named enemy is defeated.
+ *
+ * Uses two effects:
+ * - one to subscribe to defeatedEnemies. Updates the victory condition
+ *    status in saveGame if condition is met.
+ * - one to subscribe to scenarioVictoryConditions. Updates the
+ *    allConditionsMet is all conditions are met.
+ */
 const useScenarioVictoryConditions = () => {
    const [defeatedEnemies] = useAtom(defeatedScenarioEnemiesAtom)
    const [saveData, setSaveData] = useAtom(activeSaveGameConfigAtom)
    const [allConditionsMet, setAllConditionsMet] = useState(false)
 
    useEffect(() => {
-      console.log("in scenariovictoryconditions")
       const jotaiStore = getDefaultStore()
+
+      /** Update state only if conditions changed */
       let conditionsChanged = false
 
       const updatedConditions = saveData.scenario.scenarioVictoryConditions.map(
@@ -28,11 +40,10 @@ const useScenarioVictoryConditions = () => {
                if (enemyAtom) {
                   const enemy = jotaiStore.get(enemyAtom)
 
-                  console.log("enemy data", enemy)
-
                   if (condition.status === "dead") {
                      if (enemy.health <= 0) {
                         if (!condition.fulfilled) {
+                           /** If condition type enemy and enemy is dead, update */
                            condition.fulfilled = true
                            conditionsChanged = true
                         }
@@ -44,9 +55,6 @@ const useScenarioVictoryConditions = () => {
             return condition
          }
       )
-
-      console.log("updated conditions", updatedConditions)
-      console.log("condition changed", conditionsChanged)
 
       if (conditionsChanged) {
          setSaveData({
@@ -60,13 +68,11 @@ const useScenarioVictoryConditions = () => {
    }, [defeatedEnemies, saveData, setSaveData])
 
    useEffect(() => {
-      console.log("checking victory conditions met")
       const allConditionsMet =
          saveData.scenario.scenarioVictoryConditions.length > 0 &&
          saveData.scenario.scenarioVictoryConditions.every(
             (condition) => condition.fulfilled
          )
-      console.log("all conditions met?", allConditionsMet)
       setAllConditionsMet(allConditionsMet)
    }, [saveData.scenario.scenarioVictoryConditions])
 

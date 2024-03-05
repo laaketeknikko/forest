@@ -3,6 +3,12 @@ import { activeSaveGameConfigAtom } from "../state/jotai/gameState"
 import { activePartyAtom } from "../state/jotai/characters"
 import { useEffect, useState } from "react"
 
+/**
+ * There is only one loss condition: all player characters are defeated.
+ *
+ * Uses an effect to keep track of active characters. Once none remain
+ * sets the condition as true in scenarioLossConditions.
+ */
 const useScenarioLossConditions = () => {
    const [saveData] = useAtom(activeSaveGameConfigAtom)
    const [activeParty] = useAtom(activePartyAtom)
