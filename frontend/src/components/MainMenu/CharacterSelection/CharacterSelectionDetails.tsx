@@ -19,6 +19,9 @@ const CharacterSelectionDetails = ({
 
    return (
       <Container>
+         {/**Stats
+          *
+          */}
          <Grid2 container alignItems={"center"} justifyContent={"space-around"}>
             <Grid2 xs={6} sm={4} md={3} lg={3}>
                <Typography variant="h6" textAlign="center" color="primary">
@@ -37,6 +40,10 @@ const CharacterSelectionDetails = ({
                </Box>
             </Grid2>
          </Grid2>
+
+         {/**Character cards
+          *
+          */}
          <Grid2 container columns={24} justifyContent={"space-around"}>
             <Grid2>
                <Typography

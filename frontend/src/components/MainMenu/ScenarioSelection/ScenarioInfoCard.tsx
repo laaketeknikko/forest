@@ -8,18 +8,18 @@ import { useAtom } from "jotai"
 import CardMedia from "@mui/material/CardMedia"
 import { ZScenarioConfig } from "../../../../../shared/types/types"
 
-/**
- * Used to display scenario info in scenario selection list.
- *
- * Calls setScenarioSelected(true) when scenario is clicked on.
- * Sets the selectedScenarioConfigAtom with scenario when clicked on.
- */
 export interface ScenarioInfoCardProps {
    scenarioInfo: ZScenarioConfig
    setScenarioSelected: (value: boolean) => void
    isSelectable: boolean
 }
 
+/**
+ * Used to display scenario info in scenario selection list.
+ *
+ * Calls setScenarioSelected(true) when scenario is clicked on.
+ * Sets the selectedScenarioConfigAtom with scenario when clicked on.
+ */
 const ScenarioInfoCard = ({
    scenarioInfo,
    setScenarioSelected,

@@ -10,10 +10,14 @@ import Grid2 from "@mui/material/Unstable_Grid2/Grid2"
 import List from "@mui/material/List"
 import ListItem from "@mui/material/ListItem"
 
-interface ScenarioDetailsProps {
+export interface ScenarioDetailsProps {
    scenarioConfig: ZScenarioConfig
 }
 
+/**
+ * Displays details of the given scenario config.
+ *
+ */
 const ScenarioDetails = ({ scenarioConfig }: ScenarioDetailsProps) => {
    return (
       <Paper sx={{ height: "100%" }}>
@@ -43,10 +47,10 @@ const ScenarioDetails = ({ scenarioConfig }: ScenarioDetailsProps) => {
                </Typography>
             </ListItem>
          </List>
+
          <Typography variant="h5" color="primary" textAlign={"center"}>
             Victory conditions
          </Typography>
-
          <List
             dense={true}
             sx={{ marginBottom: 5, paddingTop: 0, paddingBottom: 0 }}
@@ -93,7 +97,6 @@ const ScenarioDetails = ({ scenarioConfig }: ScenarioDetailsProps) => {
          <Typography variant="h5" color="primary" textAlign="center">
             Enemies
          </Typography>
-
          <Grid2 container>
             {scenarioConfig.enemies.map((enemy) => {
                return (

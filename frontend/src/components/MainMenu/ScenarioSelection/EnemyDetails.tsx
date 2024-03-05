@@ -19,8 +19,7 @@ export interface EnemyDetailsProps {
 }
 
 /**
- * Render avatars and details of an enemy.
- 
+ * Render image and basic enemy details in scenario selection.
  */
 const EnemyDetails = ({ enemyAtom, scenarioDetails }: EnemyDetailsProps) => {
    const [enemy] = useAtom(enemyAtom)
@@ -30,6 +29,9 @@ const EnemyDetails = ({ enemyAtom, scenarioDetails }: EnemyDetailsProps) => {
       <Container
          sx={{ marginTop: 5, textAlign: "center", justifyContent: "center" }}
       >
+         {/**
+          * Enemy image and number of enemies
+          */}
          <Box
             component="div"
             sx={{ position: "relative" }}
