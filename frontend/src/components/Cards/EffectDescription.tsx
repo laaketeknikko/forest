@@ -11,8 +11,8 @@ export interface EffectDescriptionProps {
  * EffectDescription is used to display a description of a single effect
  * of an action.
  *
- * @param {ZActionEffect} props.effect - the effect to display
- * @param {ZCharacter} props.character - the character associated with the effect. Used to calculate damage etc.
+ * @param props.effect - the effect to display
+ * @param props.character - the character associated with the effect. Used to calculate damage etc.
  */
 const EffectDescription = ({ effect, character }: EffectDescriptionProps) => {
    switch (effect.type) {

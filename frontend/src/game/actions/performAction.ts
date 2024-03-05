@@ -89,7 +89,7 @@ const performOffensiveEffect = (props: PerformEffectProps) => {
     */
    const affectedEntities = getEntitiesForPosition(tileCenter)
 
-   // TODO: Implemented differente types for different actions to validate?
+   // TODO: Implement different types for different actions to validate?
    const attackPower = props.activeEffect.powerMultiplier! * character.strength
 
    for (const entity of affectedEntities) {

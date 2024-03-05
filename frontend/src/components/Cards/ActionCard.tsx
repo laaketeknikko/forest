@@ -1,27 +1,27 @@
-import Typography from "@mui/material/Typography"
 import Card from "@mui/material/Card"
-import CardContent from "@mui/material/CardContent"
 import CardActionArea from "@mui/material/CardActionArea"
+import CardContent from "@mui/material/CardContent"
 import CardHeader from "@mui/material/CardHeader"
-import { useAtom, PrimitiveAtom } from "jotai"
+import Typography from "@mui/material/Typography"
+import { PrimitiveAtom, useAtom } from "jotai"
 import {
    currentlySelectedActionCardAtom,
    gameExecutionStateAtom,
 } from "../../game/state/jotai/gameState"
 
-import { emptyActionCardAtom } from "../../game/state/initialStates"
-import { ZActionCard, ZCharacter } from "../../../../shared/types/types"
 import Accordion from "@mui/material/Accordion"
 import AccordionDetails from "@mui/material/AccordionDetails"
 import AccordionSummary from "@mui/material/AccordionSummary"
-import { memo, useMemo, useState } from "react"
-import { EffectDescription } from "./EffectDescription"
-import { theme } from "../../styles/mui/theme"
 import Box from "@mui/material/Box"
+import { memo, useMemo, useState } from "react"
+import { ZActionCard, ZCharacter } from "../../../../shared/types/types"
+import { emptyActionCardAtom } from "../../game/state/initialStates"
+import { theme } from "../../styles/mui/theme"
+import { EffectDescription } from "./EffectDescription"
 
 export type onCardSelectedFunc = (card: PrimitiveAtom<ZActionCard>) => void
 
-interface ActionCardProps {
+export interface ActionCardProps {
    cardAtom: PrimitiveAtom<ZActionCard>
    character: ZCharacter
    onCardSelected?: onCardSelectedFunc
@@ -60,6 +60,7 @@ const ActionCard = ({ cardAtom, character }: ActionCardProps): JSX.Element => {
 
          return (
             <Accordion
+               disableGutters
                key={action._id}
                className={activeClass}
                expanded={
@@ -69,7 +70,17 @@ const ActionCard = ({ cardAtom, character }: ActionCardProps): JSX.Element => {
                   setExpandedAction(action._id || false)
                }}
             >
-               <AccordionSummary>
+               <AccordionSummary
+                  sx={{
+                     ".MuiAccordionSummary-content": {
+                        marginTop: 2,
+                        marginBottom: 2,
+                     },
+                     ".MuiAccordionSummary-root": {
+                        minHeight: 0,
+                     },
+                  }}
+               >
                   <Typography color={activeClass ? "primary" : "text.primary"}>
                      {action.name}
                   </Typography>
@@ -85,7 +96,7 @@ const ActionCard = ({ cardAtom, character }: ActionCardProps): JSX.Element => {
                   }
                >
                   {action.effects.map((effect, index) => (
-                     <Box component="div" key={index}>
+                     <Box component="div" key={index} sx={{ margin: 0 }}>
                         <EffectDescription
                            effect={effect}
                            character={character}
@@ -125,7 +136,6 @@ const ActionCard = ({ cardAtom, character }: ActionCardProps): JSX.Element => {
                }
                /**
                 * Allow selecting and deselecting cards.
-                * TODO: Does deselection work?
                 * */
                if (cardAtom === currentlySelectedCard) {
                   setCurrentSelectedActionCard(emptyActionCardAtom)
@@ -146,7 +156,7 @@ const ActionCard = ({ cardAtom, character }: ActionCardProps): JSX.Element => {
             ></CardHeader>
          </CardActionArea>
          <CardContent sx={{ padding: 0 }}>
-            {cardContent.map((item) => item)}
+            {cardContent.map((card) => card)}
          </CardContent>
       </Card>
    )

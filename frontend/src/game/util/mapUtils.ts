@@ -70,6 +70,9 @@ const getEntitiesForPosition = (position: ZPosition2D) => {
    return entitiesOnTile
 }
 
+/**
+ * Checks if abs of two numbers is less than precision.
+ */
 const approximatelyEqual = (
    number1: number,
    number2: number,
