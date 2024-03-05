@@ -71,11 +71,6 @@ interface GameExecutionState {
    mainMenu: MainMenuNavigationState
 
    /**
-    * Used locally during character selection.
-    */
-   characterSelection: Array<CharacterSelectionItem>
-
-   /**
     * Used to check whether should move from scenario scene to after scenario scene.
     */
    scenario: GlobalScenarioStatus

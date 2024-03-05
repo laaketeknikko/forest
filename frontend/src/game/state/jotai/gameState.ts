@@ -71,8 +71,6 @@ const gameExecutionStateAtom = atom<GameExecutionState>({
       scenarioStarted: false,
    },
 
-   characterSelection: [],
-
    scenario: {
       won: false,
       lost: false,

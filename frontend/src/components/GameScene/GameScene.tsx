@@ -19,6 +19,7 @@ import { useScenarioLossConditions } from "../../game/hooks/useScenarioLossCondi
 import { useScenarioStatsUpdater } from "../../game/hooks/useScenarioStatsUpdater"
 import Box from "@mui/material/Box"
 import { InGameMenuToggle } from "./InGameMenu.tsx/InGameMenuToggle"
+import Typography from "@mui/material/Typography"
 
 /**
  * Top level wrapper when game is running. Contains three main components:
@@ -111,7 +112,13 @@ const GameScene = () => {
                   <PopupInfo />
                </div>
 
-               <Suspense>
+               <Suspense
+                  fallback={
+                     <Typography variant="h3" textAlign="center">
+                        Starting game...
+                     </Typography>
+                  }
+               >
                   <R3FCanvasWrapper />
                </Suspense>
             </Grid>

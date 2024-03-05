@@ -24,9 +24,6 @@ const CharacterSelectionDetails = ({
           */}
          <Grid2 container alignItems={"center"} justifyContent={"space-around"}>
             <Grid2 xs={6} sm={4} md={3} lg={3}>
-               <Typography variant="h6" textAlign="center" color="primary">
-                  Stats
-               </Typography>
                <Box
                   component="div"
                   sx={{
@@ -50,7 +47,7 @@ const CharacterSelectionDetails = ({
                   variant="h6"
                   textAlign="center"
                   color="primary"
-                  sx={{ marginBottom: 5 }}
+                  sx={{ margin: 5 }}
                >
                   Cards
                </Typography>
