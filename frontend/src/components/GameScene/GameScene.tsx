@@ -1,13 +1,9 @@
 import Grid from "@mui/material/Grid"
 import Paper from "@mui/material/Paper"
 import { TurnOrderView } from "./TurnOrderView/TurnOrderView"
-import { Suspense, useEffect, useState } from "react"
+import { Suspense, useEffect } from "react"
 import { R3FCanvasWrapper } from "../r3f/R3FCanvasWrapper"
 import { SelectedCharacterCards } from "./SelectedCharacterCards/SelectedCharacterCards"
-
-import IconButton from "@mui/material/IconButton"
-import MenuIcon from "@mui/icons-material/Menu"
-import Drawer from "@mui/material/Drawer"
 
 import { gameExecutionStateAtom } from "../../game/state/jotai/gameState"
 import { useAtom } from "jotai"
@@ -19,9 +15,10 @@ import { useScenarioVictoryConditions } from "../../game/hooks/useScenarioVictor
 
 import { PopupInfo } from "./PopupInfo.tsx/PopupInfo"
 import { useScenarioLossConditions } from "../../game/hooks/useScenarioLossConditions"
-import { InGameMenu } from "./InGameMenu.tsx/InGameMenu"
+
 import { useScenarioStatsUpdater } from "../../game/hooks/useScenarioStatsUpdater"
 import Box from "@mui/material/Box"
+import { InGameMenuToggle } from "./InGameMenu.tsx/InGameMenuToggle"
 
 /**
  * Top level wrapper when game is running. Contains three main components:
@@ -57,7 +54,6 @@ import Box from "@mui/material/Box"
  *    after-scenario scene.
  */
 const GameScene = () => {
-   const [showInGameMenu, setShowInGameMenu] = useState(false)
    const [gameExecutionState, setGameExecutionState] = useAtom(
       gameExecutionStateAtom
    )
@@ -78,47 +74,13 @@ const GameScene = () => {
 
    return (
       <>
-         {/**In-game menu
-          *
-          */}
-         <Drawer
-            PaperProps={{
-               sx: {
-                  width: "50vw",
-               },
-            }}
-            anchor="left"
-            open={showInGameMenu}
-            onClose={() => setShowInGameMenu(false)}
-         >
-            <InGameMenu />
-         </Drawer>
-
          {/** In-game menu button and turn order
           *
           */}
          <Grid container columns={36} sx={{ height: "100vh" }}>
             <Grid xs={4} md={3} lg={2} item>
                <Paper elevation={0} sx={{ height: "100vh", overflowY: "auto" }}>
-                  <IconButton
-                     sx={{
-                        width: "100%",
-                     }}
-                     color="primary"
-                     onClick={() => setShowInGameMenu(true)}
-                     className="in-game-menu-button"
-                  >
-                     <MenuIcon
-                        sx={{
-                           height: "100%",
-                           width: "100%",
-                           fontSize: "100%",
-                           margin: 0,
-                           padding: 0,
-                        }}
-                     />
-                  </IconButton>
-
+                  <InGameMenuToggle />
                   <TurnOrderView />
                </Paper>
             </Grid>
