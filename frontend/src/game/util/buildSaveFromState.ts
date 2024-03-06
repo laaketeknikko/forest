@@ -17,14 +17,14 @@ import { selectedScenarioConfigAtom } from "../state/jotai/scenarios"
 
 /**
  * Builds a save config from the current state.
- * Notably, turns arrays of atoms to arrays of objects.
  *
- * Uses the following atoms to get the state:
+ * Uses the following atoms:
  * - activePartyAtom
  * - activeScenarioEnemiesAtom
  * - selectedScenarioConfigAtom
  *
- *
+ * Note that a save config contains other data that is
+ * not updated by this function.
  */
 const buildSaveFromState = () => {
    const jotaiStore = getDefaultStore()
@@ -50,12 +50,16 @@ const buildSaveFromState = () => {
    }
 
    // Process scenario
-   saveGameData.scenario = buildScenarioSave()
+   saveGameData.scenario = InitializeScenarioSave()
 
    return saveGameData
 }
 
-const buildScenarioSave = () => {
+/**
+ * If the save contains the initial config, creates a new
+ * config. Otherwise, returns the old config.
+ */
+const InitializeScenarioSave = () => {
    const jotaiStore = getDefaultStore()
    const oldSave = jotaiStore.get(activeSaveGameConfigAtom)
 
@@ -79,6 +83,9 @@ const buildScenarioSave = () => {
    }
 }
 
+/**
+ * Clones the data of a character and returns it.
+ */
 const saveConfigFromCharacterAtom = (
    characterAtom: PrimitiveAtom<ZCharacter>
 ) => {
@@ -100,6 +107,9 @@ const saveConfigFromCharacterAtom = (
    return characterSaveData
 }
 
+/**
+ * Clones the data of an enemy and returns it.
+ */
 const saveConfigFromEnemyAtom = (enemyAtom: PrimitiveAtom<ZEnemy>) => {
    const jotaiStore = getDefaultStore()
    const enemy = jotaiStore.get(enemyAtom)

@@ -71,11 +71,12 @@ const miiniiCards = [
    },
 ]
 
-interface IEnemyConfig extends Omit<types.ZEnemy, "position" | "cards"> {
+interface IEnemyConfig extends Omit<types.ZEnemy, "cards"> {
    cards: Array<types.ZSaveConfigActionCard>
 }
 
 const enemyConfig: IEnemyConfig = {
+   position: { x: 0, y: 0, z: 0 },
    name: "Debug-Miinii",
    health: 1,
    maxHealth: 1,

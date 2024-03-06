@@ -18,6 +18,8 @@ import {
 /**
  * This hook is used to fetch all the available default configs
  * from the server and load them. This is used when navigating the main menu.
+ * These configs represent the pool of all available scenarios, characters
+ * and enemies.
  *
  * Sets the following configs:
  * - allPlayerCharactersAtom

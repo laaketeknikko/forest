@@ -1,3 +1,7 @@
+/**
+ * Holds some initial states for atoms and configs.
+ */
+
 import { atom } from "jotai"
 import {
    ZActionCard,

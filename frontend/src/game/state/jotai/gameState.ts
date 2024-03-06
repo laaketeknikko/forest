@@ -47,6 +47,9 @@ const currentlySelectedActionCardAtom = atom<PrimitiveAtom<ZActionCard>>(
    atom<ZActionCard>({ ...emptyActionCard })
 )
 
+/**
+ * Contains all available configs for the game.
+ */
 const defaultConfigsAtom = atom<{
    characters: Array<ZSaveConfigCharacter>
    enemies: Array<ZSaveConfigEnemy>
@@ -82,6 +85,7 @@ const gameExecutionStateAtom = atom<GameExecutionState>({
    mainDisplay: MainWindowDisplayStatus.showMainMenu,
 })
 
+/** A focus from gameExecutionStateAtom.animations */
 const animationFocusAtom = focusAtom(gameExecutionStateAtom, (optic) =>
    optic.prop("animations")
 )
@@ -108,6 +112,9 @@ const popupInfoAtom = atom<ReactNode | null>(null)
  */
 const activeEffectAtom = atom<ZActionEffect | null>(null)
 
+/**
+ * Holds the global option settings.
+ */
 const inGameOptionsAtom = atom<InGameOptions>({
    graphics: {
       showBorderDecorations: true,

@@ -1,6 +1,7 @@
 import { loadDefaultConfigs } from "../services/defaultConfigsLoader"
 import { defaultConfigsAtom } from "../game/state/jotai/gameState"
 import { useAtom } from "jotai"
+import { useCallback } from "react"
 
 /**
  * Uses atom defaultConfigsAtom.
@@ -10,10 +11,10 @@ import { useAtom } from "jotai"
 const useLoadDefaultConfigs = () => {
    const [defaultConfigs, setDefaultConfigs] = useAtom(defaultConfigsAtom)
 
-   const loadConfigs = async () => {
+   const loadConfigs = useCallback(async () => {
       const configs = await loadDefaultConfigs()
       setDefaultConfigs(configs)
-   }
+   }, [setDefaultConfigs])
 
    return {
       loadConfigs: loadConfigs,

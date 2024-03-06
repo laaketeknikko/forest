@@ -5,6 +5,10 @@ export interface CharacterHealthIndicatorProps {
    max: number
 }
 
+/**
+ * Was using Mui/ProgressIndicator, but it seems to have
+ * performance issues. At the moment only displays textual info.
+ */
 const CharacterHealthIndicator = ({
    current,
    max,

@@ -21,9 +21,8 @@ const buildStateFromSave = (saveData: ZSaveConfig) => {
    const characters: Array<PrimitiveAtom<ZCharacter>> = []
 
    /**
-    * Clone the config simply to avoid possible reference issues.
+    * Clone the config to avoid possible reference issues.
     */
-
    const clonedConfig = clone(saveData)
 
    for (const characterConfig of clonedConfig.characters) {

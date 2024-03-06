@@ -89,8 +89,9 @@ const performOffensiveEffect = (props: PerformEffectProps) => {
     */
    const affectedEntities = getEntitiesForPosition(tileCenter)
 
-   // TODO: Implement different types for different actions to validate?
-   const attackPower = props.activeEffect.powerMultiplier! * character.strength
+   /** Offensive effects should have power multiplier, but if not, default to 1 */
+   const attackPower =
+      props.activeEffect.powerMultiplier || 1 * character.strength
 
    for (const entity of affectedEntities) {
       if (entity.entityData.health && attackPower) {
@@ -103,7 +104,7 @@ const performOffensiveEffect = (props: PerformEffectProps) => {
 
 /**
  * performAction is called to apply the action-wide effects of actions,
- * such as action delay and next action
+ * such as action delay and setting next action
  */
 const performAction = ({
    selectedCharacterAtom,
@@ -113,15 +114,15 @@ const performAction = ({
    const jotaiStore = getDefaultStore()
    const selectedCharacter = jotaiStore.get(selectedCharacterAtom)
 
+   /** update delay */
    selectedCharacter.currentActionDelay +=
       selectedCharacter.baseActionDelay * selectedAction.actionDelayMultiplier
 
-   // Update next action
+   /** Update next action. Last action loops to first.*/
    const card = { ...jotaiStore.get(activeCardAtom) }
    const actionIndex = card.actions.findIndex(
       (action) => action._id === card.nextActionId
    )
-
    if (actionIndex === card.actions.length - 1) {
       card.nextActionId = card.actions[0]._id
    } else {
@@ -129,7 +130,6 @@ const performAction = ({
    }
 
    jotaiStore.set(activeCardAtom, card)
-
    jotaiStore.set(selectedCharacterAtom, { ...selectedCharacter })
 }
 

@@ -2,13 +2,13 @@ import { loadGame } from "../../services/saveAndLoadGame"
 import { buildStateFromSave } from "../util/buildStateFromSave"
 import { activeSaveGameConfigAtom } from "../state/jotai/gameState"
 import { useAtom } from "jotai"
-import { useState } from "react"
+import { useCallback, useState } from "react"
 import { ZSaveConfig } from "../../../../shared/types/types"
 
 /**
  *
  *
- * @return {Object} An object with the following functions:
+ * @return  An object with the following functions:
  * - getSaveData: returns data from activeSaveGameConfigAtom
  * - updateSaveData: fetches save data from server. Sets save data in activeSaveGameConfigAtom
  *    and also returns the data.
@@ -19,28 +19,34 @@ const useLoadGame = () => {
    const [saveGame, setSaveGame] = useAtom(activeSaveGameConfigAtom)
    const [isLoading, setIsLoading] = useState(false)
 
-   const getSaveData = () => {
+   const getSaveData = useCallback(() => {
       return saveGame
-   }
+   }, [saveGame])
 
-   const updateSaveData = async (keyString: string) => {
-      if (!isLoading) {
-         setIsLoading(true)
-         const gameData = await loadGame(keyString)
-         setSaveGame(gameData)
-         setIsLoading(false)
-         return gameData
-      }
-   }
+   const updateSaveData = useCallback(
+      async (keyString: string) => {
+         if (!isLoading) {
+            setIsLoading(true)
+            const gameData = await loadGame(keyString)
+            setSaveGame(gameData)
+            setIsLoading(false)
+            return gameData
+         }
+      },
+      [isLoading, setSaveGame]
+   )
 
    /** If saveData is given, load from it, otherwise load from global state. */
-   const loadTheGame = (saveData: ZSaveConfig | null = null) => {
-      if (saveData) {
-         return buildStateFromSave(saveData)
-      } else {
-         return buildStateFromSave(saveGame)
-      }
-   }
+   const loadTheGame = useCallback(
+      (saveData: ZSaveConfig | null = null) => {
+         if (saveData) {
+            return buildStateFromSave(saveData)
+         } else {
+            return buildStateFromSave(saveGame)
+         }
+      },
+      [saveGame]
+   )
 
    return {
       loadTheGame: loadTheGame,

@@ -5,7 +5,6 @@ import { allActiveGameEntitiesAtom } from "../state/jotai/entities"
 /**
  * Returns the center position of the tile the given
  * position is on.
- 
  */
 const getTilePositionFromPosition = (xPos: number, zPos: number) => {
    const x = Math.floor(xPos)

@@ -5,6 +5,14 @@ import {
 } from "../util/mapUtils"
 import { ZPosition2D } from "../../../../shared/types/types"
 
+/**
+ * Used to get entities for a given position.
+ *
+ * Returns an object with function: getEntities(position: ZPosition2D).
+ * This functions returns the result from getEntitiesForPosition.
+ *
+ * The hook uses a simple ref to cache consecutive calls for same tile.
+ */
 const useGetEntitiesForPosition = () => {
    const tileRef = useRef(getTilePositionFromPosition(0, 0))
    const resultRef = useRef<ReturnType<typeof getEntitiesForPosition> | null>(

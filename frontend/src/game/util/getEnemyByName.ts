@@ -1,6 +1,9 @@
 import { getDefaultStore } from "jotai"
 import { allEnemiesAtom } from "../state/jotai/enemies"
 
+/**
+ * Returns the default config of an enemy with the given name.
+ */
 const getEnemyConfigByEnemyName = (name: string) => {
    const jotaiStore = getDefaultStore()
 

@@ -6,7 +6,7 @@ import { v4 } from "uuid"
 import { activeSaveGameConfigAtom } from "../state/jotai/gameState"
 import { useAtom } from "jotai"
 
-import { useState } from "react"
+import { useCallback, useState } from "react"
 import { ZSaveConfig } from "../../../../shared/types/types"
 
 /**
@@ -22,52 +22,61 @@ const useSaveGame = () => {
    const [saveGameData, setSaveGameData] = useAtom(activeSaveGameConfigAtom)
    const [isSaving, setIsSaving] = useState(false)
 
-   const updateSaveData = (partialSaveUpdates: Partial<ZSaveConfig> = {}) => {
-      const saveData = {
-         ...saveGameData,
-         ...buildSaveFromState(),
-         keyString: "",
-         ...partialSaveUpdates,
-      }
-      if (
-         !saveGameData.keyString ||
-         saveGameData.keyString.length === 0 ||
-         saveGameData.keyString === "empty"
-      ) {
-         saveData.keyString = v4()
-      } else {
-         saveData.keyString = saveGameData.keyString
-      }
-      setSaveGameData(saveData)
-
-      return saveData
-   }
-
-   const getSaveData = () => {
-      return saveGameData
-   }
-
-   const setScenarioInProgress = (inProgress: boolean) => {
-      setSaveGameData({
-         ...saveGameData,
-         isScenarioInProgress: inProgress,
-      })
-   }
-
-   const saveTheGame = async (saveData: ZSaveConfig | null = null) => {
-      let result: ZSaveConfig
-
-      if (!isSaving) {
-         setIsSaving(true)
-         if (saveData) {
-            result = await saveGame(saveData)
-         } else {
-            result = await saveGame(saveGameData)
+   const updateSaveData = useCallback(
+      (partialSaveUpdates: Partial<ZSaveConfig> = {}) => {
+         const saveData = {
+            ...saveGameData,
+            ...buildSaveFromState(),
+            keyString: "",
+            ...partialSaveUpdates,
          }
-         setIsSaving(false)
-         return result
-      }
-   }
+         if (
+            !saveGameData.keyString ||
+            saveGameData.keyString.length === 0 ||
+            saveGameData.keyString === "empty"
+         ) {
+            saveData.keyString = v4()
+         } else {
+            saveData.keyString = saveGameData.keyString
+         }
+         setSaveGameData(saveData)
+
+         return saveData
+      },
+      [saveGameData, setSaveGameData]
+   )
+
+   const getSaveData = useCallback(() => {
+      return saveGameData
+   }, [saveGameData])
+
+   const setScenarioInProgress = useCallback(
+      (inProgress: boolean) => {
+         setSaveGameData({
+            ...saveGameData,
+            isScenarioInProgress: inProgress,
+         })
+      },
+      [saveGameData, setSaveGameData]
+   )
+
+   const saveTheGame = useCallback(
+      async (saveData: ZSaveConfig | null = null) => {
+         let result: ZSaveConfig
+
+         if (!isSaving) {
+            setIsSaving(true)
+            if (saveData) {
+               result = await saveGame(saveData)
+            } else {
+               result = await saveGame(saveGameData)
+            }
+            setIsSaving(false)
+            return result
+         }
+      },
+      [isSaving, saveGameData]
+   )
 
    return {
       getSaveData: getSaveData,

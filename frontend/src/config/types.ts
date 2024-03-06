@@ -18,14 +18,31 @@ enum GlobalExecutionState {
    stopped = "stopped",
 }
 
+/**
+ * These states are used when navigating the main menu
+ * to control access to the next screen.
+ */
 interface MainMenuNavigationState {
+   /** Whether main menu should be shown. */
    showMainmenu: boolean
+
+   /** Set to true when configs for scenarios and characters has been loaded. */
    gameConfigLoaded: boolean
+
+   /** Set to true when scenario has been selected. */
    scenarioSelected: boolean
+
+   /** Set to true when user has a valid party selection. */
    charactersSelected: boolean
+
+   /** Set to true when user confirms scenario start. */
    scenarioStarted: boolean
 }
 
+/**
+ * Used to determine when to end the game scene
+ * and record the scenario result.
+ */
 interface GlobalScenarioStatus {
    won: boolean
    lost: boolean
@@ -36,12 +53,19 @@ interface GlobalDebriefingStatus {
    showDebriefing: boolean
 }
 
+/**
+ * Used in MainWindow to determine which of the three major
+ * components to show.
+ */
 export enum MainWindowDisplayStatus {
    showMainMenu = "showMainMenu",
    showGameScene = "showGameScene",
    showDebriefing = "showDebriefing",
 }
 
+/**
+ * Holds various states related to the game execution.
+ */
 interface GameExecutionState {
    /**
     * This is mainly used to determine whether to show menu or game scene.
