@@ -1,5 +1,3 @@
-// TODO: Add validation to the responses.
-
 import * as validation from "../game/util/validation"
 
 const validate = (arrayValue, validator) => {

@@ -1,12 +1,8 @@
 import { MainMenu } from "./components/MainMenu/MainMenu"
-
 import { GameScene } from "./components/GameScene/GameScene"
 import { gameExecutionStateAtom } from "./game/state/jotai/gameState"
-
 import { useAtom } from "jotai"
-
 import { MainWindowDisplayStatus } from "./config/types"
-
 import { Debriefing } from "./components/Debriefing/Debriefing"
 
 function App() {

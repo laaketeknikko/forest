@@ -23,8 +23,8 @@ const Debriefing = () => {
       gameExecutionStateAtom
    )
    const [saveGame, setSaveGame] = useAtom(activeSaveGameConfigAtom)
-   const [characterAtoms] = useAtom(selectedPartyAtom)
-   const [enemyAtoms] = useAtom(selectedScenarioEnemiesAtom)
+   const [selectedParty, setSelectedParty] = useAtom(selectedPartyAtom)
+   const [enemyAtoms, setEnemyAtoms] = useAtom(selectedScenarioEnemiesAtom)
 
    const scenarioStatistics = saveGame.scenarioStatistics.find((stat) => {
       return stat.scenarioName === saveGame.scenario.name
@@ -53,6 +53,10 @@ const Debriefing = () => {
          isScenarioInProgress: false,
          scenario: emptyScenarioSaveConfig,
       })
+
+      setSelectedParty([])
+
+      setEnemyAtoms([])
    }
 
    return (
@@ -114,7 +118,7 @@ const Debriefing = () => {
              */}
             <DebriefingEntityList
                header={"Party"}
-               entityAtoms={characterAtoms}
+               entityAtoms={selectedParty}
             />
          </Grid2>
 

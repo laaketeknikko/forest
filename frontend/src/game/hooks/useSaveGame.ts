@@ -41,6 +41,12 @@ const useSaveGame = () => {
          }
          setSaveGameData(saveData)
 
+         history.pushState(
+            { keyString: saveData.keyString },
+            "",
+            `/${saveData.keyString}`
+         )
+
          return saveData
       },
       [saveGameData, setSaveGameData]
