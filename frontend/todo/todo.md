@@ -31,3 +31,8 @@ TODO: Allow defining own keystring.
 TODO: empty party on entering main menu after scenario won.
 Probably required separating active party from all available charactesr
 in save game.
+
+TODO: Fix loading game with invalid key.
+
+TODO: In confirmation screen, if only one character is chosen, the
+character is too small.

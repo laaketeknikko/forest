@@ -3,6 +3,7 @@ import { ZPosition2D } from "../../../../../shared/types/types"
 import { useSmallArenaDecorations } from "../hooks/useSmallArenaDecorations"
 import { inGameOptionsAtom } from "../../../game/state/jotai/gameState"
 import { useAtom } from "jotai"
+import { memo } from "react"
 
 export interface ArenaLeafDecorationsProps {
    minDistance: number
@@ -56,4 +57,6 @@ const ArenaLeafDecorations = ({
    )
 }
 
-export { ArenaLeafDecorations }
+const MemoedLeafDecorations = memo(ArenaLeafDecorations)
+
+export { MemoedLeafDecorations as ArenaLeafDecorations }

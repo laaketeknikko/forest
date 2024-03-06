@@ -62,6 +62,9 @@ const EnemyDetails = ({ enemyAtom, scenarioDetails }: EnemyDetailsProps) => {
             <img src={enemy.spritePath} />
          </Box>
 
+         {/** Enemy details
+          *
+          */}
          {showDetails && (
             <Box component="div">
                <Grid2 container>

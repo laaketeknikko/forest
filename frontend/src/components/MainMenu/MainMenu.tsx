@@ -68,18 +68,19 @@ const MainMenu = () => {
     * Called when starting scenario from load button.
     *
     */
-   const startLoadedScenario = (value: boolean) => {
-      saveGame.updateSaveData()
-      saveGame.setScenarioInProgress(true)
-      setGameExecutionState({
-         ...gameExecutionState,
-         global: GlobalExecutionState.running,
-         mainDisplay: MainWindowDisplayStatus.showGameScene,
-         mainMenu: {
-            ...gameExecutionState.mainMenu,
-            scenarioStarted: value,
-         },
-      })
+   const startLoadedScenario = (start: boolean) => {
+      if (start) {
+         saveGame.updateSaveData()
+         setGameExecutionState({
+            ...gameExecutionState,
+            global: GlobalExecutionState.running,
+            mainDisplay: MainWindowDisplayStatus.showGameScene,
+            mainMenu: {
+               ...gameExecutionState.mainMenu,
+               scenarioStarted: start,
+            },
+         })
+      }
    }
 
    return (
@@ -131,7 +132,7 @@ const MainMenu = () => {
                         ></Tab>
 
                         <Tab
-                           label="Confirmation"
+                           label="Confirm"
                            value="3"
                            disabled={
                               !gameExecutionState.mainMenu.charactersSelected

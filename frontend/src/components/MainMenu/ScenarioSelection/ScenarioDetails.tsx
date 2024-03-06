@@ -25,6 +25,9 @@ const ScenarioDetails = ({ scenarioConfig }: ScenarioDetailsProps) => {
             {scenarioConfig.name}
          </Typography>
 
+         {/** General scenario info
+          *
+          */}
          <List
             dense={true}
             sx={{ marginBottom: 5, paddingTop: 0, paddingBottom: 0 }}
@@ -48,6 +51,9 @@ const ScenarioDetails = ({ scenarioConfig }: ScenarioDetailsProps) => {
             </ListItem>
          </List>
 
+         {/** Victory conditions
+          *
+          */}
          <Typography variant="h5" color="primary" textAlign={"center"}>
             Victory conditions
          </Typography>
@@ -72,6 +78,9 @@ const ScenarioDetails = ({ scenarioConfig }: ScenarioDetailsProps) => {
             )}
          </List>
 
+         {/** Loss conditions
+          *
+          */}
          <Typography variant="h5" color="primary" textAlign="center">
             Loss conditions
          </Typography>
@@ -94,6 +103,9 @@ const ScenarioDetails = ({ scenarioConfig }: ScenarioDetailsProps) => {
             })}
          </List>
 
+         {/** Enemies
+          *
+          */}
          <Typography variant="h5" color="primary" textAlign="center">
             Enemies
          </Typography>

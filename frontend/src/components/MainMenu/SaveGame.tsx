@@ -7,15 +7,20 @@ const SaveGame = () => {
 
    const handleSaveGame = () => {
       const saveData = updateSaveData()
-      saveTheGame(saveData).then((data) => {
-         if (data?.keyString) {
-            history.pushState(
-               { keyString: data.keyString },
-               "",
-               `/${data.keyString}`
-            )
-         }
-      })
+
+      try {
+         saveTheGame(saveData).then((data) => {
+            if (data?.keyString) {
+               history.pushState(
+                  { keyString: data.keyString },
+                  "",
+                  `/${data.keyString}`
+               )
+            }
+         })
+      } catch (error) {
+         console.error("Error saving game", error)
+      }
    }
 
    return <Button onClick={handleSaveGame}>Save</Button>

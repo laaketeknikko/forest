@@ -19,7 +19,7 @@ interface NewGameProps {
  *
  * @param setNavigationState - A function to set the navigation state
  * @param startLoadedScenario - The function to start a loaded scenario
- * @return {void} This function does not return anything
+ *
  */
 const NewGame = ({ startLoadedScenario }: NewGameProps) => {
    const initializeDefaultGameState = useInitializeDefaultConfigs()
@@ -30,6 +30,11 @@ const NewGame = ({ startLoadedScenario }: NewGameProps) => {
    const handleNewGameClick = async () => {
       // TODO: Maybe make result matter in some way.
       const result = await initializeDefaultGameState()
+
+      if (!result) {
+         throw new Error("Error initializing game config")
+      }
+
       setGameExecutionState({
          ...gameExecutionState,
          mainMenu: {

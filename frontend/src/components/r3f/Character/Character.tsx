@@ -3,20 +3,16 @@ import PropTypes from "prop-types"
 import { useFrame, useLoader } from "@react-three/fiber"
 import { Clock, DoubleSide, Mesh, TextureLoader } from "three"
 
-import { PrimitiveAtom, useAtom } from "jotai"
+import { PrimitiveAtom, useAtom, useSetAtom } from "jotai"
 
 import * as textureUtilities from "../../util/textureUtilities"
-import { useEffect, useMemo, useRef } from "react"
+import { memo, useEffect, useMemo, useRef } from "react"
 import { ZCharacter } from "../../../../../shared/types/types"
 
 import { PositionSchema } from "../../../../../shared/zod/schemas"
-import {
-   animationFocusAtom,
-   popupInfoAtom,
-} from "../../../game/state/jotai/gameState"
+import { animationFocusAtom } from "../../../game/state/jotai/gameState"
 import { useEntityAnimation } from "../hooks/useEntityAnimation"
 import { activeCharacterAtomAtom } from "../../../game/state/jotai/characters"
-import { CharacterPopupInfo } from "../../GameScene/PopupInfo.tsx/CharacterPopupInfo"
 
 export interface CharacterProps {
    characterAtom: PrimitiveAtom<ZCharacter>
@@ -37,16 +33,19 @@ export interface CharacterProps {
  */
 const Character = ({ characterAtom, maxDimension = 1 }: CharacterProps) => {
    const [character, setCharacter] = useAtom(characterAtom)
-   const [, setPopupInfo] = useAtom(popupInfoAtom)
    const [activeCharacterAtom] = useAtom(activeCharacterAtomAtom)
    const [activeCharacter] = useAtom(activeCharacterAtom)
-   const [, setAnimationFocus] = useAtom(animationFocusAtom)
+   const setAnimationFocus = useSetAtom(animationFocusAtom)
 
    const colorMap = useLoader(TextureLoader, character.spritePath)
 
-   const dimensions = textureUtilities.getTextureNormalizedWidthAndHeight(
-      colorMap,
-      maxDimension
+   const dimensions = useMemo(
+      () =>
+         textureUtilities.getTextureNormalizedWidthAndHeight(
+            colorMap,
+            maxDimension
+         ),
+      [colorMap, maxDimension]
    )
 
    /**
@@ -68,6 +67,10 @@ const Character = ({ characterAtom, maxDimension = 1 }: CharacterProps) => {
    const animator = useEntityAnimation()
    useEffect(() => {
       if (!animator.isAnimating()) {
+         /**
+          * presence of targetPosition or activeAnimation indicates
+          * need for animation. These are removed on animation completion.
+          */
          if (character.targetPosition) {
             animator.setMoveAnimation(
                {
@@ -128,6 +131,7 @@ const Character = ({ characterAtom, maxDimension = 1 }: CharacterProps) => {
    const clockRef = useRef(new Clock(true))
    const timeRef = useRef<number>(0)
 
+   /**Handles the animations. */
    useFrame(() => {
       if (animator.isAnimating()) {
          timeRef.current += clockRef.current.getDelta()
@@ -171,21 +175,13 @@ const Character = ({ characterAtom, maxDimension = 1 }: CharacterProps) => {
 
    return (
       <mesh
-         renderOrder={2}
+         renderOrder={2 /* To prevent flickering issues*/}
          ref={meshRef}
          position={[
             character.position.x,
             character.position.y,
             character.position.z,
          ]}
-         onPointerEnter={(event) => {
-            event.stopPropagation()
-            setPopupInfo(<CharacterPopupInfo characterAtom={characterAtom} />)
-         }}
-         onPointerLeave={(event) => {
-            event.stopPropagation()
-            setPopupInfo(null)
-         }}
       >
          <planeGeometry args={[dimensions.width, dimensions.height]} />
 
@@ -217,4 +213,7 @@ Character.propTypes = {
    }),
 }
 
-export { Character }
+const MemoedCharacter = memo(Character)
+MemoedCharacter.displayName = "Character"
+
+export { MemoedCharacter as Character }

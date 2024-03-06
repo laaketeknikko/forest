@@ -1,10 +1,14 @@
 import { useAtom } from "jotai"
 import { selectedScenarioConfigAtom } from "../../../game/state/jotai/scenarios"
 import { useTexture } from "@react-three/drei"
-import { useMemo } from "react"
+import { memo, useMemo } from "react"
 import { useSmallArenaDecorations } from "../hooks/useSmallArenaDecorations"
 import { inGameOptionsAtom } from "../../../game/state/jotai/gameState"
 
+/**
+ * Used to render bigger decorations in a half circle around
+ * the arena.
+ */
 const ArenaBorderRadiusDecorations = () => {
    const [scenario] = useAtom(selectedScenarioConfigAtom)
    const [inGameOptions] = useAtom(inGameOptionsAtom)
@@ -33,6 +37,7 @@ const ArenaBorderRadiusDecorations = () => {
 
    if (!inGameOptions.graphics.showBorderDecorations) return null
 
+   /**Position in the center of arena. */
    return (
       <group position={[arenaWidth / 2, 0, arenaLength / 2]}>
          {decorations.map((decoration) => decoration)}
@@ -40,4 +45,6 @@ const ArenaBorderRadiusDecorations = () => {
    )
 }
 
-export { ArenaBorderRadiusDecorations }
+const MemoedDecorations = memo(ArenaBorderRadiusDecorations)
+
+export { MemoedDecorations as ArenaBorderRadiusDecorations }

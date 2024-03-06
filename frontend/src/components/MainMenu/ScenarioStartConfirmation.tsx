@@ -31,10 +31,12 @@ const ScenarioStartConfirmation = ({
 
    return (
       <Stack>
+         {/**
+          * Scenario info
+          */}
          <Typography variant="h5" color="primary" textAlign={"center"}>
             Objectives
          </Typography>
-
          <List
             dense={true}
             sx={{ marginBottom: 5, paddingTop: 0, paddingBottom: 0 }}
@@ -56,10 +58,12 @@ const ScenarioStartConfirmation = ({
             )}
          </List>
 
+         {/** Enemies
+          *
+          */}
          <Typography variant="h5" color="primary" textAlign={"center"}>
             Opposition
          </Typography>
-
          <List
             dense={true}
             sx={{ marginBottom: 5, paddingTop: 0, paddingBottom: 0 }}
@@ -82,6 +86,9 @@ const ScenarioStartConfirmation = ({
             })}
          </List>
 
+         {/** Party
+          *
+          */}
          <Box component="div">
             <Grid2
                container

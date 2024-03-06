@@ -33,6 +33,7 @@ const useLoadGame = () => {
       }
    }
 
+   /** If saveData is given, load from it, otherwise load from global state. */
    const loadTheGame = (saveData: ZSaveConfig | null = null) => {
       if (saveData) {
          return buildStateFromSave(saveData)

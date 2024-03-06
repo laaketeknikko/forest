@@ -37,6 +37,7 @@ const ScenarioList = () => {
       }
    }, [gameExecutionState, setGameExecutionState])
 
+   /** Select first scenario on load. */
    useEffect(() => {
       setSelectedScenarioConfig(allScenarioConfigs[0])
       handleScenarioSelected()

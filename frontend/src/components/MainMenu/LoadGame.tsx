@@ -18,16 +18,23 @@ interface LoadGameProps {
 const LoadGame = ({ startGame }: LoadGameProps) => {
    const loader = useLoadGame()
 
+   /** By default set value of load key field to key from URL. */
    const [keyString, setKeyString] = useState<string>(
       window.location.pathname.substring(1).trim()
    )
 
    const handleOnClick = async () => {
-      // TODO: Implement setting the keystring to address and reading.
       try {
          const saveData = await loader.updateSaveData(keyString)
          loader.loadTheGame(saveData)
-         startGame(true)
+         if (saveData && saveData.keyString) {
+            history.pushState(
+               { keyString: saveData.keyString },
+               "",
+               `/${saveData.keyString}`
+            )
+            startGame(true)
+         }
       } catch (error) {
          console.error(`Error loading game with key ${keyString}`, error)
          startGame(false)
@@ -40,7 +47,7 @@ const LoadGame = ({ startGame }: LoadGameProps) => {
 
          <Input
             onChange={(e) => setKeyString(e.target.value)}
-            placeholder="Enter save key or load from URL"
+            placeholder="Enter save key"
             fullWidth
             type="text"
             slotProps={{

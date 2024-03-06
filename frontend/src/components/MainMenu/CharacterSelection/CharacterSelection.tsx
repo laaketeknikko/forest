@@ -27,8 +27,7 @@ const CharacterSelection = () => {
       useState<PrimitiveAtom<ZCharacter> | null>(null)
 
    /**
-    * Update local and global lists of selected characters.
-    * Local list contains name and image path for easier access.
+    * Update list of selected characters.
     */
    const handleCharacterSelected = useCallback(
       (option: CharacterSelectionItem) => {
@@ -39,7 +38,6 @@ const CharacterSelection = () => {
          /**
           * Selecting already added character removes character from selection.
           */
-
          let newSelection: Array<PrimitiveAtom<ZCharacter>> = []
          if (isSelected) {
             newSelection = activeParty.filter((atom) => {
@@ -135,7 +133,8 @@ const CharacterSelection = () => {
 
                   {!detailDisplayAtom && (
                      <Typography variant="body1" textAlign="center">
-                        Select a character to view stats
+                        Select a character to view stats. Click again to add the
+                        character to the party.
                      </Typography>
                   )}
                   {detailDisplayAtom && (

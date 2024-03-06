@@ -61,15 +61,17 @@ const ActionHelper = () => {
       [selectedCardData.actions, selectedCardData.nextActionId]
    )
 
+   /** Used to show a popup of entities on targeted tile. */
    const tileEntities = useGetEntitiesForPosition()
-
    const entitiesOnTileRef = useRef<ReturnType<
       typeof getEntitiesForPosition
    > | null>(null)
 
+   /** Used to keep track of when all effects of an action have been executed */
    const actionTrackerRef = useRef<ActionEffectsTracker>()
    actionTrackerRef.current = useActionEffectsTracker()
 
+   /** Set effect to be used by the helper. */
    useEffect(() => {
       if (action && actionTrackerRef.current) {
          actionTrackerRef.current.setAction(action)
@@ -79,6 +81,11 @@ const ActionHelper = () => {
       }
    }, [action])
 
+   /** Called when user executes an effect.
+    *
+    * Handles the logic of a single effect. After final effect,
+    * handles the whole-action updates.
+    */
    const handlePerformEffect = (event: ThreeEvent<MouseEvent>) => {
       if (!actionTrackerRef.current) return
 
@@ -94,10 +101,12 @@ const ActionHelper = () => {
          ...gameExecutionState,
          actions: { ...gameExecutionState.actions, isPerfomingAction: true },
       })
+
       actionTrackerRef.current.effectExecuted()
 
       /**
        * If there are no more effects to execute, perform whole-action updates.
+       * Otherwise update effect to be executed.
        */
       if (!actionTrackerRef.current.getNextUnexecutedEffect()) {
          performAction({
@@ -116,12 +125,16 @@ const ActionHelper = () => {
                isPerfomingAction: false,
             },
          })
+
          setSelectedCard(emptyActionCardAtom)
       } else {
          setActiveEffect(actionTrackerRef.current?.getNextUnexecutedEffect())
       }
    }
 
+   /** Used to show a popup of entities on targeted tile.
+    * Triggered when hovering over the circular helper.
+    */
    const handleHelperHover = (event: ThreeEvent<PointerEvent>) => {
       event.stopPropagation()
 

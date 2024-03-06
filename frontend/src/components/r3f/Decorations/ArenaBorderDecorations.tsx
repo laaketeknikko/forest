@@ -16,7 +16,6 @@ import { useTexture } from "@react-three/drei"
 
 const ArenaBorderDecorations = () => {
    const [scenario] = useAtom(selectedScenarioConfigAtom)
-
    const arenaWidth = scenario.arena?.size?.width || 0
    const arenaLength = scenario.arena?.size?.length || 0
 
