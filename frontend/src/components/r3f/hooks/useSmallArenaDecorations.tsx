@@ -34,6 +34,11 @@ export interface UseSmallArenaDecorationsProps {
 /**
  * Takes an array of textures and returns an array of drei/<Instances>
  * containing <Instance>s.
+ *
+ * Instances are placed at [minDistance, maxDistance] from the center
+ *  at a random angle in 360 degrees.
+ *
+ *
  */
 const useSmallArenaDecorations = ({
    textures,
@@ -64,6 +69,7 @@ const useSmallArenaDecorations = ({
          amounts[i] = Math.floor((amounts[i] / total) * amount)
       }
 
+      /**Create the instances for each texture */
       return textures.map((texture, index) => {
          const size = getTextureNormalizedWidthAndHeight(
             texture,
@@ -79,7 +85,7 @@ const useSmallArenaDecorations = ({
                   color="white"
                   opacity={1}
                   toneMapped={false}
-                  alphaTest={0.1}
+                  alphaTest={0.2}
                   /**Only need doublesided if looking sideways. */
                   side={
                      facing === "horizontal" || facing === "center"
@@ -88,15 +94,22 @@ const useSmallArenaDecorations = ({
                   }
                />
 
+               {/**
+                * Create instances for one texture.
+                */}
                <group>
                   {Array(amounts[index])
                      .fill(0)
                      .map((_, amountIndex) => {
+                        /**Randomize distance */
                         const distance =
                            Math.random() * (maxDistance - minDistance) +
                            minDistance
 
-                        /**Positioning angle on the circle */
+                        /**Positioning angle on the circle.
+                         * If facing "center", position in half-circle from
+                         * corner to corner.
+                         */
                         const positionAngle =
                            facing === "center"
                               ? MathUtils.degToRad(225) +
@@ -114,7 +127,7 @@ const useSmallArenaDecorations = ({
                            distance * Math.sin(positionAngle)
                         )
 
-                        /**Rotate sideways */
+                        /**Face to random rotation. */
                         const rotation = [
                            mainFacing,
                            facing === "horizontal" || facing === "center"

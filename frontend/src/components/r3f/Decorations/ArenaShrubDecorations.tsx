@@ -51,7 +51,7 @@ const ArenaShrubDecorations = ({
    if (!inGameOptions.graphics.showBrushes) return null
 
    return (
-      <group position={[center.x, 0.02, center.z]}>
+      <group position={[center.x, 0.0, center.z]}>
          {texturesInstances.map((mesh) => mesh)}
       </group>
    )

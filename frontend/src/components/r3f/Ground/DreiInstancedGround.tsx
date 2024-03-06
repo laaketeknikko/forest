@@ -1,22 +1,26 @@
 import { Instance, Instances } from "@react-three/drei"
 import { useAtom } from "jotai"
-import { useCallback, useLayoutEffect, useRef, useState } from "react"
+import { useLayoutEffect, useRef, useState } from "react"
 import { MathUtils } from "three"
 import { selectedScenarioConfigAtom } from "../../../game/state/jotai/scenarios"
-import { ThreeEvent } from "@react-three/fiber"
 
 interface InstancedGroundProps {
    lengthX?: number
    lengthZ?: number
 }
 
+/**
+ * Tiled ground using drei/Instances.
+ *
+ * drei/Instances are a bit easier to use than native three.js InstancedMesh.
+ * Also, mouse events seem more reliable/easier to accomplish with drei/Instances.
+ */
 const InstancedGround = ({
    lengthX = 15,
    lengthZ = 15,
 }: InstancedGroundProps) => {
    const [selectedScenarioConfig] = useAtom(selectedScenarioConfigAtom)
    const [groundReady, setGroundReady] = useState(false)
-   const [, setGroundUpdate] = useState(0)
 
    const arenaSize = selectedScenarioConfig.arena.size || {
       length: lengthX,
@@ -27,10 +31,15 @@ const InstancedGround = ({
       Array(arenaSize.width * arenaSize.length).fill(null)
    )
 
+   /**
+    * Example of how to update instance on event.
+    * Because instances are in a ref, use mock state
+    * setGroundUpdate to rerender.
+    */
+   /*const [, setGroundUpdate] = useState(0)*/
+   /*
    const onTileClicked = useCallback(
       (event: ThreeEvent<MouseEvent>) => {
-         console.log("clicking on ground")
-
          const x = Math.floor(event.point.x)
          const z = Math.floor(event.point.z)
          const index = x * arenaSize.width + z
@@ -49,6 +58,7 @@ const InstancedGround = ({
       },
       [arenaSize.width]
    )
+   */
 
    useLayoutEffect(() => {
       if (!groundReady) {
@@ -56,22 +66,20 @@ const InstancedGround = ({
             for (let z = 0; z < arenaSize.length; z++) {
                const xPos = x + 0.5
                const zPos = z + 0.5
-               const yPos = 0.1
+               const yPos = 0.01
 
                instancesRef.current[x * arenaSize.width + z] = (
                   <Instance
                      key={`x${xPos}z${zPos}`}
                      position={[xPos, yPos, zPos]}
                      rotation={[MathUtils.degToRad(-90), 0, 0]}
-                     color="red"
-                     onClick={onTileClicked}
                   />
                )
             }
          }
          setGroundReady(true)
       }
-   }, [arenaSize.length, arenaSize.width, groundReady, onTileClicked])
+   }, [arenaSize.length, arenaSize.width, groundReady])
 
    return (
       <group position={[0, 0.01, 0]}>

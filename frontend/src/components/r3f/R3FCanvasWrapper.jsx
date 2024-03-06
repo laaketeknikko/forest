@@ -1,16 +1,8 @@
 import { useState } from "react"
-
 import { Canvas, useFrame } from "@react-three/fiber"
-
 import { useAtom } from "jotai"
-import { Character } from "./Character/Character"
-import { activePartyAtom } from "../../game/state/jotai/characters"
 import { ActionHelper } from "./ActionHelpers/ActionHelper"
-import { activeScenarioEnemiesAtom } from "../../game/state/jotai/enemies"
-
 import { useIdleTimer } from "react-idle-timer"
-import { CustomCameraControls } from "./CameraControls"
-
 import { selectedScenarioConfigAtom } from "../../game/state/jotai/scenarios"
 import { FullGround2 } from "./Ground/FullGround2"
 import { theme } from "../../styles/mui/theme"
@@ -21,6 +13,8 @@ import { ArenaBorderRadiusDecorations } from "./Decorations/ArenaBorderRadiusDec
 import { InstancedGround } from "./Ground/DreiInstancedGround"
 import { GroundGrid } from "./Ground/GroundGrid"
 import { CustomMapController } from "./util/CustomMapController"
+import { ActiveCharacters } from "./Character/ActiveCharacters"
+import { ActiveEnemies } from "./Character/ActiveEnemies"
 
 const DisableRender = () => useFrame(() => null, 1000)
 
@@ -28,8 +22,6 @@ const DisableRender = () => useFrame(() => null, 1000)
  * Wrapper around the actual game scene.
  */
 const R3FCanvasWrapper = () => {
-   const [activePartyCharacters] = useAtom(activePartyAtom)
-   const [activeEnemies] = useAtom(activeScenarioEnemiesAtom)
    const [pauseAnimation, setPauseAnimation] = useState(false)
    const [selectedScenario] = useAtom(selectedScenarioConfigAtom)
    const [animationState] = useAtom(animationFocusAtom)
@@ -47,7 +39,7 @@ const R3FCanvasWrapper = () => {
    useIdleTimer({
       onIdle: onIdle,
       onAction: onAction,
-      timeout: 3000,
+      timeout: 1000,
       event: [
          "keydown",
          //'wheel',
@@ -64,36 +56,48 @@ const R3FCanvasWrapper = () => {
 
    return (
       <Canvas
-         frameloop={animationState.isAnimating ? "always" : "demand"}
+         frameloop={
+            animationState.isAnimating || !pauseAnimation ? "always" : "demand"
+         }
          camera={{
             position: [0, 10, selectedScenario.arena.size.length],
             fov: [50],
          }}
          style={{ backgroundColor: theme.palette.background.paper }}
       >
-         {pauseAnimation && <DisableRender />}
+         {pauseAnimation && !animationState.isAnimating && <DisableRender />}
+
+         <ActiveCharacters />
+         <ActiveEnemies />
 
          <CustomMapController />
 
-         <axesHelper />
          <FullGround2 />
          <InstancedGround />
          <GroundGrid />
 
          <ArenaLeafDecorations
-            amount={100}
-            baseSize={0.2}
+            amount={
+               (selectedScenario.arena.size.width *
+                  selectedScenario.arena.size.length) /
+               3
+            }
+            baseSize={0.25}
+            sizeVariance={0.3}
             minDistance={3}
             maxDistance={(selectedScenario.arena.size.width / 2) * 2}
             center={{
                x: selectedScenario.arena.size.width / 2,
                z: selectedScenario.arena.size.width / 2,
             }}
-            sizeVariance={0.3}
          />
 
          <ArenaShrubDecorations
-            amount={50}
+            amount={
+               (selectedScenario.arena.size.width *
+                  selectedScenario.arena.size.length) /
+               4
+            }
             baseSize={0.5}
             minDistance={3}
             maxDistance={(selectedScenario.arena.size.width / 2) * 2}
@@ -107,28 +111,7 @@ const R3FCanvasWrapper = () => {
          <ArenaBorderRadiusDecorations />
 
          <ActionHelper />
-         <ambientLight args={["white", 1]} />
-
-         {activePartyCharacters.length > 0 &&
-            activePartyCharacters.map((character) => {
-               return (
-                  <Character
-                     key={character.toString()}
-                     characterAtom={character}
-                  />
-               )
-            })}
-
-         {activeEnemies.length > 0 &&
-            activeEnemies.map((enemy) => {
-               return (
-                  <Character
-                     key={enemy.toString()}
-                     characterAtom={enemy}
-                     maxDimension={3}
-                  />
-               )
-            })}
+         <ambientLight args={["white", 0.8]} />
       </Canvas>
    )
 }

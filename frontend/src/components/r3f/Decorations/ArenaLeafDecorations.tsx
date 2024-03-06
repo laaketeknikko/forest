@@ -51,7 +51,7 @@ const ArenaLeafDecorations = ({
    if (!inGameOptions.graphics.showFoliage) return null
 
    return (
-      <group position={[center.x, 0.02, center.z]}>
+      <group position={[center.x, 0.01, center.z]}>
          {texturesInstances.map((instance) => instance)}
       </group>
    )

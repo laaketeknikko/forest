@@ -33,9 +33,13 @@ const CustomMapController = () => {
       )
    }, [character.position])
 
+   /** Turn smoothly towards the active character. */
    useFrame(() => {
       if (targetRef.current && mapControlsRef.current) {
          mapControlsRef.current?.target.lerp(targetRef.current, 0.1)
+
+         /** Stop turning once we're almost there.
+          */
          if (
             approximatelyEqual(
                targetRef.current.x,
@@ -53,7 +57,6 @@ const CustomMapController = () => {
                0.1
             )
          ) {
-            console.log("they're equal")
             targetRef.current = null
          }
       }

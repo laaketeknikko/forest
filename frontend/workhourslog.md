@@ -79,6 +79,6 @@
 | 3.3.  | 1    | UX work                                                     |
 | 4.3.  | 2    | UI work                                                     |
 | 5.3.  | 5    | Refactoring                                                 |
-| 6.3.  | 1    | Refactoring                                                 |
+| 6.3.  | 2    | Refactoring                                                 |
 
-165
+166

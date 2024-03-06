@@ -12,15 +12,18 @@ import { getPointsForJumpAnimation } from "../util/animation"
    and from target to end. The latter jump is slower.
    - getNextPoint: returns the next point in the animation
    - isAnimating: returns true if there animation points remaining.
+
+   Note: It might've been simpler to use lerping for animating.
+   In future, something like https://github.com/pmndrs/maath
+   might be worth considering. For this simple use case,
+   this is good enough.
  */
 const useEntityAnimation = () => {
-   const startEndRef = useRef<ZPosition2D[]>([])
    const pointsRef = useRef<Vector3[]>([])
 
    const setMoveAnimation = (start: ZPosition2D, end: ZPosition2D) => {
       if (pointsRef.current.length > 0) return
 
-      startEndRef.current = [start, end]
       pointsRef.current = getPointsForJumpAnimation(start, end, 3)
    }
 
