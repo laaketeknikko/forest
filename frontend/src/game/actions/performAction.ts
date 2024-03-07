@@ -91,7 +91,7 @@ const performOffensiveEffect = (props: PerformEffectProps) => {
 
    /** Offensive effects should have power multiplier, but if not, default to 1 */
    const attackPower =
-      props.activeEffect.powerMultiplier || 1 * character.strength
+      (props.activeEffect.powerMultiplier || 1) * character.strength
 
    for (const entity of affectedEntities) {
       if (entity.entityData.health && attackPower) {

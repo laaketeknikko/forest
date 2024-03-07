@@ -19,6 +19,8 @@ export interface ScenarioDetailsProps {
  *
  */
 const ScenarioDetails = ({ scenarioConfig }: ScenarioDetailsProps) => {
+   console.log("scenario config: ", scenarioConfig)
+
    return (
       <Paper sx={{ height: "100%" }}>
          <Typography variant="h4" sx={{ textAlign: "center" }} color="primary">

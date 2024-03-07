@@ -7,6 +7,7 @@ import { selectedPartyAtom } from "../state/jotai/characters"
 import { selectedScenarioEnemiesAtom } from "../state/jotai/enemies"
 import { selectedScenarioConfigAtom } from "../state/jotai/scenarios"
 import { ZCharacter, ZEnemy, ZSaveConfig } from "../../../../shared/types/types"
+import { getScenarioConfigByName } from "./getScenarioConfigByName"
 
 /**
  * Builds up a game state from a save config.
@@ -15,13 +16,13 @@ import { ZCharacter, ZEnemy, ZSaveConfig } from "../../../../shared/types/types"
  * - activeScenarioEnemiesAtom
  * - selectedScenarioConfigAtom
  */
-const buildStateFromSave = (saveData: ZSaveConfig) => {
+const buildStateFromSave = async (saveData: ZSaveConfig) => {
    const jotaiStore = getDefaultStore()
 
    const characters: Array<PrimitiveAtom<ZCharacter>> = []
 
    /**
-    * Clone the config to avoid possible reference issues.
+    * Build characters.
     */
    const clonedConfig = clone(saveData)
 
@@ -47,7 +48,9 @@ const buildStateFromSave = (saveData: ZSaveConfig) => {
 
    jotaiStore.set(selectedPartyAtom, characters)
 
-   // Build enemy state
+   /**
+    * Build enemies.
+    */
    const enemies: Array<PrimitiveAtom<ZEnemy>> = []
 
    for (const enemyConfig of clonedConfig.enemies) {
@@ -72,9 +75,14 @@ const buildStateFromSave = (saveData: ZSaveConfig) => {
 
    jotaiStore.set(selectedScenarioEnemiesAtom, enemies)
 
-   // Build scenario state
-   // TOOD: Fix after loading refactor is done.
-   jotaiStore.set(selectedScenarioConfigAtom, clonedConfig.scenario as never)
+   const scenario = await getScenarioConfigByName(clonedConfig.scenario.name)
+   if (!scenario) {
+      return false
+   }
+
+   console.log("found scenario: ", scenario)
+
+   jotaiStore.set(selectedScenarioConfigAtom, scenario)
 
    return true
 }

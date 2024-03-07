@@ -7,7 +7,7 @@ import { allEnemiesAtom } from "../state/jotai/enemies"
 import { useLoadDefaultConfigs } from "../../hooks/useLoadDefaultConfigs"
 import { allScenarioConfigsAtom } from "../state/jotai/scenarios"
 import { defaultConfigsAtom } from "../state/jotai/gameState"
-import { useEffect } from "react"
+import { useCallback, useEffect } from "react"
 import {
    ZDynamicGameEntity,
    ZSaveConfigActionCard,
@@ -20,6 +20,9 @@ import {
  * from the server and load them. This is used when navigating the main menu.
  * These configs represent the pool of all available scenarios, characters
  * and enemies.
+ *
+ * Don't confuse these with the configs required for a scenario, such
+ * as activeParty.
  *
  * Sets the following configs:
  * - allPlayerCharactersAtom
@@ -45,7 +48,7 @@ const useInitializeDefaultConfigs = () => {
    useInitializeEnemies()
    useInitializeScenarios()
 
-   const initializeDefaultGameState = async () => {
+   const initializeDefaultGameState = useCallback(async () => {
       if (
          defaultConfigs.characters.length === 0 ||
          defaultConfigs.enemies.length === 0 ||
@@ -54,7 +57,12 @@ const useInitializeDefaultConfigs = () => {
          await configs.loadConfigs()
       }
       return true
-   }
+   }, [
+      configs,
+      defaultConfigs.characters.length,
+      defaultConfigs.enemies.length,
+      defaultConfigs.scenarios.length,
+   ])
 
    return initializeDefaultGameState
 }

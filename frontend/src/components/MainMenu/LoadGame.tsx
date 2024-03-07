@@ -3,6 +3,7 @@ import { useLoadGame } from "../../game/hooks/useLoadGame"
 
 import { useState } from "react"
 import Input from "@mui/material/Input"
+import { useInitializeDefaultConfigs } from "../../game/hooks/useInitializeDefaultGameState"
 
 interface LoadGameProps {
    startGame: (value: boolean) => void
@@ -22,9 +23,15 @@ const LoadGame = ({ startGame }: LoadGameProps) => {
    const [keyString, setKeyString] = useState<string>(
       window.location.pathname.substring(1).trim()
    )
+   const stateLoader = useInitializeDefaultConfigs()
 
    const handleOnClick = async () => {
       try {
+         const stateResult = await stateLoader()
+         if (!stateResult) {
+            throw new Error("Error loading configs from server.")
+         }
+
          const saveData = await loader.updateSaveData(keyString)
          loader.loadTheGame(saveData)
          if (saveData && saveData.keyString) {

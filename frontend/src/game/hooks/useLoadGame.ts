@@ -36,7 +36,11 @@ const useLoadGame = () => {
       [isLoading, setSaveGame]
    )
 
-   /** If saveData is given, load from it, otherwise load from global state. */
+   /** If saveData is given, load from it, otherwise load from global state.
+    *
+    * Note: The purpose of this is to allow updating save data and
+    * loading save in the same render cycle.
+    */
    const loadTheGame = useCallback(
       (saveData: ZSaveConfig | null = null) => {
          if (saveData) {

@@ -1,4 +1,4 @@
-import { loadDefaultConfigs } from "../services/defaultConfigsLoader"
+import { loadDefaultConfigs } from "../services/configs"
 import { defaultConfigsAtom } from "../game/state/jotai/gameState"
 import { useAtom } from "jotai"
 import { useCallback } from "react"

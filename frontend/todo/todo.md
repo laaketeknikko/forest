@@ -39,3 +39,5 @@ character is too small.
 
 TODO: If loading a game, winning a scenario and going to main menu,
 does main menu show scenarios, characters etc. properly?
+
+TODO: Add some kind of a library to handle server fetches.

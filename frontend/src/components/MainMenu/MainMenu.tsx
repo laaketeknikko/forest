@@ -70,16 +70,34 @@ const MainMenu = () => {
     */
    const startLoadedScenario = (start: boolean) => {
       if (start) {
-         saveGame.updateSaveData()
-         setGameExecutionState({
-            ...gameExecutionState,
-            global: GlobalExecutionState.running,
-            mainDisplay: MainWindowDisplayStatus.showGameScene,
-            mainMenu: {
-               ...gameExecutionState.mainMenu,
-               scenarioStarted: start,
-            },
-         })
+         //saveGame.updateSaveData()
+
+         const saveData = saveGame.getSaveData()
+
+         if (saveData.isScenarioInProgress) {
+            setGameExecutionState({
+               ...gameExecutionState,
+               global: GlobalExecutionState.running,
+               mainDisplay: MainWindowDisplayStatus.showGameScene,
+               mainMenu: {
+                  ...gameExecutionState.mainMenu,
+                  scenarioStarted: start,
+               },
+            })
+         } else {
+            setGameExecutionState({
+               ...gameExecutionState,
+               global: GlobalExecutionState.stopped,
+               mainDisplay: MainWindowDisplayStatus.showMainMenu,
+               mainMenu: {
+                  scenarioStarted: false,
+                  gameConfigLoaded: true,
+                  scenarioSelected: false,
+                  charactersSelected: false,
+                  showMainmenu: true,
+               },
+            })
+         }
       }
    }
 

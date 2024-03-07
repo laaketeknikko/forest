@@ -9,6 +9,9 @@ const validate = (arrayValue, validator) => {
       const successes = results.filter((result) => result.success)
       const failures = results.filter((result) => !result.success)
 
+      console.log("Before validation: ", arrayValue)
+      console.log("after validation: ", results)
+
       return {
          successes,
          failures,
@@ -81,9 +84,29 @@ const loadDefaultConfigs = async () => {
    return configs
 }
 
+const loadScenarioByName = async (name) => {
+   try {
+      const response = await fetch(
+         `${serverRoot}/api/configs/scenarios/${name}`
+      )
+
+      const json = await response.json()
+      const validated = validation.validateScenarioConfig(json)
+
+      if (validated.success) {
+         return validated.data
+      } else {
+         throw new Error("Error validating scenario: ", validated.error)
+      }
+   } catch (error) {
+      console.error(error)
+   }
+}
+
 export {
    loadDefaultConfigs,
    loadDefaultCharacterConfigs,
    loadDefaultScenarioConfigs,
    loadDefaultEnemyConfigs,
+   loadScenarioByName,
 }

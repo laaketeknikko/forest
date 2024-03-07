@@ -15,7 +15,9 @@ import { ZSaveConfig } from "../../../../shared/types/types"
  * @returns An object with the following functions:
  * - getSaveData: returns data from activeSaveGameConfigAtom
  * - updateSaveData: Builds a save state from the current game state.
- *    Returns the state and sets it to activeSaveGameConfigAtom
+ *    Returns the state and sets it to activeSaveGameConfigAtom.
+ *    The function accepts partial save game config updates, which
+ *    can be used to override other updates.
  * - saveTheGame: Saves the game data passed as argument, or, if not passed, from activeSaveGameConfigAtom.
  */
 const useSaveGame = () => {
@@ -30,6 +32,8 @@ const useSaveGame = () => {
             keyString: "",
             ...partialSaveUpdates,
          }
+
+         /** If no key string is provided, generate one */
          if (
             !saveGameData.keyString ||
             saveGameData.keyString.length === 0 ||
