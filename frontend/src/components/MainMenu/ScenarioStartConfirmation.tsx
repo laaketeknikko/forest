@@ -89,22 +89,24 @@ const ScenarioStartConfirmation = ({
          {/** Party
           *
           */}
+         <Typography variant="h5" color="primary" textAlign={"center"}>
+            Party
+         </Typography>
          <Box component="div">
             <Grid2
                container
                columns={24}
                alignItems={"end"}
                justifyContent="center"
-               spacing={5}
             >
                {selectedCharacterAtoms.map((characterAtom) => {
                   return (
                      <Grid2
-                        xs={8}
-                        sm={6}
-                        md={5}
-                        lg={4}
-                        xl={4}
+                        xs={6}
+                        sm={4}
+                        md={3}
+                        lg={3}
+                        xl={3}
                         key={characterAtom.toString()}
                      >
                         <DebriefingEntityCard
