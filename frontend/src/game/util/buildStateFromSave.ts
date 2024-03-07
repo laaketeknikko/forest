@@ -75,12 +75,13 @@ const buildStateFromSave = async (saveData: ZSaveConfig) => {
 
    jotaiStore.set(selectedScenarioEnemiesAtom, enemies)
 
+   /**
+    * Build scenario.
+    */
    const scenario = await getScenarioConfigByName(clonedConfig.scenario.name)
    if (!scenario) {
       return false
    }
-
-   console.log("found scenario: ", scenario)
 
    jotaiStore.set(selectedScenarioConfigAtom, scenario)
 

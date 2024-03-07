@@ -4,9 +4,10 @@ import { useLoadGame } from "../../game/hooks/useLoadGame"
 import { useState } from "react"
 import Input from "@mui/material/Input"
 import { useInitializeDefaultConfigs } from "../../game/hooks/useInitializeDefaultGameState"
+import { ZSaveConfig } from "../../../../shared/types/types"
 
 interface LoadGameProps {
-   startGame: (value: boolean) => void
+   startGame: (value: boolean, config: ZSaveConfig) => void
 }
 
 /**
@@ -34,17 +35,18 @@ const LoadGame = ({ startGame }: LoadGameProps) => {
 
          const saveData = await loader.updateSaveData(keyString)
          loader.loadTheGame(saveData)
+
          if (saveData && saveData.keyString) {
             history.pushState(
                { keyString: saveData.keyString },
                "",
                `/${saveData.keyString}`
             )
-            startGame(true)
+            startGame(true, saveData)
          }
       } catch (error) {
          console.error(`Error loading game with key ${keyString}`, error)
-         startGame(false)
+         startGame(false, loader.getSaveData())
       }
    }
 

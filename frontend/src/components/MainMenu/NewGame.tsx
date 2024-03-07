@@ -6,9 +6,10 @@ import { SaveGame } from "./SaveGame"
 import { LoadGame } from "./LoadGame"
 import { gameExecutionStateAtom } from "../../game/state/jotai/gameState"
 import { useAtom } from "jotai"
+import { ZSaveConfig } from "../../../../shared/types/types"
 
 interface NewGameProps {
-   startLoadedScenario: (value: boolean) => void
+   startLoadedScenario: (value: boolean, config: ZSaveConfig) => void
 }
 
 /**

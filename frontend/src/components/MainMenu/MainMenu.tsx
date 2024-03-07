@@ -23,6 +23,7 @@ import { useAtom } from "jotai"
 import { useInitializeNewScenario } from "../../game/hooks/useInitializeNewScenario"
 import { useSaveGame } from "../../game/hooks/useSaveGame"
 import Container from "@mui/material/Container"
+import { ZSaveConfig } from "../../../../shared/types/types"
 
 const MainMenu = () => {
    const [gameExecutionState, setGameExecutionState] = useAtom(
@@ -68,12 +69,8 @@ const MainMenu = () => {
     * Called when starting scenario from load button.
     *
     */
-   const startLoadedScenario = (start: boolean) => {
+   const startLoadedScenario = (start: boolean, saveData: ZSaveConfig) => {
       if (start) {
-         //saveGame.updateSaveData()
-
-         const saveData = saveGame.getSaveData()
-
          if (saveData.isScenarioInProgress) {
             setGameExecutionState({
                ...gameExecutionState,

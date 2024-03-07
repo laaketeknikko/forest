@@ -80,5 +80,6 @@
 | 4.3.  | 2    | UI work                                                     |
 | 5.3.  | 5    | Refactoring                                                 |
 | 6.3.  | 4    | Refactoring, Debugging                                      |
+| 7.3.  | 2    | Debugging                                                   |
 
-168
+170
