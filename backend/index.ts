@@ -8,7 +8,6 @@ import mongoose from "mongoose"
 
 import { configsRouter } from "./routers/configsRouter"
 import { savedGamesRouter } from "./routers/savedGamesRouter"
-import { newGameRouter } from "./routers/newGameRouter"
 
 const app = express()
 app.use(cors())
@@ -16,7 +15,6 @@ app.use(express.json())
 
 app.use("/api/configs", configsRouter)
 app.use("/api/savedgames", savedGamesRouter)
-app.use("/api/newgame", newGameRouter)
 
 mongoose.set("strictQuery", false)
 mongoose

@@ -82,5 +82,7 @@
 | 6.3.  | 4    | Refactoring, Debugging                                      |
 | 7.3.  | 2    | Debugging                                                   |
 | 8.3.  | 1    | UI work                                                     |
+| 8.3.  | 2    | Debugging, demoing                                          |
+| 8.3.  | 1    | Quality work                                                |
 
-171
+174

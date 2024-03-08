@@ -1,5 +1,3 @@
-// TODO: Fix this file.
-
 import express from "express"
 
 import {
@@ -24,11 +22,11 @@ configsRouter.get("/damagetypes", (_req, res) => {
 configsRouter.get("/characters", async (_req, res) => {
    try {
       const characterConfigs = await loadCharacterConfigs()
-      console.log(characterConfigs)
 
       res.json(characterConfigs)
    } catch (error) {
-      /* empty */
+      console.error("Error loading characters.")
+      res.status(500).json(error)
    }
 })
 
@@ -40,23 +38,27 @@ configsRouter.get("/enemies", async (_req, res) => {
       res.json(enemyConfigs)
    } catch (error) {
       console.log(error)
+      res.status(500).json(error)
    }
 })
 
 // eslint-disable-next-line @typescript-eslint/no-misused-promises
 configsRouter.get("/scenarios", async (_req, res) => {
-   const scenarioConfigs = await loadScenarioConfigs()
-   return res.json(scenarioConfigs)
+   try {
+      const scenarioConfigs = await loadScenarioConfigs()
+      return res.json(scenarioConfigs)
+   } catch (error) {
+      console.error(error)
+      return res.status(500).json(error)
+   }
 })
 
 // eslint-disable-next-line @typescript-eslint/no-misused-promises
 configsRouter.get("/scenarios/:name", async (req, res) => {
    const scenarioConfigs = await loadScenarioConfigs()
-   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+
    const scenario = scenarioConfigs.find(
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
       (scenario) =>
-         // eslint-disable-next-line @typescript-eslint/no-unsafe-call
          scenario.name.toLowerCase() === req.params.name.toLowerCase()
    )
    if (!scenario) {
