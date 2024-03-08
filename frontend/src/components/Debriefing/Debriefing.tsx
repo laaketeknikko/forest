@@ -108,18 +108,24 @@ const Debriefing = () => {
             sx={{ marginTop: 3 }}
             alignItems={"start"}
          >
-            {/** Enemies section
-             *
-             */}
-            <DebriefingEntityList header={"Enemies"} entityAtoms={enemyAtoms} />
-
-            {/** Party section
-             *
-             */}
-            <DebriefingEntityList
-               header={"Party"}
-               entityAtoms={selectedParty}
-            />
+            <Grid2 xs={12} container columns={24}>
+               {/** Enemies section
+                *
+                */}
+               <DebriefingEntityList
+                  header={"Enemies"}
+                  entityAtoms={enemyAtoms}
+               />
+            </Grid2>
+            <Grid2 xs={12} container columns={24}>
+               {/** Party section
+                *
+                */}
+               <DebriefingEntityList
+                  header={"Party"}
+                  entityAtoms={selectedParty}
+               />
+            </Grid2>
          </Grid2>
 
          <Button onClick={handleConfirmation}>Accept</Button>

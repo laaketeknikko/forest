@@ -11,11 +11,6 @@ const GuineanPigletActions: Record<string, types.ZSaveConfigActionCardAction> =
 
          effects: [
             {
-               actionDelayMultiplier: 1,
-               type: actionTypes.movement,
-               range: 3,
-            },
-            {
                powerMultiplier: 0.5,
                damageType: damageTypes.physical,
                actionDelayMultiplier: 1,
@@ -27,18 +22,17 @@ const GuineanPigletActions: Record<string, types.ZSaveConfigActionCardAction> =
       gnaw: {
          name: "Gnaw",
          description: "Take a little bite.",
-
          effects: [
             {
-               actionDelayMultiplier: 1,
+               actionDelayMultiplier: 1.2,
                type: actionTypes.movement,
-               range: 3,
+               range: 4,
             },
             {
-               powerMultiplier: 1,
+               powerMultiplier: 1.5,
                damageType: damageTypes.physical,
-               actionDelayMultiplier: 1,
-               range: 1,
+               actionDelayMultiplier: 1.2,
+               range: 2,
                type: actionTypes.offensive,
             },
          ],
@@ -49,15 +43,24 @@ const GuineanPigletActions: Record<string, types.ZSaveConfigActionCardAction> =
 
          effects: [
             {
-               actionDelayMultiplier: 1,
-               type: actionTypes.movement,
-               range: 3,
+               powerMultiplier: 2,
+               damageType: damageTypes.physical,
+               actionDelayMultiplier: 2,
+               range: 2,
+               type: actionTypes.offensive,
             },
             {
                powerMultiplier: 2,
                damageType: damageTypes.physical,
                actionDelayMultiplier: 2,
-               range: 1,
+               range: 2,
+               type: actionTypes.offensive,
+            },
+            {
+               powerMultiplier: 2,
+               damageType: damageTypes.physical,
+               actionDelayMultiplier: 2,
+               range: 2,
                type: actionTypes.offensive,
             },
          ],
@@ -84,9 +87,9 @@ const GuineanPigletActions: Record<string, types.ZSaveConfigActionCardAction> =
 
          effects: [
             {
-               actionDelayMultiplier: 1,
+               actionDelayMultiplier: 1.2,
                type: actionTypes.movement,
-               range: 3,
+               range: 5,
             },
             {
                powerMultiplier: 1,
@@ -239,7 +242,7 @@ const GuineanPigletCards: Array<types.ZSaveConfigActionCard> = [
          GuineanPigletActions.fluffyTail,
          GuineanPigletActions.fourLeggedJump,
          GuineanPigletActions.gnaw,
-         GuineanPigletActions.hideBehindTheTree,
+         GuineanPigletActions.fluffyTail,
          GuineanPigletActions.relentlessGnaw,
       ],
    },
@@ -248,10 +251,10 @@ const GuineanPigletCards: Array<types.ZSaveConfigActionCard> = [
       description: "Not lethal, but maybe useful",
       actions: [
          GuineanPigletActions.jump,
-         GuineanPigletActions.riseToTwoFeet,
+         GuineanPigletActions.fourLeggedJump,
          GuineanPigletActions.relentlessGnaw,
-         GuineanPigletActions.hideBehindTheTree,
-         GuineanPigletActions.meanFace,
+         GuineanPigletActions.jump,
+         GuineanPigletActions.fluffyTail,
       ],
    },
    {
@@ -259,10 +262,10 @@ const GuineanPigletCards: Array<types.ZSaveConfigActionCard> = [
       description: "Mix them up a bit",
       actions: [
          GuineanPigletActions.relentlessGnaw,
-         GuineanPigletActions.quickFeet,
-         GuineanPigletActions.lowerBackDown,
-         GuineanPigletActions.leeTailSwipe,
-         GuineanPigletActions.quickFeet,
+         GuineanPigletActions.jump,
+         GuineanPigletActions.relentlessGnaw,
+         GuineanPigletActions.fluffyTail,
+         GuineanPigletActions.jump,
       ],
    },
 ]

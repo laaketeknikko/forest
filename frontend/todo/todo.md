@@ -10,8 +10,6 @@ TODO: Implement some frontend tests.
 
 TODO: Combat log?
 
-TODO: prevent characters from leaving the arena.
-
 TODO: Make enemy starting positions an array to support multiples of same type
 
 TODO: Make the cards prettier.
@@ -20,7 +18,9 @@ TODO: Apparently it might not be a good idea to unmount and remount
 the Fiber canvas. Should change to just mount once somehow.
 
 TODO: Autosave?
+Solution: out of scope.
 
 TODO: Allow defining own keystring.
 
 TODO: Add some kind of a library to handle server fetches.
+Solution: Out of scope.

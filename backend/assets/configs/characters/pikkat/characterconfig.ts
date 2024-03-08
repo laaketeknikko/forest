@@ -30,7 +30,7 @@ const PikkatActions: Record<string, types.ZSaveConfigActionCardAction> = {
       effects: [
          {
             type: actionTypes.offensive,
-            range: 1,
+            range: 1.5,
             actionDelayMultiplier: 1,
             powerMultiplier: 1,
             damageType: damageTypes.physical,
@@ -53,13 +53,13 @@ const PikkatActions: Record<string, types.ZSaveConfigActionCardAction> = {
       effects: [
          {
             type: actionTypes.movement,
-            range: 3,
-            actionDelayMultiplier: 1,
+            range: 4,
+            actionDelayMultiplier: 1.2,
          },
          {
             type: actionTypes.offensive,
-            range: 1.5,
-            actionDelayMultiplier: 1,
+            range: 2,
+            actionDelayMultiplier: 1.3,
             powerMultiplier: 1,
             damageType: damageTypes.physical,
          },
@@ -93,22 +93,22 @@ const PikkatActions: Record<string, types.ZSaveConfigActionCardAction> = {
       effects: [
          {
             type: actionTypes.offensive,
-            range: 1,
+            range: 3,
             actionDelayMultiplier: 1.5,
             powerMultiplier: 2,
             damageType: damageTypes.physical,
          },
          {
             type: actionTypes.offensive,
-            range: 1,
+            range: 2.5,
             actionDelayMultiplier: 1.2,
             powerMultiplier: 1,
             damageType: damageTypes.physical,
          },
          {
             type: actionTypes.offensive,
-            range: 1,
-            actionDelayMultiplier: 1,
+            range: 2,
+            actionDelayMultiplier: 1.1,
             powerMultiplier: 0.5,
             damageType: damageTypes.physical,
          },
@@ -155,10 +155,10 @@ const PikkatCards: Array<types.ZSaveConfigActionCard> = [
       name: "Menaceless",
       description: "You are, after all, just a pigkat.",
       actions: [
-         PikkatActions.listen,
-         PikkatActions.piggyNose,
          PikkatActions.furrrBall,
-         PikkatActions.lastSwine,
+         PikkatActions.furrrBall,
+         PikkatActions.furrrBall,
+         PikkatActions.furrrBall,
          PikkatActions.scuttle,
       ],
    },

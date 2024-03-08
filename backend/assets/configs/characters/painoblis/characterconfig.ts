@@ -63,7 +63,7 @@ const painoblisActions: Record<string, types.ZSaveConfigActionCardAction> = {
    crushingRoot: {
       name: "Crushing root",
       description:
-         "Crushing roots crush legendary roots (if they exist) [WTF? Descriptions by Codeium]",
+         "Crushing roots crush legendary roots (if they exist) [Description by Codeium]",
       effects: [
          {
             type: actionTypes.offensive,
@@ -88,11 +88,11 @@ const PainoblisCards: Array<types.ZSaveConfigActionCard> = [
       name: "A flower's a flower",
       description: "A flower's a flower",
       actions: [
-         painoblisActions.grow,
+         painoblisActions.rootRelocate,
          painoblisActions.rootRelocate,
          painoblisActions.sunnyEyes,
-         painoblisActions.happyFace,
-         painoblisActions.luledielli,
+         painoblisActions.crushingRoot,
+         painoblisActions.sunnyEyes,
          painoblisActions.crushingRoot,
       ],
    },
@@ -100,11 +100,11 @@ const PainoblisCards: Array<types.ZSaveConfigActionCard> = [
       name: "A flower's a flower",
       description: "A flower's a flower",
       actions: [
-         painoblisActions.grow,
+         painoblisActions.rootRelocate,
          painoblisActions.rootRelocate,
          painoblisActions.sunnyEyes,
-         painoblisActions.happyFace,
-         painoblisActions.luledielli,
+         painoblisActions.crushingRoot,
+         painoblisActions.sunnyEyes,
          painoblisActions.crushingRoot,
       ],
    },
@@ -112,11 +112,11 @@ const PainoblisCards: Array<types.ZSaveConfigActionCard> = [
       name: "A flower's a flower",
       description: "A flower's a flower",
       actions: [
-         painoblisActions.grow,
+         painoblisActions.rootRelocate,
          painoblisActions.rootRelocate,
          painoblisActions.sunnyEyes,
-         painoblisActions.happyFace,
-         painoblisActions.luledielli,
+         painoblisActions.crushingRoot,
+         painoblisActions.sunnyEyes,
          painoblisActions.crushingRoot,
       ],
    },
@@ -124,11 +124,11 @@ const PainoblisCards: Array<types.ZSaveConfigActionCard> = [
       name: "A flower's a flower",
       description: "A flower's a flower",
       actions: [
-         painoblisActions.grow,
+         painoblisActions.rootRelocate,
          painoblisActions.rootRelocate,
          painoblisActions.sunnyEyes,
-         painoblisActions.happyFace,
-         painoblisActions.luledielli,
+         painoblisActions.crushingRoot,
+         painoblisActions.sunnyEyes,
          painoblisActions.crushingRoot,
       ],
    },
@@ -136,11 +136,11 @@ const PainoblisCards: Array<types.ZSaveConfigActionCard> = [
       name: "A flower's a flower",
       description: "A flower's a flower",
       actions: [
-         painoblisActions.grow,
+         painoblisActions.rootRelocate,
          painoblisActions.rootRelocate,
          painoblisActions.sunnyEyes,
-         painoblisActions.happyFace,
-         painoblisActions.luledielli,
+         painoblisActions.crushingRoot,
+         painoblisActions.sunnyEyes,
          painoblisActions.crushingRoot,
       ],
    },
@@ -156,7 +156,7 @@ const characterConfig: types.ZSaveConfigCharacter = {
    currentActionDelay: 15,
    health: 60,
    maxHealth: 60,
-   strength: 10,
+   strength: 5,
 }
 
 export { characterConfig }

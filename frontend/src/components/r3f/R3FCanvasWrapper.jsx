@@ -83,10 +83,10 @@ const R3FCanvasWrapper = () => {
                   selectedScenario.arena.size.length) /
                3
             }
-            baseSize={0.25}
-            sizeVariance={0.3}
+            baseSize={0.15}
+            sizeVariance={0.4}
             minDistance={3}
-            maxDistance={(selectedScenario.arena.size.width / 2) * 2}
+            maxDistance={selectedScenario.arena.size.width * 2}
             center={{
                x: selectedScenario.arena.size.width / 2,
                z: selectedScenario.arena.size.width / 2,
@@ -99,14 +99,14 @@ const R3FCanvasWrapper = () => {
                   selectedScenario.arena.size.length) /
                4
             }
-            baseSize={0.5}
+            baseSize={0.3}
             minDistance={3}
-            maxDistance={(selectedScenario.arena.size.width / 2) * 2}
+            maxDistance={selectedScenario.arena.size.width * 2}
             center={{
                x: selectedScenario.arena.size.width / 2,
                z: selectedScenario.arena.size.width / 2,
             }}
-            sizeVariance={0.3}
+            sizeVariance={0.4}
          />
 
          <ArenaBorderRadiusDecorations />

@@ -41,7 +41,7 @@ const FullGround2 = ({ sizeX = 10, sizeZ = 10 }: FullGroundTileProps) => {
              * This is a hardcoded value based on the texture used.
              */}
             <planeGeometry
-               args={[arenaSize.length * 1.35, arenaSize.width * 1.4, 100, 100]}
+               args={[arenaSize.length * 1.45, arenaSize.width * 1.4, 100, 100]}
             />
 
             <meshStandardMaterial

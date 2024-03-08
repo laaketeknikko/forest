@@ -55,7 +55,10 @@ const useScenarioStatsUpdater = () => {
                ...saveGame,
                scenarioStatistics: [
                   ...saveGame.scenarioStatistics.filter((stat) => {
-                     stat.scenarioName !== scenarioStat?.scenarioName
+                     return (
+                        stat.scenarioName.toLowerCase() !==
+                        saveGame.scenario.name.toLowerCase()
+                     )
                   }),
                   scenarioStat,
                ],

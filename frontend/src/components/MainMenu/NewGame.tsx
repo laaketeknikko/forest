@@ -29,7 +29,6 @@ const NewGame = ({ startLoadedScenario }: NewGameProps) => {
    )
 
    const handleNewGameClick = async () => {
-      // TODO: Maybe make result matter in some way.
       const result = await initializeDefaultGameState()
 
       if (!result) {

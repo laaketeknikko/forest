@@ -85,14 +85,14 @@ const SihhisCardActions: Record<string, types.ZSaveConfigActionCardAction> = {
       effects: [
          {
             range: 2,
-            actionDelayMultiplier: 4,
+            actionDelayMultiplier: 3,
             type: actionTypes.offensive,
             powerMultiplier: 3,
          },
          {
             type: actionTypes.movement,
-            actionDelayMultiplier: 1,
-            range: 2,
+            actionDelayMultiplier: 1.1,
+            range: 4,
          },
       ],
    },
@@ -159,14 +159,14 @@ const SihhisCardActions: Record<string, types.ZSaveConfigActionCardAction> = {
 
       effects: [
          {
-            range: 2,
-            actionDelayMultiplier: 4,
+            range: 4,
+            actionDelayMultiplier: 2,
             type: actionTypes.offensive,
             powerMultiplier: 3,
          },
          {
-            actionDelayMultiplier: 3,
-            range: 2,
+            actionDelayMultiplier: 2,
+            range: 4,
             type: actionTypes.offensive,
             powerMultiplier: 2.5,
             damageType: damageTypes.physical,
@@ -246,32 +246,21 @@ const sihhisCards: Array<types.ZSaveConfigActionCard> = [
       description: "Basics",
       actions: [
          SihhisCardActions.strangle,
-         SihhisCardActions.poisonBite,
-         SihhisCardActions.glowingTattoos,
          SihhisCardActions.tattoock,
-         SihhisCardActions.coilUp,
-      ],
-   },
-   {
-      name: "Default defensive card",
-      description: "Basics of snake defense",
-      actions: [
-         SihhisCardActions.curlUp,
-         SihhisCardActions.curlUp,
-         SihhisCardActions.letGo,
+         SihhisCardActions.tattoock,
+         SihhisCardActions.tattoock,
          SihhisCardActions.sneakySlither,
-         SihhisCardActions.confusingSlither,
       ],
    },
    {
-      name: "Default support card",
-      description: "Snakes are great at support",
+      name: "Slither",
+      description: "Basics of snakiness",
       actions: [
-         SihhisCardActions.snakeEyes,
-         SihhisCardActions.confusingSlither,
-         SihhisCardActions.glowingTattoos,
-         SihhisCardActions.slyLook,
-         SihhisCardActions.coilUp,
+         SihhisCardActions.sneakySlither,
+         SihhisCardActions.sneakySlither,
+         SihhisCardActions.sneakySlither,
+         SihhisCardActions.sneakySlither,
+         SihhisCardActions.sneakySlither,
       ],
    },
 ]

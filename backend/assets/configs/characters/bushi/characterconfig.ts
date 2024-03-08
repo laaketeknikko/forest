@@ -22,7 +22,6 @@ const BushiActions: Record<string, types.ZSaveConfigActionCardAction> = {
    twigzashi: {
       name: "Twigzashi",
       description: "Might only scratch their face, but it's quick",
-
       effects: [
          {
             actionDelayMultiplier: 1,
@@ -30,10 +29,10 @@ const BushiActions: Record<string, types.ZSaveConfigActionCardAction> = {
             type: actionTypes.movement,
          },
          {
-            actionDelayMultiplier: 0.3,
+            actionDelayMultiplier: 0.4,
             type: actionTypes.offensive,
-            powerMultiplier: 0.2,
-            range: 0.8,
+            powerMultiplier: 0.3,
+            range: 1.5,
             damageType: damageTypes.physical,
          },
       ],
@@ -76,7 +75,7 @@ const BushiActions: Record<string, types.ZSaveConfigActionCardAction> = {
 
       effects: [
          {
-            actionDelayMultiplier: 1,
+            actionDelayMultiplier: 1.1,
             range: 3,
             type: actionTypes.movement,
          },
@@ -84,7 +83,7 @@ const BushiActions: Record<string, types.ZSaveConfigActionCardAction> = {
             actionDelayMultiplier: 1.5,
             type: actionTypes.offensive,
             powerMultiplier: 1,
-            range: 1,
+            range: 1.5,
             damageType: damageTypes.physical,
          },
       ],
@@ -124,19 +123,14 @@ const BushiActions: Record<string, types.ZSaveConfigActionCardAction> = {
    },
    twoHandedBardiche: {
       name: "Two-handed bardiche slash",
-      description: "They'll feel it for sure",
+      description: "They'll feel it for sure, and so will you",
 
       effects: [
          {
-            actionDelayMultiplier: 1,
-            range: 3,
-            type: actionTypes.movement,
-         },
-         {
-            actionDelayMultiplier: 1,
+            actionDelayMultiplier: 3,
             type: actionTypes.offensive,
-            powerMultiplier: 1.5,
-            range: 1.4,
+            powerMultiplier: 1.8,
+            range: 2.4,
             damageType: damageTypes.physical,
          },
       ],
@@ -148,13 +142,13 @@ const BushiActions: Record<string, types.ZSaveConfigActionCardAction> = {
       effects: [
          {
             actionDelayMultiplier: 1,
-            range: 3,
+            range: 2,
             type: actionTypes.movement,
          },
          {
-            actionDelayMultiplier: 1,
-            powerMultiplier: 1,
-            range: 2,
+            actionDelayMultiplier: 2,
+            powerMultiplier: 1.5,
+            range: 3.5,
             damageType: damageTypes.physical,
             type: actionTypes.offensive,
          },
@@ -166,12 +160,12 @@ const BushiActions: Record<string, types.ZSaveConfigActionCardAction> = {
 
       effects: [
          {
-            actionDelayMultiplier: 1,
+            actionDelayMultiplier: 1.1,
             range: 3,
             type: actionTypes.movement,
          },
          {
-            actionDelayMultiplier: 1,
+            actionDelayMultiplier: 1.1,
             range: 3,
             type: actionTypes.movement,
          },
@@ -223,11 +217,11 @@ const BushiActionCards: Array<types.ZSaveConfigActionCard> = [
       name: "Power style",
       description: "Prepare and execute",
       actions: [
-         BushiActions.prepareBardiche,
          BushiActions.oneHandedBardiche,
-         BushiActions.prepareBardiche,
+         BushiActions.oneHandedBardiche,
          BushiActions.twoHandedBardiche,
-         BushiActions.becomeBushi,
+         BushiActions.twoHandedBardiche,
+         BushiActions.oneHandedBardiche,
       ],
    },
 ]
@@ -242,7 +236,7 @@ const characterConfig: types.ZSaveConfigCharacter = {
    currentActionDelay: 12,
    health: 50,
    maxHealth: 50,
-   strength: 5,
+   strength: 7,
 }
 
 export { characterConfig }

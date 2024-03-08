@@ -71,10 +71,7 @@ const useSmallArenaDecorations = ({
 
       /**Create the instances for each texture */
       return textures.map((texture, index) => {
-         const size = getTextureNormalizedWidthAndHeight(
-            texture,
-            baseSize + Math.random() * sizeVariance
-         )
+         const size = getTextureNormalizedWidthAndHeight(texture, baseSize)
 
          return (
             <Instances key={texture.uuid} limit={amounts[index]}>
@@ -116,13 +113,15 @@ const useSmallArenaDecorations = ({
                                 Math.random() * Math.PI
                               : Math.random() * Math.PI * 2
 
+                        const scale = 1 + Math.random() * sizeVariance
+
                         const position = new Vector3(
                            distance * Math.cos(positionAngle),
 
                            facing === "vertical"
                               ? 0.01
                               : /**Position to ground level if facing horisontal */
-                                getTextureYCenter(size.height),
+                                getTextureYCenter(size.height * scale),
 
                            distance * Math.sin(positionAngle)
                         )
@@ -141,7 +140,7 @@ const useSmallArenaDecorations = ({
                         return (
                            <Instance
                               key={amountIndex}
-                              scale={1}
+                              scale={scale}
                               position={position}
                               rotation={
                                  new Euler(

@@ -16,7 +16,7 @@ const DebriefingEntityList = ({
    entityAtoms,
 }: DebriefingEntityListProps) => {
    return (
-      <Grid2 xs={12} container columns={24}>
+      <>
          <Grid2 xs={24}>
             <Typography variant="h5" textAlign="center">
                {header}
@@ -32,11 +32,11 @@ const DebriefingEntityList = ({
             container
             columns={24}
             justifyContent={"center"}
-            alignItems={"flex-start"}
+            alignItems={"end"}
          >
             {entityAtoms.map((atom) => {
                return (
-                  <Grid2 key={atom.toString()} xs={12} sm={8} lg={6}>
+                  <Grid2 key={atom.toString()} xs={12} sm={7} md={6} lg={5}>
                      <DebriefingEntityCard
                         entityAtom={atom}
                         direction="vertical"
@@ -45,7 +45,7 @@ const DebriefingEntityList = ({
                )
             })}
          </Grid2>
-      </Grid2>
+      </>
    )
 }
 
