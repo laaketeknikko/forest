@@ -1,6 +1,7 @@
 import { PrimitiveAtom, getDefaultStore } from "jotai"
 import { ZGameEntity, ZPosition2D } from "../../../../shared/types/types"
 import { allActiveGameEntitiesAtom } from "../state/jotai/entities"
+import { selectedScenarioConfigAtom } from "../state/jotai/scenarios"
 
 /**
  * Returns the center position of the tile the given
@@ -70,6 +71,28 @@ const getEntitiesForPosition = (position: ZPosition2D) => {
 }
 
 /**
+ * Returns true if the given position is inside the bounds
+ * of the arena.
+ *
+ * Uses selectedSce
+ */
+const isInsideArena = (position: ZPosition2D) => {
+   const jotaiStore = getDefaultStore()
+   const scenario = jotaiStore.get(selectedScenarioConfigAtom)
+
+   if (
+      position.x < 0 ||
+      position.z < 0 ||
+      position.x > scenario.arena.size.width ||
+      position.z > scenario.arena.size.length
+   ) {
+      return false
+   } else {
+      return true
+   }
+}
+
+/**
  * Checks if abs of two numbers is less than precision.
  */
 const approximatelyEqual = (
@@ -85,4 +108,5 @@ export {
    getNearestTileCornerFromPosition,
    getEntitiesForPosition,
    approximatelyEqual,
+   isInsideArena,
 }

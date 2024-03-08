@@ -24,7 +24,10 @@ import { MathUtils, Plane, Vector3 } from "three"
 import { customTheme } from "../../../styles/mui/theme"
 import { emptyActionCardAtom } from "../../../game/state/initialStates"
 
-import { getEntitiesForPosition } from "../../../game/util/mapUtils"
+import {
+   getEntitiesForPosition,
+   isInsideArena,
+} from "../../../game/util/mapUtils"
 import { AffectedPopupInfo } from "../../GameScene/PopupInfo.tsx/AffectedPopupInfo"
 import { PrimitiveAtom } from "jotai/vanilla"
 
@@ -90,6 +93,7 @@ const ActionHelper = () => {
     */
    const handlePerformEffect = (event: ThreeEvent<MouseEvent>) => {
       if (!actionTrackerRef.current) return
+      if (!isInsideArena({ x: event.point.x, z: event.point.z })) return
 
       event.stopPropagation()
 
