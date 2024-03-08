@@ -6,6 +6,7 @@ import TableRow from "@mui/material/TableRow"
 import { PrimitiveAtom, useAtom } from "jotai"
 import { ZCharacter } from "../../../../../shared/types/types"
 import TableHead from "@mui/material/TableHead"
+import { memo } from "react"
 
 export interface CharacterPopupInfoProps {
    characterAtom: PrimitiveAtom<ZCharacter>
@@ -68,4 +69,6 @@ const CharacterPopupInfo = ({ characterAtom }: CharacterPopupInfoProps) => {
    )
 }
 
-export { CharacterPopupInfo }
+const MemoedCharacterPopupInfo = memo(CharacterPopupInfo)
+
+export { MemoedCharacterPopupInfo as CharacterPopupInfo }

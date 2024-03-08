@@ -37,9 +37,12 @@ import Typography from "@mui/material/Typography"
  * - useScenarioLossConditions
  * - useScenarioStatsUpdater
  *
- * We only have victory and one loss condition type. The hooks keep
+ * We only have one victory and one loss condition type. The hooks keep
  * track of these by subscribing to the relevant states
- * (such as defeatedEnemies).
+ * (such as defeatedEnemies). In the current game, the
+ * updates would practically happen all at once,
+ * making the sequence look a bit overcomplicated,  but in a real game,
+ * they would be more gradual.
  *
  * The update sequence as is follows:
  * - First a victory or loss condition dependency changes,
@@ -63,6 +66,7 @@ const GameScene = () => {
    useScenarioLossConditions()
    useScenarioStatsUpdater()
 
+   /** Stop the scenario once results are recorded */
    useEffect(() => {
       if (gameExecutionState.scenario.resultRecorded) {
          setGameExecutionState({

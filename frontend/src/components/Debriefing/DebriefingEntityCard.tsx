@@ -12,6 +12,10 @@ export interface DebriefingEntityCardProps {
    direction: "vertical" | "horizontal"
 }
 
+/**
+ * Used in the after-scenario results screen to show
+ * the stats of a character or enemy.
+ */
 const DebriefingEntityCard = ({
    entityAtom,
    direction,

@@ -25,12 +25,9 @@ export interface ActionCardProps {
 }
 
 /**
- * TODO: Allow expanding multiple action accordions
- *with controlled accordions.
- */
-
-/**
  * Renders an Action Card component.
+ *
+ * Used in-game to render the action card list.
  *
  * @param props.cardAtom - the atom for the card
  * @param props.character - the character associated with the card

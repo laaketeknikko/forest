@@ -15,8 +15,9 @@ export interface ActionCardListProps {
 }
 
 /**
- * Calls onCardSelected() with no arguments.
+ * Used to render the list of action cards in-game.
  *
+ * Calls onCardSelected() with no arguments.
  */
 const ActionCardList = ({
    cards,

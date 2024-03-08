@@ -4,6 +4,12 @@ import { Character } from "./Character"
 import { activeScenarioEnemiesAtom } from "../../../game/state/jotai/enemies"
 import { memo } from "react"
 
+/**
+ * Renders a Character component for each enemy in
+ * activeScenarioEnemiesAtom.
+ *
+ * Used during the scenarios.
+ */
 const ActiveEnemies = () => {
    const [activeEnemies] = useAtom(activeScenarioEnemiesAtom)
 

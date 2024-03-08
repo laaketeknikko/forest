@@ -10,7 +10,7 @@ export interface CardListProps {
 }
 
 /**
- * A simple list to display a character's cards an action names.
+ * A simple list to display a character's cards and action names.
  */
 const CardList = ({ character, direction }: CardListProps) => {
    return (

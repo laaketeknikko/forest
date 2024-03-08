@@ -10,7 +10,6 @@ export interface AffectedPopupInfoProps {
 
 /**
  * Used to display the popup info of entities affected by an action.
- 
  */
 const AffectedPopupInfo = ({ entityAtoms }: AffectedPopupInfoProps) => {
    const characterInfos = useMemo(

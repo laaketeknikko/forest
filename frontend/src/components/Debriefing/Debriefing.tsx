@@ -18,6 +18,10 @@ import { emptyScenarioSaveConfig } from "../../game/state/initialStates"
 import { DebriefingEntityList } from "./DebriefingEntityList"
 import { DebriefingStat } from "./DebriefingStat"
 
+/**
+ * Used to display the scenario outcome information after a scenario
+ * is completed.
+ */
 const Debriefing = () => {
    const [gameExecutionState, setGameExecutionState] = useAtom(
       gameExecutionStateAtom
@@ -67,7 +71,7 @@ const Debriefing = () => {
          }}
       >
          <Typography variant="h3" color="primary" textAlign={"center"}>
-            Debriefing
+            Results
          </Typography>
 
          <Typography variant="h5" textAlign={"center"}>

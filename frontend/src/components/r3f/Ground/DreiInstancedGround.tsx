@@ -1,6 +1,6 @@
 import { Instance, Instances } from "@react-three/drei"
 import { useAtom } from "jotai"
-import { useLayoutEffect, useRef, useState } from "react"
+import { memo, useLayoutEffect, useRef, useState } from "react"
 import { MathUtils } from "three"
 import { selectedScenarioConfigAtom } from "../../../game/state/jotai/scenarios"
 
@@ -60,6 +60,12 @@ const InstancedGround = ({
    )
    */
 
+   /**
+    * Generate tiles.
+    *
+    * Tiles are size 1. They are placed 0.5 so that arena border
+    * would be at 0.
+    */
    useLayoutEffect(() => {
       if (!groundReady) {
          for (let x = 0; x < arenaSize.width; x++) {
@@ -98,4 +104,6 @@ const InstancedGround = ({
    )
 }
 
-export { InstancedGround }
+const InstancedGroundMemo = memo(InstancedGround)
+
+export { InstancedGroundMemo as InstancedGround }

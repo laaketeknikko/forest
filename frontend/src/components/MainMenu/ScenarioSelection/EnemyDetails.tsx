@@ -19,7 +19,7 @@ export interface EnemyDetailsProps {
 }
 
 /**
- * Render image and basic enemy details in scenario selection.
+ * Renders image and basic enemy details in scenario selection.
  */
 const EnemyDetails = ({ enemyAtom, scenarioDetails }: EnemyDetailsProps) => {
    const [enemy] = useAtom(enemyAtom)

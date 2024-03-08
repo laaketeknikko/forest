@@ -4,6 +4,10 @@ import { InGameMenu } from "./InGameMenu"
 import { useState } from "react"
 import MenuIcon from "@mui/icons-material/Menu"
 
+/**
+ * Contains the button to toggle displaying in-game menu
+ * and the menu content itself.
+ */
 const InGameMenuToggle = () => {
    const [showInGameMenu, setShowInGameMenu] = useState(false)
 

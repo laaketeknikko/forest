@@ -11,6 +11,10 @@ import {
    selectedScenarioConfigAtom,
 } from "../../../game/state/jotai/scenarios"
 
+/**
+ * Used to render the list of scenarios in scenario selection
+ * screen. Uses ScenarioInfoCard to display info of each scenario.
+ */
 const ScenarioList = () => {
    const [allScenarioConfigs] = useAtom(allScenarioConfigsAtom)
    const [selectedScenarioConfig, setSelectedScenarioConfig] = useAtom(
@@ -47,7 +51,9 @@ const ScenarioList = () => {
       <List sx={{ overflowY: "auto", height: "100vh" }}>
          {allScenarioConfigs.map((config) => {
             return (
-               /** Add border if scenario selected */
+               /** Add border and "indent" if scenario selected.
+                *
+                */
                <Box
                   component="div"
                   key={config._id}

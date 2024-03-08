@@ -103,12 +103,16 @@ const ActionHelper = () => {
          targetPoint: event.point,
       })
 
-      setGameExecutionState({
-         ...gameExecutionState,
-         actions: { ...gameExecutionState.actions, isPerfomingAction: true },
-      })
+      if (!gameExecutionState.actions.isPerfomingAction) {
+         setGameExecutionState({
+            ...gameExecutionState,
+            actions: { ...gameExecutionState.actions, isPerfomingAction: true },
+         })
+      }
 
       actionTrackerRef.current.effectExecuted()
+
+      setPopupInfo(null)
 
       /**
        * If there are no more effects to execute, perform whole-action updates.
@@ -161,18 +165,11 @@ const ActionHelper = () => {
       )
    }
 
-   let helperColor
-
-   if (activeEffect?.type === actionTypes.movement) {
-      helperColor = customTheme.custom.colors.actionTypes.movement
-   } else if (activeEffect?.type === actionTypes.support) {
-      helperColor = customTheme.custom.colors.actionTypes.support
-   } else if (activeEffect?.type === actionTypes.offensive) {
-      helperColor = customTheme.custom.colors.actionTypes.offensive
-   } else if (activeEffect?.type === actionTypes.defensive) {
-      helperColor = customTheme.custom.colors.actionTypes.defensive
-   }
-
+   /** These are used to clip the helper circle inside
+    * the arena borders.
+    *
+    * This is only a visual effect.
+    */
    const clippingPlanes = useMemo(() => {
       const plane1 = new Plane(new Vector3(1, 0, 0), 0)
 
@@ -213,7 +210,11 @@ const ActionHelper = () => {
                   />
                   <meshBasicMaterial
                      toneMapped={false}
-                     color={helperColor}
+                     color={
+                        activeEffect.type === actionTypes.movement
+                           ? customTheme.custom.colors.actionTypes.movement
+                           : customTheme.custom.colors.actionTypes.offensive
+                     }
                      transparent
                      opacity={0.2}
                      alphaTest={0.1}

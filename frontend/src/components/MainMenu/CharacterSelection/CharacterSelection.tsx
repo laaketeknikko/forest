@@ -9,17 +9,18 @@ import { CharacterSelectionItem } from "../../../config/types"
 import { selectedPartyAtom } from "../../../game/state/jotai/characters"
 import { gameExecutionStateAtom } from "../../../game/state/jotai/gameState"
 import { selectedScenarioConfigAtom } from "../../../game/state/jotai/scenarios"
-
 import { CharacterSelectionDetails } from "./CharacterSelectionDetails"
 import { CharacterSelectionList } from "./CharacterSelectionList"
 import { CharacterSelectionParty } from "./CharacterSelectionParty"
 
+/**
+ * The main character selection tab content of main menu.
+ */
 const CharacterSelection = () => {
    /**
     * allPlayerCharactersAtom is used to create list of all player characters.
     * When characters are selected, they are added to activeParty.
     */
-
    const [selectedScenarioConfig] = useAtom(selectedScenarioConfigAtom)
    const [activeParty, setActiveParty] = useAtom(selectedPartyAtom)
    const [gameState, setGameState] = useAtom(gameExecutionStateAtom)
@@ -58,6 +59,10 @@ const CharacterSelection = () => {
       [activeParty, selectedScenarioConfig.maxPartySize, setActiveParty]
    )
 
+   /**
+    * When a character is clicked, update detail display.
+    * If a character is clicked on again, handle character selection.
+    */
    const handleDetailDisplay = useCallback(
       (option: CharacterSelectionItem) => {
          if (detailDisplayAtom === option.characterAtom) {
@@ -70,18 +75,15 @@ const CharacterSelection = () => {
    )
 
    /**
-    * If not characters or too many characters selected, disable navigation to next section.
+    * If not enough characters or too many characters selected,
+    * disable navigation to next section.
     */
    useEffect(() => {
-      let selectionOK = false
-      if (
+      const selectionOK =
          activeParty.length > 0 &&
          activeParty.length <= selectedScenarioConfig.maxPartySize
-      ) {
-         selectionOK = true
-      } else {
-         selectionOK = false
-      }
+            ? true
+            : false
 
       if (selectionOK !== gameState.mainMenu.charactersSelected) {
          setGameState({

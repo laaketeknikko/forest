@@ -98,7 +98,7 @@ const useSmallArenaDecorations = ({
                   {Array(amounts[index])
                      .fill(0)
                      .map((_, amountIndex) => {
-                        /**Randomize distance */
+                        /**Randomize distance from center */
                         const distance =
                            Math.random() * (maxDistance - minDistance) +
                            minDistance
@@ -106,6 +106,7 @@ const useSmallArenaDecorations = ({
                         /**Positioning angle on the circle.
                          * If facing "center", position in half-circle from
                          * corner to corner.
+                         * Otherwise pick a random angle.
                          */
                         const positionAngle =
                            facing === "center"
@@ -115,6 +116,7 @@ const useSmallArenaDecorations = ({
 
                         const scale = 1 + Math.random() * sizeVariance
 
+                        /** Position on circle based on angle. */
                         const position = new Vector3(
                            distance * Math.cos(positionAngle),
 

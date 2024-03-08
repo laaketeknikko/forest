@@ -19,6 +19,10 @@ export interface CharacterSelectionListProps {
    displayedCharacter: PrimitiveAtom<ZCharacter> | null
 }
 
+/**
+ * Used to show a list of all available characters in the
+ * character selection menu.
+ */
 const CharacterSelectionList = ({
    onCharacterSelected,
    displayedCharacter,
@@ -39,10 +43,6 @@ const CharacterSelectionList = ({
             allPlayerCharacterAtoms.map((character) => {
                const isInParty = activeParty.find((atom) => atom === character)
                const IsSelected = character === displayedCharacter
-
-               console.log("isSelected: ", IsSelected)
-               console.log("character: ", character)
-               console.log("detaildisplayatom: ", displayedCharacter)
 
                return (
                   <Stack key={character.toString()}>

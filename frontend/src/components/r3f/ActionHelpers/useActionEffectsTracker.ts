@@ -1,10 +1,10 @@
-import { useRef } from "react"
+import { useCallback, useRef } from "react"
 import {
    ZActionCardAction,
    ZActionEffect,
 } from "../../../../../shared/types/types"
 
-interface TrackedEffect extends ZActionEffect {
+export interface TrackedEffect extends ZActionEffect {
    executed: boolean
 }
 
@@ -26,26 +26,28 @@ export interface ActionEffectsTracker {
 const useActionEffectsTracker = (): ActionEffectsTracker => {
    const remainingEffectsRef = useRef<TrackedEffect[]>([])
 
-   const setAction = (action: ZActionCardAction) => {
+   const setAction = useCallback((action: ZActionCardAction) => {
       remainingEffectsRef.current = action.effects.map((effect) => {
          return { ...effect, executed: false }
       })
-   }
+   }, [])
 
-   const getNextUnexecutedEffect = (): ZActionEffect | undefined => {
+   const getNextUnexecutedEffect = useCallback(():
+      | ZActionEffect
+      | undefined => {
       return remainingEffectsRef.current.find(
          (effect) => effect.executed === false
       )
-   }
+   }, [])
 
-   const effectExecuted = () => {
+   const effectExecuted = useCallback(() => {
       const index = remainingEffectsRef.current.findIndex(
          (effect) => effect.executed === false
       )
       if (index !== -1) {
          remainingEffectsRef.current[index].executed = true
       }
-   }
+   }, [])
 
    return {
       setAction,

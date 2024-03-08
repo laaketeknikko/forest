@@ -5,6 +5,9 @@ export interface DebriefingStatProps {
    stat: string
 }
 
+/**
+ * Used for text formatting.
+ */
 const DebriefingStat = ({ heading, stat }: DebriefingStatProps) => {
    return (
       <Typography variant="h6">

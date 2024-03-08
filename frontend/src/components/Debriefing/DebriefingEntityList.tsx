@@ -11,6 +11,10 @@ export interface DebriefingEntityListProps {
    entityAtoms: Array<PrimitiveAtom<ZDynamicGameEntity>>
 }
 
+/**
+ * Used in the after-scenario results screens to show
+ * a list of characters or enemies.
+ */
 const DebriefingEntityList = ({
    header,
    entityAtoms,

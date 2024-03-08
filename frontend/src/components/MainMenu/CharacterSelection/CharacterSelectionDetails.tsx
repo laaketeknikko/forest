@@ -12,6 +12,9 @@ export interface CharacterSelectionDetailsProps {
    characterAtom: PrimitiveAtom<ZCharacter>
 }
 
+/**
+ * Used to show stats of a selected chracter in the character selection tab.
+ */
 const CharacterSelectionDetails = ({
    characterAtom,
 }: CharacterSelectionDetailsProps) => {

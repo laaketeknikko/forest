@@ -3,6 +3,7 @@ import ListItem from "@mui/material/ListItem"
 import { turnOrderAtom } from "../../../game/state/jotai/gameState"
 import { useAtom } from "jotai"
 import { TurnOrderViewItem } from "./TurnOrderViewItem"
+import { memo } from "react"
 
 /**
  * Displays the turn order. Uses turnOrderAtom to get the order.
@@ -27,4 +28,6 @@ const TurnOrderView = () => {
    )
 }
 
-export { TurnOrderView }
+const TurnOrderViewMemo = memo(TurnOrderView)
+
+export { TurnOrderViewMemo as TurnOrderView }

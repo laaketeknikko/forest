@@ -15,7 +15,7 @@ export interface ArenaLeafDecorationsProps {
 }
 
 /**
- * Generated small leaf foliage decorations on the arena.
+ * Generates small leaf foliage decorations on the arena.
  * Decorations are placed in a circle, at radius minDistance to maxDistance.
  * Uses drei/Instances.
  */

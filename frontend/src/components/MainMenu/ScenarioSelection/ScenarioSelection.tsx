@@ -6,6 +6,11 @@ import Box from "@mui/material/Box"
 import { ScenarioList } from "./ScenarioList"
 
 /**
+ * The main scenario selection component.
+ *
+ * Contains the list of scenarios and the scenario details of
+ * selected scenario.
+ *
  * Calls setNavigationState(true) when scenario selected. The selected scenario is set
  * in selectedScenarioConfigAtom.
  */

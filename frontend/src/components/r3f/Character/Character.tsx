@@ -1,18 +1,14 @@
-import PropTypes from "prop-types"
-
 import { useFrame, useLoader } from "@react-three/fiber"
-import { Clock, DoubleSide, Mesh, TextureLoader } from "three"
-
 import { PrimitiveAtom, useAtom, useSetAtom } from "jotai"
-
-import * as textureUtilities from "../../util/textureUtilities"
+import PropTypes from "prop-types"
 import { memo, useEffect, useMemo, useRef } from "react"
+import { Clock, DoubleSide, Mesh, TextureLoader } from "three"
 import { ZCharacter } from "../../../../../shared/types/types"
-
 import { PositionSchema } from "../../../../../shared/zod/schemas"
-import { animationFocusAtom } from "../../../game/state/jotai/gameState"
-import { useEntityAnimation } from "../hooks/useEntityAnimation"
 import { activeCharacterAtomAtom } from "../../../game/state/jotai/characters"
+import { animationFocusAtom } from "../../../game/state/jotai/gameState"
+import * as textureUtilities from "../../util/textureUtilities"
+import { useEntityAnimation } from "../hooks/useEntityAnimation"
 
 export interface CharacterProps {
    characterAtom: PrimitiveAtom<ZCharacter>
@@ -64,12 +60,17 @@ const Character = ({ characterAtom, maxDimension = 1 }: CharacterProps) => {
       }
    }, [character, dimensions.height, setCharacter])
 
+   /**
+    * For playing the character animations.
+    */
    const animator = useEntityAnimation()
    useEffect(() => {
       if (!animator.isAnimating()) {
          /**
           * presence of targetPosition or activeAnimation indicates
           * need for animation. These are removed on animation completion.
+          *
+          * We only have two "types" of animations: melee and move.
           */
          if (character.targetPosition) {
             animator.setMoveAnimation(
@@ -110,10 +111,13 @@ const Character = ({ characterAtom, maxDimension = 1 }: CharacterProps) => {
       setAnimationFocus,
    ])
 
+   /** ref to character's mesh */
    const meshRef = useRef<Mesh | null>(null)
 
    /**
-    * lookAt the active character.
+    * lookAt the active character on turn start.
+    *
+    * Keep y facing directly horizontal.
     */
    useEffect(() => {
       if (!meshRef.current) return
@@ -128,10 +132,9 @@ const Character = ({ characterAtom, maxDimension = 1 }: CharacterProps) => {
       character.position.y,
    ])
 
+   /**Handles the animations. */
    const clockRef = useRef(new Clock(true))
    const timeRef = useRef<number>(0)
-
-   /**Handles the animations. */
    useFrame(() => {
       if (animator.isAnimating()) {
          timeRef.current += clockRef.current.getDelta()
@@ -139,6 +142,11 @@ const Character = ({ characterAtom, maxDimension = 1 }: CharacterProps) => {
          if (timeRef.current >= 1 / 60) {
             timeRef.current = 0
             const nextPos = animator.getNextPoint()
+
+            /** Should always have meshRef at this point.
+             * We also know we always have nextPos,
+             * because we check isAnimating() later.
+             */
             meshRef.current!.position.set(
                nextPos!.x,
                nextPos!.y + character.position.y,
@@ -190,7 +198,7 @@ const Character = ({ characterAtom, maxDimension = 1 }: CharacterProps) => {
             map={colorMap}
             transparent
             opacity={1}
-            alphaTest={0.01}
+            alphaTest={0.03 /** To prevent clipping issues. */}
             toneMapped={false}
             side={DoubleSide}
          />

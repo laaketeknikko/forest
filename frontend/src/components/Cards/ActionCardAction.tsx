@@ -13,11 +13,19 @@ import {
 import { useState } from "react"
 
 export interface ActionCardActionProps {
+   /** Action to render */
    action: ZActionCardAction
+
+   /** Card the given action is on */
    card: ZActionCard
+
+   /** Character holding the card */
    character: ZCharacter
 }
 
+/**
+ * Render a single action on an ActionCard.
+ */
 const ActionCardAction = ({
    action,
    card,

@@ -5,10 +5,12 @@ import { selectedScenarioConfigAtom } from "../../../game/state/jotai/scenarios"
 import { theme } from "../../../styles/mui/theme"
 import { useRef } from "react"
 
+/**
+ * Used to show the selected party in the character selection screen.
+ */
 const CharacterSelectionParty = () => {
    const [selectedScenarioConfig] = useAtom(selectedScenarioConfigAtom)
    const [activeParty] = useAtom(selectedPartyAtom)
-
    const jotaiStoreRef = useRef(getDefaultStore())
 
    return (
@@ -17,8 +19,7 @@ const CharacterSelectionParty = () => {
          sx={{ paddingTop: 3, paddingRight: 3, paddingLeft: 3 }}
       >
          {/***
-          * First render avatars of selected characters, then add empty spaces
-          * up to scenario maximum.
+          * First render avatars of selected characters.
           */}
          {activeParty &&
             activeParty.map((characterAtom) => {

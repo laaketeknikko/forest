@@ -21,6 +21,9 @@ interface ScenarioStartConfirmationProps {
 }
 
 /**
+ * Used to display the summary of main menu scenario and character
+ * selection and ask user to confirm scenario start.
+ *
  * setNavigationState(true) is called when user confirms scenario start.
  */
 const ScenarioStartConfirmation = ({
@@ -119,6 +122,9 @@ const ScenarioStartConfirmation = ({
             </Grid2>
          </Box>
 
+         {/**
+          * Confirmation.
+          */}
          <Button
             variant="text"
             onClick={() => setNavigationState(true)}

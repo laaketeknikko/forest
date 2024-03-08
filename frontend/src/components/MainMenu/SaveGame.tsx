@@ -1,21 +1,19 @@
 import Button from "@mui/material/Button"
 
 import { useSaveGame } from "../../game/hooks/useSaveGame"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 
+/**
+ * Display save game button.
+ *
+ * When clicked, uses useSaveGame to update the save state
+ * and save the game to server.
+ */
 const SaveGame = () => {
    const { updateSaveData, saveTheGame } = useSaveGame()
-   const [saveKey, setSaveKey] = useState<string | null>(null)
-
-   useEffect(() => {
-      console.log("getting the key")
-      const key = window.location.pathname.substring(1).trim()
-
-      console.log("window location pathname: ", window.location)
-      console.log(key)
-
-      setSaveKey(key)
-   }, [])
+   const [saveKey] = useState<string | null>(
+      window.location.pathname.substring(1).trim()
+   )
 
    const handleSaveGame = () => {
       const saveData = updateSaveData()

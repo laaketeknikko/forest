@@ -15,8 +15,8 @@ export interface ScenarioDetailsProps {
 }
 
 /**
- * Displays details of the given scenario config.
- *
+ * Used in the scenario selection to display details of the
+ * selected scenario.
  */
 const ScenarioDetails = ({ scenarioConfig }: ScenarioDetailsProps) => {
    console.log("scenario config: ", scenarioConfig)

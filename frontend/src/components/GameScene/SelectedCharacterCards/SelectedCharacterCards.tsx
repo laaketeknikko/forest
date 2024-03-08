@@ -2,6 +2,7 @@ import { useAtom } from "jotai"
 import { activeCharacterAtomAtom } from "../../../game/state/jotai/characters"
 import { ActionCardList } from "../../Cards/ActionCardList"
 import type { onCardSelectedFunc } from "../../Cards/ActionCard"
+import { memo } from "react"
 
 export interface SelectedCharacterCardsProps {
    onCardSelected?: onCardSelectedFunc
@@ -9,7 +10,6 @@ export interface SelectedCharacterCardsProps {
 
 /**
  * Wrapper to display list of action cards for the active character.
- 
  */
 const SelectedCharacterCards = ({
    onCardSelected,
@@ -30,4 +30,6 @@ const SelectedCharacterCards = ({
    )
 }
 
-export { SelectedCharacterCards }
+const SelectedCharacterCardsMemo = memo(SelectedCharacterCards)
+
+export { SelectedCharacterCardsMemo as SelectedCharacterCards }

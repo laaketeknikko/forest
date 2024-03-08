@@ -3,11 +3,15 @@ import { useAtom } from "jotai"
 import { ZCharacter } from "../../../../../shared/types/types"
 import { popupInfoAtom } from "../../../game/state/jotai/gameState"
 import { CharacterPopupInfo } from "../PopupInfo.tsx/CharacterPopupInfo"
+import { memo } from "react"
 
 interface TurnOrderViewItemProps {
    characterAtom: PrimitiveAtom<ZCharacter>
 }
 
+/**
+ * Used in-game to display a single character in the turn order.
+ */
 const TurnOrderViewItem = ({ characterAtom }: TurnOrderViewItemProps) => {
    const [character] = useAtom(characterAtom)
    const setPopupInfo = useSetAtom(popupInfoAtom)
@@ -24,4 +28,6 @@ const TurnOrderViewItem = ({ characterAtom }: TurnOrderViewItemProps) => {
    )
 }
 
-export { TurnOrderViewItem }
+const TurnOrderViewItemMemo = memo(TurnOrderViewItem)
+
+export { TurnOrderViewItemMemo as TurnOrderViewItem }

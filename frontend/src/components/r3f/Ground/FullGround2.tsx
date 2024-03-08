@@ -5,6 +5,7 @@ import { MathUtils, TextureLoader } from "three"
 
 import { useLoader } from "@react-three/fiber"
 import { inGameOptionsAtom } from "../../../game/state/jotai/gameState"
+import { memo } from "react"
 
 /**
  * Renders a single ground mesh and texture.
@@ -14,6 +15,9 @@ export interface FullGroundTileProps {
    sizeZ?: number
 }
 
+/**
+ * Displays the arena ground texture.
+ */
 const FullGround2 = ({ sizeX = 10, sizeZ = 10 }: FullGroundTileProps) => {
    const [selectedScenarioConfig] = useAtom(selectedScenarioConfigAtom)
    const [inGameOptions] = useAtom(inGameOptionsAtom)
@@ -39,9 +43,17 @@ const FullGround2 = ({ sizeX = 10, sizeZ = 10 }: FullGroundTileProps) => {
          <mesh>
             {/**We multiply size so that the arena square is fully inside the round arena texture.
              * This is a hardcoded value based on the texture used.
+             *
+             * We use 100 segments because we have a displacement map.
+             * If displacement map is removed, 1 segment is enough.
              */}
             <planeGeometry
-               args={[arenaSize.length * 1.45, arenaSize.width * 1.4, 100, 100]}
+               args={[
+                  arenaSize.length * 1.45,
+                  arenaSize.width * 1.45,
+                  100,
+                  100,
+               ]}
             />
 
             <meshStandardMaterial
@@ -58,4 +70,6 @@ const FullGround2 = ({ sizeX = 10, sizeZ = 10 }: FullGroundTileProps) => {
    )
 }
 
-export { FullGround2 }
+const FullGround2Memo = memo(FullGround2)
+
+export { FullGround2Memo as FullGround2 }
