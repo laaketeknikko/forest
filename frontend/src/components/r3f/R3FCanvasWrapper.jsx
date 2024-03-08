@@ -20,6 +20,14 @@ const DisableRender = () => useFrame(() => null, 1000)
 
 /**
  * Wrapper around the actual game scene.
+ *
+ * Renders react three Canvas and all the major content
+ * of the game scene:
+ * - Ground
+ * - Characters
+ * - Decorations
+ * - Helpers
+ * - Map controls
  */
 const R3FCanvasWrapper = () => {
    const [pauseAnimation, setPauseAnimation] = useState(false)
@@ -40,7 +48,8 @@ const R3FCanvasWrapper = () => {
       onIdle: onIdle,
       onAction: onAction,
       timeout: 1000,
-      event: [
+      events: [
+         "mousemove",
          "keydown",
          //'wheel',
          //'DOMMouseScroll',
@@ -64,7 +73,7 @@ const R3FCanvasWrapper = () => {
             fov: [50],
          }}
          style={{ backgroundColor: theme.palette.background.paper }}
-         gl={{ localClippingEnabled: true }}
+         gl={{ localClippingEnabled: true } /**required for clippingPlanes */}
       >
          {pauseAnimation && !animationState.isAnimating && <DisableRender />}
 

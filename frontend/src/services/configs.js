@@ -9,9 +9,6 @@ const validate = (arrayValue, validator) => {
       const successes = results.filter((result) => result.success)
       const failures = results.filter((result) => !result.success)
 
-      console.log("Before validation: ", arrayValue)
-      console.log("after validation: ", results)
-
       return {
          successes,
          failures,
@@ -75,10 +72,21 @@ const loadDefaultConfigs = async () => {
       enemyConfigs.failures.length > 0 ||
       scenarioConfigs.failures.length > 0
    ) {
-      console.log("Failures in validation: ", characterConfigs.failures)
-      console.log("Character failures: ", characterConfigs.failures)
-      console.log("Enemy failures: ", enemyConfigs.failures)
-      console.log("Scenario failures: ", scenarioConfigs.failures)
+      console.log("Encounter errors validating configs.")
+      console.log("Character errors:")
+      for (const error of characterConfigs.failures) {
+         console.log(error)
+      }
+
+      console.log("Enemy errors:")
+      for (const error of enemyConfigs.failures) {
+         console.log(error)
+      }
+
+      console.log("Scenario errors:")
+      for (const error of scenarioConfigs.failures) {
+         console.log(error)
+      }
    }
 
    return configs

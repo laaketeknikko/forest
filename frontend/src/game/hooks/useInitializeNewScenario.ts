@@ -47,6 +47,10 @@ const useInitializeNewScenario = () => {
    return initializeScenario
 }
 
+/**
+ * Sets position of an entity to {0, 0, 0}.
+ * Preserves y position, if it is set.
+ */
 const initializeEntityPosition = ({
    entityAtom,
    position,

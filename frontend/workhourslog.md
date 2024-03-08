@@ -84,6 +84,6 @@
 | 8.3.  | 1    | UI work                                                     |
 | 8.3.  | 2    | Debugging, demoing                                          |
 | 8.3.  | 2    | Quality work                                                |
-| 8.3.  | 1    | Documentation                                               |
+| 8.3.  | 2    | Documentation                                               |
 
-176
+177

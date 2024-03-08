@@ -8,6 +8,9 @@ import { Vector3 } from "three"
 import { useFrame } from "@react-three/fiber"
 import { approximatelyEqual } from "../../../game/util/mapUtils"
 
+/**
+ * Vanilla three.js MapControls with smoother turning to target.
+ */
 const CustomMapController = () => {
    const [characterAtom] = useAtom(activeCharacterAtomAtom)
    const [character] = useAtom(characterAtom)
@@ -18,6 +21,9 @@ const CustomMapController = () => {
    /**
     * We don't want the camera following the characters all the time.
     * By using useMemo, we set the target once and then user can control the camera freely.
+    *
+    * By removing this, you can make the camera center on the target
+    * constantly, which might be useful in some cases.
     */
    useEffect(() => {
       if (!mapControlsRef.current) {

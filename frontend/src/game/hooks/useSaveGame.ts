@@ -18,12 +18,24 @@ import { ZSaveConfig } from "../../../../shared/types/types"
  *    Returns the state and sets it to activeSaveGameConfigAtom.
  *    The function accepts partial save game config updates, which
  *    can be used to override other updates.
- * - saveTheGame: Saves the game data passed as argument, or, if not passed, from activeSaveGameConfigAtom.
+ *    Updates data for: enemies, characters, scenario
+ * - saveTheGame: Saves the game data passed as argument,
+ *    or, if not passed, from activeSaveGameConfigAtom.
+ *
+ * Note that the hook uses state functionality to store the save data.
+ * This means the updated save data is NOT available during the same render
+ * cycle in which it is updated.
+ *
+ * Also note that other components update the save data as well.
+ * This hook is used for updating the enemy, character and scenario data.
  */
 const useSaveGame = () => {
    const [saveGameData, setSaveGameData] = useAtom(activeSaveGameConfigAtom)
    const [isSaving, setIsSaving] = useState(false)
 
+   /**
+    * Updates save data.
+    */
    const updateSaveData = useCallback(
       (partialSaveUpdates: Partial<ZSaveConfig> = {}) => {
          const saveData = {
@@ -45,6 +57,7 @@ const useSaveGame = () => {
          }
          setSaveGameData(saveData)
 
+         /**Update URL save key */
          history.pushState(
             { keyString: saveData.keyString },
             "",
