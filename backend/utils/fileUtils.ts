@@ -8,8 +8,6 @@ import {
 
 const cwd = process.cwd()
 
-console.log(dree)
-
 const getSubFolders = (root: string) => {
    const dir = dree.scan(`${cwd}/${root}`)
    return dir.children?.map((folder) => {

@@ -83,6 +83,6 @@
 | 7.3.  | 2    | Debugging                                                   |
 | 8.3.  | 1    | UI work                                                     |
 | 8.3.  | 2    | Debugging, demoing                                          |
-| 8.3.  | 1    | Quality work                                                |
+| 8.3.  | 2    | Quality work                                                |
 
-174
+175

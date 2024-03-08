@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import express from "express"
 
 import { loadGame, saveGame } from "../services/savedGames"
@@ -7,7 +6,7 @@ const savedGamesRouter = express.Router()
 
 // eslint-disable-next-line @typescript-eslint/no-misused-promises
 savedGamesRouter.post("/", async (req, res) => {
-   const saveData = req.body
+   const saveData = req.body as unknown
 
    try {
       const saveResult = await saveGame(saveData)
