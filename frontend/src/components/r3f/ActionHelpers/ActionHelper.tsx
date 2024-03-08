@@ -19,7 +19,7 @@ import {
 } from "./useActionEffectsTracker"
 import { ZActionEffect, ZCharacter } from "../../../../../shared/types/types"
 import { ThreeEvent } from "@react-three/fiber"
-import { MathUtils } from "three"
+import { MathUtils, Plane, Vector3 } from "three"
 
 import { customTheme } from "../../../styles/mui/theme"
 import { emptyActionCardAtom } from "../../../game/state/initialStates"
@@ -30,6 +30,7 @@ import { PrimitiveAtom } from "jotai/vanilla"
 
 import { throttle } from "lodash"
 import { useGetEntitiesForPosition } from "../../../game/hooks/useGetEntitiesForPosition"
+import { selectedScenarioConfigAtom } from "../../../game/state/jotai/scenarios"
 
 /**
  * Provides visual and game logic helpers when performing actions and action effects.
@@ -52,6 +53,7 @@ const ActionHelper = () => {
    const [activeEffect, setActiveEffect] = useState<ZActionEffect | undefined>(
       undefined
    )
+   const [scenarioConfig] = useAtom(selectedScenarioConfigAtom)
 
    const action = useMemo(
       () =>
@@ -167,6 +169,24 @@ const ActionHelper = () => {
       helperColor = customTheme.custom.colors.actionTypes.defensive
    }
 
+   const clippingPlanes = useMemo(() => {
+      const plane1 = new Plane(new Vector3(1, 0, 0), 0)
+
+      const plane2 = new Plane(new Vector3(0, 0, 1), 0)
+
+      const plane3 = new Plane(
+         new Vector3(-1, 0, 0),
+         scenarioConfig.arena.size.width
+      )
+
+      const plane4 = new Plane(
+         new Vector3(0, 0, -1),
+         scenarioConfig.arena.size.length
+      )
+
+      return [plane1, plane2, plane3, plane4]
+   }, [scenarioConfig.arena.size.length, scenarioConfig.arena.size.width])
+
    return (
       <group
          position={[
@@ -194,6 +214,7 @@ const ActionHelper = () => {
                      opacity={0.2}
                      alphaTest={0.1}
                      depthTest={false}
+                     clippingPlanes={clippingPlanes}
                   />
                </mesh>
             </>

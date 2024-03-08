@@ -64,6 +64,7 @@ const R3FCanvasWrapper = () => {
             fov: [50],
          }}
          style={{ backgroundColor: theme.palette.background.paper }}
+         gl={{ localClippingEnabled: true }}
       >
          {pauseAnimation && !animationState.isAnimating && <DisableRender />}
 
