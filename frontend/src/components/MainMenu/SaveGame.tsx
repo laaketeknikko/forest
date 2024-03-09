@@ -2,6 +2,8 @@ import Button from "@mui/material/Button"
 
 import { useSaveGame } from "../../game/hooks/useSaveGame"
 import { useState } from "react"
+import Alert from "@mui/material/Alert"
+import Snackbar from "@mui/material/Snackbar"
 
 /**
  * Display save game button.
@@ -14,8 +16,15 @@ const SaveGame = () => {
    const [saveKey] = useState<string | null>(
       window.location.pathname.substring(1).trim()
    )
+   const [loadingAlertMessage, setLoadingAlertMessage] = useState("")
+   const [alertSeverity, setAlertSeverity] = useState<
+      "info" | "success" | "warning" | "error" | undefined
+   >("info")
 
    const handleSaveGame = () => {
+      setAlertSeverity("info")
+      setLoadingAlertMessage("Saving game...")
+
       const saveData = updateSaveData()
 
       try {
@@ -26,20 +35,38 @@ const SaveGame = () => {
                   "",
                   `/${data.keyString}`
                )
+
+               setAlertSeverity("success")
+               setLoadingAlertMessage("Game saved")
             }
          })
       } catch (error) {
          console.error("Error saving game", error)
+         setAlertSeverity("error")
+         setLoadingAlertMessage("Error saving game")
       }
    }
 
    return (
-      <Button
-         onClick={handleSaveGame}
-         disabled={saveKey === "" || !saveKey ? true : false}
-      >
-         Save
-      </Button>
+      <>
+         <Snackbar
+            open={loadingAlertMessage.length > 0 ? true : false}
+            autoHideDuration={10000}
+            onClose={() => {
+               setLoadingAlertMessage("")
+               setAlertSeverity("info")
+            }}
+         >
+            <Alert severity={alertSeverity}>{loadingAlertMessage}</Alert>
+         </Snackbar>
+
+         <Button
+            onClick={handleSaveGame}
+            disabled={saveKey === "" || !saveKey ? true : false}
+         >
+            Save
+         </Button>
+      </>
    )
 }
 

@@ -85,5 +85,6 @@
 | 8.3.  | 2    | Debugging, demoing                                          |
 | 8.3.  | 2    | Quality work                                                |
 | 8.3.  | 2    | Documentation                                               |
+| 9.3.  | 2    | Documentation, testing                                      |
 
-177
+179

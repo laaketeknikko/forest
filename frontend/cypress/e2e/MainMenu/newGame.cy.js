@@ -4,14 +4,19 @@ describe("New game, save game, load game", function () {
    it("Can create a new game, save the game, and load the game", function () {
       // Start a new scenario
       cy.visit(frontendRoot)
-      cy.get("button").contains("New game").click()
-      cy.contains("Choose a scenario")
-      cy.contains("First encounter").click()
-      cy.get("button").contains("Select characters").click()
+      cy.get("button")
+         .contains(/New game/i)
+         .click()
+
+      cy.contains(/proof'o'c 1/i).click()
+      cy.get("button")
+         .contains(/Select characters/i)
+         .click()
       cy.get(".character-selection-img").each(($img) => {
          cy.wrap($img).click()
+         cy.wrap($img).click()
       })
-      cy.contains(/confirmation/i).click()
+      cy.contains(/confirm/i).click()
       cy.get("button")
          .contains(/start scenario/i)
          .click()
@@ -26,6 +31,7 @@ describe("New game, save game, load game", function () {
       // has an id. Non-exact test is enough for this.
       cy.get(".in-game-menu-button").click()
       cy.findByRole("button", { name: /save/i }).click()
+      cy.contains(/game saved/i)
       cy.location("pathname").should("to.match", /[a-z,0-9,-]{36}/)
 
       // Store the url containing the save id, visit front page
@@ -35,14 +41,12 @@ describe("New game, save game, load game", function () {
       )
       cy.visit(frontendRoot)
       cy.contains(/new game/i)
-      cy.contains(/select scenario/i)
-      cy.contains(/main menu/i)
 
       // Load the game and confirm we're in the game.
       cy.get("@urlWithSave").then((urlWithSave) => {
-         // Seems to work even with this TypeScript error.
          cy.visit(urlWithSave)
       })
+      cy.findByRole("button", { name: /load/i }).click()
       cy.get(".in-game-menu-button")
       cy.get(".action-card-list")
       cy.get("canvas")
