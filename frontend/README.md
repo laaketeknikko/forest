@@ -214,3 +214,11 @@ Some tutorials and Youtube channels, especially on three.js and React Three Fibe
 
 For my friend for the graphics.
 
+## Aspirations
+
+To be honest, I expected to achieve a bit more than this in 175 hours. Ultimately, all kinds of small things take significant development time.
+
+My idea was a sort of board game modeling in a browser game format. Board games often have more interesting ability usage mechanics than computer games do. I wanted to explore this kind of a card mechanic, where a card has multiple actions that have to be executed in sequence, and the sequence is not reset between missions.
+
+The basics of that idea are in the project, but obviously the lack of action types and different mechanics prevent any kind of exploration of the idea.
+
