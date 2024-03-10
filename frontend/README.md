@@ -4,6 +4,9 @@
 
 From the project root directory:
 
+cd shared
+npm install
+
 cd backend
 npm install
 
@@ -26,13 +29,18 @@ cd shared
 npm run tsc
 
 Frontend will by default run at localhost:5173.
-Backend will by default run at localhost:3000.
+Backend is expected to run at localhost:5432.
 
 Using the application does not require a database.
 However, using the save functionality utilizes Mongoose
 to save in MongoDB. Setting up MongoDB and Mongoose
 is beyond the scope of this readme.
 The necessary information should be obtainable from the backend code.
+
+For the backend to work properly you need to have an .env file with the following:
+
+1. MONGODB_URL: Your MongoDB connection URL.
+2. PORT: The port to be used.
 
 ## Introduction
 

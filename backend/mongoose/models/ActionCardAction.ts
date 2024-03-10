@@ -6,7 +6,7 @@ import { ActionEffectSchema } from "./ActionEffect"
 
 const ActionCardActionSchema =
    new mongoose.Schema<modelTypes.IActionCardActionModel>({
-      name: { type: String, required: false },
+      name: { type: String, required: true },
       description: String,
       effects: [ActionEffectSchema],
    })

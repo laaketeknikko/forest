@@ -7,15 +7,15 @@ import { ScenarioSchema } from "./Scenario"
 import { ScenarioStatisticsSchema } from "./ScenarioStatistics"
 
 const SaveGameSchema = new mongoose.Schema<modelTypes.ISaveGameConfigModel>({
-   characters: { type: [CharacterSchema], required: false },
-   enemies: { type: [EnemySchema], required: false },
+   characters: { type: [CharacterSchema], required: true },
+   enemies: { type: [EnemySchema], required: true },
    scenario: { type: ScenarioSchema, required: false },
    scenarioStatistics: {
       type: [ScenarioStatisticsSchema],
       required: false,
    },
    isScenarioInProgress: { type: Boolean, required: true },
-   keyString: { type: String, required: false },
+   keyString: { type: String, required: true },
 })
 
 const SaveGameModel = mongoose.model<modelTypes.ISaveGameConfigModel>(
