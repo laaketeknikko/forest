@@ -51,9 +51,9 @@ const R3FCanvasWrapper = () => {
       events: [
          "mousemove",
          "keydown",
-         //'wheel',
-         //'DOMMouseScroll',
-         //'mousewheel',
+         "wheel",
+         "DOMMouseScroll",
+         "mousewheel",
          "mousedown",
          "touchstart",
          "touchmove",
