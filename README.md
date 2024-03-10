@@ -14,25 +14,34 @@ on Render. The project uses the free Render service. Free Render services spin d
 
 From the project root directory:
 
+```
 cd shared
 npm install
 npm run tsc
+```
 
+```
 cd backend
 npm install
-
+```
+```
 cd frontend
 npm install
+```
 
 ### Running
 
 From project root:
 
+```
 cd backend
 npm run dev
+```
 
+```
 cd frontend
 npm run dev
+```
 
 Frontend will by default run at localhost:5173.
 Backend is expected to run at localhost:5432.
@@ -78,7 +87,7 @@ Once you have formed a party, move to the "confirm" tab, and click on "start sce
 
 ##### Turn order
 
-The game is turn-based, and follows an initiative order: Each action adds time to the characters initiative, and the character with lowest initiative will be next in turn. The initiative is displayed on the left, top-down.
+The game is turn-based, and follows an initiative order: Each action adds time to the character's initiative, and the character with lowest initiative will be next in turn. The initiative is displayed on the left, top-down.
 
 ##### Cards and actions
 
