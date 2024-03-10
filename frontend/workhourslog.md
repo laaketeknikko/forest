@@ -88,4 +88,5 @@
 | 9.3.  | 2    | Documentation, testing                                      |
 | 10.3. | 3    | Deploymend, submission                                      |
 
-182
+| Total | 182 |
+
