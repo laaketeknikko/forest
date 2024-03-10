@@ -2,6 +2,10 @@
 
 The application is running at https://forest-9p5h.onrender.com/
 
+NOTE!
+The frontend and the backend are running as different services
+on Render. The project uses the free Render service. Free Render services spin down after inactivity. It seems it might take even up to 5 minutes for the backend service to spin up after inactivity. For this reason I recommend visiting for example https://forest-backend.onrender.com/api/configs/characters before starting the application, and waiting until you get a response from the server.
+
 [Work hours log](frontend/workhourslog.md)
 
 ## Installation and running
@@ -12,6 +16,7 @@ From the project root directory:
 
 cd shared
 npm install
+npm run tsc
 
 cd backend
 npm install
@@ -28,11 +33,6 @@ npm run dev
 
 cd frontend
 npm run dev
-
-It might be necessary to compile TypeScript types in the shared folder before starting up the application. This should be done automatically when starting, but if not:
-
-cd shared
-npm run tsc
 
 Frontend will by default run at localhost:5173.
 Backend is expected to run at localhost:5432.
@@ -98,6 +98,10 @@ The map has a grid.
 
 Movement in the game is not restricted to the grid; the character moves to the point you click on. Attacks also are freely targeted, but will affect all the characters and enemies on the clicked tile. (There are no AoE effects for now.)
 
+The map can be panned by holding left mouse and moving the mouse.
+
+The map can be rotated by holding right mouse and moving the mouse.
+
 ##### In-game menu, saving and loading
 
 Above the turn order view is the menu button. From the menu you can save the game or turn off some graphical features.
@@ -109,11 +113,9 @@ When you start a game, the application will assign a save key, which will be dis
 The major shortcoming is that there is actually no game at all. The project
 can at most be considered a very basic game engine.
 
-However, even making such a thing, let alone an actual game with content,
-is a very time-consuming task.
+However, even making such a thing, let alone an actual game with content, is a very time-consuming task.
 
-The test coverage is lacking. However, this is the trend in professional gaming
-industry as well.
+The test coverage is lacking. Using players as beta-testers is the gaming industry standard nowadays, though.
 
 ## Used technologies
 
@@ -125,11 +127,8 @@ TypeScript is a static typing layer on top of JavaScript. Most of the
 TypeScript features are compiled away when the code is run. TypeScript
 can help find application errors at code-writing time.
 
-The project makes basic use of TypeScript. TypeScript type inference makes
-it easy to start out with; however, you will quickly run into esoteric
-problems with third party libraries and generic functions. The
-project doesn't shy away from turning TypeScript to JavaScript when going
-gets tough.
+The project makes basic use of TypeScript. TypeScript type inference makes it easy to start out with; however, you will quickly run into esoteric problems with third party libraries and generic functions. The
+project doesn't shy away from turning TypeScript to JavaScript when going gets tough.
 
 #### React
 
@@ -142,7 +141,7 @@ application as a whole follows the React model.
 
 #### MUI
 
-Old name Material UI is a library of ready-made React components for
+(Old name Material UI) is a library of ready-made React components for
 common user interface patterns.
 
 The project heavily utilizes MUI components for common interface
@@ -154,22 +153,21 @@ Three.js is a 3D JavaScript library utilizing WebGL.
 
 React Three Fiber is a React-style wrapper around Three.js
 
-The main game scene is implemented in React Three Fiber. Direct Three.js code is at a minimum, but a big advantage of React Three Fiber is you can use
-vanilla Three.js whenever you want in your components.
+The main game scene is implemented in React Three Fiber. Direct Three.js code is at a minimum, but a big advantage of React Three Fiber is you can use vanilla Three.js whenever you want in your components.
 
 Also heavily utilized is a helper component library for R3F: @react-three/drei
 
 #### Jotai
 
-Jotai is an atom-based state management library. It can also be used without React.
+Jotai is an atom-based state management library. It is designed for React, but can also be used without.
 
-In the project all global state is stored in Jotai.
+In the project all global state is stored in Jotai. Jotai basically works as a React Context replacement for the project. I found working with Jotai easier than with the Context.
 
 #### Cypress
 
 Cypress is a frontend testing library. The idea of Cypress is it runs in the browser and uses the application in the same manner an actual user would.
 
-The project only contains one end-to-end test implemented with Cypress.
+The project only contains one end-to-end test implemented with Cypress. Even with one test of a few dozen lines, we can test starting new game, starting scenario, saving game and loading game.
 
 ### Backend
 
@@ -202,9 +200,7 @@ There are three main states the application can be in:
 2. In-game. components/GameScene/GameScene.tsx and components/r3f/R3FCanvasWrapper.tsx are responsible for this.
 3. After-game. components/Debriefing/Debriefing.tsx handles this.
 
-Under components, the components are organized by responsibility. Notably,
-components/r3f contains all the components that must be placed inside the
-R3F Canvas.
+Under components, the components are organized loosely by responsibility. Notably, components/r3f contains all the components that must be placed inside the R3F Canvas.
 
 The src/game folder contains code that mainly has to do with the logic of the internal game state itself.
 
@@ -234,5 +230,5 @@ To be honest, I expected to achieve a bit more than this in 175 hours. Ultimatel
 
 My idea was a sort of board game modeling in a browser game format. Board games often have more interesting ability usage mechanics than computer games do. I wanted to explore this kind of a card mechanic, where a card has multiple actions that have to be executed in sequence, and the sequence is not reset between missions.
 
-The basics of that idea are in the project, but obviously the lack of action types and different mechanics prevent any kind of exploration of the idea.
+The basics of that idea are in the project, but obviously the lack of action types and different mechanics prevent any kind of real exploration of the idea.
 

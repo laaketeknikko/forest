@@ -86,5 +86,6 @@
 | 8.3.  | 2    | Quality work                                                |
 | 8.3.  | 2    | Documentation                                               |
 | 9.3.  | 2    | Documentation, testing                                      |
+| 10.3. | 3    | Deploymend, submission                                      |
 
-179
+182
