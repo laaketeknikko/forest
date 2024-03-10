@@ -1,3 +1,9 @@
+## Full Stack Open submissions details
+
+The application is running at https://forest-9p5h.onrender.com/
+
+[Work hours log](frontend/workhourslog.md)
+
 ## Installation and running
 
 ### Installation
