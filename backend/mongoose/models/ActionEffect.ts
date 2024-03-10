@@ -3,7 +3,7 @@ import * as modelTypes from "./modelTypes"
 import mongoose from "mongoose"
 
 const ActionEffectSchema = new mongoose.Schema<modelTypes.IActionEffectModel>({
-   name: { type: String, required: true },
+   name: { type: String, required: false },
    powerMultiplier: { type: Number, required: false },
    actionDelayMultiplier: { type: Number, required: true },
    range: { type: Number, required: false },
