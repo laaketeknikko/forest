@@ -2,6 +2,8 @@ import { PrimitiveAtom, getDefaultStore } from "jotai"
 import { ZGameEntity, ZPosition2D } from "../../../../shared/types/types"
 import { allActiveGameEntitiesAtom } from "../state/jotai/entities"
 import { selectedScenarioConfigAtom } from "../state/jotai/scenarios"
+import { globalThreeStateGetterAtom } from "../state/jotai/gameState"
+import { Vector3 } from "three"
 
 /**
  * Returns the center position of the tile the given
@@ -103,10 +105,64 @@ const approximatelyEqual = (
    return Math.abs(number1 - number2) < precision
 }
 
+const getPixelCoordinatesFromNormalizedCoordinates = (
+   vector3: Vector3
+): Vector3 | null => {
+   const jotaiStore = getDefaultStore()
+   const globalThreeStateGetter = jotaiStore.get(globalThreeStateGetterAtom)
+   if (!globalThreeStateGetter || !globalThreeStateGetter.get) return null
+
+   const size = globalThreeStateGetter.get()?.size
+   if (!size) return null
+
+   const vector = new Vector3()
+
+   vector.x = ((vector3.x + 1) * size.width) / 2
+   vector.y = (-(vector3.y - 1) * size.height) / 2
+   vector.z = 0
+
+   return vector
+}
+
+const getScreenCoordinates = (vector3: Vector3): Vector3 | null => {
+   const jotaiStore = getDefaultStore()
+   const globalThreeStateGetter = jotaiStore.get(globalThreeStateGetterAtom)
+
+   if (!globalThreeStateGetter || !globalThreeStateGetter.get) return null
+
+   const camera = globalThreeStateGetter.get()?.camera
+   if (!camera) return null
+
+   const screenCoords = new Vector3(vector3.x, vector3.y, vector3.z).project(
+      camera
+   )
+
+   return screenCoords
+}
+
+const getEntityScreenCoordinates = (
+   entity: ZGameEntity | PrimitiveAtom<ZGameEntity>
+): Vector3 | null => {
+   let position
+   if ("position" in entity) {
+      position = entity.position
+   } else {
+      const jotaiStore = getDefaultStore()
+      const entityData = jotaiStore.get(entity)
+      position = entityData.position
+   }
+
+   const entityCoordinates = new Vector3(position.x, position.y, position.z)
+   return getScreenCoordinates(entityCoordinates)
+}
+
 export {
    getTilePositionFromPosition,
    getNearestTileCornerFromPosition,
    getEntitiesForPosition,
    approximatelyEqual,
    isInsideArena,
+   getPixelCoordinatesFromNormalizedCoordinates,
+   getEntityScreenCoordinates,
+   getScreenCoordinates,
 }

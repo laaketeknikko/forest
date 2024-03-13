@@ -15,6 +15,7 @@ import { GroundGrid } from "./Ground/GroundGrid"
 import { CustomMapController } from "./util/CustomMapController"
 import { ActiveCharacters } from "./Character/ActiveCharacters"
 import { ActiveEnemies } from "./Character/ActiveEnemies"
+import { InitializeGlobaThreeState } from "./util/InitializeGlobalThreeState"
 
 const DisableRender = () => useFrame(() => null, 1000)
 
@@ -76,6 +77,8 @@ const R3FCanvasWrapper = () => {
          gl={{ localClippingEnabled: true } /**required for clippingPlanes */}
       >
          {pauseAnimation && !animationState.isAnimating && <DisableRender />}
+
+         <InitializeGlobaThreeState />
 
          <ActiveCharacters />
          <ActiveEnemies />
