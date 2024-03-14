@@ -29,7 +29,7 @@ import {
    isInsideArena,
 } from "../../../game/util/mapUtils"
 import { AffectedPopupInfo } from "../../GameScene/PopupInfo.tsx/AffectedPopupInfo"
-import { PrimitiveAtom } from "jotai/vanilla"
+import { PrimitiveAtom, getDefaultStore } from "jotai/vanilla"
 
 import { throttle } from "lodash"
 import { useGetEntitiesForPosition } from "../../../game/hooks/useGetEntitiesForPosition"
@@ -92,6 +92,10 @@ const ActionHelper = () => {
     * handles the whole-action updates.
     */
    const handlePerformEffect = (event: ThreeEvent<MouseEvent>) => {
+      console.log("clicking", event.point)
+      const jotaiStore = getDefaultStore()
+      console.log("jotai store in app", jotaiStore)
+
       if (!actionTrackerRef.current) return
       if (!isInsideArena({ x: event.point.x, z: event.point.z })) return
 

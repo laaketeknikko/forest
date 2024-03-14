@@ -2,24 +2,7 @@ const frontendRoot = "http://localhost:5173"
 
 describe("New game, save game, load game", function () {
    it("Can create a new game, save the game, and load the game", function () {
-      // Start a new scenario
-      cy.visit(frontendRoot)
-      cy.get("button")
-         .contains(/New game/i)
-         .click()
-
-      cy.contains(/proof'o'c 1/i).click()
-      cy.get("button")
-         .contains(/Select characters/i)
-         .click()
-      cy.get(".character-selection-img").each(($img) => {
-         cy.wrap($img).click()
-         cy.wrap($img).click()
-      })
-      cy.contains(/confirm/i).click()
-      cy.get("button")
-         .contains(/start scenario/i)
-         .click()
+      cy.startScenario("proof'o'c")
 
       // Check that we are in the game
       cy.get(".in-game-menu-button")
@@ -51,5 +34,7 @@ describe("New game, save game, load game", function () {
       cy.get(".action-card-list")
       cy.get("canvas")
       cy.get(".turn-order-list")
+
+      cy.clickOnActiveCharacter()
    })
 })

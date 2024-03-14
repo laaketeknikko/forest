@@ -105,6 +105,9 @@ const approximatelyEqual = (
    return Math.abs(number1 - number2) < precision
 }
 
+/**
+ * Returns the screen pixel coordinates relative to the canvas for a given Vector3.
+ */
 const getPixelCoordinatesFromNormalizedCoordinates = (
    vector3: Vector3
 ): Vector3 | null => {
@@ -124,7 +127,12 @@ const getPixelCoordinatesFromNormalizedCoordinates = (
    return vector
 }
 
-const getScreenCoordinates = (vector3: Vector3): Vector3 | null => {
+/**
+ * Returns the normalized screen coordinates relative to the canvas for a given Vector3.
+ *
+ * The coordinates are in range [-1, 1], the center of the canvas is at (0, 0).
+ */
+const getVector3ScreenCoordinates = (vector3: Vector3): Vector3 | null => {
    const jotaiStore = getDefaultStore()
    const globalThreeStateGetter = jotaiStore.get(globalThreeStateGetterAtom)
 
@@ -140,6 +148,13 @@ const getScreenCoordinates = (vector3: Vector3): Vector3 | null => {
    return screenCoords
 }
 
+/**
+ * Returns the normalized screen coordinates relative to the canvas for a given entity.
+ *
+ * The coordinates are in range [-1, 1], the center of the canvas is at (0, 0).
+ *
+ * Convenience wrapper for getVector3ScreenCoordinates.
+ */
 const getEntityScreenCoordinates = (
    entity: ZGameEntity | PrimitiveAtom<ZGameEntity>
 ): Vector3 | null => {
@@ -153,7 +168,7 @@ const getEntityScreenCoordinates = (
    }
 
    const entityCoordinates = new Vector3(position.x, position.y, position.z)
-   return getScreenCoordinates(entityCoordinates)
+   return getVector3ScreenCoordinates(entityCoordinates)
 }
 
 export {
@@ -164,5 +179,5 @@ export {
    isInsideArena,
    getPixelCoordinatesFromNormalizedCoordinates,
    getEntityScreenCoordinates,
-   getScreenCoordinates,
+   getVector3ScreenCoordinates,
 }
