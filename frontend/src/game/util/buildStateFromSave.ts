@@ -1,5 +1,5 @@
 import clone from "clone"
-import { getDefaultStore } from "jotai"
+
 import { atom } from "jotai"
 import type { PrimitiveAtom } from "jotai/vanilla"
 import { atomsFromCardConfigs } from "./atomsFromCardConfigs"
@@ -8,6 +8,7 @@ import { selectedScenarioEnemiesAtom } from "../state/jotai/enemies"
 import { selectedScenarioConfigAtom } from "../state/jotai/scenarios"
 import { ZCharacter, ZEnemy, ZSaveConfig } from "../../../../shared/types/types"
 import { getScenarioConfigByName } from "./getScenarioConfigByName"
+import { getDefaultJotaiStore } from "../state/jotai/store"
 
 /**
  * Builds up a game state from a save config.
@@ -17,7 +18,7 @@ import { getScenarioConfigByName } from "./getScenarioConfigByName"
  * - selectedScenarioConfigAtom
  */
 const buildStateFromSave = async (saveData: ZSaveConfig) => {
-   const jotaiStore = getDefaultStore()
+   const jotaiStore = getDefaultJotaiStore()
 
    const characters: Array<PrimitiveAtom<ZCharacter>> = []
 

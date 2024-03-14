@@ -129,6 +129,8 @@ const globalThreeStateGetterAtom = atom<{
    get: (() => ReturnType<typeof getRootState>) | null
 }>({ get: null })
 
+const isCameraMovingAtom = atom<boolean>(false)
+
 export {
    turnOrderAtom,
    currentlySelectedActionCardAtom,
@@ -140,4 +142,5 @@ export {
    animationFocusAtom,
    inGameOptionsAtom,
    globalThreeStateGetterAtom,
+   isCameraMovingAtom,
 }

@@ -1,9 +1,10 @@
 import Stack from "@mui/material/Stack"
-import { getDefaultStore, useAtom } from "jotai"
+import { useAtom } from "jotai"
 import { selectedPartyAtom } from "../../../game/state/jotai/characters"
 import { selectedScenarioConfigAtom } from "../../../game/state/jotai/scenarios"
 import { theme } from "../../../styles/mui/theme"
 import { useRef } from "react"
+import { getDefaultJotaiStore } from "../../../game/state/jotai/store"
 
 /**
  * Used to show the selected party in the character selection screen.
@@ -11,7 +12,7 @@ import { useRef } from "react"
 const CharacterSelectionParty = () => {
    const [selectedScenarioConfig] = useAtom(selectedScenarioConfigAtom)
    const [activeParty] = useAtom(selectedPartyAtom)
-   const jotaiStoreRef = useRef(getDefaultStore())
+   const jotaiStoreRef = useRef(getDefaultJotaiStore())
 
    return (
       <Stack

@@ -1,9 +1,10 @@
-import { PrimitiveAtom, getDefaultStore } from "jotai"
+import { PrimitiveAtom } from "jotai"
 import { ZGameEntity, ZPosition2D } from "../../../../shared/types/types"
 import { allActiveGameEntitiesAtom } from "../state/jotai/entities"
 import { selectedScenarioConfigAtom } from "../state/jotai/scenarios"
 import { globalThreeStateGetterAtom } from "../state/jotai/gameState"
 import { Vector3 } from "three"
+import { getDefaultJotaiStore } from "../state/jotai/store"
 
 /**
  * Returns the center position of the tile the given
@@ -45,7 +46,7 @@ const getNearestTileCornerFromPosition = (xPos: number, zPos: number) => {
  * }
  */
 const getEntitiesForPosition = (position: ZPosition2D) => {
-   const jotaiStore = getDefaultStore()
+   const jotaiStore = getDefaultJotaiStore()
    const activeEntities = jotaiStore.get(allActiveGameEntitiesAtom)
 
    const tileCenter = getTilePositionFromPosition(position.x, position.z)
@@ -79,7 +80,7 @@ const getEntitiesForPosition = (position: ZPosition2D) => {
  * Uses selectedSce
  */
 const isInsideArena = (position: ZPosition2D) => {
-   const jotaiStore = getDefaultStore()
+   const jotaiStore = getDefaultJotaiStore()
    const scenario = jotaiStore.get(selectedScenarioConfigAtom)
 
    if (
@@ -111,7 +112,7 @@ const approximatelyEqual = (
 const getPixelCoordinatesFromNormalizedCoordinates = (
    vector3: Vector3
 ): Vector3 | null => {
-   const jotaiStore = getDefaultStore()
+   const jotaiStore = getDefaultJotaiStore()
    const globalThreeStateGetter = jotaiStore.get(globalThreeStateGetterAtom)
    if (!globalThreeStateGetter || !globalThreeStateGetter.get) return null
 
@@ -133,7 +134,7 @@ const getPixelCoordinatesFromNormalizedCoordinates = (
  * The coordinates are in range [-1, 1], the center of the canvas is at (0, 0).
  */
 const getVector3ScreenCoordinates = (vector3: Vector3): Vector3 | null => {
-   const jotaiStore = getDefaultStore()
+   const jotaiStore = getDefaultJotaiStore()
    const globalThreeStateGetter = jotaiStore.get(globalThreeStateGetterAtom)
 
    if (!globalThreeStateGetter || !globalThreeStateGetter.get) return null
@@ -162,7 +163,7 @@ const getEntityScreenCoordinates = (
    if ("position" in entity) {
       position = entity.position
    } else {
-      const jotaiStore = getDefaultStore()
+      const jotaiStore = getDefaultJotaiStore()
       const entityData = jotaiStore.get(entity)
       position = entityData.position
    }

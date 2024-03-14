@@ -29,11 +29,12 @@ import {
    isInsideArena,
 } from "../../../game/util/mapUtils"
 import { AffectedPopupInfo } from "../../GameScene/PopupInfo.tsx/AffectedPopupInfo"
-import { PrimitiveAtom, getDefaultStore } from "jotai/vanilla"
+import { PrimitiveAtom } from "jotai/vanilla"
 
 import { throttle } from "lodash"
 import { useGetEntitiesForPosition } from "../../../game/hooks/useGetEntitiesForPosition"
 import { selectedScenarioConfigAtom } from "../../../game/state/jotai/scenarios"
+import { getDefaultJotaiStore } from "../../../game/state/jotai/store"
 
 /**
  * Provides visual and game logic helpers when performing actions and action effects.
@@ -93,7 +94,7 @@ const ActionHelper = () => {
     */
    const handlePerformEffect = (event: ThreeEvent<MouseEvent>) => {
       console.log("clicking", event.point)
-      const jotaiStore = getDefaultStore()
+      const jotaiStore = getDefaultJotaiStore()
       console.log("jotai store in app", jotaiStore)
 
       if (!actionTrackerRef.current) return

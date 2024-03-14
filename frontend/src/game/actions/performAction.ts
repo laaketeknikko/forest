@@ -1,5 +1,4 @@
 import type { PrimitiveAtom } from "jotai"
-import { getDefaultStore } from "jotai"
 
 import { actionTypes } from "../../config/actions/actionTypes"
 import {
@@ -11,6 +10,7 @@ import {
 } from "../../../../shared/types/types"
 import { PositionSchema } from "../../../../shared/zod/schemas"
 import { getEntitiesForPosition } from "../util/mapUtils"
+import { getDefaultJotaiStore } from "../state/jotai/store"
 
 interface PerformActionProps {
    selectedCharacterAtom: PrimitiveAtom<ZCharacter>
@@ -49,7 +49,7 @@ const performEffect = ({
 }
 
 const performMoveEffect = (props: PerformEffectProps) => {
-   const jotaiStore = getDefaultStore()
+   const jotaiStore = getDefaultJotaiStore()
    const selectedCharacter: ZCharacter = jotaiStore.get(
       props.selectedCharacterAtom
    )
@@ -76,7 +76,7 @@ const performOffensiveEffect = (props: PerformEffectProps) => {
       x: Math.floor(props.targetPoint.x) + 0.5,
       z: Math.floor(props.targetPoint.z) + 0.5,
    }
-   const jotaiStore = getDefaultStore()
+   const jotaiStore = getDefaultJotaiStore()
 
    const character = jotaiStore.get(props.selectedCharacterAtom)
    character.activeAnimation = {
@@ -111,7 +111,7 @@ const performAction = ({
    activeCardAtom,
    selectedAction,
 }: PerformActionProps) => {
-   const jotaiStore = getDefaultStore()
+   const jotaiStore = getDefaultJotaiStore()
    const selectedCharacter = jotaiStore.get(selectedCharacterAtom)
 
    /** update delay */

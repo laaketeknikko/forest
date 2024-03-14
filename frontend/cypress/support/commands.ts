@@ -36,11 +36,12 @@ declare global {
 }
 
 import "@testing-library/cypress/add-commands"
-import { getDefaultStore } from "jotai"
+
 import { activeCharacterAtomAtom } from "../../src/game/state/jotai/characters"
 import { getEntityScreenCoordinates } from "../../src/game/util/mapUtils"
 import { getPixelCoordinatesFromNormalizedCoordinates } from "../../src/game/util/mapUtils"
 import { turnOrderAtom } from "../../src/game/state/jotai/gameState"
+import { getDefaultJotaiStore } from "../../src/game/state/jotai/store"
 
 /**
  * Start a new game with the given scenario.
@@ -90,37 +91,13 @@ Cypress.Commands.add("clickOnActiveCharacter", () => {
    // eslint-disable-next-line cypress/no-unnecessary-waiting
    cy.wait(3000)
 
-   const getPixelCoords = () => {
-      const jotaiStore = getDefaultStore()
-
-      console.log("jotaiStore", jotaiStore)
-      const activeCharacter = jotaiStore.get(activeCharacterAtomAtom)
-      const activeCharacterData = jotaiStore.get(activeCharacter)
-
-      const turnOrder = jotaiStore.get(turnOrderAtom)
-      console.log("turn order", turnOrder)
-
-      console.log("active character data", activeCharacterData)
-      const coordinates = getEntityScreenCoordinates(activeCharacterData)
-
-      console.log("Coordinates: ", coordinates)
-      let pixelCoordinates
-      if (coordinates) {
-         pixelCoordinates =
-            getPixelCoordinatesFromNormalizedCoordinates(coordinates)
-      }
-      console.log("pixel coordinates: ", pixelCoordinates)
-      return pixelCoordinates
-   }
+   const getPixelCoords = () => {}
 
    cy.wrap({ getPixelCoords: getPixelCoords })
       .invoke("getPixelCoords")
       .then((pixelCoordinates) => {
          if (pixelCoordinates) {
-            cy.log("clicking at", pixelCoordinates)
             cy.get("canvas").click(pixelCoordinates.x, pixelCoordinates.y)
-         } else {
-            cy.log("no active character coordinates")
          }
       })
 })

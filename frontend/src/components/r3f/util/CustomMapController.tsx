@@ -7,6 +7,7 @@ import { activeCharacterAtomAtom } from "../../../game/state/jotai/characters"
 import { Vector3 } from "three"
 import { useFrame } from "@react-three/fiber"
 import { approximatelyEqual } from "../../../game/util/mapUtils"
+import { isCameraMovingAtom } from "../../../game/state/jotai/gameState"
 
 /**
  * Vanilla three.js MapControls with smoother turning to target.
@@ -17,6 +18,7 @@ const CustomMapController = () => {
    const targetRef = useRef<Vector3 | null>(null)
    const originRef = useRef<Vector3 | null>(null)
    const mapControlsRef = useRef<MapControlsImpl | null>(null)
+   const [, setIsCameraMoving] = useAtom(isCameraMovingAtom)
 
    /**
     * We don't want the camera following the characters all the time.
@@ -31,13 +33,14 @@ const CustomMapController = () => {
       }
 
       originRef.current = mapControlsRef.current?.target
+      setIsCameraMoving(true)
 
       targetRef.current = new Vector3(
          character.position.x,
          character.position.y,
          character.position.z
       )
-   }, [character.position])
+   }, [character.position, setIsCameraMoving])
 
    /** Turn smoothly towards the active character. */
    useFrame(() => {
@@ -64,6 +67,7 @@ const CustomMapController = () => {
             )
          ) {
             targetRef.current = null
+            setIsCameraMoving(false)
          }
       }
    })
