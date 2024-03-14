@@ -36,7 +36,11 @@ const DebugInformation = () => {
 
    return (
       <Box component="div">
-         <Box component="div">
+         <Box component="div" sx={{ lineHeight: 1 }}>
+            <Typography variant="caption">
+               camera-moving: {isCameraMoving ? "true" : "false"}
+            </Typography>
+            <br />
             <Typography variant="caption">
                Active: {activeCharacterData.name}
             </Typography>

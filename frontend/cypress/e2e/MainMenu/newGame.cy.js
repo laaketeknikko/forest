@@ -1,7 +1,3 @@
-import { getDefaultJotaiStore } from "../../../src/game/state/jotai/store"
-import { activeCharacterAtomAtom } from "../../../src/game/state/jotai/characters"
-import { activePartyAtom } from "../../../src/game/state/jotai/characters"
-
 const frontendRoot = "http://localhost:5173"
 
 describe("New game, save game, load game", function () {

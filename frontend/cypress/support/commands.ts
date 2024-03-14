@@ -37,12 +37,6 @@ declare global {
 
 import "@testing-library/cypress/add-commands"
 
-import { activeCharacterAtomAtom } from "../../src/game/state/jotai/characters"
-import { getEntityScreenCoordinates } from "../../src/game/util/mapUtils"
-import { getPixelCoordinatesFromNormalizedCoordinates } from "../../src/game/util/mapUtils"
-import { turnOrderAtom } from "../../src/game/state/jotai/gameState"
-import { getDefaultJotaiStore } from "../../src/game/state/jotai/store"
-
 /**
  * Start a new game with the given scenario.
  *
@@ -86,18 +80,28 @@ Cypress.Commands.add("startScenario", (scenarioName) => {
  *
  * Includes a wait of 3 seconds before clicking, to allow the
  * camera to move to position.
+ *
+ * NOTE: This doesn't work on Firefox, resulting in
+ * "Element.releasePointerCapture: Invalid pointer id" error.
+ *
  */
 Cypress.Commands.add("clickOnActiveCharacter", () => {
-   // eslint-disable-next-line cypress/no-unnecessary-waiting
-   cy.wait(3000)
+   cy.contains(/camera-moving/i).contains(/false/i)
+   cy.contains(/screen-x/i)
+      .invoke("text")
+      .then((text) => {
+         const startX = text.indexOf(":") + 1
+         const x = Number(text.substring(startX))
 
-   const getPixelCoords = () => {}
+         cy.contains(/screen-y/i)
+            .invoke("text")
+            .then((text) => {
+               const startY = text.indexOf(":") + 1
+               const y = Number(text.substring(startY))
 
-   cy.wrap({ getPixelCoords: getPixelCoords })
-      .invoke("getPixelCoords")
-      .then((pixelCoordinates) => {
-         if (pixelCoordinates) {
-            cy.get("canvas").click(pixelCoordinates.x, pixelCoordinates.y)
-         }
+               // eslint-disable-next-line cypress/no-unnecessary-waiting
+               cy.wait(4000)
+               cy.get("canvas").click(x, y)
+            })
       })
 })
