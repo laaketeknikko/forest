@@ -8,8 +8,8 @@ import Paper from "@mui/material/Paper"
 import Box from "@mui/material/Box"
 import Typography from "@mui/material/Typography"
 import {
-   getEntityScreenCoordinates,
    getPixelCoordinatesFromNormalizedCoordinates,
+   getVector3ScreenCoordinates,
 } from "../../game/util/mapUtils"
 import { Vector3 } from "three"
 import { useEffect, useState } from "react"
@@ -23,7 +23,13 @@ const DebugInformation = () => {
 
    useEffect(() => {
       if (!isCameraMoving) {
-         const screenPos = getEntityScreenCoordinates(activeCharacterData)
+         const screenPos = getVector3ScreenCoordinates(
+            new Vector3(
+               activeCharacterData.position.x,
+               0,
+               activeCharacterData.position.z
+            )
+         )
          setScreenPosUnit(screenPos)
 
          if (screenPos) {

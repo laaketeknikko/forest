@@ -1,4 +1,5 @@
 /// <reference types="cypress" />
+
 // ***********************************************
 // This example commands.ts shows you how to
 // create various custom commands and overwrite
@@ -25,17 +26,28 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 //
+
 declare global {
    // eslint-disable-next-line @typescript-eslint/no-namespace
    namespace Cypress {
       interface Chainable {
          startScenario(scenarioName: string): Chainable<void>
          clickOnActiveCharacter(): Chainable<void>
+         clickOnFirstActionCard(): Chainable<void>
+         startNewGame(): Chainable<void>
       }
    }
 }
 
 import "@testing-library/cypress/add-commands"
+
+Cypress.Commands.add("startNewGame", () => {
+   const frontendRoot = "http://localhost:5173"
+   cy.visit(frontendRoot)
+   cy.get("button")
+      .contains(/New game/i)
+      .click()
+})
 
 /**
  * Start a new game with the given scenario.
@@ -46,12 +58,8 @@ import "@testing-library/cypress/add-commands"
  * Characters are selected from top to bottom.
  */
 Cypress.Commands.add("startScenario", (scenarioName) => {
-   const frontendRoot = "http://localhost:5173"
-
-   // Start a new game
-   cy.visit(frontendRoot)
    cy.get("button")
-      .contains(/New game/i)
+      .contains(/select scenario/i)
       .click()
 
    // Select scenario
@@ -74,6 +82,16 @@ Cypress.Commands.add("startScenario", (scenarioName) => {
 })
 
 /**
+ * Clicks on the first action card on the action card list.
+ *
+ * Simply gets .action-card-list and clicks on first "button".
+ */
+Cypress.Commands.add("clickOnFirstActionCard", () => {
+   cy.log("Clicking on first action card")
+   cy.get(".action-card-list").find("button").first().click()
+})
+
+/**
  * Click on the active character.
  *
  * Gets the active character from game state.
@@ -86,6 +104,7 @@ Cypress.Commands.add("startScenario", (scenarioName) => {
  *
  */
 Cypress.Commands.add("clickOnActiveCharacter", () => {
+   cy.log("Clicking on active character")
    cy.contains(/camera-moving/i).contains(/false/i)
    cy.contains(/screen-x/i)
       .invoke("text")

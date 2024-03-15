@@ -190,10 +190,6 @@ const Character = ({ characterAtom, maxDimension = 1 }: CharacterProps) => {
             character.position.y,
             character.position.z,
          ]}
-         onClick={(event) => {
-            event.stopPropagation()
-            console.log("clicked on character")
-         }}
       >
          <planeGeometry args={[dimensions.width, dimensions.height]} />
 

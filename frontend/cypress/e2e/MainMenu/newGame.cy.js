@@ -1,8 +1,12 @@
 const frontendRoot = "http://localhost:5173"
 
 describe("New game, save game, load game", function () {
+   beforeEach(function () {
+      cy.startNewGame()
+   })
+
    it("Can create a new game, save the game, and load the game", function () {
-      cy.startScenario("proof'o'c")
+      cy.startScenario("Testing-1")
 
       // Check that we are in the game
       cy.get(".in-game-menu-button")
@@ -34,7 +38,5 @@ describe("New game, save game, load game", function () {
       cy.get(".action-card-list")
       cy.get("canvas")
       cy.get(".turn-order-list")
-
-      cy.clickOnActiveCharacter()
    })
 })
