@@ -27,6 +27,8 @@
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 //
 
+import "@testing-library/cypress/add-commands"
+
 declare global {
    // eslint-disable-next-line @typescript-eslint/no-namespace
    namespace Cypress {
@@ -38,8 +40,6 @@ declare global {
       }
    }
 }
-
-import "@testing-library/cypress/add-commands"
 
 Cypress.Commands.add("startNewGame", () => {
    const frontendRoot = "http://localhost:5173"

@@ -16,6 +16,7 @@ const CharacterSelectionParty = () => {
 
    return (
       <Stack
+         className="character-selection-selected-party"
          spacing={4}
          sx={{ paddingTop: 3, paddingRight: 3, paddingLeft: 3 }}
       >
@@ -27,6 +28,7 @@ const CharacterSelectionParty = () => {
                const character = jotaiStoreRef.current.get(characterAtom)
                return (
                   <img
+                     title={character.name}
                      key={character.name}
                      src={character.spritePath}
                      style={{ width: "100%" }}

@@ -31,6 +31,7 @@ const CharacterOption = ({
          onClick={() => handleSelection(option)}
          src={characterData.spritePath}
          className="character-selection-img"
+         title={characterData.name}
       />
    )
 }
