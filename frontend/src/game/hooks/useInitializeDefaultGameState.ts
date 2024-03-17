@@ -108,7 +108,8 @@ const initializeDynamicGameEntityAtoms = (
          setInitialActiveActions(entity.cards)
       )
 
-      entity.currentActionDelay = entity.baseActionDelay * Math.random() * 2
+      entity.currentActionDelay =
+         entity.baseActionDelay * (0.5 + Math.random()) * 2
 
       const newCharacterAtom = atom({ ...entity, cards: newCards })
       entityAtoms.push(newCharacterAtom)

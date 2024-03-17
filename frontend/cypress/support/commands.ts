@@ -33,7 +33,10 @@ declare global {
    // eslint-disable-next-line @typescript-eslint/no-namespace
    namespace Cypress {
       interface Chainable {
-         startScenario(scenarioName: string): Chainable<void>
+         startScenario(
+            scenarioName: string,
+            options?: { [characters: string]: Array<string> }
+         ): Chainable<void>
          clickOnActiveCharacter(): Chainable<void>
          clickOnFirstActionCard(): Chainable<void>
          startNewGame(): Chainable<void>
@@ -57,7 +60,10 @@ Cypress.Commands.add("startNewGame", () => {
  *
  * Characters are selected from top to bottom.
  */
-Cypress.Commands.add("startScenario", (scenarioName) => {
+Cypress.Commands.add("startScenario", (scenarioName, options) => {
+   cy.log(
+      `Start scenario ${scenarioName} with characters ${options?.characters}`
+   )
    cy.get("button")
       .contains(/select scenario/i)
       .click()
@@ -68,11 +74,21 @@ Cypress.Commands.add("startScenario", (scenarioName) => {
       .contains(/Select characters/i)
       .click()
 
-   // Click twice on each character to select characters.
-   cy.get(".character-selection-img").each(($img) => {
-      cy.wrap($img).click()
-      cy.wrap($img).click()
-   })
+   // If no charcters specified, select from top of list
+   if (!options?.characters) {
+      // Click twice on each character to select characters.
+      cy.get(".character-selection-img").each(($img) => {
+         cy.wrap($img).click()
+         cy.wrap($img).click()
+      })
+   }
+   // Otherwise select given characters
+   else {
+      for (const character of options.characters) {
+         cy.get("img[title=" + character + "]").click()
+         cy.get("img[title=" + character + "]").click()
+      }
+   }
 
    // Confirm start.
    cy.contains(/confirm/i).click()
@@ -119,7 +135,7 @@ Cypress.Commands.add("clickOnActiveCharacter", () => {
                const y = Number(text.substring(startY))
 
                // eslint-disable-next-line cypress/no-unnecessary-waiting
-               cy.wait(4000)
+               cy.wait(500)
                cy.get("canvas").click(x, y)
             })
       })

@@ -1,3 +1,5 @@
+/// <reference types="cypress" />
+
 const frontendRoot = "http://localhost:5173"
 
 describe("New game, save game, load game", function () {
@@ -30,8 +32,8 @@ describe("New game, save game, load game", function () {
       cy.contains(/new game/i)
 
       // Load the game and confirm we're in the game.
-      cy.get("@urlWithSave").then((urlWithSave) => {
-         cy.visit(urlWithSave)
+      cy.get("@urlWithSave").then((_urlWithSave) => {
+         cy.visit(this.urlWithSave)
       })
       cy.findByRole("button", { name: /load/i }).click()
       cy.get(".in-game-menu-button")
@@ -93,7 +95,7 @@ describe("Scenario selection and unlocking", function () {
       cy.contains(/Action delay: 1/i)
    })
 
-   it.only("Character selection only allows party size characters", function () {
+   it("Character selection only allows party size characters", function () {
       cy.contains(/Testing-1/i).click()
 
       // Save party size
