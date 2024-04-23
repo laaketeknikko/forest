@@ -113,6 +113,11 @@ const CharacterSelection = () => {
                className="character-selection-list"
                justifyContent={"center"}
                alignItems={"center"}
+               sx={{
+                  height: "100vh",
+                  overflowY: "auto",
+                  overflowX: "hidden",
+               }}
             >
                <CharacterSelectionList
                   displayedCharacter={detailDisplayAtom}
@@ -124,7 +129,7 @@ const CharacterSelection = () => {
              * Main character selection screen
              *
              * */}
-            <Grid2 xs={28}>
+            <Grid2 xs={27}>
                <Stack
                   spacing={10}
                   sx={{ justifyContent: "center", marginTop: 3 }}

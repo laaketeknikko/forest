@@ -1,5 +1,3 @@
-import { getDefaultStore } from "jotai"
-
 import { selectedScenarioEnemiesAtom } from "../state/jotai/enemies"
 import { selectedPartyAtom } from "../state/jotai/characters"
 import {
@@ -14,6 +12,7 @@ import { activeSaveGameConfigAtom } from "../state/jotai/gameState"
 import { PrimitiveAtom } from "jotai/vanilla"
 import clone from "clone"
 import { selectedScenarioConfigAtom } from "../state/jotai/scenarios"
+import { getDefaultJotaiStore } from "../state/jotai/store"
 
 /**
  * Builds a save config from the current state.
@@ -27,7 +26,7 @@ import { selectedScenarioConfigAtom } from "../state/jotai/scenarios"
  * not updated by this function.
  */
 const buildSaveFromState = () => {
-   const jotaiStore = getDefaultStore()
+   const jotaiStore = getDefaultJotaiStore()
    const characterAtoms = jotaiStore.get(selectedPartyAtom)
    const enemyAtoms = jotaiStore.get(selectedScenarioEnemiesAtom)
 
@@ -60,7 +59,7 @@ const buildSaveFromState = () => {
  * config. Otherwise, returns the old config.
  */
 const InitializeScenarioSave = () => {
-   const jotaiStore = getDefaultStore()
+   const jotaiStore = getDefaultJotaiStore()
    const oldSave = jotaiStore.get(activeSaveGameConfigAtom)
 
    if (oldSave.scenario._id && oldSave.scenario._id === "empty") {
@@ -89,7 +88,7 @@ const InitializeScenarioSave = () => {
 const saveConfigFromCharacterAtom = (
    characterAtom: PrimitiveAtom<ZCharacter>
 ) => {
-   const jotaiStore = getDefaultStore()
+   const jotaiStore = getDefaultJotaiStore()
 
    const character = jotaiStore.get(characterAtom)
    const characterSaveData: ZSaveConfigCharacter = {
@@ -111,7 +110,7 @@ const saveConfigFromCharacterAtom = (
  * Clones the data of an enemy and returns it.
  */
 const saveConfigFromEnemyAtom = (enemyAtom: PrimitiveAtom<ZEnemy>) => {
-   const jotaiStore = getDefaultStore()
+   const jotaiStore = getDefaultJotaiStore()
    const enemy = jotaiStore.get(enemyAtom)
 
    const enemySaveData: ZSaveConfigCharacter = {

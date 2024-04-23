@@ -20,6 +20,7 @@ import { useScenarioStatsUpdater } from "../../game/hooks/useScenarioStatsUpdate
 import Box from "@mui/material/Box"
 import { InGameMenuToggle } from "./InGameMenu.tsx/InGameMenuToggle"
 import Typography from "@mui/material/Typography"
+import { DebugDisplay } from "../util/DebugInformation"
 
 /**
  * Top level wrapper when game is running. Contains three main components:
@@ -115,6 +116,8 @@ const GameScene = () => {
                >
                   <PopupInfo />
                </div>
+
+               <DebugDisplay />
 
                <Suspense
                   fallback={

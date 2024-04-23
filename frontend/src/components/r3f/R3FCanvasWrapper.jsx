@@ -6,7 +6,10 @@ import { useIdleTimer } from "react-idle-timer"
 import { selectedScenarioConfigAtom } from "../../game/state/jotai/scenarios"
 import { FullGround2 } from "./Ground/FullGround2"
 import { theme } from "../../styles/mui/theme"
-import { animationFocusAtom } from "../../game/state/jotai/gameState"
+import {
+   animationFocusAtom,
+   isCameraMovingAtom,
+} from "../../game/state/jotai/gameState"
 import { ArenaLeafDecorations } from "./Decorations/ArenaLeafDecorations"
 import { ArenaShrubDecorations } from "./Decorations/ArenaShrubDecorations"
 import { ArenaBorderRadiusDecorations } from "./Decorations/ArenaBorderRadiusDecorations"
@@ -15,6 +18,7 @@ import { GroundGrid } from "./Ground/GroundGrid"
 import { CustomMapController } from "./util/CustomMapController"
 import { ActiveCharacters } from "./Character/ActiveCharacters"
 import { ActiveEnemies } from "./Character/ActiveEnemies"
+import { InitializeGlobaThreeState } from "./util/InitializeGlobalThreeState"
 
 const DisableRender = () => useFrame(() => null, 1000)
 
@@ -33,6 +37,7 @@ const R3FCanvasWrapper = () => {
    const [pauseAnimation, setPauseAnimation] = useState(false)
    const [selectedScenario] = useAtom(selectedScenarioConfigAtom)
    const [animationState] = useAtom(animationFocusAtom)
+   const [isCameraMoving] = useAtom(isCameraMovingAtom)
 
    /**
     * Because the game scene is static, we don't want the three.js render loop
@@ -66,7 +71,9 @@ const R3FCanvasWrapper = () => {
    return (
       <Canvas
          frameloop={
-            animationState.isAnimating || !pauseAnimation ? "always" : "demand"
+            animationState.isAnimating || !pauseAnimation || isCameraMoving
+               ? "always"
+               : "demand"
          }
          camera={{
             position: [0, 10, selectedScenario.arena.size.length],
@@ -75,7 +82,11 @@ const R3FCanvasWrapper = () => {
          style={{ backgroundColor: theme.palette.background.paper }}
          gl={{ localClippingEnabled: true } /**required for clippingPlanes */}
       >
-         {pauseAnimation && !animationState.isAnimating && <DisableRender />}
+         {pauseAnimation && !animationState.isAnimating && !isCameraMoving && (
+            <DisableRender />
+         )}
+
+         <InitializeGlobaThreeState />
 
          <ActiveCharacters />
          <ActiveEnemies />

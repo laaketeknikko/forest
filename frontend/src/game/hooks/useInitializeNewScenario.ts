@@ -1,4 +1,4 @@
-import { PrimitiveAtom, atom, getDefaultStore, useAtom } from "jotai"
+import { PrimitiveAtom, atom, useAtom } from "jotai"
 import {
    selectedScenarioEnemiesAtom,
    allEnemiesAtom,
@@ -14,6 +14,7 @@ import {
    ZPosition2D,
    ZScenarioConfig,
 } from "../../../../shared/types/types"
+import { getDefaultJotaiStore } from "../state/jotai/store"
 
 /**
  * This hook is used when a new scenario is started by going through the main menu.
@@ -58,7 +59,7 @@ const initializeEntityPosition = ({
    entityAtom: PrimitiveAtom<ZCharacter>
    position: ZPosition2D
 }) => {
-   const jotaiStore = getDefaultStore()
+   const jotaiStore = getDefaultJotaiStore()
    const character = jotaiStore.get(entityAtom)
 
    if (!character.position) {
@@ -114,7 +115,7 @@ const setEnemyPositions = ({
    activeEnemyAtoms: PrimitiveAtom<Array<PrimitiveAtom<ZEnemy>>>
    allEnemiesAtoms: Array<PrimitiveAtom<ZEnemy>>
 }) => {
-   const jotaiStore = getDefaultStore()
+   const jotaiStore = getDefaultJotaiStore()
 
    const scenarioEnemies = scenarioConfig.enemies
    const activeEnemies: Array<PrimitiveAtom<ZEnemy>> = []

@@ -1,10 +1,11 @@
 import { defeatedScenarioEnemiesAtom } from "../state/jotai/enemies"
-import { getDefaultStore, useAtom } from "jotai"
+import { useAtom } from "jotai"
 import {
    activeSaveGameConfigAtom,
    gameExecutionStateAtom,
 } from "../state/jotai/gameState"
 import { useEffect } from "react"
+import { getDefaultJotaiStore } from "../state/jotai/store"
 
 /**
  * Check if scenario victory conditions are met.
@@ -24,7 +25,7 @@ const useScenarioVictoryConditions = () => {
    const [gameState, setGameState] = useAtom(gameExecutionStateAtom)
 
    useEffect(() => {
-      const jotaiStore = getDefaultStore()
+      const jotaiStore = getDefaultJotaiStore()
 
       /** Update state only if conditions changed */
       let conditionsChanged = false

@@ -59,7 +59,7 @@ const EnemyDetails = ({ enemyAtom, scenarioDetails }: EnemyDetailsProps) => {
                   {scenarioDetails.quantity}
                </Avatar>
             </div>
-            <img src={enemy.spritePath} />
+            <img src={enemy.spritePath} title={enemy.name} alt={enemy.name} />
          </Box>
 
          {/** Enemy details

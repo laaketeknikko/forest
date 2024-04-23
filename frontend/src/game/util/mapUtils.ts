@@ -1,7 +1,10 @@
-import { PrimitiveAtom, getDefaultStore } from "jotai"
+import { PrimitiveAtom } from "jotai"
 import { ZGameEntity, ZPosition2D } from "../../../../shared/types/types"
 import { allActiveGameEntitiesAtom } from "../state/jotai/entities"
 import { selectedScenarioConfigAtom } from "../state/jotai/scenarios"
+import { globalThreeStateGetterAtom } from "../state/jotai/gameState"
+import { Vector3 } from "three"
+import { getDefaultJotaiStore } from "../state/jotai/store"
 
 /**
  * Returns the center position of the tile the given
@@ -43,7 +46,7 @@ const getNearestTileCornerFromPosition = (xPos: number, zPos: number) => {
  * }
  */
 const getEntitiesForPosition = (position: ZPosition2D) => {
-   const jotaiStore = getDefaultStore()
+   const jotaiStore = getDefaultJotaiStore()
    const activeEntities = jotaiStore.get(allActiveGameEntitiesAtom)
 
    const tileCenter = getTilePositionFromPosition(position.x, position.z)
@@ -77,7 +80,7 @@ const getEntitiesForPosition = (position: ZPosition2D) => {
  * Uses selectedSce
  */
 const isInsideArena = (position: ZPosition2D) => {
-   const jotaiStore = getDefaultStore()
+   const jotaiStore = getDefaultJotaiStore()
    const scenario = jotaiStore.get(selectedScenarioConfigAtom)
 
    if (
@@ -103,10 +106,79 @@ const approximatelyEqual = (
    return Math.abs(number1 - number2) < precision
 }
 
+/**
+ * Returns the screen pixel coordinates relative to the canvas for a given Vector3.
+ */
+const getPixelCoordinatesFromNormalizedCoordinates = (
+   vector3: Vector3
+): Vector3 | null => {
+   const jotaiStore = getDefaultJotaiStore()
+   const globalThreeStateGetter = jotaiStore.get(globalThreeStateGetterAtom)
+   if (!globalThreeStateGetter || !globalThreeStateGetter.get) return null
+
+   const size = globalThreeStateGetter.get()?.size
+   if (!size) return null
+
+   const vector = new Vector3()
+
+   vector.x = ((vector3.x + 1) * size.width) / 2
+   vector.y = (-(vector3.y - 1) * size.height) / 2
+   vector.z = 0
+
+   return vector
+}
+
+/**
+ * Returns the normalized screen coordinates relative to the canvas for a given Vector3.
+ *
+ * The coordinates are in range [-1, 1], the center of the canvas is at (0, 0).
+ */
+const getVector3ScreenCoordinates = (vector3: Vector3): Vector3 | null => {
+   const jotaiStore = getDefaultJotaiStore()
+   const globalThreeStateGetter = jotaiStore.get(globalThreeStateGetterAtom)
+
+   if (!globalThreeStateGetter || !globalThreeStateGetter.get) return null
+
+   const camera = globalThreeStateGetter.get()?.camera
+   if (!camera) return null
+
+   const screenCoords = new Vector3(vector3.x, vector3.y, vector3.z).project(
+      camera
+   )
+
+   return screenCoords
+}
+
+/**
+ * Returns the normalized screen coordinates relative to the canvas for a given entity.
+ *
+ * The coordinates are in range [-1, 1], the center of the canvas is at (0, 0).
+ *
+ * Convenience wrapper for getVector3ScreenCoordinates.
+ */
+const getEntityScreenCoordinates = (
+   entity: ZGameEntity | PrimitiveAtom<ZGameEntity>
+): Vector3 | null => {
+   let position
+   if ("position" in entity) {
+      position = entity.position
+   } else {
+      const jotaiStore = getDefaultJotaiStore()
+      const entityData = jotaiStore.get(entity)
+      position = entityData.position
+   }
+
+   const entityCoordinates = new Vector3(position.x, position.y, position.z)
+   return getVector3ScreenCoordinates(entityCoordinates)
+}
+
 export {
    getTilePositionFromPosition,
    getNearestTileCornerFromPosition,
    getEntitiesForPosition,
    approximatelyEqual,
    isInsideArena,
+   getPixelCoordinatesFromNormalizedCoordinates,
+   getEntityScreenCoordinates,
+   getVector3ScreenCoordinates,
 }

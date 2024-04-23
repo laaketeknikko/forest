@@ -2,7 +2,7 @@ import Box from "@mui/material/Box"
 import Stack from "@mui/material/Stack"
 import Typography from "@mui/material/Typography"
 import { ZCharacter } from "../../../../../shared/types/types"
-import { getDefaultStore } from "jotai"
+import { getDefaultJotaiStore } from "../../../game/state/jotai/store"
 
 export interface CardListProps {
    character: ZCharacter
@@ -19,7 +19,7 @@ const CardList = ({ character, direction }: CardListProps) => {
          spacing={10}
       >
          {character.cards.map((card, _index) => {
-            const jotaiStore = getDefaultStore()
+            const jotaiStore = getDefaultJotaiStore()
             const cardData = jotaiStore.get(card)
             return (
                <Box component="div" key={cardData._id}>

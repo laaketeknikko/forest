@@ -38,61 +38,60 @@ const CharacterSelectionList = ({
    )
 
    return (
-      <>
+      <Stack>
          {allPlayerCharacterAtoms &&
             allPlayerCharacterAtoms.map((character) => {
                const isInParty = activeParty.find((atom) => atom === character)
                const IsSelected = character === displayedCharacter
 
                return (
-                  <Stack key={character.toString()}>
-                     <Box
-                        component="div"
+                  <Box
+                     key={character.toString()}
+                     component="div"
+                     sx={{
+                        borderStyle: "solid",
+                        borderColor: theme.palette.primary.main,
+                        borderRadius: "1rem",
+                        borderWidth: isInParty ? 1 : 0,
+                        aspectRatio: 1,
+                        display: "flex",
+                        alignItems: "center",
+                        padding: isInParty ? 3 : 0,
+                        position: "relative",
+                     }}
+                  >
+                     {/**
+                      * Show the "selection state" icon
+                      * on top left corner of character
+                      */}
+                     <Avatar
                         sx={{
-                           borderStyle: "solid",
-                           borderColor: theme.palette.primary.main,
-                           borderRadius: "1rem",
-                           borderWidth: isInParty ? 1 : 0,
-                           aspectRatio: 1,
-                           display: "flex",
-                           alignItems: "center",
-                           padding: isInParty ? 3 : 0,
-                           position: "relative",
+                           position: "absolute",
+                           top: 0,
+                           left: 0,
+                           color:
+                              !isInParty && !IsSelected
+                                 ? theme.palette.text.secondary
+                                 : theme.palette.primary.main,
+                           backgroundColor: "transparent",
                         }}
                      >
-                        {/**
-                         * Show the "selection state" icon
-                         * on top left corner of character
-                         */}
-                        <Avatar
-                           sx={{
-                              position: "absolute",
-                              top: 0,
-                              left: 0,
-                              color:
-                                 !isInParty && !IsSelected
-                                    ? theme.palette.text.secondary
-                                    : theme.palette.primary.main,
-                              backgroundColor: "transparent",
-                           }}
-                        >
-                           {isInParty ? (
-                              <TaskAltIcon fontSize="large" />
-                           ) : (
-                              <HelpOutlineIcon fontSize="large" />
-                           )}
-                        </Avatar>
-                        <Box component="div">
-                           <CharacterOption
-                              characterAtom={character}
-                              handleSelection={handleCharacterSelected}
-                           />
-                        </Box>
+                        {isInParty ? (
+                           <TaskAltIcon fontSize="large" />
+                        ) : (
+                           <HelpOutlineIcon fontSize="large" />
+                        )}
+                     </Avatar>
+                     <Box component="div">
+                        <CharacterOption
+                           characterAtom={character}
+                           handleSelection={handleCharacterSelected}
+                        />
                      </Box>
-                  </Stack>
+                  </Box>
                )
             })}
-      </>
+      </Stack>
    )
 }
 

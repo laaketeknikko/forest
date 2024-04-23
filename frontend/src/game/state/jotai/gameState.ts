@@ -19,6 +19,7 @@ import {
 } from "../../../../../shared/types/types"
 import { ReactNode } from "react"
 import { focusAtom } from "jotai-optics"
+import { getRootState } from "@react-three/fiber"
 
 /**
  * Calculates the turn order from all active game entities.
@@ -124,6 +125,12 @@ const inGameOptionsAtom = atom<InGameOptions>({
    },
 })
 
+const globalThreeStateGetterAtom = atom<{
+   get: (() => ReturnType<typeof getRootState>) | null
+}>({ get: null })
+
+const isCameraMovingAtom = atom<boolean>(false)
+
 export {
    turnOrderAtom,
    currentlySelectedActionCardAtom,
@@ -134,4 +141,6 @@ export {
    activeEffectAtom,
    animationFocusAtom,
    inGameOptionsAtom,
+   globalThreeStateGetterAtom,
+   isCameraMovingAtom,
 }
