@@ -6,15 +6,15 @@ import { ActionCardSchema } from "./ActionCard"
 
 const DynamicGameEntitySchema =
    new mongoose.Schema<modelTypes.IDynamicGameEntityModel>({
-      name: { type: String, required: false },
-      spritePath: { type: String, required: false },
-      health: { type: Number, required: false },
-      maxHealth: { type: Number, required: false },
-      baseActionDelay: { type: Number, required: false },
+      name: { type: String, required: true },
+      spritePath: { type: String, required: true },
+      health: { type: Number, required: true },
+      maxHealth: { type: Number, required: true },
+      baseActionDelay: { type: Number, required: true },
       currentActionDelay: { type: Number, required: false },
-      cards: { type: [ActionCardSchema], required: false },
+      cards: { type: [ActionCardSchema], required: true },
       position: { x: Number, y: Number, z: Number },
-      strength: { type: Number, required: false },
+      strength: { type: Number, required: true },
    })
 
 const DynamicGameEntityModel =
