@@ -67,28 +67,6 @@ const loadDefaultConfigs = async () => {
       scenarios: scenarioConfigs.successes.map((success) => success.data),
    }
 
-   if (
-      characterConfigs.failures.length > 0 ||
-      enemyConfigs.failures.length > 0 ||
-      scenarioConfigs.failures.length > 0
-   ) {
-      console.log("Encounter errors validating configs.")
-      console.log("Character errors:")
-      for (const error of characterConfigs.failures) {
-         console.log(error)
-      }
-
-      console.log("Enemy errors:")
-      for (const error of enemyConfigs.failures) {
-         console.log(error)
-      }
-
-      console.log("Scenario errors:")
-      for (const error of scenarioConfigs.failures) {
-         console.log(error)
-      }
-   }
-
    return configs
 }
 

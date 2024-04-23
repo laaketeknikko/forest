@@ -4,10 +4,10 @@ import mongoose from "mongoose"
 
 const ScenarioStatisticsSchema =
    new mongoose.Schema<modelTypes.IScenarioStatisticsModel>({
-      scenarioName: { type: String, required: false },
-      timesAttempted: { type: Number, required: false },
-      wins: { type: Number, required: false },
-      losses: { type: Number, required: false },
+      scenarioName: { type: String, required: true },
+      timesAttempted: { type: Number, required: true },
+      wins: { type: Number, required: true },
+      losses: { type: Number, required: true },
    })
 
 const ScenarioStatisticsModel =

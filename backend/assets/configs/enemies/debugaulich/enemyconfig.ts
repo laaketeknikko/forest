@@ -10,7 +10,7 @@ const AulichActions: Record<string, types.ZSaveConfigActionCardAction> = {
          {
             type: actionTypes.movement,
             range: 10,
-            actionDelayMultiplier: 2,
+            actionDelayMultiplier: 3,
          },
       ],
    },
@@ -85,7 +85,7 @@ const AulichActions: Record<string, types.ZSaveConfigActionCardAction> = {
       effects: [
          {
             type: actionTypes.offensive,
-            range: 2,
+            range: 3,
             actionDelayMultiplier: 1,
             damageType: damageTypes.physical,
             powerMultiplier: 4,
@@ -100,21 +100,21 @@ const aulichCards = [
       description: "Powers of the aulich realized",
       actions: [
          AulichActions.takeOff,
-         AulichActions.aulich,
-         AulichActions.aulich,
-         AulichActions.nolich,
-         AulichActions.lich,
-         AulichActions.lich2,
-         AulichActions.lich3,
+         AulichActions.cutInHalf,
+         AulichActions.cutInHalf,
+         AulichActions.cutInHalf,
+         AulichActions.cutInHalf,
+         AulichActions.takeOff,
+         AulichActions.takeOff,
       ],
    },
    {
       name: "Bloody",
       deescription: "With your beak",
       actions: [
-         AulichActions.takeOff,
          AulichActions.cutInHalf,
-         AulichActions.rottenBird,
+         AulichActions.cutInHalf,
+         AulichActions.cutInHalf,
          AulichActions.cutInHalf,
          AulichActions.cutInHalf,
       ],

@@ -55,16 +55,21 @@ configsRouter.get("/scenarios", async (_req, res) => {
 
 // eslint-disable-next-line @typescript-eslint/no-misused-promises
 configsRouter.get("/scenarios/:name", async (req, res) => {
-   const scenarioConfigs = await loadScenarioConfigs()
+   try {
+      const scenarioConfigs = await loadScenarioConfigs()
 
-   const scenario = scenarioConfigs.find(
-      (scenario) =>
-         scenario.name.toLowerCase() === req.params.name.toLowerCase()
-   )
-   if (!scenario) {
-      return res.status(404).send("Scenario not found")
+      const scenario = scenarioConfigs.find(
+         (scenario) =>
+            scenario.name.toLowerCase() === req.params.name.toLowerCase()
+      )
+      if (!scenario) {
+         return res.status(404).send("Scenario not found")
+      }
+      return res.json(scenario)
+   } catch (error) {
+      console.error(error)
+      return res.status(500).json(error)
    }
-   return res.json(scenario)
 })
 
 export { configsRouter }

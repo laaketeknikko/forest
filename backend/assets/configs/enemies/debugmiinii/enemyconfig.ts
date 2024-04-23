@@ -11,10 +11,10 @@ const miiniiActions: Record<string, types.ZSaveConfigActionCardAction> = {
       effects: [
          {
             powerMultiplier: 1.5,
-            actionDelayMultiplier: 1,
+            actionDelayMultiplier: 1.1,
             type: actionTypes.offensive,
             damageType: damageTypes.physical,
-            range: 1,
+            range: 3,
          },
       ],
    },
@@ -24,11 +24,11 @@ const miiniiActions: Record<string, types.ZSaveConfigActionCardAction> = {
 
       effects: [
          {
-            powerMultiplier: 1,
+            powerMultiplier: 2,
             actionDelayMultiplier: 1.5,
             type: actionTypes.offensive,
             damageType: damageTypes.physical,
-            range: 1.5,
+            range: 2.5,
          },
       ],
    },
