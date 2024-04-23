@@ -34,7 +34,6 @@ import { PrimitiveAtom } from "jotai/vanilla"
 import { throttle } from "lodash"
 import { useGetEntitiesForPosition } from "../../../game/hooks/useGetEntitiesForPosition"
 import { selectedScenarioConfigAtom } from "../../../game/state/jotai/scenarios"
-import { getDefaultJotaiStore } from "../../../game/state/jotai/store"
 
 /**
  * Provides visual and game logic helpers when performing actions and action effects.
@@ -93,10 +92,6 @@ const ActionHelper = () => {
     * handles the whole-action updates.
     */
    const handlePerformEffect = (event: ThreeEvent<MouseEvent>) => {
-      console.log("clicking", event.point)
-      const jotaiStore = getDefaultJotaiStore()
-      console.log("jotai store in app", jotaiStore)
-
       if (!actionTrackerRef.current) return
       if (!isInsideArena({ x: event.point.x, z: event.point.z })) return
 

@@ -1,12 +1,4 @@
-## Full Stack Open submissions details
-
-The application is running at https://forest-9p5h.onrender.com/
-
-NOTE!
-The frontend and the backend are running as different services
-on Render. The project uses the free Render service. Free Render services spin down after inactivity. It seems it might take even up to 5 minutes for the backend service to spin up after inactivity. For this reason I recommend visiting for example https://forest-backend.onrender.com/api/configs/characters before starting the application, and waiting until you get a response from the server.
-
-[Work hours log](frontend/workhourslog.md)
+# Full Stack Open project submission
 
 ## Installation and running
 
@@ -24,6 +16,7 @@ npm run tsc
 cd backend
 npm install
 ```
+
 ```
 cd frontend
 npm install
@@ -240,4 +233,3 @@ To be honest, I expected to achieve a bit more than this in 175 hours. Ultimatel
 My idea was a sort of board game modeling in a browser game format. Board games often have more interesting ability usage mechanics than computer games do. I wanted to explore this kind of a card mechanic, where a card has multiple actions that have to be executed in sequence, and the sequence is not reset between missions.
 
 The basics of that idea are in the project, but obviously the lack of action types and different mechanics prevent any kind of real exploration of the idea.
-
