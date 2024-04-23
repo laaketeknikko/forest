@@ -56,7 +56,7 @@ const R3FCanvasWrapper = () => {
       events: [
          "mousemove",
          "keydown",
-         //'wheel',
+         "wheel",
          //'DOMMouseScroll',
          //'mousewheel',
          "mousedown",
@@ -69,71 +69,75 @@ const R3FCanvasWrapper = () => {
    })
 
    return (
-      <Canvas
-         frameloop={
-            animationState.isAnimating || !pauseAnimation || isCameraMoving
-               ? "always"
-               : "demand"
-         }
-         camera={{
-            position: [0, 10, selectedScenario.arena.size.length],
-            fov: [50],
-         }}
-         style={{ backgroundColor: theme.palette.background.paper }}
-         gl={{ localClippingEnabled: true } /**required for clippingPlanes */}
-      >
-         {pauseAnimation && !animationState.isAnimating && !isCameraMoving && (
-            <DisableRender />
-         )}
-
-         <InitializeGlobaThreeState />
-
-         <ActiveCharacters />
-         <ActiveEnemies />
-
-         <CustomMapController />
-
-         <FullGround2 />
-         <InstancedGround />
-         <GroundGrid />
-
-         <ArenaLeafDecorations
-            amount={
-               (selectedScenario.arena.size.width *
-                  selectedScenario.arena.size.length) /
-               3
+      <>
+         <Canvas
+            frameloop={
+               animationState.isAnimating || !pauseAnimation || isCameraMoving
+                  ? "always"
+                  : "demand"
             }
-            baseSize={0.15}
-            sizeVariance={0.4}
-            minDistance={3}
-            maxDistance={selectedScenario.arena.size.width * 2}
-            center={{
-               x: selectedScenario.arena.size.width / 2,
-               z: selectedScenario.arena.size.width / 2,
+            camera={{
+               position: [0, 10, selectedScenario.arena.size.length],
+               fov: [50],
             }}
-         />
-
-         <ArenaShrubDecorations
-            amount={
-               (selectedScenario.arena.size.width *
-                  selectedScenario.arena.size.length) /
-               4
+            style={{ backgroundColor: theme.palette.background.paper }}
+            gl={
+               { localClippingEnabled: true } /**required for clippingPlanes */
             }
-            baseSize={0.3}
-            minDistance={3}
-            maxDistance={selectedScenario.arena.size.width * 2}
-            center={{
-               x: selectedScenario.arena.size.width / 2,
-               z: selectedScenario.arena.size.width / 2,
-            }}
-            sizeVariance={0.4}
-         />
+         >
+            {pauseAnimation &&
+               !animationState.isAnimating &&
+               !isCameraMoving && <DisableRender />}
 
-         <ArenaBorderRadiusDecorations />
+            <InitializeGlobaThreeState />
 
-         <ActionHelper />
-         <ambientLight args={["white", 0.8]} />
-      </Canvas>
+            <ActiveCharacters />
+            <ActiveEnemies />
+
+            <CustomMapController />
+
+            <FullGround2 />
+            <InstancedGround />
+            <GroundGrid />
+
+            <ArenaLeafDecorations
+               amount={
+                  (selectedScenario.arena.size.width *
+                     selectedScenario.arena.size.length) /
+                  3
+               }
+               baseSize={0.15}
+               sizeVariance={0.4}
+               minDistance={3}
+               maxDistance={selectedScenario.arena.size.width * 2}
+               center={{
+                  x: selectedScenario.arena.size.width / 2,
+                  z: selectedScenario.arena.size.width / 2,
+               }}
+            />
+
+            <ArenaShrubDecorations
+               amount={
+                  (selectedScenario.arena.size.width *
+                     selectedScenario.arena.size.length) /
+                  4
+               }
+               baseSize={0.3}
+               minDistance={3}
+               maxDistance={selectedScenario.arena.size.width * 2}
+               center={{
+                  x: selectedScenario.arena.size.width / 2,
+                  z: selectedScenario.arena.size.width / 2,
+               }}
+               sizeVariance={0.4}
+            />
+
+            <ArenaBorderRadiusDecorations />
+
+            <ActionHelper />
+            <ambientLight args={["white", 0.8]} />
+         </Canvas>
+      </>
    )
 }
 
